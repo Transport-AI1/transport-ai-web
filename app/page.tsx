@@ -1,16 +1,36 @@
-"use client";
+"use client"
 
-import { useState } from "react";
+import { useState } from "react"
 
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [formOpen, setFormOpen] = useState(false);
-  const [sent, setSent] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [formOpen, setFormOpen] = useState(false)
+  const [sent, setSent] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSent(true);
-  };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const form = e.currentTarget
+
+    try {
+      const response = await fetch("https://formspree.io/f/xoevbvpy", {
+        method: "POST",
+        body: new FormData(form),
+        headers: {
+          Accept: "application/json"
+        }
+      })
+
+      if (response.ok) {
+        setSent(true)
+        form.reset()
+      } else {
+        alert("Ha ocurrido un error. Inténtalo de nuevo.")
+      }
+    } catch {
+      alert("Ha ocurrido un error de conexión. Inténtalo de nuevo.")
+    }
+  }
 
   return (
     <main className="min-h-screen bg-[#f7f9fc] text-[#101828]">
@@ -105,8 +125,8 @@ export default function Home() {
               </a>
               <button
                 onClick={() => {
-                  setMenuOpen(false);
-                  setFormOpen(true);
+                  setMenuOpen(false)
+                  setFormOpen(true)
                 }}
                 className="rounded-xl bg-[#111827] px-5 py-3 text-sm font-semibold text-white"
               >
@@ -282,18 +302,18 @@ export default function Home() {
               {
                 number: "01",
                 title: "Información dispersa",
-                text: "Pedidos, llamadas, hojas de cálculo, correos y diferentes herramientas pueden dificultar el seguimiento.",
+                text: "Pedidos, llamadas, hojas de cálculo, correos y diferentes herramientas pueden dificultar el seguimiento."
               },
               {
                 number: "02",
                 title: "Incidencias que aparecen tarde",
-                text: "Cuando un problema se detecta durante el reparto, la capacidad de reacción ya es menor.",
+                text: "Cuando un problema se detecta durante el reparto, la capacidad de reacción ya es menor."
               },
               {
                 number: "03",
                 title: "Tiempo administrativo",
-                text: "Cada incidencia requiere comprobar información, contactar y actualizar el pedido.",
-              },
+                text: "Cada incidencia requiere comprobar información, contactar y actualizar el pedido."
+              }
             ].map((item) => (
               <div
                 key={item.number}
@@ -337,7 +357,7 @@ export default function Home() {
                   "Organiza las incidencias automáticamente.",
                   "Facilita el contacto con el cliente.",
                   "Permite actualizar el estado del pedido.",
-                  "Mantiene al equipo informado.",
+                  "Mantiene al equipo informado."
                 ].map((text) => (
                   <div key={text} className="flex items-center gap-3">
                     <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-500 text-xs font-bold">
@@ -381,7 +401,9 @@ export default function Home() {
                     </div>
 
                     <div>
-                      <div className="text-xs text-slate-500">Posible anomalía</div>
+                      <div className="text-xs text-slate-500">
+                        Posible anomalía
+                      </div>
                       <div className="mt-1 rounded-lg bg-amber-400/10 p-3 text-sm text-amber-200">
                         La dirección del pedido no coincide con la información
                         esperada para la ruta.
@@ -430,23 +452,23 @@ export default function Home() {
                 {
                   n: "01",
                   title: "Recibe",
-                  text: "La información del pedido entra en el sistema.",
+                  text: "La información del pedido entra en el sistema."
                 },
                 {
                   n: "02",
                   title: "Detecta",
-                  text: "Transport AI identifica posibles anomalías.",
+                  text: "Transport AI identifica posibles anomalías."
                 },
                 {
                   n: "03",
                   title: "Investiga",
-                  text: "Tu equipo revisa la incidencia y contacta cuando sea necesario.",
+                  text: "Tu equipo revisa la incidencia y contacta cuando sea necesario."
                 },
                 {
                   n: "04",
                   title: "Resuelve",
-                  text: "Se actualiza el pedido y queda registrado el resultado.",
-                },
+                  text: "Se actualiza el pedido y queda registrado el resultado."
+                }
               ].map((item) => (
                 <div key={item.n} className="relative text-center">
                   <div className="relative mx-auto flex h-24 w-24 items-center justify-center rounded-full border border-slate-200 bg-white text-xl font-bold text-blue-600 shadow-lg shadow-slate-900/5">
@@ -489,7 +511,7 @@ export default function Home() {
                   "Direcciones incorrectas",
                   "Teléfonos problemáticos",
                   "Pedidos con información inconsistente",
-                  "Falta de respuesta",
+                  "Falta de respuesta"
                 ].map((item) => (
                   <div
                     key={item}
@@ -616,20 +638,20 @@ export default function Home() {
               {[
                 {
                   title: "Tu plataforma actual",
-                  text: "Conectamos el flujo de información necesario.",
+                  text: "Conectamos el flujo de información necesario."
                 },
                 {
                   title: "Google Sheets",
-                  text: "Podemos estudiar cómo incorporar tus datos.",
+                  text: "Podemos estudiar cómo incorporar tus datos."
                 },
                 {
                   title: "Software propio",
-                  text: "Adaptamos la solución a necesidades concretas.",
+                  text: "Adaptamos la solución a necesidades concretas."
                 },
                 {
                   title: "Operativa personalizada",
-                  text: "Cada empresa tiene procesos diferentes.",
-                },
+                  text: "Cada empresa tiene procesos diferentes."
+                }
               ].map((item) => (
                 <div
                   key={item.title}
@@ -718,7 +740,9 @@ export default function Home() {
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/60 p-5 backdrop-blur-sm"
           onMouseDown={(e) => {
-            if (e.target === e.currentTarget) setFormOpen(false);
+            if (e.target === e.currentTarget) {
+              setFormOpen(false)
+            }
           }}
         >
           <div className="w-full max-w-lg overflow-hidden rounded-3xl bg-white shadow-2xl">
@@ -754,6 +778,7 @@ export default function Home() {
                     <input
                       required
                       type="text"
+                      name="nombre"
                       placeholder="Tu nombre"
                       className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:bg-white"
                     />
@@ -766,6 +791,7 @@ export default function Home() {
                     <input
                       required
                       type="text"
+                      name="empresa"
                       placeholder="Nombre de la empresa"
                       className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:bg-white"
                     />
@@ -778,6 +804,7 @@ export default function Home() {
                     <input
                       required
                       type="email"
+                      name="email"
                       placeholder="tu@email.com"
                       className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:bg-white"
                     />
@@ -789,6 +816,7 @@ export default function Home() {
                     </label>
                     <input
                       type="tel"
+                      name="telefono"
                       placeholder="+34 600 000 000"
                       className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:bg-white"
                     />
@@ -800,6 +828,7 @@ export default function Home() {
                     </label>
                     <textarea
                       rows={4}
+                      name="operativa"
                       placeholder="¿Cómo gestionáis actualmente los pedidos e incidencias?"
                       className="w-full resize-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:bg-white"
                     />
@@ -830,8 +859,8 @@ export default function Home() {
 
                 <button
                   onClick={() => {
-                    setFormOpen(false);
-                    setSent(false);
+                    setFormOpen(false)
+                    setSent(false)
                   }}
                   className="mt-7 rounded-xl bg-[#111827] px-6 py-3 text-sm font-bold text-white"
                 >
@@ -843,5 +872,5 @@ export default function Home() {
         </div>
       )}
     </main>
-  );
+  )
 }
