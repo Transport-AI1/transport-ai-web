@@ -59,18 +59,28 @@ export default function Home() {
             >
               Solución
             </a>
+
             <a
               href="#funciona"
               className="text-sm font-medium text-slate-600 transition hover:text-[#111827]"
             >
               Cómo funciona
             </a>
+
+            <a
+              href="#plataforma"
+              className="text-sm font-medium text-slate-600 transition hover:text-[#111827]"
+            >
+              Plataforma
+            </a>
+
             <a
               href="#integracion"
               className="text-sm font-medium text-slate-600 transition hover:text-[#111827]"
             >
               Integración
             </a>
+
             <a
               href="#contacto"
               className="text-sm font-medium text-slate-600 transition hover:text-[#111827]"
@@ -109,6 +119,7 @@ export default function Home() {
               >
                 Solución
               </a>
+
               <a
                 href="#funciona"
                 onClick={() => setMenuOpen(false)}
@@ -116,6 +127,15 @@ export default function Home() {
               >
                 Cómo funciona
               </a>
+
+              <a
+                href="#plataforma"
+                onClick={() => setMenuOpen(false)}
+                className="text-sm font-medium"
+              >
+                Plataforma
+              </a>
+
               <a
                 href="#integracion"
                 onClick={() => setMenuOpen(false)}
@@ -123,6 +143,7 @@ export default function Home() {
               >
                 Integración
               </a>
+
               <button
                 onClick={() => {
                   setMenuOpen(false)
@@ -140,6 +161,7 @@ export default function Home() {
       {/* HERO */}
       <section className="relative overflow-hidden pt-32">
         <div className="absolute left-1/2 top-0 -z-10 h-[650px] w-[900px] -translate-x-1/2 rounded-full bg-blue-100/50 blur-3xl" />
+
         <div className="absolute right-[-200px] top-[150px] -z-10 h-[400px] w-[400px] rounded-full bg-indigo-100/50 blur-3xl" />
 
         <div className="mx-auto max-w-7xl px-6 pb-20 pt-16 lg:px-8 lg:pb-28 lg:pt-24">
@@ -195,6 +217,7 @@ export default function Home() {
                       <div className="text-xs font-medium text-slate-400">
                         TRANSPORT AI
                       </div>
+
                       <div className="mt-1 text-lg font-bold text-white">
                         Centro de operaciones
                       </div>
@@ -210,6 +233,7 @@ export default function Home() {
                       <div className="text-xs text-slate-400">
                         En reparto
                       </div>
+
                       <div className="mt-2 text-2xl font-bold text-white">
                         24
                       </div>
@@ -219,6 +243,7 @@ export default function Home() {
                       <div className="text-xs text-slate-400">
                         Incidencias
                       </div>
+
                       <div className="mt-2 text-2xl font-bold text-amber-400">
                         3
                       </div>
@@ -228,6 +253,7 @@ export default function Home() {
                       <div className="text-xs text-slate-400">
                         Resueltas
                       </div>
+
                       <div className="mt-2 text-2xl font-bold text-emerald-400">
                         18
                       </div>
@@ -243,7 +269,9 @@ export default function Home() {
                     </div>
 
                     <div className="absolute left-[18%] top-[35%] h-3 w-3 rounded-full bg-blue-400 shadow-[0_0_15px_rgba(96,165,250,0.8)]" />
+
                     <div className="absolute left-[50%] top-[55%] h-3 w-3 rounded-full bg-amber-400 shadow-[0_0_15px_rgba(251,191,36,0.8)]" />
+
                     <div className="absolute right-[20%] top-[28%] h-3 w-3 rounded-full bg-emerald-400 shadow-[0_0_15px_rgba(52,211,153,0.8)]" />
 
                     <div className="absolute bottom-4 left-4 rounded-lg border border-white/10 bg-[#0b1220]/90 px-3 py-2 text-xs text-white backdrop-blur">
@@ -322,10 +350,14 @@ export default function Home() {
                 <div className="text-sm font-bold text-blue-600">
                   {item.number}
                 </div>
+
                 <h3 className="mt-5 text-xl font-bold text-[#111827]">
                   {item.title}
                 </h3>
-                <p className="mt-3 leading-7 text-slate-600">{item.text}</p>
+
+                <p className="mt-3 leading-7 text-slate-600">
+                  {item.text}
+                </p>
               </div>
             ))}
           </div>
@@ -363,6 +395,7 @@ export default function Home() {
                     <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-500 text-xs font-bold">
                       ✓
                     </div>
+
                     <span className="text-sm font-medium text-slate-200">
                       {text}
                     </span>
@@ -380,6 +413,7 @@ export default function Home() {
                     <span className="text-sm font-bold">
                       Incidencia detectada
                     </span>
+
                     <span className="rounded-full bg-amber-400/10 px-3 py-1 text-xs font-semibold text-amber-300">
                       Pendiente
                     </span>
@@ -388,6 +422,7 @@ export default function Home() {
                   <div className="mt-5 space-y-4">
                     <div>
                       <div className="text-xs text-slate-500">Pedido</div>
+
                       <div className="mt-1 text-sm font-semibold">
                         #TA-10482
                       </div>
@@ -395,6 +430,7 @@ export default function Home() {
 
                     <div>
                       <div className="text-xs text-slate-500">Cliente</div>
+
                       <div className="mt-1 text-sm font-semibold">
                         Cliente de ejemplo
                       </div>
@@ -404,6 +440,7 @@ export default function Home() {
                       <div className="text-xs text-slate-500">
                         Posible anomalía
                       </div>
+
                       <div className="mt-1 rounded-lg bg-amber-400/10 p-3 text-sm text-amber-200">
                         La dirección del pedido no coincide con la información
                         esperada para la ruta.
@@ -414,6 +451,7 @@ export default function Home() {
                       <button className="flex-1 rounded-lg bg-blue-600 px-4 py-3 text-xs font-bold">
                         Revisar incidencia
                       </button>
+
                       <button className="rounded-lg border border-white/10 px-4 py-3 text-xs font-bold text-slate-300">
                         Ver pedido
                       </button>
@@ -475,7 +513,9 @@ export default function Home() {
                     {item.n}
                   </div>
 
-                  <h3 className="mt-7 text-xl font-bold">{item.title}</h3>
+                  <h3 className="mt-7 text-xl font-bold">
+                    {item.title}
+                  </h3>
 
                   <p className="mt-3 text-sm leading-6 text-slate-600">
                     {item.text}
@@ -483,6 +523,306 @@ export default function Home() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PLATFORM */}
+      <section
+        id="plataforma"
+        className="scroll-mt-24 overflow-hidden bg-[#f7f9fc] py-24 lg:py-32"
+      >
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center">
+            <div className="text-sm font-bold uppercase tracking-[0.18em] text-blue-600">
+              La plataforma
+            </div>
+
+            <h2 className="mt-4 text-4xl font-bold tracking-[-0.035em] text-[#0b1220] sm:text-5xl">
+              Tu centro de operaciones.
+            </h2>
+
+            <p className="mt-5 text-lg leading-8 text-slate-600">
+              Gestiona pedidos, incidencias y el seguimiento de tus repartos
+              desde un único entorno.
+            </p>
+          </div>
+
+          <div className="relative mx-auto mt-14 max-w-6xl">
+            <div className="absolute -inset-8 rounded-[40px] bg-blue-200/30 blur-3xl" />
+
+            <div className="relative overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-2xl shadow-slate-900/10">
+              {/* BROWSER BAR */}
+              <div className="flex items-center gap-4 border-b border-slate-200 bg-white px-5 py-4">
+                <div className="flex gap-2">
+                  <div className="h-3 w-3 rounded-full bg-red-400" />
+                  <div className="h-3 w-3 rounded-full bg-amber-400" />
+                  <div className="h-3 w-3 rounded-full bg-emerald-400" />
+                </div>
+
+                <div className="flex-1 rounded-lg bg-slate-100 px-4 py-2 text-xs text-slate-400">
+                  transport-ai-logist.vercel.app
+                </div>
+              </div>
+
+              {/* DASHBOARD MOCKUP */}
+              <div className="grid min-h-[560px] grid-cols-[210px_1fr] bg-[#f8fafc]">
+                {/* SIDEBAR */}
+                <div className="hidden border-r border-slate-200 bg-[#0b1220] p-5 md:block">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 text-sm font-bold text-white">
+                      T
+                    </div>
+
+                    <div className="text-sm font-bold text-white">
+                      Transport AI
+                    </div>
+                  </div>
+
+                  <div className="mt-10 space-y-2">
+                    <div className="rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white">
+                      Dashboard
+                    </div>
+
+                    <div className="rounded-xl px-4 py-3 text-sm text-slate-400">
+                      Pedidos
+                    </div>
+
+                    <div className="rounded-xl px-4 py-3 text-sm text-slate-400">
+                      Incidencias
+                    </div>
+
+                    <div className="rounded-xl px-4 py-3 text-sm text-slate-400">
+                      Conductores
+                    </div>
+
+                    <div className="rounded-xl px-4 py-3 text-sm text-slate-400">
+                      Configuración
+                    </div>
+                  </div>
+                </div>
+
+                {/* MAIN DASHBOARD */}
+                <div className="min-w-0 p-5 md:p-8">
+                  <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+                    <div>
+                      <div className="text-xs font-medium uppercase tracking-wider text-slate-400">
+                        Transport AI
+                      </div>
+
+                      <h3 className="mt-1 text-2xl font-bold text-[#0b1220]">
+                        Dashboard
+                      </h3>
+                    </div>
+
+                    <div className="rounded-xl bg-emerald-50 px-4 py-2 text-xs font-semibold text-emerald-600">
+                      Sistema activo
+                    </div>
+                  </div>
+
+                  {/* KPI CARDS */}
+                  <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    <div className="rounded-2xl border border-slate-200 bg-white p-5">
+                      <div className="text-xs text-slate-500">
+                        Pedidos activos
+                      </div>
+
+                      <div className="mt-2 text-3xl font-bold text-[#0b1220]">
+                        24
+                      </div>
+
+                      <div className="mt-2 text-xs font-medium text-emerald-600">
+                        En reparto
+                      </div>
+                    </div>
+
+                    <div className="rounded-2xl border border-slate-200 bg-white p-5">
+                      <div className="text-xs text-slate-500">
+                        Incidencias
+                      </div>
+
+                      <div className="mt-2 text-3xl font-bold text-amber-500">
+                        3
+                      </div>
+
+                      <div className="mt-2 text-xs font-medium text-amber-600">
+                        Requieren atención
+                      </div>
+                    </div>
+
+                    <div className="rounded-2xl border border-slate-200 bg-white p-5">
+                      <div className="text-xs text-slate-500">
+                        Resueltas
+                      </div>
+
+                      <div className="mt-2 text-3xl font-bold text-emerald-600">
+                        18
+                      </div>
+
+                      <div className="mt-2 text-xs font-medium text-slate-500">
+                        Hoy
+                      </div>
+                    </div>
+
+                    <div className="rounded-2xl border border-slate-200 bg-white p-5">
+                      <div className="text-xs text-slate-500">
+                        Conductores
+                      </div>
+
+                      <div className="mt-2 text-3xl font-bold text-[#0b1220]">
+                        8
+                      </div>
+
+                      <div className="mt-2 text-xs font-medium text-slate-500">
+                        Activos
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* CONTENT */}
+                  <div className="mt-5 grid gap-5 lg:grid-cols-[1.5fr_0.8fr]">
+                    {/* MAP */}
+                    <div className="rounded-2xl border border-slate-200 bg-white p-5">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h4 className="font-bold text-[#0b1220]">
+                            Operativa en tiempo real
+                          </h4>
+
+                          <p className="mt-1 text-xs text-slate-500">
+                            Seguimiento de pedidos e incidencias
+                          </p>
+                        </div>
+
+                        <div className="rounded-lg bg-slate-100 px-3 py-2 text-xs font-medium text-slate-500">
+                          Madrid
+                        </div>
+                      </div>
+
+                      <div className="relative mt-5 h-64 overflow-hidden rounded-xl border border-slate-200 bg-[#e9eef5]">
+                        <div className="absolute inset-0 opacity-60">
+                          <div className="absolute left-[8%] top-[25%] h-px w-[84%] rotate-[12deg] bg-slate-300" />
+                          <div className="absolute left-[5%] top-[55%] h-px w-[90%] rotate-[-18deg] bg-slate-300" />
+                          <div className="absolute left-[20%] top-[10%] h-[90%] w-px rotate-[20deg] bg-slate-300" />
+                          <div className="absolute left-[60%] top-[5%] h-[90%] w-px rotate-[-15deg] bg-slate-300" />
+                        </div>
+
+                        <div className="absolute left-[20%] top-[30%] flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-xs font-bold text-white shadow-lg">
+                          1
+                        </div>
+
+                        <div className="absolute left-[48%] top-[52%] flex h-8 w-8 items-center justify-center rounded-full bg-amber-500 text-xs font-bold text-white shadow-lg">
+                          !
+                        </div>
+
+                        <div className="absolute right-[20%] top-[25%] flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500 text-xs font-bold text-white shadow-lg">
+                          2
+                        </div>
+
+                        <div className="absolute right-[28%] bottom-[20%] flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-xs font-bold text-white shadow-lg">
+                          3
+                        </div>
+
+                        <div className="absolute bottom-4 left-4 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 shadow-sm">
+                          3 incidencias requieren atención
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* INCIDENTS */}
+                    <div className="rounded-2xl border border-slate-200 bg-white p-5">
+                      <div className="flex items-center justify-between">
+                        <h4 className="font-bold text-[#0b1220]">
+                          Incidencias
+                        </h4>
+
+                        <span className="text-xs font-semibold text-blue-600">
+                          Ver todas
+                        </span>
+                      </div>
+
+                      <div className="mt-5 space-y-3">
+                        <div className="rounded-xl border border-amber-100 bg-amber-50 p-4">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-bold text-amber-700">
+                              Pendiente
+                            </span>
+
+                            <span className="text-[10px] text-slate-400">
+                              #TA-10482
+                            </span>
+                          </div>
+
+                          <div className="mt-2 text-sm font-semibold text-slate-800">
+                            Dirección incorrecta
+                          </div>
+
+                          <div className="mt-1 text-xs text-slate-500">
+                            Requiere revisión
+                          </div>
+                        </div>
+
+                        <div className="rounded-xl border border-blue-100 bg-blue-50 p-4">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-bold text-blue-700">
+                              En revisión
+                            </span>
+
+                            <span className="text-[10px] text-slate-400">
+                              #TA-10479
+                            </span>
+                          </div>
+
+                          <div className="mt-2 text-sm font-semibold text-slate-800">
+                            Cliente no responde
+                          </div>
+
+                          <div className="mt-1 text-xs text-slate-500">
+                            Contacto pendiente
+                          </div>
+                        </div>
+
+                        <div className="rounded-xl border border-emerald-100 bg-emerald-50 p-4">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-bold text-emerald-700">
+                              Resuelta
+                            </span>
+
+                            <span className="text-[10px] text-slate-400">
+                              #TA-10471
+                            </span>
+                          </div>
+
+                          <div className="mt-2 text-sm font-semibold text-slate-800">
+                            Teléfono actualizado
+                          </div>
+
+                          <div className="mt-1 text-xs text-slate-500">
+                            Pedido actualizado
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10 text-center">
+            <p className="mx-auto max-w-2xl text-sm leading-6 text-slate-500">
+              Accede a la plataforma de Transport AI para gestionar pedidos,
+              incidencias y operaciones desde un único entorno.
+            </p>
+
+            <a
+              href="https://transport-ai-logist.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center rounded-xl bg-[#111827] px-7 py-4 text-sm font-bold text-white shadow-xl shadow-slate-900/10 transition hover:-translate-y-1 hover:bg-black"
+            >
+              Acceder a Transport AI →
+            </a>
           </div>
         </div>
       </section>
@@ -541,9 +881,11 @@ export default function Home() {
                 <div className="rounded-xl bg-white/5 p-4 text-sm">
                   Pedidos activos
                 </div>
+
                 <div className="rounded-xl bg-white/5 p-4 text-sm">
                   Incidencias pendientes
                 </div>
+
                 <div className="rounded-xl bg-white/5 p-4 text-sm">
                   Seguimiento de resolución
                 </div>
@@ -573,6 +915,7 @@ export default function Home() {
 
                 <div>
                   <h3 className="text-2xl font-bold">App para conductores</h3>
+
                   <p className="mt-1 text-sm text-slate-500">
                     Información clara durante el reparto
                   </p>
@@ -589,12 +932,15 @@ export default function Home() {
                 <span className="rounded-full bg-slate-100 px-4 py-2 text-xs font-semibold text-slate-600">
                   Pedidos asignados
                 </span>
+
                 <span className="rounded-full bg-slate-100 px-4 py-2 text-xs font-semibold text-slate-600">
                   Estado del pedido
                 </span>
+
                 <span className="rounded-full bg-slate-100 px-4 py-2 text-xs font-semibold text-slate-600">
                   Incidencias
                 </span>
+
                 <span className="rounded-full bg-slate-100 px-4 py-2 text-xs font-semibold text-slate-600">
                   Contacto
                 </span>
@@ -658,7 +1004,9 @@ export default function Home() {
                   className="rounded-2xl border border-slate-200 bg-[#f7f9fc] p-6"
                 >
                   <div className="mb-4 h-2 w-10 rounded-full bg-blue-600" />
+
                   <h3 className="font-bold">{item.title}</h3>
+
                   <p className="mt-2 text-sm leading-6 text-slate-600">
                     {item.text}
                   </p>
@@ -705,6 +1053,7 @@ export default function Home() {
         <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-10 lg:flex-row lg:items-center lg:justify-between lg:px-8">
           <div>
             <div className="font-bold">Transport AI</div>
+
             <p className="mt-1 text-sm text-slate-500">
               Inteligencia para operaciones de transporte.
             </p>
@@ -714,12 +1063,19 @@ export default function Home() {
             <a href="#solucion" className="hover:text-slate-900">
               Solución
             </a>
+
             <a href="#funciona" className="hover:text-slate-900">
               Cómo funciona
             </a>
+
+            <a href="#plataforma" className="hover:text-slate-900">
+              Plataforma
+            </a>
+
             <a href="#integracion" className="hover:text-slate-900">
               Integración
             </a>
+
             <button
               onClick={() => setFormOpen(true)}
               className="hover:text-slate-900"
@@ -753,9 +1109,11 @@ export default function Home() {
                     <div className="text-xs font-bold uppercase tracking-[0.18em] text-blue-600">
                       Transport AI
                     </div>
+
                     <h3 className="mt-2 text-2xl font-bold">
                       Solicitar demostración
                     </h3>
+
                     <p className="mt-2 text-sm text-slate-500">
                       Déjanos tus datos y nos pondremos en contacto contigo.
                     </p>
@@ -775,6 +1133,7 @@ export default function Home() {
                     <label className="mb-2 block text-sm font-semibold text-slate-700">
                       Nombre
                     </label>
+
                     <input
                       required
                       type="text"
@@ -788,6 +1147,7 @@ export default function Home() {
                     <label className="mb-2 block text-sm font-semibold text-slate-700">
                       Empresa
                     </label>
+
                     <input
                       required
                       type="text"
@@ -801,6 +1161,7 @@ export default function Home() {
                     <label className="mb-2 block text-sm font-semibold text-slate-700">
                       Email
                     </label>
+
                     <input
                       required
                       type="email"
@@ -814,6 +1175,7 @@ export default function Home() {
                     <label className="mb-2 block text-sm font-semibold text-slate-700">
                       Teléfono
                     </label>
+
                     <input
                       type="tel"
                       name="telefono"
@@ -826,6 +1188,7 @@ export default function Home() {
                     <label className="mb-2 block text-sm font-semibold text-slate-700">
                       Cuéntanos brevemente vuestra operativa
                     </label>
+
                     <textarea
                       rows={4}
                       name="operativa"
