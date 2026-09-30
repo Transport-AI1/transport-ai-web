@@ -1,3 +1,5 @@
+import "./globals.css";
+
 export const metadata = {
   title: "Transport AI",
   description: "Automatiza la gestión de incidencias de tus repartos.",
