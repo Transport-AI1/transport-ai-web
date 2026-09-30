@@ -561,7 +561,7 @@ export default function Home() {
                 </div>
 
                 <div className="flex-1 rounded-lg bg-slate-100 px-4 py-2 text-xs text-slate-400">
-                  transport-ai-logist.vercel.app
+                  transport-ai1-logistica.vercel.app
                 </div>
               </div>
 
@@ -719,7 +719,7 @@ export default function Home() {
                           2
                         </div>
 
-                        <div className="absolute right-[28%] bottom-[20%] flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-xs font-bold text-white shadow-lg">
+                        <div className="absolute bottom-[20%] right-[28%] flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-xs font-bold text-white shadow-lg">
                           3
                         </div>
 
@@ -816,7 +816,7 @@ export default function Home() {
             </p>
 
             <a
-              href="https://transport-ai-logist.vercel.app"
+              href="https://transport-ai1-logistica.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 inline-flex items-center rounded-xl bg-[#111827] px-7 py-4 text-sm font-bold text-white shadow-xl shadow-slate-900/10 transition hover:-translate-y-1 hover:bg-black"
