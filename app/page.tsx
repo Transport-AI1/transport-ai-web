@@ -47,7 +47,7 @@ export default function Home() {
                 Transport AI
               </div>
               <div className="text-[10px] font-medium uppercase tracking-[0.2em] text-slate-400">
-                Logistics Intelligence
+                Smart Operations
               </div>
             </div>
           </a>
@@ -58,6 +58,13 @@ export default function Home() {
               className="text-sm font-medium text-slate-600 transition hover:text-[#111827]"
             >
               Solución
+            </a>
+
+            <a
+              href="#sectores"
+              className="text-sm font-medium text-slate-600 transition hover:text-[#111827]"
+            >
+              Empresas
             </a>
 
             <a
@@ -121,6 +128,14 @@ export default function Home() {
               </a>
 
               <a
+                href="#sectores"
+                onClick={() => setMenuOpen(false)}
+                className="text-sm font-medium"
+              >
+                Empresas
+              </a>
+
+              <a
                 href="#funciona"
                 onClick={() => setMenuOpen(false)}
                 className="text-sm font-medium"
@@ -169,19 +184,22 @@ export default function Home() {
             <div>
               <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white px-4 py-2 text-xs font-semibold text-blue-700 shadow-sm">
                 <span className="h-2 w-2 rounded-full bg-blue-600" />
-                Inteligencia para operaciones de transporte
+                Automatización inteligente para empresas
               </div>
 
               <h1 className="max-w-4xl text-5xl font-bold leading-[1.04] tracking-[-0.04em] text-[#0b1220] sm:text-6xl lg:text-[72px]">
-                Menos incidencias.
+                Automatiza tu operativa.
                 <br />
-                <span className="text-blue-600">Más control.</span>
+                <span className="text-blue-600">
+                  Más control. Menos trabajo.
+                </span>
               </h1>
 
               <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
-                Transport AI ayuda a las empresas de transporte y logística a
-                detectar incidencias en sus repartos, organizarlas y actuar
-                antes de que se conviertan en problemas.
+                Transport AI ayuda a empresas de transporte, logística,
+                mensajería, paquetería, mudanzas, portes y servicios con
+                vehículos a centralizar operaciones, automatizar tareas y
+                gestionar incidencias desde un único lugar.
               </p>
 
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -201,8 +219,8 @@ export default function Home() {
               </div>
 
               <div className="mt-8 flex flex-wrap gap-x-7 gap-y-3 text-sm text-slate-500">
-                <span>✓ Sin cambiar tu operativa de golpe</span>
-                <span>✓ Adaptable a tu empresa</span>
+                <span>✓ Adaptable a tu forma de trabajar</span>
+                <span>✓ Integración con tus herramientas actuales</span>
               </div>
             </div>
 
@@ -231,7 +249,7 @@ export default function Home() {
                   <div className="mt-6 grid grid-cols-3 gap-3">
                     <div className="rounded-xl border border-white/10 bg-white/5 p-4">
                       <div className="text-xs text-slate-400">
-                        En reparto
+                        Servicios activos
                       </div>
 
                       <div className="mt-2 text-2xl font-bold text-white">
@@ -290,17 +308,22 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-6 py-7 lg:px-8">
           <div className="flex flex-col items-center justify-between gap-5 text-center md:flex-row md:text-left">
             <p className="text-sm font-medium text-slate-500">
-              Diseñado para operaciones de transporte reales.
+              Diseñado para empresas que gestionan operaciones, servicios y
+              vehículos.
             </p>
 
-            <div className="flex flex-wrap justify-center gap-6 text-xs font-semibold uppercase tracking-wider text-slate-400">
-              <span>Mensajería</span>
-              <span>•</span>
-              <span>Distribución</span>
-              <span>•</span>
+            <div className="flex flex-wrap justify-center gap-4 text-xs font-semibold uppercase tracking-wider text-slate-400">
               <span>Transporte</span>
               <span>•</span>
               <span>Logística</span>
+              <span>•</span>
+              <span>Mensajería</span>
+              <span>•</span>
+              <span>Paquetería</span>
+              <span>•</span>
+              <span>Mudanzas</span>
+              <span>•</span>
+              <span>Servicios con vehículos</span>
             </div>
           </div>
         </div>
@@ -315,13 +338,13 @@ export default function Home() {
             </div>
 
             <h2 className="mt-4 text-4xl font-bold tracking-[-0.035em] text-[#0b1220] sm:text-5xl">
-              Una pequeña incidencia puede convertirse en mucho trabajo.
+              Cuando la operativa depende de demasiadas herramientas.
             </h2>
 
             <p className="mt-6 text-lg leading-8 text-slate-600">
-              Una dirección incorrecta, un teléfono que no responde o un
-              pedido que no encaja con la ruta puede obligar a tu equipo a
-              revisar información, hacer llamadas y coordinar varias personas.
+              WhatsApp, llamadas, hojas de cálculo, correos y diferentes
+              plataformas pueden hacer que la información quede dispersa y que
+              determinadas tareas tengan que hacerse manualmente.
             </p>
           </div>
 
@@ -330,17 +353,17 @@ export default function Home() {
               {
                 number: "01",
                 title: "Información dispersa",
-                text: "Pedidos, llamadas, hojas de cálculo, correos y diferentes herramientas pueden dificultar el seguimiento."
+                text: "Pedidos, servicios, clientes, conductores, vehículos y comunicaciones pueden estar repartidos entre diferentes herramientas."
               },
               {
                 number: "02",
-                title: "Incidencias que aparecen tarde",
-                text: "Cuando un problema se detecta durante el reparto, la capacidad de reacción ya es menor."
+                title: "Problemas que aparecen tarde",
+                text: "Cuando una incidencia se detecta demasiado tarde, reaccionar y coordinar al equipo puede resultar más complicado."
               },
               {
                 number: "03",
-                title: "Tiempo administrativo",
-                text: "Cada incidencia requiere comprobar información, contactar y actualizar el pedido."
+                title: "Demasiado trabajo manual",
+                text: "Comprobar información, contactar con clientes, actualizar datos y hacer seguimiento consume tiempo del equipo."
               }
             ].map((item) => (
               <div
@@ -364,6 +387,81 @@ export default function Home() {
         </div>
       </section>
 
+      {/* SECTORS */}
+      <section
+        id="sectores"
+        className="scroll-mt-24 border-y border-slate-200 bg-white py-24 lg:py-32"
+      >
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center">
+            <div className="text-sm font-bold uppercase tracking-[0.18em] text-blue-600">
+              Para diferentes empresas
+            </div>
+
+            <h2 className="mt-4 text-4xl font-bold tracking-[-0.035em] text-[#0b1220] sm:text-5xl">
+              Una plataforma adaptable a diferentes operativas.
+            </h2>
+
+            <p className="mt-5 text-lg leading-8 text-slate-600">
+              Transport AI está pensado para empresas que necesitan organizar
+              servicios, personas, vehículos, clientes e incidencias.
+            </p>
+          </div>
+
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                icon: "🚚",
+                title: "Transporte",
+                text: "Centraliza servicios, operaciones, conductores e incidencias."
+              },
+              {
+                icon: "📦",
+                title: "Logística y distribución",
+                text: "Controla pedidos, entregas y posibles anomalías."
+              },
+              {
+                icon: "📬",
+                title: "Mensajería y paquetería",
+                text: "Facilita el seguimiento de servicios y la gestión de incidencias."
+              },
+              {
+                icon: "🏠",
+                title: "Mudanzas y portes",
+                text: "Organiza servicios y centraliza la información de cada operación."
+              },
+              {
+                icon: "🔧",
+                title: "Servicios a domicilio",
+                text: "Ayuda a coordinar trabajos, clientes, personal y desplazamientos."
+              },
+              {
+                icon: "🚐",
+                title: "Empresas con flotas",
+                text: "Centraliza información relacionada con vehículos, operaciones y equipos."
+              }
+            ].map((item) => (
+              <div
+                key={item.title}
+                className="rounded-2xl border border-slate-200 bg-[#f7f9fc] p-7 transition hover:-translate-y-1 hover:bg-white hover:shadow-xl hover:shadow-slate-900/5"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white text-2xl shadow-sm">
+                  {item.icon}
+                </div>
+
+                <h3 className="mt-6 text-xl font-bold text-[#111827]">
+                  {item.title}
+                </h3>
+
+                <p className="mt-3 leading-7 text-slate-600">
+                  {item.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* SOLUTION */}
       <section className="overflow-hidden bg-[#0b1220] py-24 text-white lg:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -374,21 +472,23 @@ export default function Home() {
               </div>
 
               <h2 className="mt-4 text-4xl font-bold tracking-[-0.035em] sm:text-5xl">
-                Transport AI convierte las incidencias en un proceso controlado.
+                Transport AI convierte las tareas y las incidencias en un
+                proceso más controlado.
               </h2>
 
               <p className="mt-6 text-lg leading-8 text-slate-300">
-                La plataforma analiza la información de los pedidos, identifica
-                posibles anomalías y permite a tu equipo investigar y resolver
-                cada caso desde un mismo lugar.
+                La plataforma centraliza la información operativa, identifica
+                posibles anomalías y facilita que tu equipo pueda investigar y
+                resolver cada caso desde un mismo lugar.
               </p>
 
               <div className="mt-9 space-y-5">
                 {[
                   "Detecta posibles anomalías.",
-                  "Organiza las incidencias automáticamente.",
+                  "Centraliza la información operativa.",
+                  "Organiza las incidencias.",
                   "Facilita el contacto con el cliente.",
-                  "Permite actualizar el estado del pedido.",
+                  "Permite actualizar el estado de cada operación.",
                   "Mantiene al equipo informado."
                 ].map((text) => (
                   <div key={text} className="flex items-center gap-3">
@@ -421,7 +521,7 @@ export default function Home() {
 
                   <div className="mt-5 space-y-4">
                     <div>
-                      <div className="text-xs text-slate-500">Pedido</div>
+                      <div className="text-xs text-slate-500">Operación</div>
 
                       <div className="mt-1 text-sm font-semibold">
                         #TA-10482
@@ -442,8 +542,7 @@ export default function Home() {
                       </div>
 
                       <div className="mt-1 rounded-lg bg-amber-400/10 p-3 text-sm text-amber-200">
-                        La dirección del pedido no coincide con la información
-                        esperada para la ruta.
+                        La información de la operación requiere revisión.
                       </div>
                     </div>
 
@@ -453,7 +552,7 @@ export default function Home() {
                       </button>
 
                       <button className="rounded-lg border border-white/10 px-4 py-3 text-xs font-bold text-slate-300">
-                        Ver pedido
+                        Ver operación
                       </button>
                     </div>
                   </div>
@@ -473,12 +572,12 @@ export default function Home() {
             </div>
 
             <h2 className="mt-4 text-4xl font-bold tracking-[-0.035em] sm:text-5xl">
-              De un pedido a una incidencia resuelta.
+              De una operación a una incidencia resuelta.
             </h2>
 
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              Transport AI organiza el proceso para que tu equipo pueda actuar
-              con la información necesaria.
+              Transport AI organiza la información para que tu equipo pueda
+              actuar con los datos necesarios.
             </p>
           </div>
 
@@ -490,22 +589,22 @@ export default function Home() {
                 {
                   n: "01",
                   title: "Recibe",
-                  text: "La información del pedido entra en el sistema."
+                  text: "La información de la operación entra en el sistema."
                 },
                 {
                   n: "02",
                   title: "Detecta",
-                  text: "Transport AI identifica posibles anomalías."
+                  text: "Transport AI identifica posibles anomalías o situaciones que requieren atención."
                 },
                 {
                   n: "03",
                   title: "Investiga",
-                  text: "Tu equipo revisa la incidencia y contacta cuando sea necesario."
+                  text: "Tu equipo revisa la información y contacta cuando sea necesario."
                 },
                 {
                   n: "04",
                   title: "Resuelve",
-                  text: "Se actualiza el pedido y queda registrado el resultado."
+                  text: "Se actualiza la operación y queda registrado el resultado."
                 }
               ].map((item) => (
                 <div key={item.n} className="relative text-center">
@@ -543,8 +642,8 @@ export default function Home() {
             </h2>
 
             <p className="mt-5 text-lg leading-8 text-slate-600">
-              Gestiona pedidos, incidencias y el seguimiento de tus repartos
-              desde un único entorno.
+              Gestiona operaciones, incidencias y el seguimiento de tu
+              actividad desde un único entorno.
             </p>
           </div>
 
@@ -585,7 +684,7 @@ export default function Home() {
                     </div>
 
                     <div className="rounded-xl px-4 py-3 text-sm text-slate-400">
-                      Pedidos
+                      Operaciones
                     </div>
 
                     <div className="rounded-xl px-4 py-3 text-sm text-slate-400">
@@ -624,7 +723,7 @@ export default function Home() {
                   <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                     <div className="rounded-2xl border border-slate-200 bg-white p-5">
                       <div className="text-xs text-slate-500">
-                        Pedidos activos
+                        Operaciones activas
                       </div>
 
                       <div className="mt-2 text-3xl font-bold text-[#0b1220]">
@@ -632,7 +731,7 @@ export default function Home() {
                       </div>
 
                       <div className="mt-2 text-xs font-medium text-emerald-600">
-                        En reparto
+                        En curso
                       </div>
                     </div>
 
@@ -666,7 +765,7 @@ export default function Home() {
 
                     <div className="rounded-2xl border border-slate-200 bg-white p-5">
                       <div className="text-xs text-slate-500">
-                        Conductores
+                        Usuarios activos
                       </div>
 
                       <div className="mt-2 text-3xl font-bold text-[#0b1220]">
@@ -674,7 +773,7 @@ export default function Home() {
                       </div>
 
                       <div className="mt-2 text-xs font-medium text-slate-500">
-                        Activos
+                        Equipo
                       </div>
                     </div>
                   </div>
@@ -690,7 +789,7 @@ export default function Home() {
                           </h4>
 
                           <p className="mt-1 text-xs text-slate-500">
-                            Seguimiento de pedidos e incidencias
+                            Seguimiento de operaciones e incidencias
                           </p>
                         </div>
 
@@ -754,7 +853,7 @@ export default function Home() {
                           </div>
 
                           <div className="mt-2 text-sm font-semibold text-slate-800">
-                            Dirección incorrecta
+                            Información incorrecta
                           </div>
 
                           <div className="mt-1 text-xs text-slate-500">
@@ -794,11 +893,11 @@ export default function Home() {
                           </div>
 
                           <div className="mt-2 text-sm font-semibold text-slate-800">
-                            Teléfono actualizado
+                            Datos actualizados
                           </div>
 
                           <div className="mt-1 text-xs text-slate-500">
-                            Pedido actualizado
+                            Operación actualizada
                           </div>
                         </div>
                       </div>
@@ -811,8 +910,8 @@ export default function Home() {
 
           <div className="mt-10 text-center">
             <p className="mx-auto max-w-2xl text-sm leading-6 text-slate-500">
-              Accede a la plataforma de Transport AI para gestionar pedidos,
-              incidencias y operaciones desde un único entorno.
+              Accede a la plataforma de Transport AI para gestionar
+              operaciones, incidencias y actividad desde un único entorno.
             </p>
 
             <a
@@ -850,7 +949,7 @@ export default function Home() {
                 {[
                   "Direcciones incorrectas",
                   "Teléfonos problemáticos",
-                  "Pedidos con información inconsistente",
+                  "Información inconsistente",
                   "Falta de respuesta"
                 ].map((item) => (
                   <div
@@ -873,13 +972,13 @@ export default function Home() {
               </h3>
 
               <p className="mt-4 leading-7 text-slate-300">
-                Consulta pedidos, incidencias y estados desde un único entorno
-                operativo.
+                Consulta operaciones, incidencias y estados desde un único
+                entorno operativo.
               </p>
 
               <div className="mt-8 space-y-3">
                 <div className="rounded-xl bg-white/5 p-4 text-sm">
-                  Pedidos activos
+                  Operaciones activas
                 </div>
 
                 <div className="rounded-xl bg-white/5 p-4 text-sm">
@@ -917,24 +1016,24 @@ export default function Home() {
                   <h3 className="text-2xl font-bold">App para conductores</h3>
 
                   <p className="mt-1 text-sm text-slate-500">
-                    Información clara durante el reparto
+                    Información clara durante la operativa
                   </p>
                 </div>
               </div>
 
               <p className="mt-6 max-w-2xl leading-7 text-slate-600">
-                Los conductores pueden consultar sus pedidos y comunicar
+                Los conductores pueden consultar sus operaciones y comunicar
                 incidencias desde una interfaz sencilla diseñada para utilizar
-                durante la operativa diaria.
+                durante la actividad diaria.
               </p>
 
               <div className="mt-7 flex flex-wrap gap-3">
                 <span className="rounded-full bg-slate-100 px-4 py-2 text-xs font-semibold text-slate-600">
-                  Pedidos asignados
+                  Operaciones asignadas
                 </span>
 
                 <span className="rounded-full bg-slate-100 px-4 py-2 text-xs font-semibold text-slate-600">
-                  Estado del pedido
+                  Estado
                 </span>
 
                 <span className="rounded-full bg-slate-100 px-4 py-2 text-xs font-semibold text-slate-600">
@@ -963,13 +1062,13 @@ export default function Home() {
               </div>
 
               <h2 className="mt-4 text-4xl font-bold tracking-[-0.035em] sm:text-5xl">
-                No tienes que tirar por la borda lo que ya utilizas.
+                No tienes que cambiar todo lo que ya utilizas.
               </h2>
 
               <p className="mt-6 text-lg leading-8 text-slate-600">
                 Transport AI está pensado para adaptarse a la operativa de
-                cada empresa y trabajar junto a las herramientas que ya utiliza
-                el equipo.
+                cada empresa y estudiar cómo trabajar junto a las herramientas
+                que ya utiliza el equipo.
               </p>
 
               <button
@@ -984,19 +1083,19 @@ export default function Home() {
               {[
                 {
                   title: "Tu plataforma actual",
-                  text: "Conectamos el flujo de información necesario."
+                  text: "Estudiamos cómo incorporar el flujo de información necesario."
                 },
                 {
                   title: "Google Sheets",
-                  text: "Podemos estudiar cómo incorporar tus datos."
+                  text: "Podemos estudiar cómo incorporar tus datos y procesos."
                 },
                 {
                   title: "Software propio",
-                  text: "Adaptamos la solución a necesidades concretas."
+                  text: "Analizamos las necesidades concretas de cada empresa."
                 },
                 {
                   title: "Operativa personalizada",
-                  text: "Cada empresa tiene procesos diferentes."
+                  text: "Cada empresa trabaja de una forma diferente."
                 }
               ].map((item) => (
                 <div
@@ -1029,12 +1128,13 @@ export default function Home() {
               </div>
 
               <h2 className="mx-auto mt-5 max-w-3xl text-4xl font-bold tracking-[-0.035em] sm:text-5xl">
-                Descubre cómo podría encajar en tu operativa.
+                Descubre cómo puede encajar en tu operativa.
               </h2>
 
               <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-300">
-                Cuéntanos cómo gestionáis actualmente los pedidos y las
-                incidencias y estudiamos contigo una solución adaptada.
+                Cuéntanos cómo gestionáis actualmente vuestra actividad y
+                estudiamos contigo una solución adaptada a las necesidades de
+                vuestra empresa.
               </p>
 
               <button
@@ -1055,13 +1155,18 @@ export default function Home() {
             <div className="font-bold">Transport AI</div>
 
             <p className="mt-1 text-sm text-slate-500">
-              Inteligencia para operaciones de transporte.
+              Automatización inteligente para empresas de transporte y
+              servicios.
             </p>
           </div>
 
           <div className="flex flex-wrap gap-6 text-sm text-slate-500">
             <a href="#solucion" className="hover:text-slate-900">
               Solución
+            </a>
+
+            <a href="#sectores" className="hover:text-slate-900">
+              Empresas
             </a>
 
             <a href="#funciona" className="hover:text-slate-900">
@@ -1192,7 +1297,7 @@ export default function Home() {
                     <textarea
                       rows={4}
                       name="operativa"
-                      placeholder="¿Cómo gestionáis actualmente los pedidos e incidencias?"
+                      placeholder="¿Cómo gestionáis actualmente vuestra actividad, servicios o incidencias?"
                       className="w-full resize-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:bg-white"
                     />
                   </div>
