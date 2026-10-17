@@ -8,6 +8,7 @@ import {
   Check,
   Code2,
   Database,
+  GitBranch,
   Headphones,
   Layers3,
   MessageSquareText,
@@ -15,7 +16,6 @@ import {
   ShieldCheck,
   Workflow,
   Zap,
-  GitBranch,
 } from "lucide-react";
 import {
   SiteShell,
@@ -222,12 +222,14 @@ export default function PresupuestosPage() {
                 {
                   number: "02",
                   title: "Costes transparentes",
-                  description: "Funciones y condiciones detalladas por escrito.",
+                  description:
+                    "Funciones y condiciones detalladas por escrito.",
                 },
                 {
                   number: "03",
                   title: "Solución a medida",
-                  description: "Priorizamos lo que aporta valor a tu negocio.",
+                  description:
+                    "Priorizamos lo que aporta valor a tu negocio.",
                 },
               ].map((item) => (
                 <div
@@ -487,7 +489,7 @@ export default function PresupuestosPage() {
         <section className="px-5 pb-20 sm:px-8 sm:pb-28">
           <div className="mx-auto max-w-5xl rounded-3xl bg-slate-950 px-6 py-12 text-center sm:px-12 sm:py-16">
             <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-blue-400">
-              <Building2 size={23} />
+              <Layers3 size={23} />
             </div>
 
             <p className="mt-6 text-xs font-semibold uppercase tracking-[0.22em] text-blue-400">
