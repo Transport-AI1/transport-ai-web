@@ -1,779 +1,1014 @@
 
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useState, type FormEvent } from "react";
+import {
+  ArrowDownRight,
+  ArrowRight,
+  ArrowUpRight,
+  Bot,
+  Check,
+  ChevronDown,
+  CircleCheck,
+  Clock3,
+  Code2,
+  Database,
+  Headphones,
+  Layers3,
+  LockKeyhole,
+  Mail,
+  Menu,
+  MessageSquare,
+  Network,
+  Phone,
+  Route,
+  ShieldCheck,
+  Sparkles,
+  Workflow,
+  X,
+  Zap,
+} from "lucide-react";
 
-const services = [
+const monthlyPlans = [
+  {
+    name: "Esencial",
+    price: "300 €",
+    description: "Automatiza tareas repetitivas sin desarrollar una aplicación propia.",
+    features: [
+      "Automatización de tareas concretas",
+      "Flujos de trabajo y notificaciones",
+      "Reducción del trabajo manual",
+      "Configuración según necesidades",
+    ],
+  },
+  {
+    name: "Operativa",
+    price: "600 €",
+    description: "Conecta automatizaciones con una aplicación y un panel de control.",
+    featured: true,
+    features: [
+      "Todo lo incluido en Esencial",
+      "Panel de control operativo",
+      "Gestión de tareas e incidencias",
+      "Integraciones según disponibilidad",
+    ],
+  },
+  {
+    name: "Avanzada",
+    price: "900 €+",
+    description: "Para operaciones con más procesos, usuarios e integraciones.",
+    features: [
+      "Flujos de trabajo avanzados",
+      "Integraciones adicionales",
+      "Seguimiento de procesos",
+      "Soporte según contrato",
+    ],
+  },
+];
+
+const customProjects = [
   {
     number: "01",
-    icon: "✳",
-    title: "Agentes de inteligencia artificial",
+    icon: Workflow,
+    name: "Automatización de incidencias",
+    price: "6.000–8.000 €",
+    duration: "4–6 semanas",
     description:
-      "Agentes que interpretan información, ejecutan tareas definidas y ayudan a tu equipo a resolver procesos complejos.",
-    tags: ["IA aplicada", "Automatización"]
+      "Centraliza la recepción de incidencias, clasifica solicitudes y automatiza avisos y seguimientos.",
+    tags: ["Incidencias", "Notificaciones", "Flujos de trabajo"],
   },
   {
     number: "02",
-    icon: "▦",
-    title: "CRM y plataformas a medida",
+    icon: Database,
+    name: "Inteligencia artificial conectada al CRM",
+    price: "8.000–12.000 €",
+    duration: "6–10 semanas",
     description:
-      "Sistemas centralizados para gestionar clientes, operaciones, pedidos, usuarios, incidencias y actividad empresarial.",
-    tags: ["Paneles de control", "Software propio"]
+      "Consulta información de pedidos, registra reclamaciones y automatiza actualizaciones mediante API.",
+    tags: ["CRM", "API", "Datos operativos"],
   },
   {
     number: "03",
-    icon: "⌘",
-    title: "Automatización de procesos",
+    icon: Headphones,
+    name: "Atención al cliente con IA",
+    price: "10.000–15.000 €",
+    duration: "8–12 semanas",
     description:
-      "Conectamos herramientas y diseñamos flujos que reducen las tareas repetitivas y mantienen la información sincronizada.",
-    tags: ["Workflows", "Integraciones"]
+      "Automatiza procesos de atención a través de canales compatibles, con seguimiento de casos y escalado a gestores.",
+    tags: ["Correo", "Chat", "Telefonía compatible"],
   },
   {
     number: "04",
-    icon: "↗",
-    title: "Atención al cliente inteligente",
+    icon: Layers3,
+    name: "Plataforma operativa integral",
+    price: "15.000–20.000 €+",
+    duration: "10–16+ semanas",
     description:
-      "Automatización de consultas, reclamaciones y seguimientos mediante canales de comunicación y sistemas empresariales.",
-    tags: ["Email", "Chat", "Llamadas"]
-  }
-]
+      "Unifica CRM, mensajeros, incidencias, automatizaciones y accesos independientes para distintas sucursales.",
+    tags: ["CRM", "Mensajeros", "Multiempresa"],
+  },
+];
 
-const solutions = [
+const capabilities = [
   {
-    number: "01",
-    title: "Gestión de operaciones",
+    icon: Bot,
+    title: "Agentes de IA",
     description:
-      "Centraliza la actividad diaria, los pedidos, los equipos y el estado de cada operación."
+      "Sistemas capaces de interpretar solicitudes, consultar información y ejecutar acciones dentro de unos límites definidos.",
   },
   {
-    number: "02",
-    title: "Gestión de incidencias",
+    icon: Database,
+    title: "CRM e integración de datos",
     description:
-      "Detecta anomalías, organiza los casos pendientes y facilita su seguimiento hasta la resolución."
+      "Conecta los procesos con el software existente para consultar, registrar y actualizar información cuando la API lo permite.",
   },
   {
-    number: "03",
+    icon: MessageSquare,
     title: "Comunicación automatizada",
     description:
-      "Coordina comunicaciones con clientes, empleados y repartidores mediante canales integrados."
+      "Centraliza comunicaciones por correo, chat y servicios de mensajería compatibles.",
   },
   {
-    number: "04",
-    title: "Control por delegaciones",
+    icon: Route,
+    title: "Gestión de operativa y mensajeros",
     description:
-      "Diseña accesos diferenciados para usuarios, departamentos, delegaciones y administradores."
+      "Organiza pedidos, responsables, incidencias y respuestas desde una interfaz adaptada a cada equipo.",
   },
   {
-    number: "05",
-    title: "Integraciones empresariales",
+    icon: Workflow,
+    title: "Flujos de trabajo inteligentes",
     description:
-      "Conecta CRM, API, bases de datos y software existente según las posibilidades de cada sistema."
+      "Detecta datos inconsistentes, activa avisos y deriva los casos complejos a una persona.",
   },
   {
-    number: "06",
-    title: "Paneles de gestión",
+    icon: ShieldCheck,
+    title: "Control y seguridad",
     description:
-      "Consulta estados, actividad, registros y métricas relevantes en un entorno adaptado a tu empresa."
-  }
-]
+      "Diseña permisos por usuario, separación de información y trazabilidad según los requisitos del proyecto.",
+  },
+];
 
-const channels = [
-  { icon: "✉", name: "Email y Gmail", text: "Lectura y clasificación de mensajes." },
-  { icon: "◉", name: "Llamadas", text: "Flujos de atención y registro de información." },
-  { icon: "▤", name: "CRM y API", text: "Consulta y actualización de datos autorizados." },
-  { icon: "↗", name: "WhatsApp y SMS", text: "Comunicaciones automatizadas cuando proceda." }
-]
-
-const steps = [
+const processSteps = [
   {
     number: "01",
-    title: "Analizamos",
-    text: "Estudiamos cómo trabaja tu empresa, qué herramientas utiliza y dónde están los principales problemas."
+    title: "Analizamos tu operativa",
+    description:
+      "Identificamos tareas manuales, problemas frecuentes, herramientas y oportunidades de automatización.",
   },
   {
     number: "02",
-    title: "Definimos",
-    text: "Concretamos funcionalidades, integraciones, permisos, alcance y objetivos del proyecto."
+    title: "Diseñamos la solución",
+    description:
+      "Definimos alcance, integraciones, requisitos técnicos, presupuesto y calendario.",
   },
   {
     number: "03",
-    title: "Desarrollamos",
-    text: "Construimos la solución y validamos los flujos con pruebas y datos controlados."
+    title: "Desarrollamos e integramos",
+    description:
+      "Construimos los flujos y conectamos los sistemas que sean técnicamente compatibles.",
   },
   {
     number: "04",
-    title: "Implementamos",
-    text: "Preparamos el despliegue, la documentación, la supervisión y las mejoras acordadas."
-  }
-]
+    title: "Probamos y desplegamos",
+    description:
+      "Validamos los procesos con casos reales controlados antes de la puesta en producción.",
+  },
+];
+
+type ContactForm = {
+  name: string;
+  company: string;
+  email: string;
+  phone: string;
+  service: string;
+  message: string;
+};
+
+const initialForm: ContactForm = {
+  name: "",
+  company: "",
+  email: "",
+  phone: "",
+  service: "No estoy seguro",
+  message: "",
+};
 
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [formOpen, setFormOpen] = useState(false)
-  const [sent, setSent] = useState(false)
-  const [sending, setSending] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [form, setForm] = useState<ContactForm>(initialForm);
+  const [sending, setSending] = useState(false);
+  const [formStatus, setFormStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    if (sending) return
-
-    const form = e.currentTarget
-    setSending(true)
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setSending(true);
+    setFormStatus("idle");
 
     try {
       const response = await fetch("https://formspree.io/f/xoevbvpy", {
         method: "POST",
-        body: new FormData(form),
         headers: {
-          Accept: "application/json"
-        }
-      })
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
 
-      if (response.ok) {
-        setSent(true)
-        form.reset()
-      } else {
-        alert("Ha ocurrido un error. Inténtalo de nuevo.")
+      if (!response.ok) {
+        throw new Error("No se pudo enviar el formulario.");
       }
+
+      setFormStatus("success");
+      setForm(initialForm);
     } catch {
-      alert("Ha ocurrido un error de conexión. Inténtalo de nuevo.")
+      setFormStatus("error");
     } finally {
-      setSending(false)
+      setSending(false);
     }
   }
 
-  const openForm = () => {
-    setMenuOpen(false)
-    setSent(false)
-    setFormOpen(true)
+  function updateField(
+    field: keyof ContactForm,
+    value: string,
+  ) {
+    setForm((current) => ({ ...current, [field]: value }));
   }
 
-  const closeForm = () => {
-    setFormOpen(false)
-    setSent(false)
-  }
+  const closeMenu = () => setMenuOpen(false);
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-[#080c14] text-white selection:bg-cyan-300 selection:text-[#080c14]">
-      {/* HEADER */}
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.08] bg-[#080c14]/90 backdrop-blur-2xl">
+    <main className="min-h-screen overflow-hidden bg-[#080c14] text-white selection:bg-cyan-300 selection:text-[#080c14]">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.08] bg-[#080c14]/85 backdrop-blur-2xl">
         <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-5 sm:px-8">
-          <a href="#" className="flex shrink-0 items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-300/25 bg-cyan-300/10 text-lg font-bold text-cyan-300">
-              T
+          <a href="#inicio" className="flex items-center gap-3" onClick={closeMenu}>
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-300/25 bg-cyan-300/[0.09]">
+              <Network className="h-5 w-5 text-cyan-300" />
             </div>
             <div>
-              <div className="text-[17px] font-semibold tracking-tight">
-                Transport <span className="text-cyan-300">AI</span>
+              <div className="text-[17px] font-bold tracking-tight">
+                TRANSPORT<span className="text-cyan-300"> AI</span>
               </div>
-              <div className="text-[9px] uppercase tracking-[0.23em] text-slate-500">
-                Intelligent business systems
+              <div className="text-[9px] font-medium uppercase tracking-[0.23em] text-slate-500">
+                Intelligent operations
               </div>
             </div>
           </a>
 
           <nav className="hidden items-center gap-7 lg:flex">
-            {[
-              ["#soluciones", "Soluciones"],
-              ["#plataforma", "Plataformas"],
-              ["#integraciones", "Integraciones"],
-              ["#metodo", "Metodología"]
-            ].map(([href, label]) => (
-              <a
-                key={href}
-                href={href}
-                className="text-[13px] text-slate-400 transition hover:text-white"
-              >
-                {label}
-              </a>
-            ))}
+            <a href="#soluciones" className="text-sm text-slate-400 transition hover:text-white">
+              Soluciones
+            </a>
+            <a href="#plataforma" className="text-sm text-slate-400 transition hover:text-white">
+              Plataforma
+            </a>
+            <a href="#proceso" className="text-sm text-slate-400 transition hover:text-white">
+              Metodología
+            </a>
+            <a href="#precios" className="text-sm text-slate-400 transition hover:text-white">
+              Precios
+            </a>
           </nav>
 
-          <button
-            onClick={openForm}
-            className="hidden items-center gap-2 rounded-full bg-cyan-300 px-5 py-3 text-xs font-bold text-[#080c14] transition hover:bg-cyan-200 sm:inline-flex"
+          <a
+            href="#contacto"
+            className="hidden items-center gap-2 rounded-xl bg-cyan-300 px-5 py-3 text-sm font-semibold text-[#07111b] transition hover:bg-cyan-200 sm:inline-flex"
           >
-            Hablemos de tu proyecto <span>↗</span>
-          </button>
+            Solicitar propuesta <ArrowUpRight className="h-4 w-4" />
+          </a>
 
           <button
-            onClick={() => setMenuOpen(!menuOpen)}
+            type="button"
             aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
-            aria-expanded={menuOpen}
-            className="rounded-lg border border-white/10 px-3 py-2 text-xl text-white lg:hidden"
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="rounded-lg border border-white/10 p-2 lg:hidden"
           >
-            {menuOpen ? "×" : "☰"}
+            {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
 
         {menuOpen && (
-          <nav className="border-t border-white/10 bg-[#0b101a] px-5 py-5 lg:hidden">
+          <nav className="border-t border-white/10 bg-[#080c14] px-6 py-5 lg:hidden">
             {[
-              ["#soluciones", "Soluciones"],
-              ["#plataforma", "Plataformas"],
-              ["#integraciones", "Integraciones"],
-              ["#metodo", "Metodología"],
-              ["#contacto", "Contacto"]
-            ].map(([href, label]) => (
+              ["Soluciones", "#soluciones"],
+              ["Plataforma", "#plataforma"],
+              ["Metodología", "#proceso"],
+              ["Precios", "#precios"],
+              ["Contacto", "#contacto"],
+            ].map(([label, href]) => (
               <a
                 key={href}
                 href={href}
-                onClick={() => setMenuOpen(false)}
+                onClick={closeMenu}
                 className="block border-b border-white/[0.06] py-4 text-sm text-slate-300"
               >
                 {label}
               </a>
             ))}
-            <button
-              onClick={openForm}
-              className="mt-5 w-full rounded-xl bg-cyan-300 px-5 py-3 font-bold text-[#080c14]"
-            >
-              Solicitar una reunión
-            </button>
           </nav>
         )}
       </header>
 
-      {/* HERO */}
-      <section className="relative pt-[76px]">
-        <div className="pointer-events-none absolute -left-48 top-24 h-[500px] w-[500px] rounded-full bg-blue-600/10 blur-[130px]" />
-        <div className="pointer-events-none absolute -right-48 top-20 h-[500px] w-[500px] rounded-full bg-cyan-400/[0.08] blur-[140px]" />
+      <section id="inicio" className="relative px-5 pb-24 pt-36 sm:px-8 sm:pt-44 lg:pb-32">
+        <div className="pointer-events-none absolute -right-40 top-16 h-[500px] w-[500px] rounded-full bg-cyan-400/[0.08] blur-[130px]" />
+        <div className="pointer-events-none absolute -left-40 top-64 h-80 w-80 rounded-full bg-blue-600/[0.08] blur-[120px]" />
 
-        <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-5 pb-24 pt-20 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:pb-32 lg:pt-28">
+        <div className="relative mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-[1.08fr_0.92fr]">
           <div>
-            <div className="inline-flex items-center gap-3 rounded-full border border-cyan-300/20 bg-cyan-300/[0.06] px-4 py-2.5">
-              <span className="h-2 w-2 rounded-full bg-cyan-300" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-cyan-200 sm:text-xs">
-                IA · Software · Automatización
+            <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/[0.06] px-4 py-2">
+              <Sparkles className="h-4 w-4 text-cyan-300" />
+              <span className="text-xs font-medium tracking-wide text-cyan-100">
+                Inteligencia artificial aplicada a empresas
               </span>
             </div>
 
-            <h1 className="mt-8 max-w-3xl text-[43px] font-semibold leading-[1.06] tracking-[-0.055em] sm:text-6xl lg:text-[68px]">
-              El siguiente nivel de tu empresa empieza con{" "}
-              <span className="text-cyan-300">una mejor forma de trabajar.</span>
+            <h1 className="max-w-3xl text-5xl font-semibold leading-[1.06] tracking-[-0.055em] sm:text-6xl lg:text-[76px]">
+              Menos tareas
+              <br />
+              manuales.
+              <br />
+              <span className="bg-gradient-to-r from-cyan-200 via-cyan-300 to-blue-400 bg-clip-text text-transparent">
+                Más control.
+              </span>
             </h1>
 
-            <p className="mt-7 max-w-xl text-base leading-8 text-slate-400 sm:text-lg">
-              Diseñamos soluciones de inteligencia artificial, CRM y
-              automatización que conectan tus herramientas, simplifican tus
-              operaciones y reducen el trabajo manual.
+            <p className="mt-8 max-w-xl text-base leading-8 text-slate-400 sm:text-lg">
+              Diseñamos automatizaciones, agentes de IA e integraciones
+              para que tu empresa trabaje con más información, menos
+              tareas repetitivas y procesos mejor conectados.
             </p>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <button
-                onClick={openForm}
-                className="rounded-xl bg-cyan-300 px-7 py-4 text-sm font-bold text-[#080c14] transition hover:-translate-y-0.5 hover:bg-cyan-200"
+              <a
+                href="#contacto"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-300 px-6 py-4 text-sm font-bold text-[#07111b] transition hover:-translate-y-0.5 hover:bg-cyan-200"
               >
-                Cuéntanos tu proyecto <span className="ml-2">↗</span>
-              </button>
+                Estudiar mi proyecto <ArrowRight className="h-4 w-4" />
+              </a>
               <a
                 href="#soluciones"
-                className="rounded-xl border border-white/15 px-7 py-4 text-center text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/[0.04]"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 px-6 py-4 text-sm font-semibold text-white transition hover:border-white/25 hover:bg-white/[0.04]"
               >
-                Explorar soluciones
+                Explorar soluciones <ArrowDownRight className="h-4 w-4" />
               </a>
             </div>
 
-            <div className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-xs text-slate-400 sm:text-sm">
+            <div className="mt-10 flex flex-wrap gap-x-7 gap-y-3 text-xs text-slate-500">
               <span className="flex items-center gap-2">
-                <span className="text-cyan-300">✓</span> Desarrollo a medida
+                <Check className="h-4 w-4 text-cyan-300" /> Soluciones a medida
               </span>
               <span className="flex items-center gap-2">
-                <span className="text-cyan-300">✓</span> Integración con sistemas existentes
+                <Check className="h-4 w-4 text-cyan-300" /> Integración con sistemas existentes
+              </span>
+              <span className="flex items-center gap-2">
+                <Check className="h-4 w-4 text-cyan-300" /> Alcance definido por proyecto
               </span>
             </div>
           </div>
 
-          {/* VISUAL CONCEPTUAL */}
           <div className="relative mx-auto w-full max-w-xl">
-            <div className="absolute -inset-5 rounded-[35px] bg-cyan-300/[0.07] blur-3xl" />
-
-            <div className="relative rounded-[26px] border border-white/10 bg-[#101723] p-4 shadow-2xl shadow-black/40 sm:p-6">
-              <div className="flex items-center justify-between border-b border-white/[0.08] pb-5">
+            <div className="absolute -inset-5 rounded-[36px] bg-cyan-300/[0.05] blur-2xl" />
+            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#0d1420] shadow-2xl shadow-black/30">
+              <div className="flex items-center justify-between border-b border-white/[0.08] px-5 py-4">
                 <div>
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-300">
-                    TRANSPORT AI
-                  </div>
-                  <div className="mt-2 text-lg font-semibold">
-                    Business Control Center
-                  </div>
-                  <p className="mt-1 text-xs text-slate-500">
-                    Ejemplo conceptual de plataforma empresarial
-                  </p>
+                  <div className="text-sm font-semibold">Operations Intelligence</div>
+                  <div className="mt-1 text-[11px] text-slate-500">Vista ilustrativa de una solución</div>
                 </div>
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-300/20 bg-cyan-300/10 text-xl text-cyan-300">
-                  ◈
+                <div className="flex items-center gap-2 rounded-full border border-cyan-300/15 bg-cyan-300/[0.06] px-3 py-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-cyan-300" />
+                  <span className="text-[10px] text-cyan-100">Panel operativo</span>
                 </div>
               </div>
 
-              <div className="mt-5 grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-3 p-5">
                 {[
-                  { label: "Operaciones", value: "Centralizadas", icon: "▦" },
-                  { label: "Inteligencia", value: "Asistida por IA", icon: "✳" },
-                  { label: "Integraciones", value: "Sistemas conectados", icon: "⌘" },
-                  { label: "Supervisión", value: "Control y registros", icon: "◎" }
-                ].map((item) => (
-                  <div
-                    key={item.label}
-                    className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-4"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-slate-400">{item.label}</span>
-                      <span className="text-lg text-cyan-300">{item.icon}</span>
+                  { label: "Procesos", value: "Centralizados", icon: Layers3 },
+                  { label: "Incidencias", value: "Trazables", icon: CircleCheck },
+                  { label: "Integraciones", value: "Conectadas", icon: Network },
+                  { label: "Automatización", value: "Configurada", icon: Zap },
+                ].map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <div key={item.label} className="rounded-2xl border border-white/[0.07] bg-white/[0.025] p-4">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-slate-500">{item.label}</span>
+                        <Icon className="h-4 w-4 text-cyan-300" />
+                      </div>
+                      <div className="mt-4 text-base font-semibold">{item.value}</div>
                     </div>
-                    <div className="mt-4 text-sm font-semibold">{item.value}</div>
+                  );
+                })}
+              </div>
+
+              <div className="mx-5 mb-5 rounded-2xl border border-white/[0.07] bg-[#080d16] p-4">
+                <div className="mb-4 flex items-center justify-between">
+                  <span className="text-xs font-semibold text-slate-300">Ejemplo de flujo automatizado</span>
+                  <Workflow className="h-4 w-4 text-cyan-300" />
+                </div>
+                {[
+                  { title: "Solicitud recibida", detail: "Entrada desde un canal conectado", number: "01" },
+                  { title: "Análisis y validación", detail: "Reglas, datos e IA según configuración", number: "02" },
+                  { title: "Acción o escalado", detail: "Actualización o aviso al responsable", number: "03" },
+                ].map((step, index) => (
+                  <div key={step.number} className="flex gap-3">
+                    <div className="flex flex-col items-center">
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-cyan-300/20 bg-cyan-300/[0.07] text-[10px] font-bold text-cyan-200">
+                        {step.number}
+                      </div>
+                      {index < 2 && <div className="my-1 h-6 w-px bg-white/10" />}
+                    </div>
+                    <div className="pb-4">
+                      <div className="text-sm font-medium">{step.title}</div>
+                      <div className="mt-1 text-xs leading-5 text-slate-500">{step.detail}</div>
+                    </div>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-4 rounded-2xl border border-white/[0.08] bg-[#0b111b] p-5">
-                <div className="flex items-center justify-between">
-                  <div className="text-sm font-semibold">Flujo de trabajo</div>
-                  <span className="text-[10px] uppercase tracking-wider text-slate-500">
-                    Ejemplo
-                  </span>
-                </div>
-
-                <div className="mt-5 space-y-3">
-                  {[
-                    { n: "01", title: "Información recibida", detail: "Email · CRM · API", width: "100%" },
-                    { n: "02", title: "Análisis y clasificación", detail: "Reglas · Inteligencia artificial", width: "78%" },
-                    { n: "03", title: "Acción o revisión humana", detail: "Seguimiento · Registro", width: "58%" }
-                  ].map((item) => (
-                    <div key={item.n} className="relative overflow-hidden rounded-xl border border-white/[0.07] bg-white/[0.025] p-3.5">
-                      <div
-                        className="absolute bottom-0 left-0 h-px bg-cyan-300/50"
-                        style={{ width: item.width }}
-                      />
-                      <div className="flex items-center gap-3">
-                        <span className="text-[10px] font-semibold text-cyan-300">{item.n}</span>
-                        <div className="min-w-0 flex-1">
-                          <div className="text-xs font-semibold">{item.title}</div>
-                          <div className="mt-1 text-[10px] text-slate-500">{item.detail}</div>
-                        </div>
-                        <span className="text-slate-500">↗</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+              <div className="border-t border-white/[0.07] px-5 py-3 text-[10px] leading-5 text-slate-600">
+                Concepto visual. Las funcionalidades finales dependen del proyecto y de las integraciones disponibles.
               </div>
-              <p className="mt-4 text-center text-[10px] leading-5 text-slate-500">
-                Representación ilustrativa. Las funciones dependen del alcance de cada proyecto.
-              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* VALUE STRIP */}
-      <section className="border-y border-white/[0.08] bg-white/[0.02]">
-        <div className="mx-auto grid max-w-7xl gap-5 px-5 py-8 sm:grid-cols-3 sm:px-8">
-          {[
-            { n: "01", title: "Software a medida", text: "Diseñado para tu operativa." },
-            { n: "02", title: "Procesos conectados", text: "Menos información dispersa." },
-            { n: "03", title: "Control y trazabilidad", text: "Supervisión de cada flujo." }
-          ].map((item) => (
-            <div key={item.n} className="flex items-start gap-4">
-              <span className="text-xs font-semibold text-cyan-300">{item.n}</span>
-              <div>
-                <div className="text-sm font-semibold">{item.title}</div>
-                <p className="mt-1 text-xs leading-6 text-slate-500">{item.text}</p>
-              </div>
-            </div>
-          ))}
+      <section className="border-y border-white/[0.06] bg-white/[0.015] px-5 py-7 sm:px-8">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-10 gap-y-5 text-sm text-slate-400 md:justify-between">
+          <span className="flex items-center gap-2"><Bot className="h-4 w-4 text-cyan-300" /> Agentes de IA</span>
+          <span className="flex items-center gap-2"><Database className="h-4 w-4 text-cyan-300" /> Integración de datos</span>
+          <span className="flex items-center gap-2"><Workflow className="h-4 w-4 text-cyan-300" /> Automatización de procesos</span>
+          <span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-cyan-300" /> Control de accesos</span>
         </div>
       </section>
 
-      {/* SERVICES */}
-      <section id="soluciones" className="scroll-mt-24 py-24 sm:py-28">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <div className="max-w-2xl">
-            <div className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-300">
+      <section id="soluciones" className="px-5 py-24 sm:px-8 lg:py-32">
+        <div className="mx-auto max-w-7xl">
+          <div className="max-w-3xl">
+            <div className="text-xs font-semibold uppercase tracking-[0.25em] text-cyan-300">
               Qué hacemos
             </div>
-            <h2 className="mt-5 text-3xl font-semibold tracking-tight sm:text-5xl">
-              Tecnología que resuelve problemas reales.
+            <h2 className="mt-5 text-4xl font-semibold tracking-tight sm:text-5xl">
+              Tecnología que se adapta a tu operativa.
             </h2>
-            <p className="mt-5 leading-7 text-slate-400">
-              No se trata de incorporar IA porque sí. Se trata de identificar
-              qué tareas conviene automatizar y construir un sistema que encaje
-              con tu forma de trabajar.
+            <p className="mt-5 max-w-2xl leading-7 text-slate-400">
+              No necesitas sustituir todo tu software para mejorar tus procesos.
+              Diseñamos soluciones que conectan herramientas, información y equipos
+              de acuerdo con las necesidades de tu negocio.
             </p>
           </div>
 
-          <div className="mt-12 grid gap-4 md:grid-cols-2">
-            {services.map((service) => (
-              <article
-                key={service.number}
-                className="group rounded-3xl border border-white/[0.09] bg-white/[0.025] p-7 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/25 hover:bg-white/[0.04] sm:p-9"
-              >
-                <div className="flex items-start justify-between">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan-300/20 bg-cyan-300/[0.07] text-2xl text-cyan-300">
-                    {service.icon}
+          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {capabilities.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={item.title}
+                  className="group rounded-2xl border border-white/[0.08] bg-white/[0.02] p-7 transition duration-300 hover:-translate-y-1 hover:border-cyan-300/30 hover:bg-cyan-300/[0.025]"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-cyan-300/15 bg-cyan-300/[0.06]">
+                      <Icon className="h-5 w-5 text-cyan-300" />
+                    </div>
+                    <span className="text-xs text-slate-600">0{index + 1}</span>
                   </div>
-                  <span className="text-xs text-slate-600">{service.number}</span>
+                  <h3 className="mt-7 text-lg font-semibold">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-400">{item.description}</p>
+                  <div className="mt-6 flex items-center gap-2 text-xs font-medium text-cyan-300 opacity-80">
+                    Solución configurable <ArrowUpRight className="h-3.5 w-3.5" />
+                  </div>
                 </div>
-                <h3 className="mt-7 text-xl font-semibold">{service.title}</h3>
-                <p className="mt-3 max-w-lg text-sm leading-7 text-slate-400">
-                  {service.description}
-                </p>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {service.tags.map((tag) => (
-                    <span key={tag} className="rounded-full border border-white/10 px-3 py-1.5 text-[10px] font-medium text-slate-400">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </article>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* PLATFORM */}
-      <section id="plataforma" className="scroll-mt-24 border-y border-white/[0.07] bg-[#0c121d] py-24 sm:py-28">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
-            <div>
-              <div className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-300">
-                Una solución conectada
-              </div>
-              <h2 className="mt-5 text-3xl font-semibold tracking-tight sm:text-5xl">
-                Más que una herramienta. Un sistema adaptado a tu empresa.
-              </h2>
-              <p className="mt-6 leading-8 text-slate-400">
-                Diseñamos plataformas que conectan información, personas y
-                procesos. Desde un panel de operaciones hasta un CRM con
-                automatizaciones y accesos diferenciados por departamento.
-              </p>
-              <button onClick={openForm} className="mt-8 rounded-xl bg-cyan-300 px-6 py-4 text-sm font-bold text-[#080c14] transition hover:bg-cyan-200">
-                Diseñar una solución a medida ↗
-              </button>
+      <section id="plataforma" className="border-y border-white/[0.06] bg-[#0b111c] px-5 py-24 sm:px-8 lg:py-32">
+        <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-2">
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-[0.25em] text-cyan-300">
+              Operaciones conectadas
             </div>
+            <h2 className="mt-5 text-4xl font-semibold tracking-tight sm:text-5xl">
+              De herramientas aisladas a un flujo de trabajo coordinado.
+            </h2>
+            <p className="mt-6 leading-8 text-slate-400">
+              Cuando la información está repartida entre correos, hojas de cálculo,
+              mensajería y sistemas de gestión, las tareas se duplican y es más difícil
+              saber qué ocurre. Transport AI puede ayudarte a conectar esos procesos.
+            </p>
 
-            <div className="rounded-3xl border border-white/10 bg-[#080d15] p-4 sm:p-6">
-              <div className="flex items-center justify-between border-b border-white/[0.08] pb-5">
+            <div className="mt-8 space-y-5">
+              {[
+                {
+                  icon: Mail,
+                  title: "Entrada de solicitudes",
+                  text: "Organiza información recibida por los canales que se integren en el proyecto.",
+                },
+                {
+                  icon: Code2,
+                  title: "Conexión con sistemas existentes",
+                  text: "Consulta o actualiza datos mediante API y permisos autorizados.",
+                },
+                {
+                  icon: Phone,
+                  title: "Comunicación y seguimiento",
+                  text: "Activa avisos, solicita respuestas y registra el resultado de cada proceso.",
+                },
+                {
+                  icon: LockKeyhole,
+                  title: "Accesos por función o sucursal",
+                  text: "Diseña permisos para que cada usuario acceda únicamente a la información autorizada.",
+                },
+              ].map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div key={item.title} className="flex gap-4">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03]">
+                      <Icon className="h-4 w-4 text-cyan-300" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold">{item.title}</h3>
+                      <p className="mt-1 text-sm leading-6 text-slate-400">{item.text}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="absolute -inset-4 rounded-3xl bg-blue-500/[0.05] blur-2xl" />
+            <div className="relative rounded-3xl border border-white/10 bg-[#080d16] p-5 sm:p-7">
+              <div className="flex items-center justify-between border-b border-white/[0.07] pb-5">
                 <div>
-                  <div className="text-xs text-slate-500">VISTA CONCEPTUAL</div>
-                  <h3 className="mt-2 text-lg font-semibold">Panel de operaciones</h3>
+                  <p className="text-sm font-semibold">Flujo de operativa</p>
+                  <p className="mt-1 text-xs text-slate-500">Ejemplo de arquitectura</p>
                 </div>
-                <div className="rounded-lg border border-cyan-300/20 bg-cyan-300/10 px-3 py-2 text-[10px] text-cyan-300">
-                  Diseño ilustrativo
-                </div>
+                <Layers3 className="h-5 w-5 text-cyan-300" />
               </div>
 
-              <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
+              <div className="space-y-3 py-6">
                 {[
-                  ["Operaciones", "Gestión central"],
-                  ["Incidencias", "Seguimiento"],
-                  ["Mensajeros", "Coordinación"],
-                  ["Reclamaciones", "Atención al cliente"],
-                  ["Automatizaciones", "Flujos de trabajo"],
-                  ["Administración", "Usuarios y permisos"]
-                ].map(([title, subtitle], index) => (
-                  <div key={title} className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-4">
-                    <div className={`mb-4 flex h-9 w-9 items-center justify-center rounded-xl text-sm ${index % 2 === 0 ? "bg-cyan-300/10 text-cyan-300" : "bg-indigo-300/10 text-indigo-300"}`}>
-                      {["▦", "!", "↗", "✉", "⌘", "◎"][index]}
+                  {
+                    title: "01 · Canales de entrada",
+                    detail: "Email · Chat · Sistemas internos",
+                    color: "border-blue-400/20 bg-blue-400/[0.05]",
+                  },
+                  {
+                    title: "02 · Capa de integración",
+                    detail: "API · Validaciones · Reglas de negocio",
+                    color: "border-cyan-300/25 bg-cyan-300/[0.05]",
+                  },
+                  {
+                    title: "03 · Automatización e IA",
+                    detail: "Clasificación · Acciones · Escalados",
+                    color: "border-violet-400/20 bg-violet-400/[0.05]",
+                  },
+                  {
+                    title: "04 · Panel y trazabilidad",
+                    detail: "Gestores · Usuarios · Incidencias",
+                    color: "border-emerald-400/20 bg-emerald-400/[0.04]",
+                  },
+                ].map((item, index) => (
+                  <div key={item.title}>
+                    <div className={`rounded-2xl border p-5 ${item.color}`}>
+                      <div className="text-sm font-semibold">{item.title}</div>
+                      <div className="mt-2 text-xs text-slate-400">{item.detail}</div>
                     </div>
-                    <div className="text-xs font-semibold">{title}</div>
-                    <div className="mt-2 text-[10px] leading-5 text-slate-500">{subtitle}</div>
+                    {index < 3 && (
+                      <div className="flex h-7 items-center justify-center">
+                        <ArrowDownRight className="h-4 w-4 rotate-45 text-slate-600" />
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
 
-              <div className="mt-4 rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5">
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <div className="text-sm font-semibold">Accesos por equipo</div>
-                    <p className="mt-1 text-xs text-slate-500">Permisos definidos según las necesidades</p>
-                  </div>
-                  <span className="text-xl text-cyan-300">⌘</span>
-                </div>
-                <div className="mt-5 grid grid-cols-3 gap-2">
-                  {["Administrador", "Gestor", "Delegación"].map((role) => (
-                    <div key={role} className="rounded-lg border border-white/[0.07] bg-[#0b111b] px-2 py-3 text-center text-[10px] text-slate-400">
-                      {role}
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <p className="mt-4 text-center text-[10px] leading-5 text-slate-500">
-                Los módulos, permisos y funcionalidades se definen para cada proyecto.
+              <p className="text-xs leading-5 text-slate-500">
+                Arquitectura conceptual. Cada integración requiere validar el acceso,
+                la compatibilidad y las condiciones del proveedor.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SOLUTIONS */}
-      <section className="py-24 sm:py-28">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <div className="max-w-2xl">
-            <div className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-300">
-              Aplicaciones
-            </div>
-            <h2 className="mt-5 text-3xl font-semibold tracking-tight sm:text-5xl">
-              Una misma capacidad. Diferentes necesidades empresariales.
-            </h2>
-            <p className="mt-5 leading-7 text-slate-400">
-              Adaptamos las funcionalidades al tipo de operación, los usuarios
-              y los sistemas que necesita conectar cada organización.
-            </p>
-          </div>
-
-          <div className="mt-12 grid gap-x-8 md:grid-cols-2 lg:grid-cols-3">
-            {solutions.map((item) => (
-              <article key={item.number} className="border-t border-white/10 py-7">
-                <div className="text-xs font-semibold text-cyan-300">{item.number}</div>
-                <h3 className="mt-4 text-lg font-semibold">{item.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-slate-400">{item.description}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CHANNELS */}
-      <section id="integraciones" className="scroll-mt-24 border-y border-white/[0.07] bg-[#0c121d] py-24 sm:py-28">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-            <div>
-              <div className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-300">
-                Integraciones
-              </div>
-              <h2 className="mt-5 text-3xl font-semibold tracking-tight sm:text-5xl">
-                Tus herramientas. Conectadas con un propósito.
-              </h2>
-              <p className="mt-6 leading-8 text-slate-400">
-                Estudiamos cómo conectar los canales de comunicación, el CRM y
-                las aplicaciones que ya utiliza tu equipo. La viabilidad depende
-                de las API, los permisos y las condiciones de cada proveedor.
-              </p>
-              <button onClick={openForm} className="mt-8 rounded-xl border border-white/15 px-6 py-4 text-sm font-semibold transition hover:border-cyan-300/40 hover:bg-white/[0.03]">
-                Consultar una integración ↗
-              </button>
-            </div>
-
-            <div className="grid gap-3 sm:grid-cols-2">
-              {channels.map((channel) => (
-                <div key={channel.name} className="rounded-2xl border border-white/[0.08] bg-white/[0.025] p-6 transition hover:border-cyan-300/20">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-300/10 text-xl text-cyan-300">
-                    {channel.icon}
-                  </div>
-                  <h3 className="mt-5 font-semibold">{channel.name}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-400">{channel.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-8 rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5 sm:p-6">
-            <p className="text-sm leading-7 text-slate-400">
-              <span className="font-semibold text-white">Importante:</span>{" "}
-              cada integración se valida antes del desarrollo. No todas las
-              herramientas permiten las mismas operaciones, y algunas requieren
-              permisos, licencias o servicios de terceros.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* INDUSTRIES */}
-      <section className="py-24 sm:py-28">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <div className="max-w-2xl">
-            <div className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-300">
-              Sectores
-            </div>
-            <h2 className="mt-5 text-3xl font-semibold tracking-tight sm:text-5xl">
-              Especialmente útil cuando coordinarlo todo se complica.
-            </h2>
-          </div>
-
-          <div className="mt-10 flex flex-wrap gap-3">
-            {[
-              "Transporte y logística",
-              "Mensajería y paquetería",
-              "Mudanzas y portes",
-              "Distribución",
-              "Servicios a domicilio",
-              "Empresas con flotas",
-              "Equipos de atención al cliente",
-              "Empresas con varias delegaciones"
-            ].map((sector) => (
-              <span key={sector} className="rounded-full border border-white/10 bg-white/[0.025] px-5 py-3 text-sm text-slate-300 transition hover:border-cyan-300/25">
-                {sector}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* METHOD */}
-      <section id="metodo" className="scroll-mt-24 border-y border-white/[0.07] bg-[#0c121d] py-24 sm:py-28">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <div className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-300">
+      <section id="proceso" className="px-5 py-24 sm:px-8 lg:py-32">
+        <div className="mx-auto max-w-7xl">
+          <div className="max-w-3xl">
+            <div className="text-xs font-semibold uppercase tracking-[0.25em] text-cyan-300">
               Metodología
             </div>
-            <h2 className="mt-5 text-3xl font-semibold tracking-tight sm:text-5xl">
-              De una necesidad concreta a una solución funcional.
+            <h2 className="mt-5 text-4xl font-semibold tracking-tight sm:text-5xl">
+              Un proceso claro. Un alcance definido.
             </h2>
             <p className="mt-5 leading-7 text-slate-400">
-              Un proceso estructurado para definir el alcance, validar la
-              viabilidad técnica y reducir sorpresas durante el desarrollo.
+              Cada proyecto comienza con un análisis de requisitos y termina
+              con criterios de validación acordados. Así se evitan sorpresas
+              en el presupuesto y en la entrega.
             </p>
           </div>
 
-          <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {steps.map((step) => (
-              <article key={step.number} className="border-t border-cyan-300/30 pt-6">
-                <div className="text-xs font-semibold tracking-widest text-cyan-300">{step.number}</div>
-                <h3 className="mt-5 text-xl font-semibold">{step.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-slate-400">{step.text}</p>
-              </article>
+          <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {processSteps.map((step) => (
+              <div key={step.number} className="border-t border-white/10 pt-6">
+                <div className="text-sm font-semibold text-cyan-300">{step.number}</div>
+                <h3 className="mt-5 text-lg font-semibold">{step.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-400">{step.description}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section id="contacto" className="scroll-mt-24 px-5 py-24 sm:px-8 sm:py-28">
-        <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[30px] border border-cyan-300/15 bg-[#101925] px-6 py-14 text-center sm:px-12 sm:py-20">
-          <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-96 -translate-x-1/2 rounded-full bg-cyan-300/[0.08] blur-[100px]" />
-          <div className="relative">
-            <div className="text-xs font-semibold uppercase tracking-[0.22em] text-cyan-300">
-              Hablemos de tu proyecto
+      <section id="precios" className="border-y border-white/[0.06] bg-[#0b111c] px-5 py-24 sm:px-8 lg:py-32">
+        <div className="mx-auto max-w-7xl">
+          <div className="max-w-3xl">
+            <div className="text-xs font-semibold uppercase tracking-[0.25em] text-cyan-300">
+              Servicios e inversión
             </div>
-            <h2 className="mx-auto mt-5 max-w-3xl text-3xl font-semibold tracking-tight sm:text-5xl">
-              ¿Qué podría hacer la inteligencia artificial por tu empresa?
+            <h2 className="mt-5 text-4xl font-semibold tracking-tight sm:text-5xl">
+              Elige el punto de partida.
             </h2>
-            <p className="mx-auto mt-5 max-w-2xl leading-7 text-slate-400">
-              Cuéntanos qué proceso quieres mejorar. Analizaremos tus
-              necesidades para valorar una solución, sus integraciones y su
-              alcance.
+            <p className="mt-5 leading-7 text-slate-400">
+              Desde automatizaciones concretas hasta sistemas empresariales
+              conectados. Los siguientes importes son orientativos y se
+              concretan después de analizar cada caso.
             </p>
-            <button onClick={openForm} className="mt-8 rounded-xl bg-cyan-300 px-7 py-4 text-sm font-bold text-[#080c14] transition hover:-translate-y-0.5 hover:bg-cyan-200">
-              Solicitar una reunión ↗
-            </button>
+          </div>
+
+          <div className="mt-12 grid gap-5 lg:grid-cols-3">
+            {monthlyPlans.map((plan) => (
+              <div
+                key={plan.name}
+                className={`flex flex-col rounded-3xl border p-7 ${
+                  plan.featured
+                    ? "border-cyan-300/40 bg-cyan-300/[0.045]"
+                    : "border-white/10 bg-white/[0.02]"
+                }`}
+              >
+                {plan.featured && (
+                  <span className="mb-5 w-fit rounded-full border border-cyan-300/20 bg-cyan-300/[0.08] px-3 py-1.5 text-xs font-semibold text-cyan-200">
+                    Solución con aplicación
+                  </span>
+                )}
+                <h3 className="text-xl font-semibold">{plan.name}</h3>
+                <p className="mt-3 min-h-[72px] text-sm leading-6 text-slate-400">
+                  {plan.description}
+                </p>
+                <div className="mt-5 flex items-baseline gap-2">
+                  <span className="text-4xl font-semibold tracking-tight">{plan.price}</span>
+                  <span className="text-sm text-slate-500">/ mes</span>
+                </div>
+                <p className="mt-2 text-xs text-slate-500">Más IVA</p>
+                <div className="my-7 h-px bg-white/10" />
+                <ul className="flex-1 space-y-4">
+                  {plan.features.map((feature) => (
+                    <li key={feature} className="flex gap-3 text-sm text-slate-300">
+                      <Check className="mt-0.5 h-4 w-4 shrink-0 text-cyan-300" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="#contacto"
+                  className={`mt-8 inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold transition ${
+                    plan.featured
+                      ? "bg-cyan-300 text-[#07111b] hover:bg-cyan-200"
+                      : "border border-white/10 text-white hover:border-cyan-300/40 hover:bg-white/[0.03]"
+                  }`}
+                >
+                  Solicitar propuesta <ArrowRight className="h-4 w-4" />
+                </a>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-24">
+            <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-[0.25em] text-cyan-300">
+                  Desarrollo a medida
+                </div>
+                <h3 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+                  Proyectos de IA e integración.
+                </h3>
+              </div>
+              <p className="max-w-lg text-sm leading-6 text-slate-400">
+                Para empresas que necesitan integrar su CRM, automatizar la
+                atención al cliente o conectar su operativa de principio a fin.
+              </p>
+            </div>
+
+            <div className="mt-9 grid gap-4 md:grid-cols-2">
+              {customProjects.map((project) => {
+                const Icon = project.icon;
+                return (
+                  <div
+                    key={project.number}
+                    className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6 transition hover:border-cyan-300/25 sm:p-7"
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-300/15 bg-cyan-300/[0.06]">
+                        <Icon className="h-5 w-5 text-cyan-300" />
+                      </div>
+                      <span className="text-xs font-semibold tracking-widest text-slate-600">
+                        {project.number}
+                      </span>
+                    </div>
+
+                    <h4 className="mt-6 text-xl font-semibold">{project.name}</h4>
+                    <div className="mt-5 text-3xl font-semibold tracking-tight">
+                      {project.price}
+                    </div>
+                    <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-slate-400">
+                      <Clock3 className="h-3.5 w-3.5 text-cyan-300" />
+                      Plazo estimado: {project.duration}
+                    </div>
+                    <p className="mt-5 text-sm leading-7 text-slate-400">
+                      {project.description}
+                    </p>
+
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full border border-white/[0.08] px-3 py-1.5 text-[11px] text-slate-400"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="mt-6 border-t border-white/[0.07] pt-5">
+                      <p className="text-xs text-slate-500">Precio orientativo · Más IVA</p>
+                      <a
+                        href="#contacto"
+                        className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-cyan-300 transition hover:text-cyan-200"
+                      >
+                        Definir mi proyecto <ArrowRight className="h-4 w-4" />
+                      </a>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="mt-8 rounded-2xl border border-white/[0.07] bg-white/[0.015] p-5 sm:p-6">
+              <div className="flex gap-3">
+                <Clock3 className="mt-0.5 h-5 w-5 shrink-0 text-cyan-300" />
+                <div>
+                  <h4 className="text-sm font-semibold">¿Qué determina el precio y el plazo?</h4>
+                  <p className="mt-2 text-sm leading-7 text-slate-400">
+                    Los importes y plazos son estimaciones iniciales, no ofertas vinculantes.
+                    El presupuesto definitivo depende del alcance, las APIs disponibles,
+                    el volumen de datos, los canales, los requisitos de seguridad y las
+                    pruebas de aceptación. Los tiempos comienzan cuando se dispone de
+                    accesos y documentación. Licencias, consumos de IA, proveedores externos,
+                    alojamiento y mantenimiento se detallan por separado cuando corresponda.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="border-t border-white/[0.08] bg-[#060910]">
-        <div className="mx-auto flex max-w-7xl flex-col gap-8 px-5 py-9 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
-          <a href="#" className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-cyan-300/20 bg-cyan-300/10 font-bold text-cyan-300">T</div>
+      <section className="px-5 py-24 sm:px-8 lg:py-28">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl border border-cyan-300/15 bg-gradient-to-br from-cyan-300/[0.08] via-[#0d1420] to-blue-500/[0.06] p-8 sm:p-12 lg:p-16">
+          <div className="grid items-center gap-8 md:grid-cols-[1fr_auto]">
             <div>
-              <div className="text-sm font-semibold">Transport AI</div>
-              <div className="mt-1 text-[10px] text-slate-500">IA y automatización empresarial</div>
+              <div className="text-xs font-semibold uppercase tracking-[0.25em] text-cyan-300">
+                El siguiente paso
+              </div>
+              <h2 className="mt-5 max-w-2xl text-3xl font-semibold tracking-tight sm:text-4xl">
+                Tu empresa no necesita más tareas. Necesita mejores procesos.
+              </h2>
+              <p className="mt-4 max-w-2xl leading-7 text-slate-400">
+                Cuéntanos qué herramientas utilizas, qué tareas te hacen perder
+                tiempo y qué te gustaría automatizar. Estudiaremos el alcance
+                y la solución más adecuada.
+              </p>
             </div>
-          </a>
-
-          <div className="flex flex-wrap gap-x-6 gap-y-3 text-xs text-slate-400">
-            <a href="#soluciones" className="hover:text-white">Soluciones</a>
-            <a href="#plataforma" className="hover:text-white">Plataformas</a>
-            <a href="#integraciones" className="hover:text-white">Integraciones</a>
-            <a href="#metodo" className="hover:text-white">Metodología</a>
-            <button onClick={openForm} className="hover:text-white">Contacto</button>
+            <a
+              href="#contacto"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-300 px-6 py-4 text-sm font-bold text-[#07111b] transition hover:bg-cyan-200"
+            >
+              Hablar de mi proyecto <ArrowUpRight className="h-4 w-4" />
+            </a>
           </div>
         </div>
-        <div className="border-t border-white/[0.06] px-5 py-5 text-center text-[10px] text-slate-600">
+      </section>
+
+      <section id="contacto" className="scroll-mt-24 border-t border-white/[0.07] px-5 py-24 sm:px-8 lg:py-32">
+        <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[0.85fr_1.15fr]">
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-[0.25em] text-cyan-300">
+              Contacto
+            </div>
+            <h2 className="mt-5 text-4xl font-semibold tracking-tight sm:text-5xl">
+              Cuéntanos qué quieres automatizar.
+            </h2>
+            <p className="mt-6 max-w-lg leading-8 text-slate-400">
+              Explícanos cómo funciona actualmente tu empresa. Con esa información
+              podremos valorar la viabilidad, el alcance y un presupuesto inicial.
+            </p>
+
+            <div className="mt-9 space-y-5">
+              <div className="flex gap-3 text-sm text-slate-300">
+                <CircleCheck className="h-5 w-5 shrink-0 text-cyan-300" />
+                Análisis inicial de las necesidades
+              </div>
+              <div className="flex gap-3 text-sm text-slate-300">
+                <CircleCheck className="h-5 w-5 shrink-0 text-cyan-300" />
+                Alcance y calendario estimados
+              </div>
+              <div className="flex gap-3 text-sm text-slate-300">
+                <CircleCheck className="h-5 w-5 shrink-0 text-cyan-300" />
+                Propuesta adaptada a tu operativa
+              </div>
+            </div>
+
+            <div className="mt-10 rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-300/[0.08]">
+                  <ShieldCheck className="h-5 w-5 text-cyan-300" />
+                </div>
+                <div>
+                  <div className="text-sm font-semibold">Cada proyecto, con su alcance</div>
+                  <div className="mt-1 text-xs leading-5 text-slate-500">
+                    Las funcionalidades se acuerdan antes del desarrollo.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <form
+            onSubmit={handleSubmit}
+            className="rounded-3xl border border-white/10 bg-white/[0.025] p-6 sm:p-8"
+          >
+            <div className="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label htmlFor="name" className="mb-2 block text-sm font-medium text-slate-300">
+                  Nombre *
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  autoComplete="name"
+                  required
+                  value={form.name}
+                  onChange={(event) => updateField("name", event.target.value)}
+                  placeholder="Tu nombre"
+                  className="w-full rounded-xl border border-white/10 bg-[#080d16] px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300/60"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="company" className="mb-2 block text-sm font-medium text-slate-300">
+                  Empresa *
+                </label>
+                <input
+                  id="company"
+                  name="company"
+                  autoComplete="organization"
+                  required
+                  value={form.company}
+                  onChange={(event) => updateField("company", event.target.value)}
+                  placeholder="Nombre de la empresa"
+                  className="w-full rounded-xl border border-white/10 bg-[#080d16] px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300/60"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-300">
+                  Correo electrónico *
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  value={form.email}
+                  onChange={(event) => updateField("email", event.target.value)}
+                  placeholder="nombre@empresa.com"
+                  className="w-full rounded-xl border border-white/10 bg-[#080d16] px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300/60"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="phone" className="mb-2 block text-sm font-medium text-slate-300">
+                  Teléfono
+                </label>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  autoComplete="tel"
+                  value={form.phone}
+                  onChange={(event) => updateField("phone", event.target.value)}
+                  placeholder="+34 ..."
+                  className="w-full rounded-xl border border-white/10 bg-[#080d16] px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300/60"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label htmlFor="service" className="mb-2 block text-sm font-medium text-slate-300">
+                  ¿Qué necesitas?
+                </label>
+                <div className="relative">
+                  <select
+                    id="service"
+                    name="service"
+                    value={form.service}
+                    onChange={(event) => updateField("service", event.target.value)}
+                    className="w-full appearance-none rounded-xl border border-white/10 bg-[#080d16] px-4 py-3.5 pr-10 text-sm text-white outline-none transition focus:border-cyan-300/60"
+                  >
+                    <option>No estoy seguro</option>
+                    <option>Automatización mensual</option>
+                    <option>Automatización de incidencias</option>
+                    <option>Integración con CRM</option>
+                    <option>Atención al cliente con IA</option>
+                    <option>Plataforma operativa integral</option>
+                    <option>Otro proyecto a medida</option>
+                  </select>
+                  <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+                </div>
+              </div>
+
+              <div className="sm:col-span-2">
+                <label htmlFor="message" className="mb-2 block text-sm font-medium text-slate-300">
+                  Describe tu operativa o problema *
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  rows={5}
+                  value={form.message}
+                  onChange={(event) => updateField("message", event.target.value)}
+                  placeholder="¿Qué tareas quieres automatizar? ¿Qué software utilizas actualmente?"
+                  className="w-full resize-y rounded-xl border border-white/10 bg-[#080d16] px-4 py-3.5 text-sm leading-6 text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300/60"
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={sending}
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-cyan-300 px-6 py-4 text-sm font-bold text-[#07111b] transition hover:bg-cyan-200 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {sending ? "Enviando..." : "Solicitar propuesta"}
+              {!sending && <ArrowRight className="h-4 w-4" />}
+            </button>
+
+            {formStatus === "success" && (
+              <p role="status" className="mt-4 rounded-xl border border-emerald-400/20 bg-emerald-400/[0.06] p-4 text-sm text-emerald-300">
+                Solicitud enviada correctamente. Gracias por contactar con Transport AI.
+              </p>
+            )}
+
+            {formStatus === "error" && (
+              <p role="alert" className="mt-4 rounded-xl border border-red-400/20 bg-red-400/[0.06] p-4 text-sm text-red-300">
+                No hemos podido enviar la solicitud. Inténtalo de nuevo más tarde.
+              </p>
+            )}
+
+            <p className="mt-4 text-xs leading-5 text-slate-600">
+              Al enviar este formulario, facilitas tus datos para gestionar tu solicitud.
+              Antes de publicarlo, añade un enlace a tu política de privacidad y la información
+              legal aplicable.
+            </p>
+          </form>
+        </div>
+      </section>
+
+      <footer className="border-t border-white/[0.07] px-5 py-8 sm:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-5 sm:flex-row sm:items-center">
+          <a href="#inicio" className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-cyan-300/20 bg-cyan-300/[0.06]">
+              <Network className="h-4 w-4 text-cyan-300" />
+            </div>
+            <span className="text-sm font-bold tracking-tight">
+              TRANSPORT<span className="text-cyan-300"> AI</span>
+            </span>
+          </a>
+          <p className="text-xs leading-6 text-slate-500">
+            Automatización inteligente e integración de procesos empresariales.
+          </p>
+          <a href="#inicio" className="text-xs text-slate-500 transition hover:text-white">
+            Volver arriba ↑
+          </a>
+        </div>
+        <div className="mx-auto mt-6 max-w-7xl border-t border-white/[0.06] pt-5 text-xs text-slate-600">
           © {new Date().getFullYear()} Transport AI. Todos los derechos reservados.
         </div>
       </footer>
-
-      {/* CONTACT MODAL */}
-      {formOpen && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-black/75 p-4 backdrop-blur-md"
-          onMouseDown={(e) => {
-            if (e.target === e.currentTarget) closeForm()
-          }}
-        >
-          <div className="my-auto w-full max-w-lg overflow-hidden rounded-3xl border border-white/10 bg-[#101723] shadow-2xl">
-            {!sent ? (
-              <>
-                <div className="flex items-start justify-between border-b border-white/[0.08] p-6 sm:p-7">
-                  <div>
-                    <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-300">
-                      Transport AI
-                    </div>
-                    <h3 className="mt-3 text-2xl font-semibold">Hablemos de tu proyecto</h3>
-                    <p className="mt-2 text-sm leading-6 text-slate-400">
-                      Cuéntanos un poco sobre tu empresa y qué necesitas mejorar.
-                    </p>
-                  </div>
-                  <button onClick={closeForm} aria-label="Cerrar formulario" className="rounded-lg px-3 py-2 text-xl text-slate-400 transition hover:bg-white/5 hover:text-white">
-                    ×
-                  </button>
-                </div>
-
-                <form onSubmit={handleSubmit} className="space-y-4 p-6 sm:p-7">
-                  <div>
-                    <label htmlFor="nombre" className="mb-2 block text-xs font-semibold text-slate-300">Nombre</label>
-                    <input id="nombre" required type="text" name="nombre" autoComplete="name" placeholder="Tu nombre" className="w-full rounded-xl border border-white/10 bg-[#090e17] px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300/60" />
-                  </div>
-
-                  <div>
-                    <label htmlFor="empresa" className="mb-2 block text-xs font-semibold text-slate-300">Empresa</label>
-                    <input id="empresa" required type="text" name="empresa" autoComplete="organization" placeholder="Nombre de la empresa" className="w-full rounded-xl border border-white/10 bg-[#090e17] px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300/60" />
-                  </div>
-
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div>
-                      <label htmlFor="email" className="mb-2 block text-xs font-semibold text-slate-300">Email profesional</label>
-                      <input id="email" required type="email" name="email" autoComplete="email" placeholder="tu@empresa.com" className="w-full rounded-xl border border-white/10 bg-[#090e17] px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300/60" />
-                    </div>
-                    <div>
-                      <label htmlFor="telefono" className="mb-2 block text-xs font-semibold text-slate-300">Teléfono (opcional)</label>
-                      <input id="telefono" type="tel" name="telefono" autoComplete="tel" placeholder="+34 600 000 000" className="w-full rounded-xl border border-white/10 bg-[#090e17] px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300/60" />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="tipo_proyecto" className="mb-2 block text-xs font-semibold text-slate-300">¿Qué necesitas?</label>
-                    <select id="tipo_proyecto" name="tipo_proyecto" defaultValue="" className="w-full rounded-xl border border-white/10 bg-[#090e17] px-4 py-3.5 text-sm text-white outline-none focus:border-cyan-300/60">
-                      <option value="" disabled>Selecciona una opción</option>
-                      <option value="Agentes de IA">Agentes de inteligencia artificial</option>
-                      <option value="CRM y plataforma">CRM o plataforma empresarial</option>
-                      <option value="Automatización">Automatización de procesos</option>
-                      <option value="Atención al cliente">Atención al cliente</option>
-                      <option value="Integraciones API">Integraciones con API y software</option>
-                      <option value="Proyecto personalizado">Otro proyecto personalizado</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="operativa" className="mb-2 block text-xs font-semibold text-slate-300">Cuéntanos tu necesidad</label>
-                    <textarea id="operativa" rows={3} name="operativa" placeholder="¿Qué tareas quieres automatizar o qué problema necesitas resolver?" className="w-full resize-y rounded-xl border border-white/10 bg-[#090e17] px-4 py-3.5 text-sm text-white outline-none transition placeholder:text-slate-600 focus:border-cyan-300/60" />
-                  </div>
-
-                  <button disabled={sending} type="submit" className="w-full rounded-xl bg-cyan-300 px-5 py-4 text-sm font-bold text-[#080c14] transition hover:bg-cyan-200 disabled:cursor-not-allowed disabled:opacity-60">
-                    {sending ? "Enviando solicitud..." : "Enviar solicitud ↗"}
-                  </button>
-
-                  <p className="text-center text-[10px] leading-5 text-slate-500">
-                    Utilizaremos estos datos para responder a tu solicitud.
-                  </p>
-                </form>
-              </>
-            ) : (
-              <div className="px-7 py-12 text-center sm:px-10">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full border border-emerald-300/20 bg-emerald-300/10 text-2xl text-emerald-300">✓</div>
-                <h3 className="mt-6 text-2xl font-semibold">Solicitud enviada</h3>
-                <p className="mt-3 text-sm leading-7 text-slate-400">
-                  Gracias por contactar con Transport AI. Revisaremos tu solicitud para hablar sobre tu proyecto.
-                </p>
-                <button onClick={closeForm} className="mt-7 rounded-xl bg-cyan-300 px-6 py-3 text-sm font-bold text-[#080c14]">
-                  Cerrar
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
     </main>
-  )
+  );
 }
