@@ -1,12 +1,9 @@
+
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Layers3, Zap } from "lucide-react";
 
-export function SiteShell({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-[#05070b] text-white">
       <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#05070b]/90 backdrop-blur-xl">
@@ -33,7 +30,7 @@ export function SiteShell({
               Servicios
             </Link>
             <Link href="/presupuestos" className="transition hover:text-blue-400">
-              Presupuestos
+              Precios y presupuestos
             </Link>
             <Link href="/contacto" className="transition hover:text-blue-400">
               Contacto
@@ -69,7 +66,9 @@ export function SiteShell({
             <div className="flex flex-col gap-3 text-sm text-slate-400">
               <Link href="/" className="hover:text-white">Inicio</Link>
               <Link href="/servicios" className="hover:text-white">Servicios</Link>
-              <Link href="/presupuestos" className="hover:text-white">Presupuestos</Link>
+              <Link href="/presupuestos" className="hover:text-white">
+                Precios y presupuestos
+              </Link>
               <Link href="/contacto" className="hover:text-white">Contacto</Link>
             </div>
           </div>
@@ -116,15 +115,17 @@ export function SectionHeading({
   title,
   description,
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   description: string;
 }) {
   return (
     <div className="mx-auto mb-14 max-w-3xl text-center">
-      <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-blue-400">
-        {eyebrow}
-      </p>
+      {eyebrow && (
+        <p className="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-blue-400">
+          {eyebrow}
+        </p>
+      )}
       <h2 className="text-3xl font-semibold tracking-tight sm:text-5xl">
         {title}
       </h2>
