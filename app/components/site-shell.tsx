@@ -1,12 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import {
-  ArrowUpRight,
-  Layers3,
-  Menu,
-  X,
-  Zap,
-} from "lucide-react";
+import { ArrowUpRight, Layers3, Zap } from "lucide-react";
 
 export function SiteShell({
   children,
@@ -14,8 +8,8 @@ export function SiteShell({
   children: ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-[#07090d] text-white">
-      <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#07090d]/90 backdrop-blur-xl">
+    <div className="min-h-screen bg-[#05070b] text-white">
+      <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-[#05070b]/90 backdrop-blur-xl">
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
           <Link href="/" className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-blue-400/30 bg-blue-500/10">
@@ -31,14 +25,17 @@ export function SiteShell({
             </div>
           </Link>
 
-          <div className="hidden items-center gap-8 text-sm text-slate-300 md:flex">
-            <Link className="transition hover:text-blue-400" href="/">
+          <div className="hidden items-center gap-7 text-sm text-slate-300 md:flex">
+            <Link href="/" className="transition hover:text-blue-400">
               Inicio
             </Link>
-            <Link className="transition hover:text-blue-400" href="/servicios">
+            <Link href="/servicios" className="transition hover:text-blue-400">
               Servicios
             </Link>
-            <Link className="transition hover:text-blue-400" href="/contacto">
+            <Link href="/presupuestos" className="transition hover:text-blue-400">
+              Presupuestos
+            </Link>
+            <Link href="/contacto" className="transition hover:text-blue-400">
               Contacto
             </Link>
           </div>
@@ -55,15 +52,15 @@ export function SiteShell({
 
       <main>{children}</main>
 
-      <footer className="border-t border-white/[0.08]">
+      <footer className="border-t border-white/[0.08] bg-[#05070b]">
         <div className="mx-auto grid max-w-7xl gap-10 px-5 py-12 sm:px-8 md:grid-cols-3">
           <div>
             <Link href="/" className="text-xl font-semibold">
               TRANSPORT<span className="text-blue-400"> AI</span>
             </Link>
             <p className="mt-3 max-w-sm text-sm leading-6 text-slate-400">
-              Inteligencia artificial, automatización e integración
-              tecnológica para empresas que quieren operar mejor.
+              Inteligencia artificial, automatización e integración tecnológica
+              para empresas que quieren evolucionar.
             </p>
           </div>
 
@@ -72,20 +69,26 @@ export function SiteShell({
             <div className="flex flex-col gap-3 text-sm text-slate-400">
               <Link href="/" className="hover:text-white">Inicio</Link>
               <Link href="/servicios" className="hover:text-white">Servicios</Link>
+              <Link href="/presupuestos" className="hover:text-white">Presupuestos</Link>
               <Link href="/contacto" className="hover:text-white">Contacto</Link>
             </div>
           </div>
 
           <div>
-            <p className="mb-4 text-sm font-semibold">¿Tienes un proceso que mejorar?</p>
-            <p className="mb-4 text-sm leading-6 text-slate-400">
-              Cuéntanos qué necesita tu empresa y estudiaremos una posible solución.
+            <p className="text-xs uppercase tracking-[0.2em] text-blue-400">
+              Dirección
+            </p>
+            <p className="mt-3 text-lg font-semibold">
+              Álvaro Chaveinte Camargo
+            </p>
+            <p className="mt-1 text-sm text-slate-400">
+              Fundador de Transport AI
             </p>
             <Link
               href="/contacto"
-              className="inline-flex items-center gap-2 text-sm font-medium text-blue-400 hover:text-blue-300"
+              className="mt-5 inline-flex items-center gap-2 text-sm text-blue-400 transition hover:text-blue-300"
             >
-              Cuéntanos tu proyecto
+              Hablemos de tu proyecto
               <ArrowUpRight className="h-4 w-4" />
             </Link>
           </div>
