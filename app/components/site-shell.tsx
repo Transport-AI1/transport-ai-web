@@ -1,12 +1,13 @@
 
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Layers3, Zap, Menu } from "lucide-react";
+import { ArrowUpRight, Layers3, Zap } from "lucide-react";
 
 const navigation = [
   { href: "/", label: "Inicio" },
   { href: "/servicios", label: "Servicios" },
   { href: "/presupuestos", label: "Precios y presupuestos" },
+  { href: "/seguridad", label: "Seguridad" },
   { href: "/contacto", label: "Contacto" },
 ];
 
@@ -36,12 +37,12 @@ export function SiteShell({ children }: { children: ReactNode }) {
             </div>
           </Link>
 
-          <div className="hidden items-center gap-6 lg:flex xl:gap-8">
+          <div className="hidden items-center gap-5 lg:flex xl:gap-7">
             {navigation.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium text-slate-600 transition hover:text-blue-700"
+                className="whitespace-nowrap text-sm font-medium text-slate-600 transition hover:text-blue-700"
               >
                 {item.label}
               </Link>
