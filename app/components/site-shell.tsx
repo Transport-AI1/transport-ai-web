@@ -6,6 +6,7 @@ import { ArrowUpRight, Layers3, Zap } from "lucide-react";
 const navigation = [
   { href: "/", label: "Inicio" },
   { href: "/servicios", label: "Servicios" },
+  { href: "/demostraciones", label: "Demostraciones" },
   { href: "/presupuestos", label: "Precios y presupuestos" },
   { href: "/seguridad", label: "Seguridad" },
   { href: "/contacto", label: "Contacto" },
@@ -27,6 +28,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-700 shadow-sm shadow-blue-900/15">
               <Layers3 className="h-5 w-5 text-white" />
             </div>
+
             <div>
               <span className="block text-lg font-bold tracking-tight text-slate-950">
                 TRANSPORT<span className="text-blue-700"> AI</span>
@@ -83,6 +85,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600">
                 <Layers3 className="h-5 w-5 text-white" />
               </div>
+
               <span className="text-xl font-bold tracking-tight">
                 TRANSPORT<span className="text-blue-400"> AI</span>
               </span>
@@ -94,12 +97,14 @@ export function SiteShell({ children }: { children: ReactNode }) {
             </p>
 
             <p className="mt-4 text-xs leading-5 text-slate-500">
-              Soluciones tecnológicas adaptadas a las necesidades de cada negocio.
+              Soluciones tecnológicas adaptadas a las necesidades de cada
+              negocio.
             </p>
           </div>
 
           <div>
             <p className="text-sm font-semibold text-white">Explora</p>
+
             <div className="mt-5 flex flex-col items-start gap-3 text-sm text-slate-400">
               {navigation.map((item) => (
                 <Link
@@ -117,12 +122,15 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-400">
               Dirección
             </p>
+
             <p className="mt-4 text-lg font-semibold text-white">
               Álvaro Chaveinte Camargo
             </p>
+
             <p className="mt-1 text-sm text-slate-400">
               Fundador de Transport AI
             </p>
+
             <Link
               href="/contacto"
               className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-blue-400 transition hover:text-blue-300"
@@ -134,7 +142,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
         </div>
 
         <div className="border-t border-white/10 px-5 py-5 text-center text-xs text-slate-500">
-          © {new Date().getFullYear()} Transport AI. Todos los derechos reservados.
+          © {new Date().getFullYear()} Transport AI. Todos los derechos
+          reservados.
         </div>
       </footer>
     </div>
@@ -166,9 +175,11 @@ export function SectionHeading({
           {eyebrow}
         </p>
       )}
+
       <h2 className="text-3xl font-semibold leading-tight tracking-tight text-slate-950 sm:text-5xl">
         {title}
       </h2>
+
       <p className="mt-5 text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
         {description}
       </p>
