@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
@@ -29,8 +30,7 @@ import {
 } from "./components/site-shell";
 
 export const metadata: Metadata = {
-  title:
-    "Inteligencia Artificial y Automatización para Empresas",
+  title: "Inteligencia Artificial y Automatización para Empresas",
   description:
     "Transport AI desarrolla soluciones de inteligencia artificial, automatización de procesos, CRM e integraciones y software a medida para empresas de transporte, logística y otros sectores.",
   alternates: {
@@ -57,6 +57,8 @@ export const metadata: Metadata = {
     follow: true,
   },
 };
+
+const transportSeoUrl = "/ia-para-transporte-logistica";
 
 const services = [
   {
@@ -249,6 +251,14 @@ export default function HomePage() {
                   </span>
                 ))}
               </div>
+
+              <Link
+                href={transportSeoUrl}
+                className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-blue-700 transition hover:text-blue-900"
+              >
+                IA para transporte y logística
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
 
             {/* Panel conceptual */}
@@ -457,13 +467,23 @@ export default function HomePage() {
                 ))}
               </div>
 
-              <Link
-                href="/contacto?proyecto=Gestion%20operativa"
-                className="mt-9 inline-flex items-center gap-2 rounded-xl bg-white px-6 py-4 text-sm font-semibold text-slate-950 transition hover:bg-blue-50"
-              >
-                Estudiar mi operativa
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
+              <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap">
+                <Link
+                  href="/contacto?proyecto=Gestion%20operativa"
+                  className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-4 text-sm font-semibold text-slate-950 transition hover:bg-blue-50"
+                >
+                  Estudiar mi operativa
+                  <ArrowUpRight className="h-4 w-4" />
+                </Link>
+
+                <Link
+                  href={transportSeoUrl}
+                  className="inline-flex items-center gap-2 rounded-xl border border-white/20 px-6 py-4 text-sm font-semibold text-white transition hover:border-blue-300 hover:bg-white/5"
+                >
+                  IA para transporte y logística
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
             </div>
 
             <div className="relative">
@@ -573,6 +593,7 @@ export default function HomePage() {
               );
             })}
           </div>
+
           <p className="mt-5 text-xs leading-6 text-slate-500">
             Las demostraciones son ejemplos ilustrativos. Las funciones finales
             dependen del alcance, las integraciones y las pruebas acordadas.
