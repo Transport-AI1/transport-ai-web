@@ -1,4 +1,4 @@
-
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -9,6 +9,30 @@ import {
   Sparkles,
 } from "lucide-react";
 import { Eyebrow, SiteShell } from "../components/site-shell";
+
+export const metadata: Metadata = {
+  title: "Contacto | Soluciones de IA y Automatización",
+  description:
+    "Contacta con Transport AI para desarrollar soluciones de inteligencia artificial, automatización de procesos, integraciones CRM y software a medida para tu empresa.",
+  alternates: {
+    canonical: "/contacto",
+  },
+  openGraph: {
+    title: "Contacta con Transport AI | IA y Automatización",
+    description:
+      "Cuéntanos qué procesos quieres mejorar. Diseñamos soluciones de inteligencia artificial, automatización e integración de sistemas adaptadas a tu empresa.",
+    url: "/contacto",
+    siteName: "Transport AI",
+    locale: "es_ES",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Contacto | Transport AI",
+    description:
+      "Solicita información sobre soluciones de IA, automatización e integración de sistemas para tu empresa.",
+  },
+};
 
 const benefits = [
   {
