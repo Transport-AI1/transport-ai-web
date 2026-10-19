@@ -1,3 +1,7 @@
+
+"use client";
+
+import { useState, type FormEvent } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
@@ -9,30 +13,6 @@ import {
   Sparkles,
 } from "lucide-react";
 import { Eyebrow, SiteShell } from "../components/site-shell";
-
-export const metadata: Metadata = {
-  title: "Contacto | Soluciones de IA y Automatización",
-  description:
-    "Contacta con Transport AI para desarrollar soluciones de inteligencia artificial, automatización de procesos, integraciones CRM y software a medida para tu empresa.",
-  alternates: {
-    canonical: "/contacto",
-  },
-  openGraph: {
-    title: "Contacta con Transport AI | IA y Automatización",
-    description:
-      "Cuéntanos qué procesos quieres mejorar. Diseñamos soluciones de inteligencia artificial, automatización e integración de sistemas adaptadas a tu empresa.",
-    url: "/contacto",
-    siteName: "Transport AI",
-    locale: "es_ES",
-    type: "website",
-  },
-  twitter: {
-    card: "summary",
-    title: "Contacto | Transport AI",
-    description:
-      "Solicita información sobre soluciones de IA, automatización e integración de sistemas para tu empresa.",
-  },
-};
 
 const benefits = [
   {
@@ -57,7 +37,65 @@ const fieldClass =
 
 const labelClass = "mb-2 block text-sm font-medium text-slate-700";
 
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
 export default function ContactPage() {
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (sending) return;
+
+    setSending(true);
+    setError("");
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("https://formspree.io/f/xoevbvpy", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("No se pudo confirmar el envío del formulario.");
+      }
+
+      // Solo contabilizamos la conversión después de un envío confirmado.
+      try {
+        if (typeof window.gtag === "function") {
+          window.gtag("event", "conversion", {
+            send_to: "AW-18523833927/opwWCL26xKIdEMeM7YBF",
+            value: 1.0,
+            currency: "EUR",
+          });
+        }
+      } catch {
+        // Un fallo de medición no debe impedir confirmar el envío.
+      }
+
+      setSent(true);
+      form.reset();
+    } catch {
+      setError(
+        "No hemos podido confirmar el envío. Comprueba tu conexión e inténtalo de nuevo."
+      );
+    } finally {
+      setSending(false);
+    }
+  }
+
   return (
     <SiteShell>
       <section className="relative overflow-hidden bg-white">
@@ -164,180 +202,213 @@ export default function ContactPage() {
                 </p>
               </div>
 
-              <form
-                action="https://formspree.io/f/xoevbvpy"
-                method="POST"
-                className="mt-7 space-y-5"
-              >
-                <input
-                  type="hidden"
-                  name="_subject"
-                  value="Nueva consulta desde la web de Transport AI"
-                />
-
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <div>
-                    <label htmlFor="name" className={labelClass}>
-                      Nombre *
-                    </label>
-                    <input
-                      id="name"
-                      name="name"
-                      required
-                      autoComplete="name"
-                      placeholder="Tu nombre"
-                      className={fieldClass}
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="company" className={labelClass}>
-                      Empresa
-                    </label>
-                    <input
-                      id="company"
-                      name="company"
-                      autoComplete="organization"
-                      placeholder="Nombre de tu empresa"
-                      className={fieldClass}
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="email" className={labelClass}>
-                    Email profesional *
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    name="email"
-                    required
-                    autoComplete="email"
-                    placeholder="nombre@empresa.com"
-                    className={fieldClass}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="service" className={labelClass}>
-                    ¿Qué necesitas? *
-                  </label>
-                  <select
-                    id="service"
-                    name="service"
-                    required
-                    defaultValue=""
-                    className={fieldClass}
-                  >
-                    <option value="" disabled>
-                      Selecciona una solución
-                    </option>
-                    <option value="IA">Inteligencia artificial</option>
-                    <option value="Automatizacion">
-                      Automatización de procesos
-                    </option>
-                    <option value="Integraciones">
-                      CRM, API e integraciones
-                    </option>
-                    <option value="Software a medida">
-                      Software y paneles a medida
-                    </option>
-                    <option value="Atencion al cliente">
-                      Atención al cliente con IA
-                    </option>
-                    <option value="Operaciones y logistica">
-                      Operaciones y logística
-                    </option>
-                    <option value="Proyecto integral">
-                      Proyecto integral
-                    </option>
-                    <option value="No lo tengo claro">
-                      Necesito asesoramiento
-                    </option>
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="budget" className={labelClass}>
-                    Presupuesto orientativo
-                  </label>
-                  <select
-                    id="budget"
-                    name="budget"
-                    defaultValue=""
-                    className={fieldClass}
-                  >
-                    <option value="">Prefiero hablarlo</option>
-                    <option value="Menos de 3000 euros">
-                      Menos de 3.000 €
-                    </option>
-                    <option value="3000 a 6000 euros">
-                      3.000–6.000 €
-                    </option>
-                    <option value="6000 a 12000 euros">
-                      6.000–12.000 €
-                    </option>
-                    <option value="12000 a 25000 euros">
-                      12.000–25.000 €
-                    </option>
-                    <option value="Mas de 25000 euros">
-                      Más de 25.000 €
-                    </option>
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="message" className={labelClass}>
-                    ¿Qué proceso quieres mejorar? *
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    required
-                    minLength={10}
-                    rows={5}
-                    placeholder="¿Qué ocurre actualmente? ¿Qué tareas quieres automatizar? ¿Qué herramientas utiliza tu equipo?"
-                    className={`${fieldClass} resize-y leading-6`}
-                  />
-                </div>
-
-                <div className="rounded-xl bg-slate-50 p-4">
-                  <label className="flex items-start gap-3 text-xs leading-5 text-slate-600">
-                    <input
-                      type="checkbox"
-                      name="privacy_acknowledgement"
-                      value="accepted"
-                      required
-                      className="mt-1 h-4 w-4 shrink-0 accent-blue-600"
-                    />
-                    <span>
-                      He leído la{" "}
-                      <Link
-                        href="/privacidad"
-                        className="font-semibold text-blue-600 underline underline-offset-2"
-                      >
-                        política de privacidad
-                      </Link>{" "}
-                      y acepto el tratamiento de mis datos para gestionar esta
-                      consulta.
-                    </span>
-                  </label>
-                </div>
-
-                <button
-                  type="submit"
-                  className="flex w-full items-center justify-center gap-2 rounded-full bg-blue-600 px-6 py-4 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500/20"
+              {sent ? (
+                <div
+                  className="mt-7 rounded-2xl border border-green-200 bg-green-50 p-6"
+                  role="status"
+                  aria-live="polite"
                 >
-                  Enviar consulta
-                  <ArrowRight className="h-4 w-4" />
-                </button>
+                  <CheckCircle2 className="h-8 w-8 text-green-700" />
+                  <h3 className="mt-4 text-lg font-semibold text-green-950">
+                    ¡Consulta enviada correctamente!
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-green-900">
+                    Gracias por contactar con Transport AI. Hemos recibido tu
+                    consulta y podremos valorar los siguientes pasos.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setSent(false)}
+                    className="mt-5 text-sm font-semibold text-green-800 underline underline-offset-4"
+                  >
+                    Enviar otra consulta
+                  </button>
+                </div>
+              ) : (
+                <form
+                  onSubmit={handleSubmit}
+                  className="mt-7 space-y-5"
+                >
+                  <input
+                    type="hidden"
+                    name="_subject"
+                    value="Nueva consulta desde la web de Transport AI"
+                  />
 
-                <p className="text-center text-xs leading-5 text-slate-500">
-                  No incluyas contraseñas ni información confidencial en este
-                  formulario.
-                </p>
-              </form>
+                  <div className="grid gap-5 sm:grid-cols-2">
+                    <div>
+                      <label htmlFor="name" className={labelClass}>
+                        Nombre *
+                      </label>
+                      <input
+                        id="name"
+                        name="name"
+                        required
+                        autoComplete="name"
+                        placeholder="Tu nombre"
+                        className={fieldClass}
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="company" className={labelClass}>
+                        Empresa
+                      </label>
+                      <input
+                        id="company"
+                        name="company"
+                        autoComplete="organization"
+                        placeholder="Nombre de tu empresa"
+                        className={fieldClass}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="email" className={labelClass}>
+                      Email profesional *
+                    </label>
+                    <input
+                      id="email"
+                      type="email"
+                      name="email"
+                      required
+                      autoComplete="email"
+                      placeholder="nombre@empresa.com"
+                      className={fieldClass}
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="service" className={labelClass}>
+                      ¿Qué necesitas? *
+                    </label>
+                    <select
+                      id="service"
+                      name="service"
+                      required
+                      defaultValue=""
+                      className={fieldClass}
+                    >
+                      <option value="" disabled>
+                        Selecciona una solución
+                      </option>
+                      <option value="IA">Inteligencia artificial</option>
+                      <option value="Automatizacion">
+                        Automatización de procesos
+                      </option>
+                      <option value="Integraciones">
+                        CRM, API e integraciones
+                      </option>
+                      <option value="Software a medida">
+                        Software y paneles a medida
+                      </option>
+                      <option value="Atencion al cliente">
+                        Atención al cliente con IA
+                      </option>
+                      <option value="Operaciones y logistica">
+                        Operaciones y logística
+                      </option>
+                      <option value="Proyecto integral">
+                        Proyecto integral
+                      </option>
+                      <option value="No lo tengo claro">
+                        Necesito asesoramiento
+                      </option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label htmlFor="budget" className={labelClass}>
+                      Presupuesto orientativo
+                    </label>
+                    <select
+                      id="budget"
+                      name="budget"
+                      defaultValue=""
+                      className={fieldClass}
+                    >
+                      <option value="">Prefiero hablarlo</option>
+                      <option value="Menos de 3000 euros">
+                        Menos de 3.000 €
+                      </option>
+                      <option value="3000 a 6000 euros">
+                        3.000–6.000 €
+                      </option>
+                      <option value="6000 a 12000 euros">
+                        6.000–12.000 €
+                      </option>
+                      <option value="12000 a 25000 euros">
+                        12.000–25.000 €
+                      </option>
+                      <option value="Mas de 25000 euros">
+                        Más de 25.000 €
+                      </option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label htmlFor="message" className={labelClass}>
+                      ¿Qué proceso quieres mejorar? *
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      required
+                      minLength={10}
+                      rows={5}
+                      placeholder="¿Qué ocurre actualmente? ¿Qué tareas quieres automatizar? ¿Qué herramientas utiliza tu equipo?"
+                      className={`${fieldClass} resize-y leading-6`}
+                    />
+                  </div>
+
+                  <div className="rounded-xl bg-slate-50 p-4">
+                    <label className="flex items-start gap-3 text-xs leading-5 text-slate-600">
+                      <input
+                        type="checkbox"
+                        name="privacy_acknowledgement"
+                        value="accepted"
+                        required
+                        className="mt-1 h-4 w-4 shrink-0 accent-blue-600"
+                      />
+                      <span>
+                        He leído la{" "}
+                        <Link
+                          href="/privacidad"
+                          className="font-semibold text-blue-600 underline underline-offset-2"
+                        >
+                          política de privacidad
+                        </Link>{" "}
+                        y acepto el tratamiento de mis datos para gestionar
+                        esta consulta.
+                      </span>
+                    </label>
+                  </div>
+
+                  {error && (
+                    <p
+                      role="alert"
+                      className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm leading-6 text-red-800"
+                    >
+                      {error}
+                    </p>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={sending}
+                    className="flex w-full items-center justify-center gap-2 rounded-full bg-blue-600 px-6 py-4 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500/20 disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    {sending ? "Enviando consulta..." : "Enviar consulta"}
+                    {!sending && <ArrowRight className="h-4 w-4" />}
+                  </button>
+
+                  <p className="text-center text-xs leading-5 text-slate-500">
+                    No incluyas contraseñas ni información confidencial en
+                    este formulario.
+                  </p>
+                </form>
+              )}
             </div>
           </div>
         </div>
