@@ -9,9 +9,9 @@ const sections = [
           través de esta web es:
         </p>
         <ul>
-          <li><strong>Nombre o razón social:</strong> [COMPLETAR]</li>
-          <li><strong>NIF:</strong> [COMPLETAR]</li>
-          <li><strong>Domicilio profesional:</strong> [COMPLETAR]</li>
+          <li><strong>Nombre o razón social:</strong> [Transport AI]</li>
+          <li><strong>NIF:</strong> [51556813J]</li>
+          <li><strong>Domicilio profesional:</strong> [Calle Asuncion Balaguer, Madrid, 28521 ]</li>
           <li>
             <strong>Correo electrónico de contacto:</strong>{" "}
             [COMPLETAR CON UN CORREO VÁLIDO]
