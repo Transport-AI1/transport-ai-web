@@ -14,7 +14,7 @@ const sections = [
           <li><strong>Domicilio profesional:</strong> [Calle Asuncion Balaguer, Madrid, 28521 ]</li>
           <li>
             <strong>Correo electrónico de contacto:</strong>{" "}
-            [COMPLETAR CON UN CORREO VÁLIDO]
+            [alvarochaveinte1@gmail.com]
           </li>
         </ul>
         <p>
