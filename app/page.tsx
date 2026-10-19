@@ -839,4 +839,57 @@ export default function HomePage() {
       </main>
     </SiteShell>
   );
+        </section>
+
+        {/* PIE DE PÁGINA */}
+        <footer className="border-t border-slate-200 bg-white">
+          <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+            <div>
+              <Link
+                href="/"
+                className="text-lg font-bold tracking-tight text-slate-950 transition hover:text-blue-700"
+              >
+                Transport AI
+              </Link>
+
+              <p className="mt-2 max-w-md text-sm leading-6 text-slate-500">
+                Inteligencia artificial, automatización y software empresarial
+                para empresas de transporte, logística y servicios.
+              </p>
+
+              <p className="mt-3 text-xs text-slate-400">
+                © {new Date().getFullYear()} Transport AI. Todos los derechos reservados.
+              </p>
+            </div>
+
+            <nav
+              aria-label="Información legal"
+              className="flex flex-wrap gap-x-6 gap-y-3 text-sm"
+            >
+              <Link
+                href="/privacidad"
+                className="font-medium text-slate-600 transition hover:text-blue-700"
+              >
+                Política de privacidad
+              </Link>
+
+              <Link
+                href="/seguridad"
+                className="font-medium text-slate-600 transition hover:text-blue-700"
+              >
+                Seguridad
+              </Link>
+
+              <Link
+                href="/contacto"
+                className="font-medium text-slate-600 transition hover:text-blue-700"
+              >
+                Contacto
+              </Link>
+            </nav>
+          </div>
+        </footer>
+      </main>
+    </SiteShell>
+  );
 }
