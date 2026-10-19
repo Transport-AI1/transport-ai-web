@@ -1,4 +1,4 @@
-
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -21,13 +21,42 @@ import {
   LockKeyhole,
   MessageSquareText,
   CircleAlert,
-  Building2,
 } from "lucide-react";
 import {
   Eyebrow,
   SectionHeading,
   SiteShell,
 } from "./components/site-shell";
+
+export const metadata: Metadata = {
+  title:
+    "Inteligencia Artificial y Automatización para Empresas",
+  description:
+    "Transport AI desarrolla soluciones de inteligencia artificial, automatización de procesos, CRM e integraciones y software a medida para empresas de transporte, logística y otros sectores.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title:
+      "Transport AI | Inteligencia Artificial y Automatización Empresarial",
+    description:
+      "Automatiza procesos, conecta sistemas y mejora el control de tu empresa con soluciones de IA y software a medida.",
+    url: "/",
+    siteName: "Transport AI",
+    locale: "es_ES",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Transport AI | IA y Automatización para Empresas",
+    description:
+      "Soluciones de inteligencia artificial, automatización, integración de sistemas y software a medida para empresas.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
 
 const services = [
   {
@@ -228,7 +257,7 @@ export default function HomePage() {
                 <div className="relative h-[270px] sm:h-[340px]">
                   <img
                     src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=85"
-                    alt="Oficina moderna y luminosa"
+                    alt="Oficina moderna que representa la aplicación de tecnología en empresas"
                     className="h-full w-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/10 to-transparent" />
@@ -442,7 +471,7 @@ export default function HomePage() {
               <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900">
                 <img
                   src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=85"
-                  alt="Instalaciones logísticas y preparación de operaciones"
+                  alt="Instalaciones logísticas y preparación de operaciones de transporte"
                   className="h-56 w-full object-cover sm:h-72"
                 />
                 <div className="p-5 sm:p-7">
