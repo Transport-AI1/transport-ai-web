@@ -1,24 +1,39 @@
 
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
   Bot,
   CheckCircle2,
   CircleAlert,
-  Clock3,
   Headphones,
   MapPin,
-  MessageSquareText,
   ShieldCheck,
   Workflow,
   Truck,
   Package,
   Building2,
-  Mail,
-  PhoneCall,
   ChartNoAxesCombined,
 } from "lucide-react";
 import { Eyebrow, SiteShell } from "../components/site-shell";
+
+export const metadata: Metadata = {
+  title: "Demostraciones de IA para Transporte y Logística",
+  description:
+    "Descubre demostraciones de Transport AI: gestión logística, automatización de incidencias, atención al cliente con IA y software a medida para empresas.",
+  alternates: {
+    canonical: "/demostraciones",
+  },
+  openGraph: {
+    title: "Demostraciones de IA para Transporte y Logística | Transport AI",
+    description:
+      "Explora el MVP de Transport AI y soluciones de inteligencia artificial para automatizar operaciones, incidencias y procesos empresariales.",
+    url: "/demostraciones",
+    siteName: "Transport AI",
+    locale: "es_ES",
+    type: "website",
+  },
+};
 
 const mvpUrl = "https://transport-ai1-logistica.vercel.app/";
 
@@ -193,19 +208,17 @@ export default function DemonstrationsPage() {
 
           <div className="mt-14 overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 p-4 shadow-sm sm:p-7">
             <div className="flex flex-wrap items-center justify-between gap-4">
-              <div>
-                <div className="flex items-center gap-2">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-white">
-                    <Truck className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-slate-950">
-                      Transport AI
-                    </p>
-                    <p className="mt-1 text-xs text-slate-500">
-                      Centro de operaciones logísticas
-                    </p>
-                  </div>
+              <div className="flex items-center gap-2">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-white">
+                  <Truck className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-slate-950">
+                    Transport AI
+                  </p>
+                  <p className="mt-1 text-xs text-slate-500">
+                    Centro de operaciones logísticas
+                  </p>
                 </div>
               </div>
               <DemoBadge />
@@ -223,11 +236,7 @@ export default function DemonstrationsPage() {
                 </p>
 
                 <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-                  <Metric
-                    label="Pedidos activos"
-                    value="3"
-                    icon={Truck}
-                  />
+                  <Metric label="Pedidos activos" value="3" icon={Truck} />
                   <Metric
                     label="Anomalías pendientes"
                     value="4"
@@ -238,11 +247,7 @@ export default function DemonstrationsPage() {
                     value="12"
                     icon={Package}
                   />
-                  <Metric
-                    label="En reparto"
-                    value="2"
-                    icon={MapPin}
-                  />
+                  <Metric label="En reparto" value="2" icon={MapPin} />
                 </div>
 
                 <div className="mt-5 rounded-2xl border border-slate-200 bg-white p-5">
