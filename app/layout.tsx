@@ -1,34 +1,51 @@
+
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://transport-ai-web.vercel.app"),
+
   title: {
-    default: "Transport AI | Inteligencia Artificial para Transporte y Logística",
+    default:
+      "IA y Automatización para Empresas de Transporte | Transport AI",
     template: "%s | Transport AI",
   },
+
   description:
-    "Automatiza incidencias, atención al cliente y operaciones con inteligencia artificial. Soluciones para empresas de transporte, logística, mensajería y servicios con vehículos.",
+    "Automatiza incidencias, atención al cliente y operaciones con IA. Desarrollamos software e integraciones a medida para empresas de transporte, logística, mensajería y servicios con vehículos.",
+
   applicationName: "Transport AI",
+
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
+
   openGraph: {
-    title: "Transport AI | IA para Transporte y Logística",
+    title:
+      "IA y Automatización para Empresas de Transporte | Transport AI",
     description:
-      "Optimiza las operaciones de tu empresa con inteligencia artificial: gestión de incidencias, automatización y atención al cliente.",
+      "Reduce tareas manuales y automatiza incidencias, atención al cliente y operaciones con soluciones de inteligencia artificial a medida.",
     url: "/",
     siteName: "Transport AI",
     locale: "es_ES",
     type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "Transport AI | IA para Transporte y Logística",
+    title:
+      "IA y Automatización para Empresas de Transporte | Transport AI",
     description:
-      "Inteligencia artificial para automatizar operaciones, incidencias y atención al cliente en empresas.",
+      "Soluciones de IA para automatizar operaciones, incidencias y atención al cliente en empresas de transporte y logística.",
   },
 };
 
