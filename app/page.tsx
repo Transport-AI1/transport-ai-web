@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
@@ -30,17 +29,16 @@ import {
 } from "./components/site-shell";
 
 export const metadata: Metadata = {
-  title: "Inteligencia Artificial y Automatización para Empresas",
+  title: "IA y Automatización para Empresas de Transporte | Transport AI",
   description:
-    "Transport AI desarrolla soluciones de inteligencia artificial, automatización de procesos, CRM e integraciones y software a medida para empresas de transporte, logística y otros sectores.",
+    "Automatiza incidencias, atención al cliente y operaciones con inteligencia artificial. Soluciones de IA, CRM e integración de sistemas para empresas de transporte, logística, mensajería, mudanzas y servicios con vehículos.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title:
-      "Transport AI | Inteligencia Artificial y Automatización Empresarial",
+    title: "Transport AI | IA y Automatización para Transporte y Logística",
     description:
-      "Automatiza procesos, conecta sistemas y mejora el control de tu empresa con soluciones de IA y software a medida.",
+      "Automatiza procesos, centraliza incidencias y conecta los sistemas de tu empresa con soluciones de inteligencia artificial y software a medida.",
     url: "/",
     siteName: "Transport AI",
     locale: "es_ES",
@@ -48,9 +46,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Transport AI | IA y Automatización para Empresas",
+    title: "Transport AI | IA para Transporte y Logística",
     description:
-      "Soluciones de inteligencia artificial, automatización, integración de sistemas y software a medida para empresas.",
+      "Inteligencia artificial, automatización e integración de sistemas para empresas de transporte, logística, mensajería y servicios con vehículos.",
   },
   robots: {
     index: true,
