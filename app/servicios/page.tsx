@@ -5,14 +5,20 @@ import {
   ArrowUpRight,
   Bot,
   CheckCircle2,
+  Code2,
   Database,
+  Globe,
   GitBranch,
   Layers3,
   LockKeyhole,
   MessageSquare,
-  Workflow,
+  PhoneCall,
   ShieldCheck,
+  Workflow,
   Zap,
+  Sparkles,
+  MonitorSmartphone,
+  Headphones,
 } from "lucide-react";
 import {
   Eyebrow,
@@ -22,82 +28,139 @@ import {
 
 const solutions = [
   {
-    icon: Bot,
+    icon: Globe,
     number: "01",
+    title: "Diseño y desarrollo web",
+    description:
+      "Creamos páginas web profesionales para presentar tu empresa, explicar tus servicios y convertir visitas en oportunidades comerciales.",
+    examples: [
+      "Webs corporativas y páginas comerciales",
+      "Landing pages para captar clientes",
+      "Diseño adaptable a móviles, tablets y ordenadores",
+      "Formularios de contacto y conexión con WhatsApp",
+      "Optimización técnica básica para buscadores",
+    ],
+    tag: "Presencia digital",
+  },
+  {
+    icon: Bot,
+    number: "02",
     title: "Agentes de inteligencia artificial",
     description:
-      "Sistemas capaces de interpretar solicitudes, consultar información empresarial y ejecutar tareas dentro de límites definidos.",
+      "Incorporamos asistentes que pueden responder preguntas, consultar información y ayudar a tus clientes o empleados desde canales digitales.",
     examples: [
-      "Clasificación y tratamiento de solicitudes",
-      "Asistencia inteligente a equipos internos",
-      "Consulta de información empresarial",
-      "Escalado de casos que requieren intervención humana",
+      "Agentes de IA integrados en páginas web",
+      "Respuestas basadas en información de tu empresa",
+      "Captación y cualificación de potenciales clientes",
+      "Consulta de información y procedimientos",
+      "Derivación a una persona cuando sea necesario",
     ],
+    tag: "Atención inteligente",
   },
   {
-    icon: Workflow,
-    number: "02",
-    title: "Automatización de operaciones",
-    description:
-      "Conectamos eventos, reglas y acciones para reducir trabajo manual, eliminar tareas repetitivas y mejorar la trazabilidad.",
-    examples: [
-      "Creación y actualización de registros",
-      "Avisos y recordatorios automáticos",
-      "Gestión de incidencias y excepciones",
-      "Asignación inteligente de tareas",
-    ],
-  },
-  {
-    icon: Database,
+    icon: PhoneCall,
     number: "03",
-    title: "CRM, APIs e integraciones",
+    title: "Agentes de voz y llamadas con IA",
     description:
-      "Conectamos tus herramientas actuales para que los datos y las operaciones puedan fluir entre sistemas compatibles.",
+      "Diseñamos soluciones de voz para atender conversaciones telefónicas, recoger información y automatizar partes de la atención al cliente.",
     examples: [
-      "Integración con CRM y ERP",
-      "Sincronización de datos",
-      "Conexión entre aplicaciones",
-      "Validación y registro de operaciones",
+      "Recepción automatizada de llamadas",
+      "Respuesta a preguntas frecuentes",
+      "Recogida de datos y solicitudes",
+      "Registro y clasificación de conversaciones",
+      "Transferencia o escalado de casos complejos",
     ],
-  },
-  {
-    icon: Layers3,
-    number: "04",
-    title: "Plataformas y paneles a medida",
-    description:
-      "Diseñamos interfaces de trabajo que centralizan la información y permiten supervisar procesos desde un único entorno.",
-    examples: [
-      "Paneles de gestión y seguimiento",
-      "Roles y permisos por usuario",
-      "Control de tareas y estados",
-      "Accesos independientes por equipo o delegación",
-    ],
+    tag: "Comunicación por voz",
   },
   {
     icon: MessageSquare,
-    number: "05",
-    title: "Comunicación multicanal",
+    number: "04",
+    title: "Chatbots y asistentes conversacionales",
     description:
-      "Organizamos las comunicaciones con clientes y equipos, conectándolas con los procesos internos de tu empresa.",
+      "Creamos experiencias conversacionales para ayudar a los usuarios a encontrar información, resolver dudas y completar acciones.",
     examples: [
-      "Tratamiento de correos electrónicos",
-      "Notificaciones mediante canales compatibles",
-      "Registro de mensajes y respuestas",
-      "Derivación a una persona cuando sea necesario",
+      "Chat en páginas web",
+      "Asistentes para preguntas frecuentes",
+      "Orientación sobre productos y servicios",
+      "Recogida de datos de contacto",
+      "Conexión con sistemas empresariales compatibles",
     ],
+    tag: "Atención digital",
   },
   {
-    icon: GitBranch,
-    number: "06",
-    title: "Sistemas operativos especializados",
+    icon: Workflow,
+    number: "05",
+    title: "Automatización de tareas y procesos",
     description:
-      "Combinamos software, automatizaciones e inteligencia artificial para resolver necesidades operativas de principio a fin.",
+      "Conectamos herramientas y diseñamos flujos automáticos para reducir tareas repetitivas, ahorrar tiempo y mejorar la organización.",
     examples: [
-      "Coordinación de procesos empresariales",
-      "Detección de datos inconsistentes",
-      "Historial de actuaciones e incidencias",
-      "Métricas e informes de seguimiento",
+      "Automatización de tareas administrativas",
+      "Generación y envío de documentos",
+      "Avisos, recordatorios y seguimiento",
+      "Procesamiento de correos y formularios",
+      "Asignación de tareas y actualización de registros",
     ],
+    tag: "Productividad",
+  },
+  {
+    icon: Database,
+    number: "06",
+    title: "Integraciones, CRM y APIs",
+    description:
+      "Conectamos las aplicaciones que ya utiliza tu empresa para reducir duplicidades y facilitar el intercambio de información.",
+    examples: [
+      "Integraciones con CRM y ERP",
+      "Conexión entre páginas web y aplicaciones",
+      "Sincronización de datos entre herramientas",
+      "Integración con APIs disponibles",
+      "Validación y registro de operaciones",
+    ],
+    tag: "Sistemas conectados",
+  },
+  {
+    icon: Code2,
+    number: "07",
+    title: "Software y aplicaciones a medida",
+    description:
+      "Desarrollamos herramientas digitales adaptadas a las necesidades de tu negocio cuando las soluciones estándar no son suficientes.",
+    examples: [
+      "Aplicaciones web internas",
+      "Portales para clientes y empleados",
+      "Paneles de control y seguimiento",
+      "Gestión de usuarios, roles y permisos",
+      "Herramientas específicas para cada operativa",
+    ],
+    tag: "Desarrollo personalizado",
+  },
+  {
+    icon: Layers3,
+    number: "08",
+    title: "Paneles de gestión y análisis",
+    description:
+      "Centralizamos información relevante en interfaces claras para facilitar el seguimiento de la actividad y la toma de decisiones.",
+    examples: [
+      "Cuadros de mando empresariales",
+      "Indicadores y métricas operativas",
+      "Seguimiento de tareas y estados",
+      "Informes y visualización de datos",
+      "Vistas adaptadas a cada equipo",
+    ],
+    tag: "Control y visibilidad",
+  },
+  {
+    icon: MonitorSmartphone,
+    number: "09",
+    title: "Soluciones operativas sectoriales",
+    description:
+      "Combinamos desarrollo, automatización e inteligencia artificial para resolver necesidades concretas de empresas con procesos complejos.",
+    examples: [
+      "Gestión de incidencias y excepciones",
+      "Coordinación de equipos y operaciones",
+      "Detección de información inconsistente",
+      "Seguimiento de solicitudes y actuaciones",
+      "Digitalización de procesos existentes",
+    ],
+    tag: "Soluciones integrales",
   },
 ];
 
@@ -106,49 +169,79 @@ const principles = [
     icon: LockKeyhole,
     title: "Accesos y permisos",
     description:
-      "Cada usuario accede únicamente a la información y las funciones que le corresponden.",
+      "Diseñamos los permisos en función de los usuarios, los datos y las funciones que necesita cada perfil.",
   },
   {
     icon: GitBranch,
     title: "Trazabilidad",
     description:
-      "Registramos las acciones, los resultados y las excepciones relevantes del proceso.",
+      "Cuando el proyecto lo requiere, registramos las acciones, los resultados y las excepciones relevantes.",
   },
   {
     icon: ShieldCheck,
-    title: "Validación y control",
+    title: "Validación y supervisión",
     description:
-      "Definimos límites de actuación, pruebas y puntos de revisión humana.",
+      "Definimos pruebas, límites de actuación y puntos de revisión humana según el riesgo de cada proceso.",
   },
   {
     icon: Database,
     title: "Protección de datos",
     description:
-      "Diseñamos la solución teniendo en cuenta los datos tratados y los requisitos aplicables.",
+      "Evaluamos qué información se utiliza y qué medidas técnicas y organizativas requiere la solución.",
+  },
+];
+
+const process = [
+  {
+    number: "01",
+    title: "Entendemos tu necesidad",
+    description:
+      "Analizamos el problema, los objetivos y cómo trabaja actualmente tu empresa.",
+  },
+  {
+    number: "02",
+    title: "Definimos la solución",
+    description:
+      "Proponemos el alcance, las tecnologías, las integraciones y las fases del proyecto.",
+  },
+  {
+    number: "03",
+    title: "Desarrollamos y validamos",
+    description:
+      "Construimos la solución y comprobamos su funcionamiento con pruebas acordadas.",
+  },
+  {
+    number: "04",
+    title: "Implantamos y mejoramos",
+    description:
+      "Preparamos la puesta en marcha y, si se acuerda, el mantenimiento y la evolución.",
   },
 ];
 
 export default function ServicesPage() {
   return (
     <SiteShell>
-      <div className="bg-white text-slate-900">
-        <section className="relative overflow-hidden border-b border-slate-200">
+      <div className="overflow-hidden bg-white text-slate-900">
+        {/* HERO */}
+        <section className="relative border-b border-slate-200">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-white" />
           <div className="pointer-events-none absolute -right-20 top-0 h-80 w-80 rounded-full bg-blue-200/40 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-24 left-0 h-72 w-72 rounded-full bg-indigo-100/60 blur-3xl" />
 
           <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
             <div>
-              <Eyebrow>Soluciones tecnológicas</Eyebrow>
+              <Eyebrow>Web · Inteligencia artificial · Automatización</Eyebrow>
 
               <h1 className="mt-5 max-w-3xl text-4xl font-semibold leading-[1.08] tracking-[-0.045em] sm:text-5xl lg:text-6xl">
-                Tecnología que trabaja para{" "}
-                <span className="text-blue-600">tu empresa.</span>
+                Creamos tecnología para que tu empresa{" "}
+                <span className="text-blue-600">llegue más lejos.</span>
               </h1>
 
               <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
-                Desarrollamos soluciones de inteligencia artificial,
-                automatización e integración de software para mejorar procesos,
-                conectar herramientas y dar más control a tus operaciones.
+                Desarrollamos páginas web, agentes de inteligencia artificial,
+                asistentes de voz, automatizaciones y software a medida.
+                Conectamos la tecnología con los objetivos reales de tu negocio,
+                sea cual sea tu sector.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -161,10 +254,10 @@ export default function ServicesPage() {
                 </Link>
 
                 <Link
-                  href="/presupuestos"
+                  href="/demostraciones"
                   className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-7 py-4 text-sm font-semibold text-slate-700 transition hover:border-blue-300 hover:text-blue-700"
                 >
-                  Ver opciones de presupuesto
+                  Ver demostraciones
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
@@ -172,62 +265,73 @@ export default function ServicesPage() {
               <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-500">
                 <span className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 text-blue-600" />
-                  Adaptado a tus procesos
+                  Soluciones adaptadas a cada empresa
                 </span>
                 <span className="flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 text-blue-600" />
-                  Integración con tus herramientas
+                  Proyectos por fases y alcance definido
                 </span>
               </div>
             </div>
 
+            {/* VISUAL */}
             <div className="relative">
               <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl shadow-slate-900/10">
                 <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
                   <div>
                     <p className="text-sm font-semibold text-slate-900">
-                      Operaciones conectadas
+                      Ecosistema digital
                     </p>
                     <p className="mt-1 text-xs text-slate-500">
-                      Ejemplo visual de una solución empresarial
+                      Ejemplo visual de servicios conectados
                     </p>
                   </div>
                   <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700">
-                    Arquitectura modular
+                    Web + IA + procesos
                   </span>
                 </div>
 
                 <div className="grid gap-4 bg-slate-50 p-5 sm:p-7">
-                  <div className="rounded-2xl border border-blue-100 bg-white p-4 shadow-sm">
-                    <div className="flex items-center gap-3">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="rounded-2xl border border-slate-200 bg-white p-4">
                       <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-                        <Database className="h-5 w-5" />
+                        <Globe className="h-5 w-5" />
                       </div>
-                      <div>
-                        <p className="text-sm font-semibold">Sistemas existentes</p>
-                        <p className="mt-1 text-xs text-slate-500">
-                          CRM · correo · aplicaciones
-                        </p>
+                      <p className="mt-3 text-sm font-semibold">Páginas web</p>
+                      <p className="mt-1 text-xs leading-5 text-slate-500">
+                        Presencia digital y captación
+                      </p>
+                    </div>
+
+                    <div className="rounded-2xl border border-slate-200 bg-white p-4">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+                        <Headphones className="h-5 w-5" />
                       </div>
+                      <p className="mt-3 text-sm font-semibold">Agentes de IA</p>
+                      <p className="mt-1 text-xs leading-5 text-slate-500">
+                        Texto, voz y atención
+                      </p>
                     </div>
                   </div>
 
                   <div className="flex justify-center">
                     <div className="flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-2 text-xs font-medium text-blue-700">
                       <GitBranch className="h-4 w-4" />
-                      Integración de datos y procesos
+                      Sistemas y procesos conectados
                     </div>
                   </div>
 
                   <div className="rounded-2xl border border-blue-200 bg-white p-4 shadow-sm">
                     <div className="flex items-center gap-3">
                       <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-white">
-                        <Bot className="h-5 w-5" />
+                        <Workflow className="h-5 w-5" />
                       </div>
                       <div>
-                        <p className="text-sm font-semibold">Automatización e IA</p>
+                        <p className="text-sm font-semibold">
+                          Automatización empresarial
+                        </p>
                         <p className="mt-1 text-xs text-slate-500">
-                          Reglas · análisis · acciones controladas
+                          Tareas · integraciones · seguimiento
                         </p>
                       </div>
                     </div>
@@ -236,16 +340,21 @@ export default function ServicesPage() {
                   <div className="grid gap-3 sm:grid-cols-2">
                     <div className="rounded-xl border border-slate-200 bg-white p-4">
                       <Zap className="h-5 w-5 text-blue-600" />
-                      <p className="mt-3 text-sm font-semibold">Menos tareas manuales</p>
+                      <p className="mt-3 text-sm font-semibold">
+                        Menos trabajo repetitivo
+                      </p>
                       <p className="mt-1 text-xs leading-5 text-slate-500">
-                        Flujos diseñados para cada proceso.
+                        Más tiempo para tareas de valor.
                       </p>
                     </div>
+
                     <div className="rounded-xl border border-slate-200 bg-white p-4">
                       <ShieldCheck className="h-5 w-5 text-blue-600" />
-                      <p className="mt-3 text-sm font-semibold">Más supervisión</p>
+                      <p className="mt-3 text-sm font-semibold">
+                        Más control
+                      </p>
                       <p className="mt-1 text-xs leading-5 text-slate-500">
-                        Permisos, registros y validaciones.
+                        Procesos definidos y supervisables.
                       </p>
                     </div>
                   </div>
@@ -257,11 +366,12 @@ export default function ServicesPage() {
           </div>
         </section>
 
+        {/* SERVICIOS */}
         <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
           <SectionHeading
-            eyebrow="Áreas de especialización"
-            title="Una solución para cada reto operativo."
-            description="Desarrollamos componentes individuales o proyectos integrales. Definimos el alcance después de analizar tus necesidades, tus herramientas y la viabilidad técnica."
+            eyebrow="Qué hacemos"
+            title="Todo lo que tu empresa necesita para dar el siguiente paso."
+            description="Puedes contratar un servicio concreto o combinar varias soluciones en un proyecto integral. El alcance se define según tus objetivos, presupuesto y necesidades técnicas."
           />
 
           <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
@@ -273,7 +383,7 @@ export default function ServicesPage() {
                   key={solution.title}
                   className="group rounded-2xl border border-slate-200 bg-white p-6 transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-slate-900/5 sm:p-7"
                 >
-                  <div className="flex items-start justify-between">
+                  <div className="flex items-start justify-between gap-3">
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600 transition group-hover:bg-blue-600 group-hover:text-white">
                       <Icon className="h-6 w-6" />
                     </div>
@@ -282,7 +392,11 @@ export default function ServicesPage() {
                     </span>
                   </div>
 
-                  <h2 className="mt-6 text-xl font-semibold tracking-tight text-slate-900">
+                  <span className="mt-5 inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
+                    {solution.tag}
+                  </span>
+
+                  <h2 className="mt-4 text-xl font-semibold tracking-tight text-slate-900">
                     {solution.title}
                   </h2>
 
@@ -299,122 +413,203 @@ export default function ServicesPage() {
                         className="flex items-start gap-3 text-sm leading-6 text-slate-600"
                       >
                         <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-blue-600" />
-                        {example}
+                        <span>{example}</span>
                       </li>
                     ))}
                   </ul>
+
+                  <Link
+                    href="/contacto"
+                    className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-blue-700 transition hover:text-blue-800"
+                  >
+                    Consultar este servicio
+                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                  </Link>
                 </article>
               );
             })}
           </div>
         </section>
 
+        {/* SECTORES */}
         <section className="border-y border-slate-200 bg-slate-50">
-          <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 sm:py-24 lg:grid-cols-2">
-            <div>
-              <Eyebrow>Especialización sectorial</Eyebrow>
-              <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-slate-900 sm:text-4xl">
-                Tecnología adaptada a la realidad de tus operaciones.
-              </h2>
-              <p className="mt-5 leading-8 text-slate-600">
-                Trabajamos a partir de cómo funciona tu empresa. En transporte
-                y logística, por ejemplo, podemos estudiar procesos de
-                seguimiento, incidencias, comunicación con clientes y
-                coordinación de equipos. El mismo enfoque se puede aplicar a
-                otros sectores con necesidades operativas similares.
-              </p>
+          <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-24">
+            <div className="grid items-center gap-12 lg:grid-cols-2">
+              <div>
+                <Eyebrow>Para distintos sectores</Eyebrow>
 
-              <Link
-                href="/contacto"
-                className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-blue-700 transition hover:text-blue-800"
-              >
-                Analizar mi proceso
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
+                <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-slate-900 sm:text-4xl">
+                  No importa tu sector. Importa lo que necesitas mejorar.
+                </h2>
 
-            <div className="relative min-h-[320px] overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg shadow-slate-900/5">
-              <img
-                src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1400&q=85"
-                alt="Operaciones de almacén y logística"
-                className="absolute inset-0 h-full w-full object-cover"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/15 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
-                <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium text-white backdrop-blur">
-                  Ejemplo de aplicación sectorial
-                </span>
-                <h3 className="mt-4 max-w-md text-2xl font-semibold text-white sm:text-3xl">
-                  Más visibilidad. Procesos mejor coordinados.
-                </h3>
-                <p className="mt-3 max-w-lg text-sm leading-6 text-slate-200">
-                  Información conectada para ayudar a los equipos a detectar,
-                  gestionar y resolver excepciones.
+                <p className="mt-5 leading-8 text-slate-600">
+                  Trabajamos con empresas que quieren mejorar su presencia
+                  digital, atender mejor a sus clientes, reducir tareas
+                  repetitivas o conectar sus herramientas. Estudiamos cada caso
+                  para proponer una solución acorde a la operativa real del
+                  negocio.
                 </p>
+
+                <Link
+                  href="/contacto"
+                  className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-blue-700 transition hover:text-blue-800"
+                >
+                  Cuéntanos qué necesitas
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="rounded-2xl border border-slate-200 bg-white p-5">
+                  <Globe className="h-6 w-6 text-blue-600" />
+                  <h3 className="mt-4 font-semibold text-slate-900">
+                    Comercios y servicios
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">
+                    Webs comerciales, atención digital y automatización de
+                    consultas.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-slate-200 bg-white p-5">
+                  <Headphones className="h-6 w-6 text-blue-600" />
+                  <h3 className="mt-4 font-semibold text-slate-900">
+                    Atención al cliente
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">
+                    Agentes de texto y voz, clasificación de solicitudes y
+                    seguimiento.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-slate-200 bg-white p-5">
+                  <Database className="h-6 w-6 text-blue-600" />
+                  <h3 className="mt-4 font-semibold text-slate-900">
+                    Empresas y equipos internos
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">
+                    Integraciones, aplicaciones internas y procesos
+                    administrativos.
+                  </p>
+                </div>
+
+                <div className="rounded-2xl border border-blue-200 bg-blue-600 p-5 text-white shadow-lg shadow-blue-900/10">
+                  <Zap className="h-6 w-6 text-blue-100" />
+                  <h3 className="mt-4 font-semibold">
+                    Transporte y logística
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-blue-100">
+                    Nuestra especialidad: incidencias, seguimiento,
+                    coordinación y operaciones con vehículos.
+                  </p>
+                  <Link
+                    href="/ia-para-transporte-logistica"
+                    className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-blue-100"
+                  >
+                    Ver especialización
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
+        {/* FORMA DE TRABAJO */}
         <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
           <SectionHeading
-            eyebrow="Diseño responsable"
-            title="Automatizar no significa perder el control."
-            description="La seguridad y la supervisión forman parte del diseño de la solución, no son un añadido de última hora."
+            eyebrow="Cómo trabajamos"
+            title="De una necesidad concreta a una solución útil."
+            description="Priorizamos los objetivos del negocio, la viabilidad técnica y una implantación controlada."
           />
 
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {principles.map((principle) => {
-              const Icon = principle.icon;
-
-              return (
-                <article
-                  key={principle.title}
-                  className="rounded-2xl border border-slate-200 bg-white p-6"
-                >
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <h3 className="mt-5 font-semibold text-slate-900">
-                    {principle.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-7 text-slate-600">
-                    {principle.description}
-                  </p>
-                </article>
-              );
-            })}
+            {process.map((step) => (
+              <article
+                key={step.number}
+                className="rounded-2xl border border-slate-200 bg-white p-6"
+              >
+                <span className="text-sm font-semibold tracking-[0.18em] text-blue-600">
+                  {step.number}
+                </span>
+                <h3 className="mt-5 text-lg font-semibold text-slate-900">
+                  {step.title}
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600">
+                  {step.description}
+                </p>
+              </article>
+            ))}
           </div>
         </section>
 
-        <section className="px-5 pb-20 sm:px-8 sm:pb-28">
+        {/* SEGURIDAD */}
+        <section className="border-y border-slate-200 bg-slate-50">
+          <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-24">
+            <SectionHeading
+              eyebrow="Diseño responsable"
+              title="La automatización debe ayudarte, no quitarte el control."
+              description="La seguridad, la supervisión y la protección de datos deben adaptarse al funcionamiento y al riesgo de cada proyecto."
+            />
+
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {principles.map((principle) => {
+                const Icon = principle.icon;
+
+                return (
+                  <article
+                    key={principle.title}
+                    className="rounded-2xl border border-slate-200 bg-white p-6"
+                  >
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <h3 className="mt-5 font-semibold text-slate-900">
+                      {principle.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-7 text-slate-600">
+                      {principle.description}
+                    </p>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="px-5 py-20 sm:px-8 sm:py-28">
           <div className="mx-auto max-w-5xl overflow-hidden rounded-3xl bg-slate-950 px-6 py-12 text-center sm:px-12 sm:py-16">
             <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-blue-400">
-              <ArrowUpRight className="h-6 w-6" />
+              <Sparkles className="h-6 w-6" />
             </div>
 
             <p className="mt-6 text-xs font-semibold uppercase tracking-[0.22em] text-blue-400">
-              Siguiente paso
+              Cuéntanos tu idea
             </p>
 
             <h2 className="mx-auto mt-4 max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-5xl">
-              Empecemos por el proceso que quieres mejorar.
+              ¿Qué te gustaría mejorar en tu empresa?
             </h2>
 
             <p className="mx-auto mt-5 max-w-2xl leading-7 text-slate-300">
-              Analizaremos el objetivo, las herramientas disponibles y las
-              dependencias técnicas para preparar una propuesta con alcance,
-              fases y criterios de validación definidos.
+              Tanto si necesitas una web nueva como si quieres incorporar un
+              agente de IA, automatizar tareas o desarrollar una herramienta
+              específica, estudiaremos contigo el enfoque más adecuado.
             </p>
 
             <Link
               href="/contacto"
               className="mt-8 inline-flex items-center gap-2 rounded-full bg-blue-500 px-7 py-4 text-sm font-semibold text-white transition hover:bg-blue-400"
             >
-              Hablar de mi proyecto
+              Hablemos de tu proyecto
               <ArrowRight className="h-4 w-4" />
             </Link>
+
+            <p className="mt-5 text-xs leading-6 text-slate-400">
+              Cada proyecto se valora según su alcance, complejidad e
+              integraciones necesarias.
+            </p>
           </div>
         </section>
       </div>
