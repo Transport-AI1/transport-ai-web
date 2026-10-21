@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
@@ -26,7 +27,6 @@ import {
   LockKeyhole,
   Layers3,
   Monitor,
-  Play,
 } from "lucide-react";
 
 import { Eyebrow, SiteShell } from "../components/site-shell";
@@ -49,7 +49,10 @@ export const metadata: Metadata = {
   },
 };
 
-const corporateUrl = "https://transport-ai-web-corporativa.vercel.app/";
+const corporateUrl =
+  "https://transport-ai-web-corporativa.vercel.app/";
+const restaurantUrl =
+  "https://transport-ai-restaurant.vercel.app/";
 const mvpUrl = "https://transport-ai1-logistica.vercel.app/";
 
 const categories = [
@@ -81,7 +84,6 @@ type Demo = {
     | "dashboard"
     | "crm"
     | "transport";
-  accent: string;
   status: string;
   href?: string;
   live?: boolean;
@@ -97,7 +99,6 @@ const demos: Demo[] = [
       "Una web moderna para presentar una empresa, mostrar sus servicios y convertir visitas en oportunidades comerciales.",
     tags: ["Diseño web", "Responsive", "Imagen de marca"],
     preview: "corporate",
-    accent: "blue",
     status: "Demostración disponible",
     href: corporateUrl,
     live: true,
@@ -106,13 +107,14 @@ const demos: Demo[] = [
     number: "02",
     id: "restaurante",
     category: "Páginas web",
-    title: "Web para restaurante",
+    title: "Web profesional para restaurante",
     description:
-      "Una presencia digital para restaurantes con carta, fotografías, información del local y vías de contacto para clientes.",
-    tags: ["Restauración", "Carta digital", "Móvil"],
+      "Una web gastronómica con carta digital, fotografías, presentación del establecimiento y una experiencia adaptada a móviles.",
+    tags: ["Diseño web", "Carta digital", "Restauración"],
     preview: "restaurant",
-    accent: "orange",
-    status: "Concepto visual",
+    status: "Demostración disponible online",
+    href: restaurantUrl,
+    live: true,
   },
   {
     number: "03",
@@ -123,7 +125,6 @@ const demos: Demo[] = [
       "Una página centrada en presentar una oferta, explicar su valor y facilitar que los clientes potenciales contacten.",
     tags: ["Captación", "Conversión", "Diseño"],
     preview: "landing",
-    accent: "purple",
     status: "Concepto visual",
   },
   {
@@ -135,7 +136,6 @@ const demos: Demo[] = [
       "Una experiencia visual para mostrar productos, organizar categorías y preparar una tienda digital adaptada a móviles.",
     tags: ["Catálogo", "E-commerce", "Productos"],
     preview: "shop",
-    accent: "green",
     status: "Concepto visual",
   },
   {
@@ -147,7 +147,6 @@ const demos: Demo[] = [
       "Un asistente que responde preguntas, explica servicios y ayuda a los visitantes a encontrar la información que necesitan.",
     tags: ["Asistente IA", "Atención al cliente", "Web"],
     preview: "chat",
-    accent: "blue",
     status: "Concepto visual",
   },
   {
@@ -159,7 +158,6 @@ const demos: Demo[] = [
       "Un asistente conversacional para atender consultas, orientar a los usuarios y facilitar la gestión de solicitudes.",
     tags: ["Voz", "Conversación", "Automatización"],
     preview: "voice",
-    accent: "purple",
     status: "Concepto visual",
   },
   {
@@ -171,7 +169,6 @@ const demos: Demo[] = [
       "Conecta tareas, aplicaciones y notificaciones para reducir trabajo repetitivo y mejorar el seguimiento de cada proceso.",
     tags: ["Flujos", "Integraciones", "Productividad"],
     preview: "automation",
-    accent: "green",
     status: "Concepto visual",
   },
   {
@@ -183,7 +180,6 @@ const demos: Demo[] = [
       "Un panel de control para consultar indicadores, revisar actividad y visualizar información importante en un solo lugar.",
     tags: ["Indicadores", "Informes", "Datos"],
     preview: "dashboard",
-    accent: "blue",
     status: "Concepto visual",
   },
   {
@@ -195,7 +191,6 @@ const demos: Demo[] = [
       "Una interfaz para centralizar clientes, organizar oportunidades comerciales y consultar el estado de cada seguimiento.",
     tags: ["CRM", "Clientes", "Seguimiento"],
     preview: "crm",
-    accent: "purple",
     status: "Concepto visual",
   },
   {
@@ -207,7 +202,6 @@ const demos: Demo[] = [
       "Un MVP orientado al transporte para centralizar operaciones, consultar incidencias y visualizar información relevante.",
     tags: ["Logística", "Incidencias", "Operaciones"],
     preview: "transport",
-    accent: "green",
     status: "MVP disponible online",
     href: mvpUrl,
     live: true,
@@ -247,9 +241,11 @@ function PreviewWindow({ demo }: { demo: Demo }) {
         >
           {demo.preview === "corporate"
             ? "transport-ai-web-corporativa.vercel.app"
-            : demo.preview === "transport"
-              ? "transport-ai · operaciones"
-              : `demo.transport-ai.es/${demo.id}`}
+            : demo.preview === "restaurant"
+              ? "transport-ai-restaurant.vercel.app"
+              : demo.preview === "transport"
+                ? "transport-ai · operaciones"
+                : `demo.transport-ai.es/${demo.id}`}
         </div>
 
         <Monitor
@@ -261,13 +257,13 @@ function PreviewWindow({ demo }: { demo: Demo }) {
 
       <div className="min-h-[230px] p-4 sm:min-h-[260px] sm:p-5">
         {demo.preview === "corporate" && (
-          <div className="flex h-full min-h-[195px] flex-col overflow-hidden rounded-xl bg-slate-950 p-5 text-white sm:p-6">
+          <div className="flex min-h-[220px] flex-col overflow-hidden rounded-xl bg-slate-950 p-5 text-white sm:p-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-xs font-bold">
                 <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-500">
                   <Sparkles className="h-4 w-4" />
                 </span>
-                <span>Transport AI</span>
+                Transport AI
               </div>
               <span className="text-[9px] text-slate-400">
                 WEB · IA · SOFTWARE
@@ -284,12 +280,12 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                 Procesos más inteligentes.
               </h3>
               <p className="mt-3 max-w-xs text-xs leading-5 text-slate-300">
-                Diseño web, inteligencia artificial y automatización adaptados
-                a cada negocio.
+                Diseño web, inteligencia artificial y automatización
+                adaptados a cada negocio.
               </p>
-              <div className="mt-5 inline-flex items-center gap-2 rounded-lg bg-blue-500 px-4 py-2 text-xs font-semibold">
+              <span className="mt-5 inline-flex items-center gap-2 rounded-lg bg-blue-500 px-4 py-2 text-xs font-semibold">
                 Descubrir soluciones <ArrowRight className="h-3.5 w-3.5" />
-              </div>
+              </span>
             </div>
 
             <div className="grid grid-cols-3 gap-2">
@@ -308,31 +304,48 @@ function PreviewWindow({ demo }: { demo: Demo }) {
         )}
 
         {demo.preview === "restaurant" && (
-          <div className="overflow-hidden rounded-xl bg-[#f6efe4] text-[#30271f]">
-            <div className="flex items-center justify-between border-b border-[#ded2c0] px-4 py-3">
-              <div className="font-serif text-sm font-bold">
-                EL PATIO
+          <div className="overflow-hidden rounded-xl bg-[#f6f4ed] text-[#20271f]">
+            <div className="flex items-center justify-between border-b border-[#dedccf] px-4 py-3">
+              <div className="font-serif text-xs font-bold tracking-wide sm:text-sm">
+                TRANSPORT AI
+                <span className="ml-1 text-[#68734b]">RESTAURANT</span>
               </div>
               <Utensils className="h-4 w-4" />
             </div>
+
             <div className="grid grid-cols-2 gap-3 p-4">
-              <div className="flex flex-col justify-center">
-                <p className="text-[9px] uppercase tracking-widest text-[#8d6242]">
-                  Cocina tradicional
+              <div className="flex flex-col justify-center py-2">
+                <p className="text-[9px] uppercase tracking-widest text-[#68734b]">
+                  Diseño gastronómico
                 </p>
-                <h3 className="mt-2 font-serif text-xl font-bold leading-tight">
-                  El sabor de siempre
+                <h3 className="mt-2 font-serif text-xl font-bold leading-tight sm:text-2xl">
+                  Una experiencia para saborear.
                 </h3>
-                <p className="mt-2 text-[10px] leading-4 text-[#68584a]">
-                  Platos para disfrutar y compartir.
+                <p className="mt-2 text-[10px] leading-4 text-[#686b5e]">
+                  Carta digital, imagen cuidada y una web hecha para tu negocio.
                 </p>
-                <span className="mt-3 w-fit rounded-full bg-[#8c4b2d] px-3 py-2 text-[9px] font-semibold text-white">
-                  Ver la carta
+                <span className="mt-3 inline-flex w-fit items-center gap-1 rounded-full bg-[#3d4932] px-3 py-2 text-[9px] font-semibold text-white">
+                  Ver demostración <ArrowRight className="h-3 w-3" />
                 </span>
               </div>
-              <div className="flex min-h-[145px] items-center justify-center rounded-lg bg-gradient-to-br from-amber-200 via-orange-200 to-rose-300">
-                <Utensils className="h-12 w-12 text-[#8c4b2d]" />
+              <div className="flex min-h-[150px] flex-col items-center justify-center rounded-lg bg-[#e5e6d9] p-3 text-center">
+                <Utensils className="h-10 w-10 text-[#68734b]" />
+                <span className="mt-3 text-[9px] font-semibold uppercase tracking-widest text-[#3d4932]">
+                  Web para restauración
+                </span>
               </div>
+            </div>
+            <div className="grid grid-cols-3 gap-2 px-4 pb-4">
+              {["Carta digital", "Diseño responsive", "Contacto"].map(
+                (item) => (
+                  <div
+                    key={item}
+                    className="rounded-lg border border-[#dedccf] bg-white/70 p-2 text-center text-[9px]"
+                  >
+                    {item}
+                  </div>
+                ),
+              )}
             </div>
           </div>
         )}
@@ -355,9 +368,9 @@ function PreviewWindow({ demo }: { demo: Demo }) {
               <p className="mt-3 max-w-xs text-[10px] leading-5 text-violet-100">
                 Comunica mejor tu propuesta y convierte visitas en clientes.
               </p>
-              <div className="mt-5 inline-flex items-center gap-2 rounded-lg bg-white px-3 py-2 text-[10px] font-bold text-indigo-950">
+              <span className="mt-5 inline-flex items-center gap-2 rounded-lg bg-white px-3 py-2 text-[10px] font-bold text-indigo-950">
                 Solicitar información <ArrowRight className="h-3 w-3" />
-              </div>
+              </span>
             </div>
           </div>
         )}
@@ -371,23 +384,21 @@ function PreviewWindow({ demo }: { demo: Demo }) {
               <span className="text-[10px] text-slate-500">Catálogo</span>
             </div>
             <div className="mt-3 grid grid-cols-3 gap-2">
-              {[
-                "bg-amber-100",
-                "bg-rose-100",
-                "bg-emerald-100",
-              ].map((color, index) => (
-                <div key={color} className="min-w-0">
-                  <div
-                    className={`flex h-20 items-center justify-center rounded-lg ${color}`}
-                  >
-                    <Package className="h-7 w-7 text-slate-600" />
+              {["bg-amber-100", "bg-rose-100", "bg-emerald-100"].map(
+                (color, index) => (
+                  <div key={color} className="min-w-0">
+                    <div
+                      className={`flex h-20 items-center justify-center rounded-lg ${color}`}
+                    >
+                      <Package className="h-7 w-7 text-slate-600" />
+                    </div>
+                    <p className="mt-2 truncate text-[9px] font-semibold text-slate-800">
+                      Producto {index + 1}
+                    </p>
+                    <p className="text-[9px] text-slate-500">Desde 29 €</p>
                   </div>
-                  <p className="mt-2 truncate text-[9px] font-semibold text-slate-800">
-                    Producto {index + 1}
-                  </p>
-                  <p className="text-[9px] text-slate-500">Desde 29 €</p>
-                </div>
-              ))}
+                ),
+              )}
             </div>
           </div>
         )}
@@ -403,7 +414,7 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                   Asistente de Transport AI
                 </p>
                 <p className="text-[10px] text-emerald-600">
-                  Asistente virtual
+                  Ejemplo de conversación
                 </p>
               </div>
             </div>
@@ -415,19 +426,17 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                 Quiero información sobre vuestros servicios.
               </div>
               <div className="max-w-[85%] rounded-xl rounded-tl-none bg-slate-100 p-3 text-[10px] leading-4 text-slate-700">
-                Claro. Puedo explicarte las soluciones y ayudarte a contactar
-                con el equipo.
+                Puedo explicarte las soluciones y ayudarte a contactar con el equipo.
               </div>
             </div>
             <div className="flex items-center justify-between rounded-lg border px-3 py-2 text-[10px] text-slate-400">
-              Escribe tu consulta...
-              <MessageSquare className="h-3.5 w-3.5" />
+              Escribe tu consulta... <MessageSquare className="h-3.5 w-3.5" />
             </div>
           </div>
         )}
 
         {demo.preview === "voice" && (
-          <div className="flex min-h-[195px] flex-col items-center justify-center rounded-xl bg-gradient-to-br from-violet-950 to-indigo-800 p-5 text-white">
+          <div className="flex min-h-[220px] flex-col items-center justify-center rounded-xl bg-gradient-to-br from-violet-950 to-indigo-800 p-5 text-white">
             <div className="flex h-16 w-16 items-center justify-center rounded-full border border-white/20 bg-white/10">
               <Headphones className="h-8 w-8" />
             </div>
@@ -453,7 +462,7 @@ function PreviewWindow({ demo }: { demo: Demo }) {
         )}
 
         {demo.preview === "automation" && (
-          <div className="flex min-h-[195px] flex-col justify-center rounded-xl bg-slate-50 p-4">
+          <div className="flex min-h-[220px] flex-col justify-center rounded-xl bg-slate-50 p-4">
             <div className="mb-4 flex items-center justify-between">
               <span className="text-xs font-bold text-slate-900">
                 Flujo automatizado
@@ -467,13 +476,10 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                 { label: "Resultado", icon: CheckCircle2, color: "bg-emerald-100 text-emerald-700" },
               ].map((step, index) => {
                 const Icon = step.icon;
-
                 return (
                   <div key={step.label} className="relative">
                     <div className="flex min-h-[88px] flex-col items-center justify-center rounded-xl border border-slate-200 bg-white p-2 text-center">
-                      <div
-                        className={`flex h-8 w-8 items-center justify-center rounded-lg ${step.color}`}
-                      >
+                      <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${step.color}`}>
                         <Icon className="h-4 w-4" />
                       </div>
                       <span className="mt-2 text-[9px] font-semibold text-slate-700">
@@ -507,14 +513,9 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                 { label: "Procesos", value: "86" },
                 { label: "Pendientes", value: "12" },
               ].map((item) => (
-                <div
-                  key={item.label}
-                  className="rounded-lg border border-slate-200 bg-white p-2"
-                >
+                <div key={item.label} className="rounded-lg border border-slate-200 bg-white p-2">
                   <p className="text-[9px] text-slate-500">{item.label}</p>
-                  <p className="mt-1 text-lg font-bold text-slate-900">
-                    {item.value}
-                  </p>
+                  <p className="mt-1 text-lg font-bold text-slate-900">{item.value}</p>
                 </div>
               ))}
             </div>
@@ -546,10 +547,7 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                 { name: "Grupo Central", state: "En seguimiento", color: "bg-amber-100 text-amber-700" },
                 { name: "Servicios Delta", state: "Contactado", color: "bg-emerald-100 text-emerald-700" },
               ].map((client) => (
-                <div
-                  key={client.name}
-                  className="flex items-center justify-between gap-2 rounded-lg border border-slate-200 bg-white p-3"
-                >
+                <div key={client.name} className="flex items-center justify-between gap-2 rounded-lg border border-slate-200 bg-white p-3">
                   <div className="flex min-w-0 items-center gap-2">
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-100">
                       <Building2 className="h-4 w-4 text-slate-600" />
@@ -584,10 +582,7 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                 { label: "Resueltas IA", value: "31" },
                 { label: "Pendientes", value: "9" },
               ].map((item) => (
-                <div
-                  key={item.label}
-                  className="rounded-lg border border-slate-800 bg-slate-900 p-2"
-                >
+                <div key={item.label} className="rounded-lg border border-slate-800 bg-slate-900 p-2">
                   <p className="text-[9px] text-slate-400">{item.label}</p>
                   <p className="mt-2 text-xl font-bold">{item.value}</p>
                 </div>
@@ -596,7 +591,7 @@ function PreviewWindow({ demo }: { demo: Demo }) {
             <div className="mt-3 space-y-2">
               <div className="flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900 p-2.5">
                 <CircleAlert className="h-4 w-4 shrink-0 text-amber-400" />
-                <div className="min-w-0">
+                <div>
                   <p className="text-[10px] font-semibold">Incidencia de dirección</p>
                   <p className="mt-0.5 text-[9px] text-slate-400">
                     Revisión de datos de entrega
@@ -605,7 +600,7 @@ function PreviewWindow({ demo }: { demo: Demo }) {
               </div>
               <div className="flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900 p-2.5">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400" />
-                <div className="min-w-0">
+                <div>
                   <p className="text-[10px] font-semibold">Seguimiento automatizado</p>
                   <p className="mt-0.5 text-[9px] text-slate-400">
                     Información centralizada
@@ -625,7 +620,7 @@ export default function DemonstrationsPage() {
     <SiteShell>
       <main className="overflow-hidden">
         <section className="relative border-b border-slate-200 bg-white">
-          <div className="absolute inset-0 -z-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-50 via-white to-white" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-50 via-white to-white" />
 
           <div className="relative mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24">
             <div className="max-w-3xl">
@@ -641,8 +636,7 @@ export default function DemonstrationsPage() {
               <p className="mt-6 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
                 Descubre ejemplos de páginas web profesionales, asistentes de
                 inteligencia artificial, automatizaciones y software empresarial.
-                Desarrollamos soluciones adaptadas a las necesidades de cada
-                negocio.
+                Desarrollamos soluciones adaptadas a las necesidades de cada negocio.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -650,16 +644,14 @@ export default function DemonstrationsPage() {
                   href="#catalogo"
                   className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-blue-700"
                 >
-                  Explorar demostraciones
-                  <ArrowRight className="h-4 w-4" />
+                  Explorar demostraciones <ArrowRight className="h-4 w-4" />
                 </a>
 
                 <Link
                   href="/contacto"
                   className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3.5 text-sm font-semibold text-slate-800 transition hover:border-blue-300 hover:text-blue-700"
                 >
-                  Cuéntanos tu proyecto
-                  <ArrowUpRight className="h-4 w-4" />
+                  Cuéntanos tu proyecto <ArrowUpRight className="h-4 w-4" />
                 </Link>
               </div>
 
@@ -681,43 +673,19 @@ export default function DemonstrationsPage() {
 
             <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-4">
               {[
-                {
-                  icon: Globe,
-                  title: "Páginas web",
-                  text: "Presencia digital",
-                },
-                {
-                  icon: Bot,
-                  title: "Inteligencia artificial",
-                  text: "Asistentes inteligentes",
-                },
-                {
-                  icon: Workflow,
-                  title: "Automatización",
-                  text: "Procesos conectados",
-                },
-                {
-                  icon: Layers3,
-                  title: "Software",
-                  text: "Herramientas de gestión",
-                },
+                { icon: Globe, title: "Páginas web", text: "Presencia digital" },
+                { icon: Bot, title: "Inteligencia artificial", text: "Asistentes inteligentes" },
+                { icon: Workflow, title: "Automatización", text: "Procesos conectados" },
+                { icon: Layers3, title: "Software", text: "Herramientas de gestión" },
               ].map((item) => {
                 const Icon = item.icon;
-
                 return (
-                  <div
-                    key={item.title}
-                    className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5"
-                  >
+                  <div key={item.title} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-700">
                       <Icon className="h-5 w-5" />
                     </div>
-                    <h2 className="mt-4 text-sm font-semibold text-slate-900">
-                      {item.title}
-                    </h2>
-                    <p className="mt-1 text-xs leading-5 text-slate-500">
-                      {item.text}
-                    </p>
+                    <h2 className="mt-4 text-sm font-semibold text-slate-900">{item.title}</h2>
+                    <p className="mt-1 text-xs leading-5 text-slate-500">{item.text}</p>
                   </div>
                 );
               })}
@@ -725,10 +693,7 @@ export default function DemonstrationsPage() {
           </div>
         </section>
 
-        <section
-          id="catalogo"
-          className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20"
-        >
+        <section id="catalogo" className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
           <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
             <div>
               <Eyebrow>Catálogo de soluciones</Eyebrow>
@@ -736,12 +701,10 @@ export default function DemonstrationsPage() {
                 Explora lo que podemos construir
               </h2>
               <p className="mt-4 max-w-2xl text-sm leading-6 text-slate-600 sm:text-base">
-                Cada proyecto parte de un objetivo de negocio. Explora los
-                ejemplos y descubre qué tipo de solución puede encajar con tu
-                empresa.
+                Cada proyecto parte de un objetivo de negocio. Explora los ejemplos
+                y descubre qué tipo de solución puede encajar con tu empresa.
               </p>
             </div>
-
             <div className="flex items-center gap-2 text-sm text-slate-500">
               <Layers3 className="h-4 w-4" />
               {demos.length} demostraciones
@@ -749,22 +712,25 @@ export default function DemonstrationsPage() {
           </div>
 
           <div className="mt-8 flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <a
-                key={category}
-                href={
-                  category === "Todos"
-                    ? "#catalogo"
-                    : `#${category
-                        .toLowerCase()
-                        .replaceAll(" ", "-")
-                        .replaceAll("í", "i")}`
-                }
-                className="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-medium text-slate-600 transition hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700"
-              >
-                {category}
-              </a>
-            ))}
+            {categories.map((category) => {
+              const sectionId =
+                category === "Todos"
+                  ? "catalogo"
+                  : category
+                      .toLowerCase()
+                      .replaceAll(" ", "-")
+                      .replaceAll("í", "i");
+
+              return (
+                <a
+                  key={category}
+                  href={`#${sectionId}`}
+                  className="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-medium text-slate-600 transition hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700"
+                >
+                  {category}
+                </a>
+              );
+            })}
           </div>
 
           <div className="mt-10 space-y-14">
@@ -799,14 +765,10 @@ export default function DemonstrationsPage() {
                         )}
                       </div>
                       <div>
-                        <h3 className="text-lg font-semibold text-slate-950">
-                          {category}
-                        </h3>
+                        <h3 className="text-lg font-semibold text-slate-950">{category}</h3>
                         <p className="text-xs text-slate-500">
                           {categoryDemos.length}{" "}
-                          {categoryDemos.length === 1
-                            ? "demostración"
-                            : "demostraciones"}
+                          {categoryDemos.length === 1 ? "demostración" : "demostraciones"}
                         </p>
                       </div>
                     </div>
@@ -826,7 +788,6 @@ export default function DemonstrationsPage() {
                               <span className="text-[11px] font-semibold uppercase tracking-[0.15em] text-slate-400">
                                 DEMO {demo.number}
                               </span>
-
                               <span
                                 className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-semibold ${
                                   demo.live
@@ -846,7 +807,6 @@ export default function DemonstrationsPage() {
                             <h3 className="mt-4 text-lg font-semibold tracking-tight text-slate-950">
                               {demo.title}
                             </h3>
-
                             <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">
                               {demo.description}
                             </p>
@@ -875,9 +835,7 @@ export default function DemonstrationsPage() {
                                 </a>
                               ) : (
                                 <Link
-                                  href={`/contacto?servicio=${encodeURIComponent(
-                                    demo.title,
-                                  )}`}
+                                  href={`/contacto?servicio=${encodeURIComponent(demo.title)}`}
                                   className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-800 transition hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700"
                                 >
                                   Quiero una solución así
@@ -903,56 +861,30 @@ export default function DemonstrationsPage() {
                 No se trata solo de tecnología. Se trata de resolver problemas.
               </h2>
               <p className="mt-5 text-sm leading-7 text-slate-600 sm:text-base">
-                Analizamos las necesidades de tu empresa para diseñar una
-                solución útil, con funcionalidades concretas y un alcance
-                adaptado a tus objetivos.
+                Analizamos las necesidades de tu empresa para diseñar una solución
+                útil, con funcionalidades concretas y un alcance adaptado a tus objetivos.
               </p>
               <Link
                 href="/contacto"
                 className="mt-7 inline-flex items-center gap-2 rounded-xl bg-slate-950 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-blue-700"
               >
-                Hablar sobre mi proyecto
-                <ArrowRight className="h-4 w-4" />
+                Hablar sobre mi proyecto <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
               {[
-                {
-                  icon: CircleAlert,
-                  title: "1. Identificar",
-                  text: "Entendemos el problema y el resultado que necesitas.",
-                },
-                {
-                  icon: Layers3,
-                  title: "2. Diseñar",
-                  text: "Definimos una solución y las funcionalidades prioritarias.",
-                },
-                {
-                  icon: Code2,
-                  title: "3. Desarrollar",
-                  text: "Construimos una solución adaptada a tu negocio.",
-                },
-                {
-                  icon: ShieldCheck,
-                  title: "4. Mejorar",
-                  text: "Revisamos el funcionamiento y las necesidades futuras.",
-                },
+                { icon: CircleAlert, title: "1. Identificar", text: "Entendemos el problema y el resultado que necesitas." },
+                { icon: Layers3, title: "2. Diseñar", text: "Definimos una solución y las funcionalidades prioritarias." },
+                { icon: Code2, title: "3. Desarrollar", text: "Construimos una solución adaptada a tu negocio." },
+                { icon: ShieldCheck, title: "4. Mejorar", text: "Revisamos el funcionamiento y las necesidades futuras." },
               ].map((step) => {
                 const Icon = step.icon;
-
                 return (
-                  <div
-                    key={step.title}
-                    className="rounded-2xl border border-slate-200 bg-white p-5"
-                  >
+                  <div key={step.title} className="rounded-2xl border border-slate-200 bg-white p-5">
                     <Icon className="h-5 w-5 text-blue-600" />
-                    <h3 className="mt-4 text-sm font-semibold text-slate-950">
-                      {step.title}
-                    </h3>
-                    <p className="mt-2 text-xs leading-5 text-slate-600">
-                      {step.text}
-                    </p>
+                    <h3 className="mt-4 text-sm font-semibold text-slate-950">{step.title}</h3>
+                    <p className="mt-2 text-xs leading-5 text-slate-600">{step.text}</p>
                   </div>
                 );
               })}
@@ -962,8 +894,8 @@ export default function DemonstrationsPage() {
 
         <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
           <div className="relative overflow-hidden rounded-3xl bg-slate-950 px-6 py-10 text-white sm:px-10 sm:py-14 lg:px-14">
-            <div className="absolute -right-16 -top-24 h-64 w-64 rounded-full bg-blue-500/20 blur-3xl" />
-            <div className="absolute -bottom-24 left-1/3 h-56 w-56 rounded-full bg-violet-500/10 blur-3xl" />
+            <div className="pointer-events-none absolute -right-16 -top-24 h-64 w-64 rounded-full bg-blue-500/20 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-24 left-1/3 h-56 w-56 rounded-full bg-violet-500/10 blur-3xl" />
 
             <div className="relative grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
               <div className="max-w-2xl">
@@ -973,8 +905,7 @@ export default function DemonstrationsPage() {
                 </h2>
                 <p className="mt-4 text-sm leading-7 text-slate-300 sm:text-base">
                   Cuéntanos qué quieres mejorar y estudiaremos qué tipo de web,
-                  automatización o herramienta de inteligencia artificial puede
-                  ayudarte.
+                  automatización o herramienta de inteligencia artificial puede ayudarte.
                 </p>
               </div>
 
@@ -983,10 +914,8 @@ export default function DemonstrationsPage() {
                   href="/contacto"
                   className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3.5 text-sm font-semibold text-slate-950 transition hover:bg-blue-50"
                 >
-                  Contactar con Transport AI
-                  <ArrowRight className="h-4 w-4" />
+                  Contactar con Transport AI <ArrowRight className="h-4 w-4" />
                 </Link>
-
                 <a
                   href="https://wa.me/34659980603?text=Hola%2C%20he%20visto%20las%20demostraciones%20de%20Transport%20AI%20y%20quiero%20informaci%C3%B3n."
                   target="_blank"
@@ -994,8 +923,7 @@ export default function DemonstrationsPage() {
                   className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10"
                 >
                   <Smartphone className="h-4 w-4" />
-                  Contactar por WhatsApp
-                  <ArrowUpRight className="h-4 w-4" />
+                  Contactar por WhatsApp <ArrowUpRight className="h-4 w-4" />
                 </a>
               </div>
             </div>
@@ -1005,15 +933,14 @@ export default function DemonstrationsPage() {
         <div className="mx-auto max-w-7xl px-5 pb-10 sm:px-8">
           <p className="flex items-start gap-2 text-xs leading-5 text-slate-500">
             <LockKeyhole className="mt-0.5 h-4 w-4 shrink-0" />
-            Las demostraciones identificadas como conceptos visuales sirven
-            para ilustrar posibles soluciones. Sus funcionalidades definitivas
-            se concretan según los requisitos de cada proyecto. Las demos
-            marcadas como disponibles enlazan a sus respectivas páginas.
+            Las demostraciones identificadas como conceptos visuales sirven para
+            ilustrar posibles soluciones. Sus funcionalidades definitivas se concretan
+            según los requisitos de cada proyecto. Las demos marcadas como disponibles
+            enlazan a sus respectivas páginas.
           </p>
           <p className="mt-3 flex items-center gap-2 text-xs text-slate-500">
             <MapPin className="h-4 w-4" />
-            Transport AI · Desarrollo web, inteligencia artificial y
-            automatización.
+            Transport AI · Desarrollo web, inteligencia artificial y automatización.
           </p>
         </div>
       </main>
