@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
@@ -36,14 +35,14 @@ import { Eyebrow, SiteShell } from "../components/site-shell";
 export const metadata: Metadata = {
   title: "Demostraciones de Web, IA y Software | Transport AI",
   description:
-    "Explora las demostraciones de Transport AI: páginas web profesionales, agentes de inteligencia artificial, automatizaciones y software empresarial.",
+    "Explora las demostraciones de Transport AI: páginas web profesionales, tiendas online, agentes de inteligencia artificial, automatizaciones y software empresarial.",
   alternates: {
     canonical: "/demostraciones",
   },
   openGraph: {
     title: "Demostraciones de Web, IA y Software | Transport AI",
     description:
-      "Descubre ejemplos de páginas web, inteligencia artificial, automatizaciones y software creados por Transport AI.",
+      "Descubre ejemplos de páginas web, tiendas online, inteligencia artificial, automatizaciones y software creados por Transport AI.",
     url: "/demostraciones",
     siteName: "Transport AI",
     locale: "es_ES",
@@ -51,14 +50,11 @@ export const metadata: Metadata = {
   },
 };
 
-const corporateUrl =
-  "https://transport-ai-web-corporativa.vercel.app/";
-const restaurantUrl =
-  "https://transport-ai-restaurant.vercel.app/";
-const landingUrl =
-  "https://transport-ai-landing.vercel.app/";
-const mvpUrl =
-  "https://transport-ai1-logistica.vercel.app/";
+const corporateUrl = "https://transport-ai-web-corporativa.vercel.app/";
+const restaurantUrl = "https://transport-ai-restaurant.vercel.app/";
+const landingUrl = "https://transport-ai-landing.vercel.app/";
+const shopUrl = "https://transport-ai-shop.vercel.app/";
+const mvpUrl = "https://transport-ai1-logistica.vercel.app/";
 
 const categories = [
   "Todos",
@@ -104,7 +100,7 @@ const demos: Demo[] = [
       "Una web moderna para presentar una empresa, mostrar sus servicios y convertir visitas en oportunidades comerciales.",
     tags: ["Diseño web", "Responsive", "Imagen de marca"],
     preview: "corporate",
-    status: "Demostración disponible",
+    status: "Demostración disponible online",
     href: corporateUrl,
     live: true,
   },
@@ -114,7 +110,7 @@ const demos: Demo[] = [
     category: "Páginas web",
     title: "Web profesional para restaurante",
     description:
-      "Una web gastronómica con carta digital, fotografías, presentación del establecimiento y una experiencia adaptada a móviles.",
+      "Una web gastronómica con carta digital, presentación del establecimiento y una experiencia adaptada a móviles.",
     tags: ["Diseño web", "Carta digital", "Restauración"],
     preview: "restaurant",
     status: "Demostración disponible online",
@@ -146,9 +142,11 @@ const demos: Demo[] = [
     title: "Catálogo y tienda online",
     description:
       "Una experiencia visual para mostrar productos, organizar categorías y preparar una tienda digital adaptada a móviles.",
-    tags: ["Catálogo", "E-commerce", "Productos"],
+    tags: ["Catálogo", "E-commerce", "Productos", "Diseño responsive"],
     preview: "shop",
-    status: "Concepto visual",
+    status: "Demostración disponible online",
+    href: shopUrl,
+    live: true,
   },
   {
     number: "05",
@@ -257,9 +255,11 @@ function PreviewWindow({ demo }: { demo: Demo }) {
               ? "transport-ai-restaurant.vercel.app"
               : demo.preview === "landing"
                 ? "transport-ai-landing.vercel.app"
-                : demo.preview === "transport"
-                  ? "transport-ai · operaciones"
-                  : `demo.transport-ai.es/${demo.id}`}
+                : demo.preview === "shop"
+                  ? "transport-ai-shop.vercel.app"
+                  : demo.preview === "transport"
+                    ? "transport-ai · operaciones"
+                    : `demo.transport-ai.es/${demo.id}`}
         </div>
 
         <Monitor
@@ -294,8 +294,8 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                 Procesos más inteligentes.
               </h3>
               <p className="mt-3 max-w-xs text-xs leading-5 text-slate-300">
-                Diseño web, inteligencia artificial y automatización
-                adaptados a cada negocio.
+                Diseño web, inteligencia artificial y automatización adaptados
+                a cada negocio.
               </p>
               <span className="mt-5 inline-flex items-center gap-2 rounded-lg bg-blue-500 px-4 py-2 text-xs font-semibold">
                 Descubrir soluciones <ArrowRight className="h-3.5 w-3.5" />
@@ -342,6 +342,7 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                   Ver demostración <ArrowRight className="h-3 w-3" />
                 </span>
               </div>
+
               <div className="flex min-h-[150px] flex-col items-center justify-center rounded-lg bg-[#e5e6d9] p-3 text-center">
                 <Utensils className="h-10 w-10 text-[#68734b]" />
                 <span className="mt-3 text-[9px] font-semibold uppercase tracking-widest text-[#3d4932]">
@@ -349,6 +350,7 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                 </span>
               </div>
             </div>
+
             <div className="grid grid-cols-3 gap-2 px-4 pb-4">
               {["Carta digital", "Diseño responsive", "Contacto"].map(
                 (item) => (
@@ -418,29 +420,81 @@ function PreviewWindow({ demo }: { demo: Demo }) {
         )}
 
         {demo.preview === "shop" && (
-          <div className="rounded-xl bg-white p-3">
-            <div className="flex items-center justify-between border-b pb-3">
+          <div className="overflow-hidden rounded-xl bg-slate-50 p-3 sm:p-4">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
               <div className="flex items-center gap-2 text-xs font-bold text-slate-900">
-                <ShoppingBag className="h-4 w-4" /> ESTUDIO SHOP
+                <ShoppingBag className="h-4 w-4 text-blue-600" />
+                TRANSPORT AI SHOP
               </div>
-              <span className="text-[10px] text-slate-500">Catálogo</span>
+              <span className="text-[10px] text-slate-500">Tienda online</span>
             </div>
+
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {["Todos", "Novedades", "Accesorios"].map((item, index) => (
+                <span
+                  key={item}
+                  className={`rounded-full px-2.5 py-1 text-[9px] font-medium ${
+                    index === 0
+                      ? "bg-slate-900 text-white"
+                      : "border border-slate-200 bg-white text-slate-600"
+                  }`}
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+
             <div className="mt-3 grid grid-cols-3 gap-2">
-              {["bg-amber-100", "bg-rose-100", "bg-emerald-100"].map(
-                (color, index) => (
-                  <div key={color} className="min-w-0">
+              {[
+                {
+                  name: "Producto esencial",
+                  price: "29 €",
+                  style: "from-amber-100 to-orange-200",
+                  icon: Package,
+                },
+                {
+                  name: "Colección nueva",
+                  price: "39 €",
+                  style: "from-rose-100 to-pink-200",
+                  icon: ShoppingBag,
+                },
+                {
+                  name: "Producto premium",
+                  price: "49 €",
+                  style: "from-emerald-100 to-teal-200",
+                  icon: Sparkles,
+                },
+              ].map((product) => {
+                const Icon = product.icon;
+
+                return (
+                  <div
+                    key={product.name}
+                    className="min-w-0 overflow-hidden rounded-lg border border-slate-200 bg-white"
+                  >
                     <div
-                      className={`flex h-20 items-center justify-center rounded-lg ${color}`}
+                      className={`flex h-20 items-center justify-center bg-gradient-to-br ${product.style}`}
                     >
-                      <Package className="h-7 w-7 text-slate-600" />
+                      <Icon className="h-8 w-8 text-slate-700" />
                     </div>
-                    <p className="mt-2 truncate text-[9px] font-semibold text-slate-800">
-                      Producto {index + 1}
-                    </p>
-                    <p className="text-[9px] text-slate-500">Desde 29 €</p>
+                    <div className="p-2">
+                      <p className="truncate text-[9px] font-semibold text-slate-800">
+                        {product.name}
+                      </p>
+                      <p className="mt-1 text-[10px] font-bold text-slate-900">
+                        {product.price}
+                      </p>
+                    </div>
                   </div>
-                ),
-              )}
+                );
+              })}
+            </div>
+
+            <div className="mt-3 flex items-center justify-between rounded-lg bg-blue-600 px-3 py-2.5 text-white">
+              <span className="text-[10px] font-semibold">
+                Explorar catálogo
+              </span>
+              <ArrowRight className="h-3.5 w-3.5" />
             </div>
           </div>
         )}
@@ -460,6 +514,7 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                 </p>
               </div>
             </div>
+
             <div className="space-y-3 py-4">
               <div className="max-w-[85%] rounded-xl rounded-tl-none bg-slate-100 p-3 text-[10px] leading-4 text-slate-700">
                 ¡Hola! ¿En qué puedo ayudarte hoy?
@@ -468,11 +523,14 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                 Quiero información sobre vuestros servicios.
               </div>
               <div className="max-w-[85%] rounded-xl rounded-tl-none bg-slate-100 p-3 text-[10px] leading-4 text-slate-700">
-                Puedo explicarte las soluciones y ayudarte a contactar con el equipo.
+                Puedo explicarte las soluciones y ayudarte a contactar con el
+                equipo.
               </div>
             </div>
+
             <div className="flex items-center justify-between rounded-lg border px-3 py-2 text-[10px] text-slate-400">
-              Escribe tu consulta... <MessageSquare className="h-3.5 w-3.5" />
+              Escribe tu consulta...
+              <MessageSquare className="h-3.5 w-3.5" />
             </div>
           </div>
         )}
@@ -511,6 +569,7 @@ function PreviewWindow({ demo }: { demo: Demo }) {
               </span>
               <Workflow className="h-4 w-4 text-emerald-600" />
             </div>
+
             <div className="grid grid-cols-3 items-center gap-2">
               {[
                 {
@@ -530,6 +589,7 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                 },
               ].map((step, index) => {
                 const Icon = step.icon;
+
                 return (
                   <div key={step.label} className="relative">
                     <div className="flex min-h-[88px] flex-col items-center justify-center rounded-xl border border-slate-200 bg-white p-2 text-center">
@@ -549,6 +609,7 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                 );
               })}
             </div>
+
             <p className="mt-4 text-center text-[10px] text-slate-500">
               Menos tareas repetitivas. Más control.
             </p>
@@ -563,6 +624,7 @@ function PreviewWindow({ demo }: { demo: Demo }) {
               </span>
               <ChartNoAxesCombined className="h-4 w-4 text-blue-600" />
             </div>
+
             <div className="mt-3 grid grid-cols-3 gap-2">
               {[
                 { label: "Actividad", value: "1.284" },
@@ -580,6 +642,7 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                 </div>
               ))}
             </div>
+
             <div className="mt-3 flex h-20 items-end gap-2 rounded-lg border border-slate-200 bg-white px-3 pb-2 pt-3">
               {[35, 55, 43, 72, 51, 86, 64, 95, 69, 80, 59, 91].map(
                 (height, index) => (
@@ -602,6 +665,7 @@ function PreviewWindow({ demo }: { demo: Demo }) {
               </span>
               <Building2 className="h-4 w-4 text-violet-600" />
             </div>
+
             <div className="mt-3 space-y-2">
               {[
                 {
@@ -654,6 +718,7 @@ function PreviewWindow({ demo }: { demo: Demo }) {
               </div>
               <Truck className="h-5 w-5 text-emerald-400" />
             </div>
+
             <div className="mt-4 grid grid-cols-3 gap-2">
               {[
                 { label: "Incidencias", value: "48" },
@@ -669,6 +734,7 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                 </div>
               ))}
             </div>
+
             <div className="mt-3 space-y-2">
               <div className="flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900 p-2.5">
                 <CircleAlert className="h-4 w-4 shrink-0 text-amber-400" />
@@ -681,6 +747,7 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                   </p>
                 </div>
               </div>
+
               <div className="flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900 p-2.5">
                 <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400" />
                 <div>
@@ -705,7 +772,7 @@ export default function DemonstrationsPage() {
     <SiteShell>
       <main className="overflow-hidden">
         <section className="relative border-b border-slate-200 bg-white">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-50 via-white to-white" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,var(--tw-gradient-stops))] from-blue-50 via-white to-white" />
 
           <div className="relative mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24">
             <div className="max-w-3xl">
@@ -719,9 +786,10 @@ export default function DemonstrationsPage() {
               </h1>
 
               <p className="mt-6 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
-                Descubre ejemplos de páginas web profesionales, asistentes de
-                inteligencia artificial, automatizaciones y software empresarial.
-                Desarrollamos soluciones adaptadas a las necesidades de cada negocio.
+                Descubre ejemplos de páginas web profesionales, tiendas online,
+                asistentes de inteligencia artificial, automatizaciones y
+                software empresarial. Desarrollamos soluciones adaptadas a las
+                necesidades de cada negocio.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -729,14 +797,16 @@ export default function DemonstrationsPage() {
                   href="#catalogo"
                   className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-blue-700"
                 >
-                  Explorar demostraciones <ArrowRight className="h-4 w-4" />
+                  Explorar demostraciones
+                  <ArrowRight className="h-4 w-4" />
                 </a>
 
                 <Link
                   href="/contacto"
                   className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3.5 text-sm font-semibold text-slate-800 transition hover:border-blue-300 hover:text-blue-700"
                 >
-                  Cuéntanos tu proyecto <ArrowUpRight className="h-4 w-4" />
+                  Cuéntanos tu proyecto
+                  <ArrowUpRight className="h-4 w-4" />
                 </Link>
               </div>
 
@@ -780,6 +850,7 @@ export default function DemonstrationsPage() {
                 },
               ].map((item) => {
                 const Icon = item.icon;
+
                 return (
                   <div
                     key={item.title}
@@ -812,10 +883,12 @@ export default function DemonstrationsPage() {
                 Explora lo que podemos construir
               </h2>
               <p className="mt-4 max-w-2xl text-sm leading-6 text-slate-600 sm:text-base">
-                Cada proyecto parte de un objetivo de negocio. Explora los ejemplos
-                y descubre qué tipo de solución puede encajar con tu empresa.
+                Cada proyecto parte de un objetivo de negocio. Explora los
+                ejemplos y descubre qué tipo de solución puede encajar con tu
+                empresa.
               </p>
             </div>
+
             <div className="flex items-center gap-2 text-sm text-slate-500">
               <Layers3 className="h-4 w-4" />
               {demos.length} demostraciones
@@ -860,7 +933,11 @@ export default function DemonstrationsPage() {
                   .replaceAll("í", "i");
 
                 return (
-                  <div key={category} id={sectionId} className="scroll-mt-8">
+                  <div
+                    key={category}
+                    id={sectionId}
+                    className="scroll-mt-8"
+                  >
                     <div className="mb-5 flex items-center gap-3">
                       <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
                         {category === "Páginas web" ? (
@@ -875,6 +952,7 @@ export default function DemonstrationsPage() {
                           <Truck className="h-5 w-5" />
                         )}
                       </div>
+
                       <div>
                         <h3 className="text-lg font-semibold text-slate-950">
                           {category}
@@ -903,6 +981,7 @@ export default function DemonstrationsPage() {
                               <span className="text-[11px] font-semibold uppercase tracking-[0.15em] text-slate-400">
                                 DEMO {demo.number}
                               </span>
+
                               <span
                                 className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-semibold ${
                                   demo.live
@@ -922,6 +1001,7 @@ export default function DemonstrationsPage() {
                             <h3 className="mt-4 text-lg font-semibold tracking-tight text-slate-950">
                               {demo.title}
                             </h3>
+
                             <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">
                               {demo.description}
                             </p>
@@ -976,14 +1056,17 @@ export default function DemonstrationsPage() {
                 No se trata solo de tecnología. Se trata de resolver problemas.
               </h2>
               <p className="mt-5 text-sm leading-7 text-slate-600 sm:text-base">
-                Analizamos las necesidades de tu empresa para diseñar una solución
-                útil, con funcionalidades concretas y un alcance adaptado a tus objetivos.
+                Analizamos las necesidades de tu empresa para diseñar una
+                solución útil, con funcionalidades concretas y un alcance
+                adaptado a tus objetivos.
               </p>
+
               <Link
                 href="/contacto"
                 className="mt-7 inline-flex items-center gap-2 rounded-xl bg-slate-950 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-blue-700"
               >
-                Hablar sobre mi proyecto <ArrowRight className="h-4 w-4" />
+                Hablar sobre mi proyecto
+                <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
 
@@ -1011,6 +1094,7 @@ export default function DemonstrationsPage() {
                 },
               ].map((step) => {
                 const Icon = step.icon;
+
                 return (
                   <div
                     key={step.title}
@@ -1043,7 +1127,8 @@ export default function DemonstrationsPage() {
                 </h2>
                 <p className="mt-4 text-sm leading-7 text-slate-300 sm:text-base">
                   Cuéntanos qué quieres mejorar y estudiaremos qué tipo de web,
-                  automatización o herramienta de inteligencia artificial puede ayudarte.
+                  tienda online, automatización o herramienta de inteligencia
+                  artificial puede ayudarte.
                 </p>
               </div>
 
@@ -1052,8 +1137,10 @@ export default function DemonstrationsPage() {
                   href="/contacto"
                   className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3.5 text-sm font-semibold text-slate-950 transition hover:bg-blue-50"
                 >
-                  Contactar con Transport AI <ArrowRight className="h-4 w-4" />
+                  Contactar con Transport AI
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
+
                 <a
                   href="https://wa.me/34659980603?text=Hola%2C%20he%20visto%20las%20demostraciones%20de%20Transport%20AI%20y%20quiero%20informaci%C3%B3n."
                   target="_blank"
@@ -1073,13 +1160,15 @@ export default function DemonstrationsPage() {
           <p className="flex items-start gap-2 text-xs leading-5 text-slate-500">
             <LockKeyhole className="mt-0.5 h-4 w-4 shrink-0" />
             Las demostraciones identificadas como conceptos visuales sirven para
-            ilustrar posibles soluciones. Sus funcionalidades definitivas se concretan
-            según los requisitos de cada proyecto. Las demos disponibles enlazan a
-            sus respectivas páginas.
+            ilustrar posibles soluciones. Sus funcionalidades definitivas se
+            concretan según los requisitos de cada proyecto. Las demos
+            disponibles enlazan a sus respectivas páginas.
           </p>
+
           <p className="mt-3 flex items-center gap-2 text-xs text-slate-500">
             <MapPin className="h-4 w-4" />
-            Transport AI · Desarrollo web, inteligencia artificial y automatización.
+            Transport AI · Desarrollo web, inteligencia artificial y
+            automatización.
           </p>
         </div>
       </main>
