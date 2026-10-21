@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -93,59 +94,31 @@ function normalizeText(value: string) {
 function getAnswer(question: string, history: ChatMessage[]): string {
   const text = normalizeText(question);
 
-  if (
-    /\b(hola|buenas|hey|buenos dias|buenas tardes|buenas noches)\b/.test(
-      text,
-    )
-  ) {
+  if (/\b(hola|buenas|hey|buenos dias|buenas tardes|buenas noches)\b/.test(text)) {
     return "¡Hola! Encantado de ayudarte. Para orientarte mejor, ¿tu empresa se dedica al transporte, mensajería, logística, mudanzas u otro sector?";
   }
 
-  if (
-    /(quien eres|que eres|que hace transport ai|que haceis|que es transport ai)/.test(
-      text,
-    )
-  ) {
+  if (/(quien eres|que eres|que hace transport ai|que haceis|que es transport ai)/.test(text)) {
     return "Transport AI desarrolla soluciones de inteligencia artificial, automatización e integración de software para empresas. Buscamos reducir tareas manuales, centralizar información y agilizar procesos sin obligarte a sustituir todos tus sistemas actuales. ¿Qué te gustaría mejorar en tu empresa?";
   }
 
-  if (
-    /(precio|precios|cuanto cuesta|cuanto vale|presupuesto|coste|costes|euros|€)/.test(
-      text,
-    )
-  ) {
+  if (/(precio|precios|cuanto cuesta|cuanto vale|presupuesto|coste|costes|euros|€)/.test(text)) {
     return "Como orientación, las automatizaciones de procesos suelen costar entre 1.500 y 4.000 euros; los proyectos de CRM e integraciones con IA, entre 4.000 y 8.000 euros; y las plataformas operativas a medida, desde 15.000 euros. Son importes orientativos antes de IVA. El presupuesto definitivo depende del alcance y las integraciones necesarias. ¿Qué proceso quieres automatizar?";
   }
 
-  if (
-    /(servicios|soluciones|automatiz|inteligencia artificial|ia para|que ofreceis)/.test(
-      text,
-    )
-  ) {
+  if (/(servicios|soluciones|automatiz|inteligencia artificial|ia para|que ofreceis)/.test(text)) {
     return "Podemos estudiar automatización de tareas, clasificación de correos, gestión de incidencias, asistentes de atención al cliente, integración con CRM y APIs, coordinación de equipos y plataformas a medida. Primero analizamos tu proceso y las herramientas que ya utilizas para elegir una solución útil.";
   }
 
-  if (
-    /(transporte|logistica|mensajeria|paqueteria|reparto|repartidor|mudanza|flota|vehiculo|conductor|entrega|envio|paquete|direccion incorrecta|cliente ausente|reclamacion|incidencia)/.test(
-      text,
-    )
-  ) {
+  if (/(transporte|logistica|mensajeria|paqueteria|reparto|repartidor|mudanza|flota|vehiculo|conductor|entrega|envio|paquete|direccion incorrecta|cliente ausente|reclamacion|incidencia)/.test(text)) {
     return "En transporte y logística podemos diseñar flujos que detecten datos incompletos, direcciones incoherentes, retrasos o destinatarios que no responden; registrar incidencias y avisar al responsable correspondiente. Las acciones reales dependen de las API y permisos de tus sistemas. ¿Cómo gestionáis ahora las incidencias: Excel, WhatsApp, email o un programa propio?";
   }
 
-  if (
-    /(crm|api|integracion|integrar|erp|software|programa|sistema actual|base de datos)/.test(
-      text,
-    )
-  ) {
+  if (/(crm|api|integracion|integrar|erp|software|programa|sistema actual|base de datos)/.test(text)) {
     return "Podemos estudiar integraciones con tu CRM, ERP o API para evitar duplicar datos y automatizar tareas. Primero necesitamos conocer el proveedor, las posibilidades de su API y los permisos disponibles. ¿Qué programa utilizáis actualmente?";
   }
 
-  if (
-    /(tiempo|horas|repetitiv|manual|excel|whatsapp|correo|email|tarea|trabajo administrativo)/.test(
-      text,
-    )
-  ) {
+  if (/(tiempo|horas|repetitiv|manual|excel|whatsapp|correo|email|tarea|trabajo administrativo)/.test(text)) {
     return "Podría ser un buen candidato para automatizar. Analizaríamos los pasos repetidos, las excepciones, las herramientas implicadas y el tiempo que consume. Después estimaríamos el ahorro potencial y el coste de implementación. ¿Cuántas personas realizan esa tarea y con qué frecuencia?";
   }
 
@@ -153,19 +126,11 @@ function getAnswer(question: string, history: ChatMessage[]): string {
     return "Puedes visitar la sección de demostraciones de nuestra web para ver ejemplos de gestión de incidencias, atención al cliente, mensajeros e integraciones. También podemos estudiar una demostración adaptada a tu proceso concreto.";
   }
 
-  if (
-    /(contacto|hablar con alguien|llamar|telefono|whatsapp|alvaro|reunion|cita|quiero contratar|propuesta comercial)/.test(
-      text,
-    )
-  ) {
+  if (/(contacto|hablar con alguien|llamar|telefono|whatsapp|alvaro|reunion|cita|quiero contratar|propuesta comercial)/.test(text)) {
     return "Puedes contactar directamente con Álvaro por WhatsApp en el 659 980 603 o escribir a alvarochaveinte1@gmail.com. También puedes dejar tus datos en el formulario para explicar qué necesita tu empresa.";
   }
 
-  if (
-    /(seguridad|privacidad|datos personales|rgpd|proteccion de datos)/.test(
-      text,
-    )
-  ) {
+  if (/(seguridad|privacidad|datos personales|rgpd|proteccion de datos)/.test(text)) {
     return "Los datos de contacto se envían cuando completas el formulario y aceptas el aviso de privacidad. Este asistente no graba automáticamente el audio. Puedes consultar la política de privacidad desde el enlace del formulario.";
   }
 
@@ -186,6 +151,21 @@ function getAnswer(question: string, history: ChatMessage[]): string {
   return "Para recomendarte algo útil necesito entender tu caso. Transport AI trabaja con automatizaciones, asistentes, integraciones y software a medida. ¿Qué tarea te gustaría eliminar o simplificar, y qué herramientas utilizáis actualmente?";
 }
 
+function getSpanishVoice(): SpeechSynthesisVoice | null {
+  if (typeof window === "undefined" || !("speechSynthesis" in window)) {
+    return null;
+  }
+
+  const voices = window.speechSynthesis.getVoices();
+
+  return (
+    voices.find((voice) => /^es-ES$/i.test(voice.lang)) ??
+    voices.find((voice) => /^es[-_]/i.test(voice.lang)) ??
+    voices.find((voice) => /spanish|español/i.test(voice.name)) ??
+    null
+  );
+}
+
 export default function FreeAssistant() {
   const [open, setOpen] = useState(false);
   const [voiceMode, setVoiceMode] = useState(false);
@@ -203,16 +183,18 @@ export default function FreeAssistant() {
   const [lead, setLead] = useState<LeadForm>(initialLead);
 
   const recognitionRef = useRef<RecognitionLike | null>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const audioUrlRef = useRef<string | null>(null);
-  const speechRequestRef = useRef(0);
-
   const messagesRef = useRef<ChatMessage[]>([]);
   const voiceModeRef = useRef(false);
   const mountedRef = useRef(false);
+  const speechRequestRef = useRef(0);
 
   useEffect(() => {
     mountedRef.current = true;
+
+    // Carga las voces disponibles en el navegador.
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.getVoices();
+    }
 
     return () => {
       mountedRef.current = false;
@@ -224,16 +206,8 @@ export default function FreeAssistant() {
         // El reconocimiento puede haberse detenido.
       }
 
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.removeAttribute("src");
-        audioRef.current.load();
-        audioRef.current = null;
-      }
-
-      if (audioUrlRef.current) {
-        URL.revokeObjectURL(audioUrlRef.current);
-        audioUrlRef.current = null;
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
       }
     };
   }, []);
@@ -249,17 +223,8 @@ export default function FreeAssistant() {
   const stopSpeaking = useCallback(() => {
     speechRequestRef.current += 1;
 
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-      audioRef.current.removeAttribute("src");
-      audioRef.current.load();
-      audioRef.current = null;
-    }
-
-    if (audioUrlRef.current) {
-      URL.revokeObjectURL(audioUrlRef.current);
-      audioUrlRef.current = null;
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
     }
 
     setSpeaking(false);
@@ -281,122 +246,64 @@ export default function FreeAssistant() {
   }, []);
 
   const speak = useCallback(
-    async (text: string) => {
+    (text: string) => {
       stopSpeaking();
-
       const requestId = speechRequestRef.current;
 
       setVoiceError("");
 
-      let audioUrl: string | null = null;
+      if (!("speechSynthesis" in window)) {
+        setSpeaking(false);
+        setVoiceError(
+          "Tu navegador no admite voz automática. Puedes seguir usando el chat.",
+        );
+        return;
+      }
 
       try {
-        const response = await fetch("/api/voice", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ text }),
-        });
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "es-ES";
+        utterance.rate = 1;
+        utterance.pitch = 1;
+        utterance.volume = 1;
 
-        if (!response.ok) {
-          const result = await response.json().catch(() => ({}));
+        const selectVoice = () => {
+          if (requestId !== speechRequestRef.current) return;
 
-          throw new Error(
-            typeof result.error === "string"
-              ? result.error
-              : "No se ha podido generar la voz de Rodrigo.",
-          );
-        }
+          const spanishVoice = getSpanishVoice();
+          if (spanishVoice) utterance.voice = spanishVoice;
+        };
 
-        const audioBlob = await response.blob();
+        selectVoice();
 
-        if (
-          !mountedRef.current ||
-          requestId !== speechRequestRef.current
-        ) {
-          return;
-        }
-
-        if (audioBlob.size === 0) {
-          throw new Error("El servicio ha devuelto un audio vacío.");
-        }
-
-        audioUrl = URL.createObjectURL(audioBlob);
-
-        const audio = new Audio(audioUrl);
-
-        audioRef.current = audio;
-        audioUrlRef.current = audioUrl;
-
-        const cleanAudio = () => {
-          if (audioRef.current === audio) {
-            audioRef.current = null;
-          }
-
-          if (audioUrlRef.current === audioUrl) {
-            URL.revokeObjectURL(audioUrl!);
-            audioUrlRef.current = null;
+        utterance.onstart = () => {
+          if (mountedRef.current && requestId === speechRequestRef.current) {
+            setSpeaking(true);
+            setVoiceError("");
           }
         };
 
-        audio.onended = () => {
-          cleanAudio();
-
-          if (
-            mountedRef.current &&
-            requestId === speechRequestRef.current
-          ) {
+        utterance.onend = () => {
+          if (mountedRef.current && requestId === speechRequestRef.current) {
             setSpeaking(false);
           }
         };
 
-        audio.onerror = () => {
-          cleanAudio();
-
-          if (
-            mountedRef.current &&
-            requestId === speechRequestRef.current
-          ) {
-            setSpeaking(false);
-            setVoiceError("No se ha podido reproducir el audio.");
-          }
-        };
-
-        setSpeaking(true);
-
-        try {
-          await audio.play();
-        } catch {
-          cleanAudio();
-
-          if (
-            mountedRef.current &&
-            requestId === speechRequestRef.current
-          ) {
+        utterance.onerror = () => {
+          if (mountedRef.current && requestId === speechRequestRef.current) {
             setSpeaking(false);
             setVoiceError(
-              "El navegador ha bloqueado el audio. Pulsa la bola e inténtalo otra vez.",
+              "El navegador no ha podido reproducir la voz. Puedes seguir usando el chat.",
             );
           }
-        }
-      } catch (error) {
-        if (audioUrl) {
-          URL.revokeObjectURL(audioUrl);
-        }
+        };
 
-        if (
-          mountedRef.current &&
-          requestId === speechRequestRef.current
-        ) {
-          setSpeaking(false);
-
-          setVoiceError(
-            error instanceof Error
-              ? error.message
-              : "Error al generar la voz. Inténtalo de nuevo.",
-          );
-        }
+        window.speechSynthesis.speak(utterance);
+      } catch {
+        setSpeaking(false);
+        setVoiceError(
+          "No se ha podido activar la voz del navegador. Puedes seguir usando el chat.",
+        );
       }
     },
     [stopSpeaking],
@@ -405,7 +312,6 @@ export default function FreeAssistant() {
   const sendMessage = useCallback(
     (value: string, fromVoice = false) => {
       const question = value.trim();
-
       if (!question) return;
 
       stopSpeaking();
@@ -429,7 +335,7 @@ export default function FreeAssistant() {
       if (fromVoice) {
         window.setTimeout(() => {
           if (mountedRef.current && voiceModeRef.current) {
-            void speak(answer);
+            speak(answer);
           }
         }, 180);
       }
@@ -444,7 +350,6 @@ export default function FreeAssistant() {
     setLeadStatus("");
 
     const browser = window as unknown as BrowserSpeech;
-
     const SpeechRecognition =
       browser.SpeechRecognition ?? browser.webkitSpeechRecognition;
 
@@ -478,9 +383,7 @@ export default function FreeAssistant() {
         if (transcript) {
           sendMessage(transcript, true);
         } else {
-          setVoiceError(
-            "No he detectado ninguna frase. Inténtalo otra vez.",
-          );
+          setVoiceError("No he detectado ninguna frase. Inténtalo otra vez.");
         }
       };
 
@@ -489,9 +392,7 @@ export default function FreeAssistant() {
         setListening(false);
 
         if (event.error === "no-speech") {
-          setVoiceError(
-            "No he detectado voz. Pulsa la bola y vuelve a intentarlo.",
-          );
+          setVoiceError("No he detectado voz. Pulsa la bola y vuelve a intentarlo.");
         } else if (event.error !== "aborted") {
           setVoiceError(
             "No he podido acceder al micrófono. Comprueba los permisos del navegador.",
@@ -503,19 +404,16 @@ export default function FreeAssistant() {
         if (recognitionRef.current === recognition) {
           recognitionRef.current = null;
         }
-
         setListening(false);
       };
 
       recognitionRef.current = recognition;
       setSource("voice");
-
       recognition.start();
       setListening(true);
     } catch {
       recognitionRef.current = null;
       setListening(false);
-
       setVoiceError(
         "No se ha podido activar el micrófono. Inténtalo de nuevo.",
       );
@@ -541,16 +439,12 @@ export default function FreeAssistant() {
     setLeadStatus("");
 
     if (!lead.consent) {
-      setLeadStatus(
-        "Debes aceptar el aviso de privacidad para enviar tus datos.",
-      );
+      setLeadStatus("Debes aceptar el aviso de privacidad para enviar tus datos.");
       return;
     }
 
     if (!lead.email.trim() && !lead.phone.trim()) {
-      setLeadStatus(
-        "Introduce al menos un email o teléfono de contacto.",
-      );
+      setLeadStatus("Introduce al menos un email o teléfono de contacto.");
       return;
     }
 
@@ -568,9 +462,7 @@ export default function FreeAssistant() {
     try {
       const response = await fetch("/api/leads", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...lead,
           source,
@@ -609,13 +501,11 @@ export default function FreeAssistant() {
           aria-label="Asistente virtual de Transport AI"
           className="flex w-[min(400px,calc(100vw-2rem))] flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl"
         >
-          {/* CABECERA */}
           <div className="flex items-center justify-between gap-3 bg-slate-950 p-4 text-white">
             <div className="flex items-center gap-3">
               <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-500/20 text-blue-300">
                 <Bot className="h-6 w-6" />
               </div>
-
               <div>
                 <p className="font-semibold">Transport AI</p>
                 <p className="mt-1 flex items-center gap-1 text-xs text-slate-300">
@@ -640,7 +530,6 @@ export default function FreeAssistant() {
             </button>
           </div>
 
-          {/* MODO VOZ */}
           {voiceMode ? (
             <div className="flex flex-col items-center px-5 py-6 text-center">
               <button
@@ -664,7 +553,6 @@ export default function FreeAssistant() {
                 Pulsa la bola y cuéntame qué necesitas.
               </p>
 
-              {/* BOLA DE VOZ */}
               <button
                 type="button"
                 onClick={() => {
@@ -696,10 +584,8 @@ export default function FreeAssistant() {
                     listening || speaking ? "animate-ping" : ""
                   }`}
                 />
-
                 <span className="absolute inset-3 rounded-full border border-white/30" />
                 <span className="absolute inset-6 rounded-full bg-white/10" />
-
                 <span className="relative flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-sky-200 via-blue-500 to-indigo-900 shadow-inner">
                   {listening ? (
                     <Mic className="h-10 w-10 text-white" />
@@ -727,12 +613,15 @@ export default function FreeAssistant() {
                     : "Puedes preguntar por precios, automatizaciones, incidencias o integraciones."}
               </p>
 
-              {(voiceError || leadStatus) && (
-                <p
-                  role="status"
-                  className="mt-4 rounded-xl bg-blue-50 p-3 text-xs leading-5 text-blue-900"
-                >
-                  {voiceError || leadStatus}
+              {voiceError && (
+                <p role="status" className="mt-4 rounded-xl bg-blue-50 p-3 text-xs leading-5 text-blue-900">
+                  {voiceError}
+                </p>
+              )}
+
+              {leadStatus && (
+                <p role="status" className="mt-2 text-xs text-slate-700">
+                  {leadStatus}
                 </p>
               )}
 
@@ -741,7 +630,6 @@ export default function FreeAssistant() {
                   <p className="mb-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">
                     Última respuesta
                   </p>
-
                   <p className="text-sm leading-6 text-slate-700">
                     {messages[messages.length - 1]?.text}
                   </p>
@@ -776,7 +664,6 @@ export default function FreeAssistant() {
             </div>
           ) : (
             <>
-              {/* CHAT DE TEXTO */}
               <div
                 className="flex max-h-[min(400px,45vh)] min-h-56 flex-col gap-3 overflow-y-auto p-4"
                 aria-live="polite"
@@ -844,7 +731,6 @@ export default function FreeAssistant() {
                 </button>
               </div>
 
-              {/* FORMULARIO COMERCIAL */}
               {showLeadForm && (
                 <form
                   onSubmit={saveLead}
@@ -854,7 +740,6 @@ export default function FreeAssistant() {
                     <h3 className="font-semibold text-slate-900">
                       Hablemos de tu proyecto
                     </h3>
-
                     <p className="mt-1 text-xs leading-5 text-slate-600">
                       Deja tus datos para que podamos contactar contigo.
                     </p>
@@ -862,12 +747,9 @@ export default function FreeAssistant() {
 
                   <label className="relative block">
                     <UserRound className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
-
                     <input
                       value={lead.name}
-                      onChange={(event) =>
-                        updateLead("name", event.target.value)
-                      }
+                      onChange={(event) => updateLead("name", event.target.value)}
                       placeholder="Tu nombre"
                       maxLength={120}
                       className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-9 pr-3 text-sm text-slate-900 outline-none focus:border-blue-500"
@@ -876,12 +758,9 @@ export default function FreeAssistant() {
 
                   <label className="relative block">
                     <Building2 className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
-
                     <input
                       value={lead.company}
-                      onChange={(event) =>
-                        updateLead("company", event.target.value)
-                      }
+                      onChange={(event) => updateLead("company", event.target.value)}
                       placeholder="Empresa"
                       maxLength={160}
                       className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-9 pr-3 text-sm text-slate-900 outline-none focus:border-blue-500"
@@ -890,13 +769,10 @@ export default function FreeAssistant() {
 
                   <label className="relative block">
                     <Mail className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
-
                     <input
                       type="email"
                       value={lead.email}
-                      onChange={(event) =>
-                        updateLead("email", event.target.value)
-                      }
+                      onChange={(event) => updateLead("email", event.target.value)}
                       placeholder="Email"
                       maxLength={254}
                       className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-9 pr-3 text-sm text-slate-900 outline-none focus:border-blue-500"
@@ -905,13 +781,10 @@ export default function FreeAssistant() {
 
                   <label className="relative block">
                     <Phone className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
-
                     <input
                       type="tel"
                       value={lead.phone}
-                      onChange={(event) =>
-                        updateLead("phone", event.target.value)
-                      }
+                      onChange={(event) => updateLead("phone", event.target.value)}
                       placeholder="Teléfono"
                       maxLength={40}
                       className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-9 pr-3 text-sm text-slate-900 outline-none focus:border-blue-500"
@@ -920,12 +793,9 @@ export default function FreeAssistant() {
 
                   <label className="block text-xs font-medium text-slate-700">
                     ¿Qué necesitas mejorar?
-
                     <textarea
                       value={lead.need}
-                      onChange={(event) =>
-                        updateLead("need", event.target.value)
-                      }
+                      onChange={(event) => updateLead("need", event.target.value)}
                       placeholder="Ej.: automatizar incidencias o conectar mi CRM..."
                       maxLength={2000}
                       rows={3}
@@ -935,12 +805,9 @@ export default function FreeAssistant() {
 
                   <label className="block text-xs font-medium text-slate-700">
                     Presupuesto aproximado (opcional)
-
                     <select
                       value={lead.budget}
-                      onChange={(event) =>
-                        updateLead("budget", event.target.value)
-                      }
+                      onChange={(event) => updateLead("budget", event.target.value)}
                       className="mt-1 w-full rounded-xl border border-slate-200 bg-white p-3 text-sm text-slate-900 outline-none focus:border-blue-500"
                     >
                       <option value="">Prefiero hablarlo</option>
@@ -956,16 +823,12 @@ export default function FreeAssistant() {
                     <input
                       type="checkbox"
                       checked={lead.consent}
-                      onChange={(event) =>
-                        updateLead("consent", event.target.checked)
-                      }
+                      onChange={(event) => updateLead("consent", event.target.checked)}
                       className="mt-1"
                       required
                     />
-
                     <span>
-                      Acepto que Transport AI utilice mis datos para responder
-                      a mi solicitud. He leído la{" "}
+                      Acepto que Transport AI utilice mis datos para responder a mi solicitud. He leído la{" "}
                       <a
                         href="/privacidad"
                         target="_blank"
@@ -988,10 +851,7 @@ export default function FreeAssistant() {
                     disabled={saving}
                     className="flex items-center justify-center gap-2 rounded-xl bg-blue-700 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-800 disabled:opacity-60"
                   >
-                    {saving && (
-                      <LoaderCircle className="h-4 w-4 animate-spin" />
-                    )}
-
+                    {saving && <LoaderCircle className="h-4 w-4 animate-spin" />}
                     {saving ? "Enviando..." : "Solicitar contacto"}
                   </button>
 
@@ -1004,7 +864,6 @@ export default function FreeAssistant() {
                 </form>
               )}
 
-              {/* ENVIAR MENSAJE */}
               <form
                 className="flex items-center gap-2 border-t border-slate-200 p-3"
                 onSubmit={(event) => {
@@ -1020,7 +879,6 @@ export default function FreeAssistant() {
                   maxLength={2000}
                   className="min-w-0 flex-1 rounded-xl border border-slate-200 px-3 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
                 />
-
                 <button
                   type="submit"
                   disabled={!input.trim()}
@@ -1033,7 +891,6 @@ export default function FreeAssistant() {
             </>
           )}
 
-          {/* WHATSAPP DENTRO DEL ASISTENTE */}
           <a
             href={whatsappUrl}
             target="_blank"
@@ -1047,7 +904,6 @@ export default function FreeAssistant() {
         </section>
       )}
 
-      {/* BOTONES FLOTANTES */}
       <div className="flex flex-col items-end gap-3">
         <a
           href={whatsappUrl}
@@ -1064,9 +920,7 @@ export default function FreeAssistant() {
           type="button"
           onClick={() => setOpen((previous) => !previous)}
           aria-expanded={open}
-          aria-label={
-            open ? "Cerrar asistente virtual" : "Abrir asistente virtual"
-          }
+          aria-label={open ? "Cerrar asistente virtual" : "Abrir asistente virtual"}
           className="flex h-14 items-center gap-3 rounded-full bg-blue-700 px-5 text-sm font-bold text-white shadow-xl transition hover:scale-[1.03] hover:bg-blue-800"
         >
           {open ? <X className="h-5 w-5" /> : <Bot className="h-6 w-6" />}
