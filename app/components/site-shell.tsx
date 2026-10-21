@@ -1,15 +1,53 @@
 
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { ArrowUpRight, Layers3, Zap } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Bot,
+  Code2,
+  Globe,
+  Layers3,
+  PhoneCall,
+  Workflow,
+  Zap,
+} from "lucide-react";
 
 const navigation = [
   { href: "/", label: "Inicio" },
   { href: "/servicios", label: "Servicios" },
   { href: "/demostraciones", label: "Demostraciones" },
-  { href: "/presupuestos", label: "Precios y presupuestos" },
+  { href: "/presupuestos", label: "Precios" },
   { href: "/seguridad", label: "Seguridad" },
   { href: "/contacto", label: "Contacto" },
+];
+
+const serviceLinks = [
+  {
+    href: "/servicios",
+    label: "Páginas web",
+    icon: Globe,
+  },
+  {
+    href: "/servicios",
+    label: "Agentes de IA",
+    icon: Bot,
+  },
+  {
+    href: "/servicios",
+    label: "Agentes de voz",
+    icon: PhoneCall,
+  },
+  {
+    href: "/servicios",
+    label: "Automatizaciones",
+    icon: Workflow,
+  },
+  {
+    href: "/servicios",
+    label: "Software a medida",
+    icon: Code2,
+  },
 ];
 
 export function SiteShell({ children }: { children: ReactNode }) {
@@ -18,7 +56,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-xl">
         <nav
           aria-label="Navegación principal"
-          className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 sm:px-8"
+          className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3.5 sm:px-8"
         >
           <Link
             href="/"
@@ -33,13 +71,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
               <span className="block text-lg font-bold tracking-tight text-slate-950">
                 TRANSPORT<span className="text-blue-700"> AI</span>
               </span>
-              <span className="block text-[9px] uppercase tracking-[0.22em] text-slate-500">
-                Intelligent systems
+              <span className="block text-[9px] uppercase tracking-[0.18em] text-slate-500">
+                Web · IA · Automatización
               </span>
             </div>
           </Link>
 
-          <div className="hidden items-center gap-5 lg:flex xl:gap-7">
+          <div className="hidden items-center gap-5 lg:flex xl:gap-6">
             {navigation.map((item) => (
               <Link
                 key={item.href}
@@ -60,6 +98,28 @@ export function SiteShell({ children }: { children: ReactNode }) {
           </Link>
         </nav>
 
+        {/* Accesos rápidos a servicios */}
+        <nav
+          aria-label="Servicios principales"
+          className="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-5 pb-3 sm:px-8"
+        >
+          {serviceLinks.map((item) => {
+            const Icon = item.icon;
+
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                className="inline-flex shrink-0 items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-600 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-800"
+              >
+                <Icon className="h-3.5 w-3.5" />
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Navegación móvil */}
         <nav
           aria-label="Navegación móvil"
           className="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-5 pb-3 lg:hidden sm:px-8"
@@ -79,7 +139,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       <main>{children}</main>
 
       <footer className="bg-slate-950 text-white">
-        <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 sm:px-8 md:grid-cols-3 md:py-16">
+        <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 sm:px-8 sm:py-16 md:grid-cols-3">
           <div>
             <Link href="/" className="inline-flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600">
@@ -92,18 +152,31 @@ export function SiteShell({ children }: { children: ReactNode }) {
             </Link>
 
             <p className="mt-5 max-w-sm text-sm leading-7 text-slate-400">
-              Inteligencia artificial, automatización e integración
-              tecnológica para empresas que quieren mejorar sus operaciones.
+              Desarrollo web, agentes de inteligencia artificial,
+              automatización y software a medida para empresas de distintos
+              sectores.
             </p>
 
-            <p className="mt-4 text-xs leading-5 text-slate-500">
-              Soluciones tecnológicas adaptadas a las necesidades de cada
-              negocio.
-            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {[
+                "Desarrollo web",
+                "Agentes de IA",
+                "Automatización",
+              ].map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs text-slate-300"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
           </div>
 
           <div>
-            <p className="text-sm font-semibold text-white">Explora</p>
+            <p className="text-sm font-semibold text-white">
+              Explora Transport AI
+            </p>
 
             <div className="mt-5 flex flex-col items-start gap-3 text-sm text-slate-400">
               {navigation.map((item) => (
@@ -115,12 +188,24 @@ export function SiteShell({ children }: { children: ReactNode }) {
                   {item.label}
                 </Link>
               ))}
+              <Link
+                href="/ia-para-transporte-logistica"
+                className="transition hover:text-white"
+              >
+                IA para transporte y logística
+              </Link>
+              <Link
+                href="/privacidad"
+                className="transition hover:text-white"
+              >
+                Política de privacidad
+              </Link>
             </div>
           </div>
 
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-400">
-              Dirección
+              ¿Tienes un proyecto?
             </p>
 
             <p className="mt-4 text-lg font-semibold text-white">
@@ -131,13 +216,26 @@ export function SiteShell({ children }: { children: ReactNode }) {
               Fundador de Transport AI
             </p>
 
+            <p className="mt-4 max-w-sm text-sm leading-6 text-slate-400">
+              Cuéntanos qué quieres crear, qué tareas necesitas automatizar o
+              qué proceso de tu empresa te gustaría mejorar.
+            </p>
+
             <Link
               href="/contacto"
-              className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-blue-400 transition hover:text-blue-300"
+              className="mt-6 inline-flex items-center gap-2 rounded-xl bg-blue-700 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-blue-600"
             >
               Hablemos de tu proyecto
               <ArrowUpRight className="h-4 w-4" />
             </Link>
+
+            <a
+              href="mailto:alvarochaveinte1@gmail.com"
+              className="mt-4 flex items-center gap-2 text-sm text-slate-400 transition hover:text-white"
+            >
+              alvarochaveinte1@gmail.com
+              <ArrowRight className="h-3.5 w-3.5" />
+            </a>
           </div>
         </div>
 
