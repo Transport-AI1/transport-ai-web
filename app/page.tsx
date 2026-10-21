@@ -852,7 +852,29 @@ export default function HomePage() {
               para empresas de transporte, logística y servicios.
             </p>
 
-            <p className="mt-3 text-xs text-slate-400">
+            <div className="mt-4 space-y-2 text-sm text-slate-600">
+              <p className="font-medium text-slate-800">
+                Álvaro Chaveinte Camargo
+              </p>
+              <p>
+                <a
+                  href="mailto:alvarochaveinte1@gmail.com"
+                  className="transition hover:text-blue-700"
+                >
+                  alvarochaveinte1@gmail.com
+                </a>
+              </p>
+              <p>
+                <a
+                  href="tel:+34659980603"
+                  className="transition hover:text-blue-700"
+                >
+                  659 980 603
+                </a>
+              </p>
+            </div>
+
+            <p className="mt-4 text-xs text-slate-400">
               © {new Date().getFullYear()} Transport AI. Todos los derechos
               reservados.
             </p>
