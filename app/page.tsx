@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
@@ -27,6 +28,7 @@ import {
   SectionHeading,
   SiteShell,
 } from "./components/site-shell";
+import FreeAssistant from "./components/free-assistant";
 
 export const metadata: Metadata = {
   title: "IA y Automatización para Empresas de Transporte | Transport AI",
@@ -976,6 +978,9 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+
+      {/* Asistente de texto y botón flotante de WhatsApp */}
+      <FreeAssistant />
     </SiteShell>
   );
 }
