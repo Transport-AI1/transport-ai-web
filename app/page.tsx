@@ -808,7 +808,7 @@ export default function HomePage() {
         </section>
 
         {/* CTA FINAL */}
-        <section className="px-5 pb-20 sm:px-8 sm:pb-28">
+        <section className="px-5 pb-16 sm:px-8 sm:pb-20">
           <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-blue-800 px-7 py-12 text-white sm:px-12 sm:py-16 lg:px-16">
             <div className="pointer-events-none absolute -right-16 -top-24 h-72 w-72 rounded-full bg-blue-400/30 blur-3xl" />
             <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
@@ -836,75 +836,144 @@ export default function HomePage() {
         </section>
       </main>
 
-      {/* PIE DE PÁGINA */}
+      {/* PIE DE PÁGINA CON CONTACTO DESTACADO */}
       <footer className="border-t border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-          <div>
-            <Link
-              href="/"
-              className="text-lg font-bold tracking-tight text-slate-950 transition hover:text-blue-700"
-            >
-              Transport AI
-            </Link>
+        <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-14">
+          <div className="relative overflow-hidden rounded-3xl bg-slate-950 p-7 text-white shadow-xl sm:p-10 lg:p-12">
+            <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-blue-600/20 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl" />
 
-            <p className="mt-2 max-w-md text-sm leading-6 text-slate-500">
-              Inteligencia artificial, automatización y software empresarial
-              para empresas de transporte, logística y servicios.
-            </p>
+            <div className="relative grid gap-9 lg:grid-cols-[1fr_0.95fr] lg:items-center lg:gap-12">
+              <div>
+                <span className="inline-flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-500/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-blue-300">
+                  <span className="h-2 w-2 rounded-full bg-blue-400" />
+                  Contacto directo
+                </span>
 
-            <div className="mt-4 space-y-2 text-sm text-slate-600">
-              <p className="font-medium text-slate-800">
-                Álvaro Chaveinte Camargo
-              </p>
-              <p>
+                <h2 className="mt-6 text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
+                  ¿Hablamos de tu próximo proyecto?
+                </h2>
+
+                <p className="mt-5 max-w-xl text-base leading-8 text-slate-300">
+                  Cuéntame qué necesita tu empresa y estudiamos cómo la
+                  inteligencia artificial, la automatización o una integración
+                  a medida pueden ayudarte.
+                </p>
+
+                <div className="mt-8 border-t border-white/10 pt-6">
+                  <p className="text-xl font-bold text-white sm:text-2xl">
+                    Álvaro Chaveinte Camargo
+                  </p>
+                  <p className="mt-2 text-sm font-medium text-blue-300">
+                    Fundador de Transport AI
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid gap-4">
                 <a
                   href="mailto:alvarochaveinte1@gmail.com"
-                  className="transition hover:text-blue-700"
+                  className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.06] p-5 transition duration-200 hover:border-blue-400/60 hover:bg-white/10 sm:p-6"
                 >
-                  alvarochaveinte1@gmail.com
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-blue-500/15 text-blue-300 transition group-hover:bg-blue-500/25">
+                    <MessageSquareText className="h-7 w-7" />
+                  </div>
+
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs font-bold uppercase tracking-[0.15em] text-slate-400">
+                      Escríbeme por email
+                    </p>
+                    <p className="mt-2 break-all text-base font-semibold leading-6 text-white sm:text-lg">
+                      alvarochaveinte1@gmail.com
+                    </p>
+                    <p className="mt-1 text-sm text-slate-400">
+                      Cuéntame qué necesitas
+                    </p>
+                  </div>
+
+                  <ArrowUpRight className="h-5 w-5 shrink-0 text-blue-300 transition group-hover:-translate-y-1 group-hover:translate-x-1" />
                 </a>
-              </p>
-              <p>
+
                 <a
                   href="tel:+34659980603"
-                  className="transition hover:text-blue-700"
+                  className="group flex items-center gap-4 rounded-2xl bg-blue-700 p-5 transition duration-200 hover:bg-blue-600 sm:p-6"
                 >
-                  659 980 603
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white/15 text-white">
+                    <Headphones className="h-7 w-7" />
+                  </div>
+
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs font-bold uppercase tracking-[0.15em] text-blue-100">
+                      Llámame directamente
+                    </p>
+                    <p className="mt-2 text-2xl font-bold tracking-tight text-white sm:text-3xl">
+                      659 980 603
+                    </p>
+                    <p className="mt-1 text-sm text-blue-100">
+                      Pulsa aquí para llamar
+                    </p>
+                  </div>
+
+                  <ArrowUpRight className="h-5 w-5 shrink-0 text-white transition group-hover:-translate-y-1 group-hover:translate-x-1" />
                 </a>
+
+                <Link
+                  href="/contacto"
+                  className="inline-flex min-h-14 items-center justify-center gap-3 rounded-2xl border border-white/15 bg-white text-base font-bold text-slate-950 transition hover:bg-blue-50"
+                >
+                  Ir al formulario de contacto
+                  <ArrowRight className="h-5 w-5" />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 flex flex-col gap-6 border-t border-slate-200 pt-7 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <Link
+                href="/"
+                className="text-xl font-bold tracking-tight text-slate-950 transition hover:text-blue-700"
+              >
+                Transport AI
+              </Link>
+
+              <p className="mt-2 max-w-md text-sm leading-6 text-slate-500">
+                Inteligencia artificial, automatización y software empresarial
+                para empresas de transporte, logística y servicios.
+              </p>
+
+              <p className="mt-3 text-xs text-slate-400">
+                © {new Date().getFullYear()} Transport AI. Todos los derechos
+                reservados.
               </p>
             </div>
 
-            <p className="mt-4 text-xs text-slate-400">
-              © {new Date().getFullYear()} Transport AI. Todos los derechos
-              reservados.
-            </p>
+            <nav
+              aria-label="Información legal"
+              className="flex flex-wrap gap-x-6 gap-y-3 text-sm"
+            >
+              <Link
+                href="/privacidad"
+                className="font-medium text-slate-600 transition hover:text-blue-700"
+              >
+                Política de privacidad
+              </Link>
+
+              <Link
+                href="/seguridad"
+                className="font-medium text-slate-600 transition hover:text-blue-700"
+              >
+                Seguridad
+              </Link>
+
+              <Link
+                href="/contacto"
+                className="font-medium text-slate-600 transition hover:text-blue-700"
+              >
+                Contacto
+              </Link>
+            </nav>
           </div>
-
-          <nav
-            aria-label="Información legal"
-            className="flex flex-wrap gap-x-6 gap-y-3 text-sm"
-          >
-            <Link
-              href="/privacidad"
-              className="font-medium text-slate-600 transition hover:text-blue-700"
-            >
-              Política de privacidad
-            </Link>
-
-            <Link
-              href="/seguridad"
-              className="font-medium text-slate-600 transition hover:text-blue-700"
-            >
-              Seguridad
-            </Link>
-
-            <Link
-              href="/contacto"
-              className="font-medium text-slate-600 transition hover:text-blue-700"
-            >
-              Contacto
-            </Link>
-          </nav>
         </div>
       </footer>
     </SiteShell>
