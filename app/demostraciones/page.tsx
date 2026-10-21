@@ -5,6 +5,7 @@ import {
   ArrowUpRight,
   Bot,
   CheckCircle2,
+  CircleAlert,
   Headphones,
   MapPin,
   ShieldCheck,
@@ -20,24 +21,27 @@ import {
   MessageSquare,
   ShoppingBag,
   Utensils,
+  Smartphone,
   Mail,
   LockKeyhole,
   Layers3,
   Monitor,
+  Play,
 } from "lucide-react";
+
 import { Eyebrow, SiteShell } from "../components/site-shell";
 
 export const metadata: Metadata = {
   title: "Demostraciones de Web, IA y Software | Transport AI",
   description:
-    "Descubre webs corporativas, páginas para empresas, restaurantes, agencias de selección, agentes de IA, automatizaciones y software a medida.",
+    "Explora las demostraciones de Transport AI: páginas web profesionales, agentes de inteligencia artificial, automatizaciones, software empresarial y soluciones para logística.",
   alternates: {
     canonical: "/demostraciones",
   },
   openGraph: {
     title: "Demostraciones de Web, IA y Software | Transport AI",
     description:
-      "Explora ejemplos de páginas web, inteligencia artificial, automatización y software empresarial.",
+      "Descubre ejemplos de páginas web, inteligencia artificial, automatizaciones y software creados por Transport AI.",
     url: "/demostraciones",
     siteName: "Transport AI",
     locale: "es_ES",
@@ -45,10 +49,7 @@ export const metadata: Metadata = {
   },
 };
 
-// Sustituye estas dos direcciones por las URL reales de tus proyectos en Vercel.
-const corporateWebUrl = "PEGA_AQUI_LA_URL_DE_TU_WEB_CORPORATIVA";
-const italentersUrl = "PEGA_AQUI_LA_URL_DE_LA_WEB_DE_ITALENTERS";
-
+const corporateUrl = "https://transport-ai-web-corporativa.vercel.app/";
 const mvpUrl = "https://transport-ai1-logistica.vercel.app/";
 
 const categories = [
@@ -58,510 +59,508 @@ const categories = [
   "Automatización",
   "Software",
   "Logística",
-];
+] as const;
 
-const demos = [
+type Category = (typeof categories)[number];
+
+type Demo = {
+  number: string;
+  id: string;
+  category: Exclude<Category, "Todos">;
+  title: string;
+  description: string;
+  tags: string[];
+  preview:
+    | "corporate"
+    | "restaurant"
+    | "landing"
+    | "shop"
+    | "chat"
+    | "voice"
+    | "automation"
+    | "dashboard"
+    | "crm"
+    | "transport";
+  accent: string;
+  status: string;
+  href?: string;
+  live?: boolean;
+};
+
+const demos: Demo[] = [
   {
-    id: "transport-ai-corporativa",
     number: "01",
+    id: "web-corporativa",
     category: "Páginas web",
-    type: "Diseño web · Web corporativa",
-    title: "Web corporativa de Transport AI",
+    title: "Web corporativa profesional",
     description:
-      "Una web moderna para presentar servicios digitales, diseño web, inteligencia artificial, automatización y software a medida.",
-    tags: ["Diseño responsive", "Servicios", "Contacto por WhatsApp"],
-    icon: Globe,
+      "Una web moderna para presentar una empresa, mostrar sus servicios y convertir visitas en oportunidades comerciales.",
+    tags: ["Diseño web", "Responsive", "Imagen de marca"],
     preview: "corporate",
     accent: "blue",
-    status: "Demo web disponible",
-    href: corporateWebUrl,
+    status: "Demostración disponible",
+    href: corporateUrl,
     live: true,
   },
   {
-    id: "italenters",
     number: "02",
-    category: "Páginas web",
-    type: "Diseño web · Selección de talento",
-    title: "ITALENTERS, S.L.",
-    description:
-      "Propuesta web para una agencia especializada en selección de desarrolladores. Diseñada para presentar sus servicios y facilitar que las empresas soliciten perfiles tecnológicos.",
-    tags: ["Selección de desarrolladores", "Empresas", "Captación de solicitudes"],
-    icon: Building2,
-    preview: "italenters",
-    accent: "violet",
-    status: "Demo web disponible",
-    href: italentersUrl,
-    live: true,
-  },
-  {
     id: "restaurante",
-    number: "03",
     category: "Páginas web",
-    type: "Diseño web · Hostelería",
-    title: "Web para restaurantes y bares",
+    title: "Web para restaurante",
     description:
-      "Una web con personalidad para mostrar la carta, los platos destacados, la historia del local, sus premios y cómo llegar.",
-    tags: ["Carta", "Galería", "Ubicación"],
-    icon: Utensils,
+      "Una presencia digital para restaurantes con carta, fotografías, información del local y vías de contacto para clientes.",
+    tags: ["Restauración", "Carta digital", "Móvil"],
     preview: "restaurant",
     accent: "orange",
     status: "Concepto visual",
   },
   {
+    number: "03",
     id: "landing",
-    number: "04",
     category: "Páginas web",
-    type: "Diseño web · Captación",
-    title: "Landing page para captar clientes",
+    title: "Landing page de captación",
     description:
-      "Una página enfocada en un servicio o campaña, con una propuesta clara, ventajas, preguntas frecuentes y una llamada a la acción.",
-    tags: ["Conversión", "Formulario", "Campañas"],
-    icon: Sparkles,
+      "Una página centrada en presentar una oferta, explicar su valor y facilitar que los clientes potenciales contacten.",
+    tags: ["Captación", "Conversión", "Diseño"],
     preview: "landing",
-    accent: "violet",
+    accent: "purple",
     status: "Concepto visual",
   },
   {
-    id: "catalogo",
-    number: "05",
+    number: "04",
+    id: "tienda-online",
     category: "Páginas web",
-    type: "Diseño web · Productos",
     title: "Catálogo y tienda online",
     description:
-      "Presenta productos y servicios de forma organizada, con fichas visuales y una estructura preparada para facilitar las consultas o compras.",
-    tags: ["Productos", "Catálogo", "Móvil"],
-    icon: ShoppingBag,
+      "Una experiencia visual para mostrar productos, organizar categorías y preparar una tienda digital adaptada a móviles.",
+    tags: ["Catálogo", "E-commerce", "Productos"],
     preview: "shop",
     accent: "green",
     status: "Concepto visual",
   },
   {
-    id: "chat",
-    number: "06",
+    number: "05",
+    id: "agente-ia",
     category: "Inteligencia artificial",
-    type: "IA · Atención al cliente",
-    title: "Agente de IA para tu página web",
+    title: "Agente de IA para páginas web",
     description:
-      "Un asistente conversacional que puede responder preguntas frecuentes, orientar a los visitantes y recoger solicitudes según su configuración.",
-    tags: ["Chat", "Preguntas frecuentes", "Leads"],
-    icon: MessageSquare,
+      "Un asistente que responde preguntas, explica servicios y ayuda a los visitantes a encontrar la información que necesitan.",
+    tags: ["Asistente IA", "Atención al cliente", "Web"],
     preview: "chat",
     accent: "blue",
-    status: "Ejemplo de interfaz",
+    status: "Concepto visual",
   },
   {
-    id: "voz",
-    number: "07",
+    number: "06",
+    id: "agente-voz",
     category: "Inteligencia artificial",
-    type: "IA · Voz y llamadas",
-    title: "Agente de voz para llamadas",
+    title: "Agente de voz con IA",
     description:
-      "Un asistente de voz diseñado para atender consultas, recopilar información y derivar conversaciones cuando sea necesario.",
-    tags: ["Voz", "Llamadas", "Derivación"],
-    icon: Headphones,
+      "Un asistente conversacional para atender consultas, orientar a los usuarios y facilitar la gestión de solicitudes.",
+    tags: ["Voz", "Conversación", "Automatización"],
     preview: "voice",
-    accent: "violet",
-    status: "Ejemplo conceptual",
+    accent: "purple",
+    status: "Concepto visual",
   },
   {
+    number: "07",
     id: "automatizacion",
-    number: "08",
     category: "Automatización",
-    type: "Automatización · Procesos",
-    title: "Procesos que trabajan automáticamente",
+    title: "Automatización de procesos",
     description:
-      "Conecta formularios, correos y herramientas para reducir tareas repetitivas y organizar el flujo de trabajo de tu equipo.",
-    tags: ["Flujos", "Notificaciones", "Integraciones"],
-    icon: Workflow,
+      "Conecta tareas, aplicaciones y notificaciones para reducir trabajo repetitivo y mejorar el seguimiento de cada proceso.",
+    tags: ["Flujos", "Integraciones", "Productividad"],
     preview: "automation",
     accent: "green",
-    status: "Ejemplo de interfaz",
+    status: "Concepto visual",
   },
   {
+    number: "08",
     id: "dashboard",
-    number: "09",
     category: "Software",
-    type: "Software · Analítica",
-    title: "Dashboard de gestión empresarial",
+    title: "Dashboard empresarial",
     description:
-      "Un panel a medida para consultar indicadores, actividad, tareas pendientes y alertas importantes desde una sola pantalla.",
-    tags: ["Indicadores", "Informes", "Panel privado"],
-    icon: ChartNoAxesCombined,
+      "Un panel de control para consultar indicadores, revisar actividad y visualizar información importante en un solo lugar.",
+    tags: ["Indicadores", "Informes", "Datos"],
     preview: "dashboard",
     accent: "blue",
-    status: "Ejemplo de interfaz",
+    status: "Concepto visual",
   },
   {
+    number: "09",
     id: "crm",
-    number: "10",
     category: "Software",
-    type: "Software · Gestión de clientes",
-    title: "CRM adaptado a tu negocio",
+    title: "CRM y gestión de clientes",
     description:
-      "Organiza clientes, oportunidades, comunicaciones y tareas con una herramienta diseñada en torno a tus procesos.",
-    tags: ["Clientes", "Seguimiento", "Tareas"],
-    icon: Layers3,
+      "Una interfaz para centralizar clientes, organizar oportunidades comerciales y consultar el estado de cada seguimiento.",
+    tags: ["CRM", "Clientes", "Seguimiento"],
     preview: "crm",
-    accent: "orange",
-    status: "Ejemplo conceptual",
+    accent: "purple",
+    status: "Concepto visual",
   },
   {
+    number: "10",
     id: "transport",
-    number: "11",
     category: "Logística",
-    type: "MVP online · Transport AI",
     title: "Centro de operaciones logísticas",
     description:
-      "Explora el MVP de Transport AI: una demostración orientada a centralizar pedidos, incidencias, conductores y seguimiento operativo.",
-    tags: ["Pedidos", "Incidencias", "Conductores"],
-    icon: Truck,
+      "Un MVP orientado al transporte para centralizar operaciones, consultar incidencias y visualizar información relevante.",
+    tags: ["Logística", "Incidencias", "Operaciones"],
     preview: "transport",
-    accent: "blue",
+    accent: "green",
     status: "MVP disponible online",
     href: mvpUrl,
     live: true,
   },
 ];
 
-type Demo = (typeof demos)[number];
-
 function PreviewWindow({ demo }: { demo: Demo }) {
-  const accentClasses: Record<string, string> = {
-    blue: "bg-blue-600",
-    orange: "bg-orange-500",
-    violet: "bg-violet-600",
-    green: "bg-emerald-600",
-  };
-
-  const softClasses: Record<string, string> = {
-    blue: "bg-blue-50 text-blue-700",
-    orange: "bg-orange-50 text-orange-700",
-    violet: "bg-violet-50 text-violet-700",
-    green: "bg-emerald-50 text-emerald-700",
-  };
-
-  const accent = accentClasses[demo.accent] ?? "bg-blue-600";
-  const soft = softClasses[demo.accent] ?? "bg-blue-50 text-blue-700";
+  const isDark = demo.preview === "transport";
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-      <div className="flex h-9 items-center gap-1.5 border-b border-slate-200 bg-slate-50 px-3">
-        <span className="h-2 w-2 rounded-full bg-red-300" />
-        <span className="h-2 w-2 rounded-full bg-amber-300" />
-        <span className="h-2 w-2 rounded-full bg-emerald-300" />
-        <div className="ml-3 flex h-5 min-w-0 flex-1 items-center rounded-md border border-slate-200 bg-white px-2">
-          <span className="truncate text-[9px] text-slate-400">
-            vista-previa.local / {demo.id}
-          </span>
+    <div
+      className={`relative overflow-hidden rounded-2xl border ${
+        isDark
+          ? "border-slate-700 bg-slate-950"
+          : "border-slate-200 bg-white"
+      }`}
+    >
+      <div
+        className={`flex items-center justify-between border-b px-4 py-3 ${
+          isDark
+            ? "border-slate-800 bg-slate-900"
+            : "border-slate-200 bg-slate-50"
+        }`}
+      >
+        <div className="flex items-center gap-1.5">
+          <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
+          <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
+          <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
         </div>
+
+        <div
+          className={`max-w-[65%] truncate rounded-md px-3 py-1 text-[10px] ${
+            isDark
+              ? "bg-slate-800 text-slate-400"
+              : "bg-white text-slate-500"
+          }`}
+        >
+          {demo.preview === "corporate"
+            ? "transport-ai-web-corporativa.vercel.app"
+            : demo.preview === "transport"
+              ? "transport-ai · operaciones"
+              : `demo.transport-ai.es/${demo.id}`}
+        </div>
+
+        <Monitor
+          className={`h-4 w-4 ${
+            isDark ? "text-slate-500" : "text-slate-400"
+          }`}
+        />
       </div>
 
-      <div className="min-h-[218px] p-3 sm:p-4">
+      <div className="min-h-[230px] p-4 sm:min-h-[260px] sm:p-5">
         {demo.preview === "corporate" && (
-          <div className="space-y-4">
+          <div className="flex h-full min-h-[195px] flex-col overflow-hidden rounded-xl bg-slate-950 p-5 text-white sm:p-6">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-900">
-                <span className={`h-4 w-4 rounded ${accent}`} />
-                TRANSPORT AI
-              </div>
-              <div className="flex gap-2 text-[8px] text-slate-500">
-                <span>Servicios</span>
-                <span>Proyectos</span>
-                <span>Contacto</span>
-              </div>
-            </div>
-            <div className="grid grid-cols-[1.1fr_0.9fr] items-center gap-3">
-              <div>
-                <span className={`rounded-full px-2 py-1 text-[8px] ${soft}`}>
-                  SOLUCIONES DIGITALES
+              <div className="flex items-center gap-2 text-xs font-bold">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-500">
+                  <Sparkles className="h-4 w-4" />
                 </span>
-                <div className="mt-3 space-y-1">
-                  <div className="h-3 w-full rounded bg-slate-900" />
-                  <div className="h-3 w-4/5 rounded bg-slate-900" />
-                  <div className="h-2 w-full rounded bg-slate-200" />
-                  <div className="h-2 w-3/4 rounded bg-slate-200" />
-                </div>
-                <div className={`mt-3 h-6 w-24 rounded-md ${accent}`} />
+                <span>Transport AI</span>
               </div>
-              <div className={`flex aspect-square items-center justify-center rounded-2xl ${soft}`}>
-                <Globe className="h-12 w-12" />
-              </div>
-            </div>
-            <div className="grid grid-cols-3 gap-2">
-              {["Web", "IA", "Software"].map((item) => (
-                <div key={item} className="rounded-lg border border-slate-100 p-2">
-                  <div className={`h-4 w-4 rounded ${soft}`} />
-                  <div className="mt-2 text-[8px] font-semibold text-slate-700">{item}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {demo.preview === "italenters" && (
-          <div className="overflow-hidden rounded-xl bg-slate-950 p-4 text-white">
-            <div className="flex items-center justify-between gap-2">
-              <span className="text-[11px] font-bold tracking-wide">
-                ITALENTERS<span className="text-violet-300">.</span>
+              <span className="text-[9px] text-slate-400">
+                WEB · IA · SOFTWARE
               </span>
-              <span className="text-[8px] text-slate-300">Talento tecnológico</span>
             </div>
-            <div className="mt-5 grid grid-cols-[1.2fr_0.8fr] items-center gap-3">
-              <div>
-                <p className="text-[8px] uppercase tracking-widest text-violet-300">
-                  Selección de desarrolladores
-                </p>
-                <p className="mt-2 text-lg font-semibold leading-tight">
-                  El talento que impulsa tu empresa.
-                </p>
-                <p className="mt-2 text-[8px] leading-4 text-slate-300">
-                  Conectamos empresas con perfiles tecnológicos.
-                </p>
-                <div className="mt-3 inline-flex rounded-lg bg-violet-500 px-3 py-2 text-[8px] font-semibold">
-                  Encontrar talento
-                </div>
-              </div>
-              <div className="flex aspect-square items-center justify-center rounded-2xl border border-white/10 bg-violet-500/10">
-                <Code2 className="h-12 w-12 text-violet-300" />
+
+            <div className="my-auto py-7">
+              <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-blue-300">
+                Tecnología para empresas
+              </p>
+              <h3 className="max-w-xs text-2xl font-bold leading-tight sm:text-3xl">
+                Tecnología útil.
+                <br />
+                Procesos más inteligentes.
+              </h3>
+              <p className="mt-3 max-w-xs text-xs leading-5 text-slate-300">
+                Diseño web, inteligencia artificial y automatización adaptados
+                a cada negocio.
+              </p>
+              <div className="mt-5 inline-flex items-center gap-2 rounded-lg bg-blue-500 px-4 py-2 text-xs font-semibold">
+                Descubrir soluciones <ArrowRight className="h-3.5 w-3.5" />
               </div>
             </div>
-            <div className="mt-4 flex flex-wrap gap-1.5">
-              {["Frontend", "Backend", "Full stack"].map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-white/15 px-2 py-1 text-[8px] text-slate-200"
-                >
-                  {item}
-                </span>
-              ))}
+
+            <div className="grid grid-cols-3 gap-2">
+              {["Diseño web", "Inteligencia IA", "Automatización"].map(
+                (item) => (
+                  <div
+                    key={item}
+                    className="rounded-lg border border-white/10 bg-white/5 p-2 text-center text-[9px] text-slate-300"
+                  >
+                    {item}
+                  </div>
+                ),
+              )}
             </div>
           </div>
         )}
 
         {demo.preview === "restaurant" && (
-          <div className="overflow-hidden rounded-xl bg-[#f7f1e8] p-3">
-            <div className="flex items-center justify-between">
-              <span className="font-serif text-[12px] font-bold text-[#573b2b]">
-                CASA · SABOR
-              </span>
-              <span className="text-[8px] text-[#795c47]">Carta　Historia</span>
+          <div className="overflow-hidden rounded-xl bg-[#f6efe4] text-[#30271f]">
+            <div className="flex items-center justify-between border-b border-[#ded2c0] px-4 py-3">
+              <div className="font-serif text-sm font-bold">
+                EL PATIO
+              </div>
+              <Utensils className="h-4 w-4" />
             </div>
-            <div className="mt-3 grid grid-cols-[1fr_0.85fr] items-center gap-2">
-              <div>
-                <div className="font-serif text-xl leading-tight text-[#573b2b]">
-                  Cocina con
-                  <br />
-                  <span className="italic">historia.</span>
-                </div>
-                <p className="mt-2 text-[8px] leading-4 text-[#795c47]">
-                  Tradición, producto y recetas para recordar.
+            <div className="grid grid-cols-2 gap-3 p-4">
+              <div className="flex flex-col justify-center">
+                <p className="text-[9px] uppercase tracking-widest text-[#8d6242]">
+                  Cocina tradicional
                 </p>
-                <div className="mt-2 inline-flex rounded-full bg-[#573b2b] px-3 py-2 text-[8px] font-semibold text-white">
-                  Descubrir la carta
-                </div>
+                <h3 className="mt-2 font-serif text-xl font-bold leading-tight">
+                  El sabor de siempre
+                </h3>
+                <p className="mt-2 text-[10px] leading-4 text-[#68584a]">
+                  Platos para disfrutar y compartir.
+                </p>
+                <span className="mt-3 w-fit rounded-full bg-[#8c4b2d] px-3 py-2 text-[9px] font-semibold text-white">
+                  Ver la carta
+                </span>
               </div>
-              <div className="flex aspect-[4/5] items-center justify-center rounded-full bg-[#e4c8a5]">
-                <Utensils className="h-10 w-10 text-[#79523a]" />
+              <div className="flex min-h-[145px] items-center justify-center rounded-lg bg-gradient-to-br from-amber-200 via-orange-200 to-rose-300">
+                <Utensils className="h-12 w-12 text-[#8c4b2d]" />
               </div>
-            </div>
-            <div className="mt-3 flex items-center justify-between border-t border-[#e0cfb9] pt-2 text-[8px] text-[#795c47]">
-              <span>Producto local</span>
-              <span>Desde 1985</span>
-              <span>Madrid</span>
             </div>
           </div>
         )}
 
         {demo.preview === "landing" && (
-          <div className="rounded-xl bg-slate-950 p-4 text-white">
+          <div className="rounded-xl bg-gradient-to-br from-indigo-950 to-violet-800 p-5 text-white sm:p-6">
             <div className="flex items-center justify-between">
-              <span className="text-[9px] font-bold">IMPULSA DIGITAL</span>
-              <span className="rounded-full border border-white/20 px-2 py-1 text-[7px]">Para empresas</span>
+              <span className="text-xs font-bold">NOVA STUDIO</span>
+              <span className="rounded-full border border-white/30 px-2 py-1 text-[9px]">
+                Servicios
+              </span>
             </div>
-            <div className="mt-5 max-w-[240px] text-2xl font-semibold leading-tight tracking-tight">
-              Haz crecer tu
-              <span className="block text-violet-300">próximo proyecto.</span>
-            </div>
-            <p className="mt-2 max-w-[220px] text-[9px] leading-4 text-slate-300">
-              Una propuesta clara, una página enfocada y una acción sencilla.
-            </p>
-            <div className="mt-3 flex items-center gap-2">
-              <div className="rounded-md bg-violet-500 px-3 py-2 text-[8px] font-semibold">
-                Solicitar información
+            <div className="py-7">
+              <p className="text-[9px] uppercase tracking-widest text-violet-200">
+                Haz crecer tu negocio
+              </p>
+              <h3 className="mt-3 max-w-xs text-2xl font-bold leading-tight">
+                Una presencia digital que destaca.
+              </h3>
+              <p className="mt-3 max-w-xs text-[10px] leading-5 text-violet-100">
+                Comunica mejor tu propuesta y convierte visitas en clientes.
+              </p>
+              <div className="mt-5 inline-flex items-center gap-2 rounded-lg bg-white px-3 py-2 text-[10px] font-bold text-indigo-950">
+                Solicitar información <ArrowRight className="h-3 w-3" />
               </div>
-              <span className="text-[8px] text-slate-300">Cómo funciona →</span>
             </div>
           </div>
         )}
 
         {demo.preview === "shop" && (
-          <div>
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold text-slate-900">FORMA STUDIO</span>
-              <ShoppingBag className="h-4 w-4 text-slate-700" />
+          <div className="rounded-xl bg-white p-3">
+            <div className="flex items-center justify-between border-b pb-3">
+              <div className="flex items-center gap-2 text-xs font-bold text-slate-900">
+                <ShoppingBag className="h-4 w-4" /> ESTUDIO SHOP
+              </div>
+              <span className="text-[10px] text-slate-500">Catálogo</span>
             </div>
             <div className="mt-3 grid grid-cols-3 gap-2">
               {[
-                ["bg-amber-100", "Pieza 01", "Diseño"],
-                ["bg-rose-100", "Pieza 02", "Estilo"],
-                ["bg-emerald-100", "Pieza 03", "Calidad"],
-              ].map(([color, name, detail]) => (
-                <div key={name}>
-                  <div className={`flex aspect-[4/5] items-center justify-center rounded-lg ${color}`}>
-                    <Package className="h-8 w-8 text-slate-600" />
+                "bg-amber-100",
+                "bg-rose-100",
+                "bg-emerald-100",
+              ].map((color, index) => (
+                <div key={color} className="min-w-0">
+                  <div
+                    className={`flex h-20 items-center justify-center rounded-lg ${color}`}
+                  >
+                    <Package className="h-7 w-7 text-slate-600" />
                   </div>
-                  <p className="mt-2 text-[9px] font-semibold text-slate-800">{name}</p>
-                  <p className="mt-1 text-[8px] text-slate-500">{detail}</p>
+                  <p className="mt-2 truncate text-[9px] font-semibold text-slate-800">
+                    Producto {index + 1}
+                  </p>
+                  <p className="text-[9px] text-slate-500">Desde 29 €</p>
                 </div>
               ))}
-            </div>
-            <div className="mt-3 flex items-center justify-between rounded-lg border border-slate-200 p-2">
-              <span className="text-[8px] text-slate-600">Descubre la colección</span>
-              <ArrowRight className="h-3 w-3" />
             </div>
           </div>
         )}
 
         {demo.preview === "chat" && (
-          <div className="mx-auto max-w-[250px] overflow-hidden rounded-xl border border-slate-200">
-            <div className="flex items-center gap-2 bg-slate-950 p-3 text-white">
-              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue-500">
-                <Bot className="h-4 w-4" />
+          <div className="mx-auto max-w-sm rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+            <div className="flex items-center gap-3 border-b pb-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-100 text-blue-700">
+                <Bot className="h-5 w-5" />
               </div>
               <div>
-                <p className="text-[10px] font-semibold">Asistente virtual</p>
-                <p className="text-[8px] text-emerald-300">Disponible para ayudarte</p>
+                <p className="text-xs font-bold text-slate-900">
+                  Asistente de Transport AI
+                </p>
+                <p className="text-[10px] text-emerald-600">
+                  Asistente virtual
+                </p>
               </div>
             </div>
-            <div className="space-y-3 bg-slate-50 p-3">
-              <div className="max-w-[90%] rounded-xl rounded-tl-sm bg-white p-2 text-[9px] leading-4 text-slate-600 shadow-sm">
+            <div className="space-y-3 py-4">
+              <div className="max-w-[85%] rounded-xl rounded-tl-none bg-slate-100 p-3 text-[10px] leading-4 text-slate-700">
                 ¡Hola! ¿En qué puedo ayudarte hoy?
               </div>
-              <div className="ml-auto max-w-[80%] rounded-xl rounded-tr-sm bg-blue-600 p-2 text-[9px] text-white">
+              <div className="ml-auto max-w-[85%] rounded-xl rounded-tr-none bg-blue-600 p-3 text-[10px] leading-4 text-white">
                 Quiero información sobre vuestros servicios.
               </div>
-              <div className="max-w-[95%] rounded-xl rounded-tl-sm bg-white p-2 text-[9px] leading-4 text-slate-600 shadow-sm">
-                Puedo orientarte y recoger tus datos para que el equipo contacte contigo.
+              <div className="max-w-[85%] rounded-xl rounded-tl-none bg-slate-100 p-3 text-[10px] leading-4 text-slate-700">
+                Claro. Puedo explicarte las soluciones y ayudarte a contactar
+                con el equipo.
               </div>
-              <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-white px-2 py-2 text-[8px] text-slate-400">
-                <span>Escribe tu consulta...</span>
-                <ArrowRight className="h-3 w-3" />
-              </div>
+            </div>
+            <div className="flex items-center justify-between rounded-lg border px-3 py-2 text-[10px] text-slate-400">
+              Escribe tu consulta...
+              <MessageSquare className="h-3.5 w-3.5" />
             </div>
           </div>
         )}
 
         {demo.preview === "voice" && (
-          <div className="flex min-h-[190px] flex-col items-center justify-center rounded-xl bg-gradient-to-br from-violet-950 to-slate-950 p-4 text-center text-white">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-violet-500/20 ring-1 ring-violet-300/30">
-              <Headphones className="h-6 w-6 text-violet-200" />
+          <div className="flex min-h-[195px] flex-col items-center justify-center rounded-xl bg-gradient-to-br from-violet-950 to-indigo-800 p-5 text-white">
+            <div className="flex h-16 w-16 items-center justify-center rounded-full border border-white/20 bg-white/10">
+              <Headphones className="h-8 w-8" />
             </div>
-            <p className="mt-3 text-sm font-semibold">Asistente de voz</p>
-            <p className="mt-1 text-[9px] text-violet-200">Atención conversacional</p>
-            <div className="mt-4 flex h-8 items-center justify-center gap-1">
-              {[12, 20, 27, 16, 30, 18, 25, 12, 22, 15, 28, 10, 18].map((height, index) => (
-                <span
-                  key={index}
-                  className="w-1 rounded-full bg-violet-300"
-                  style={{ height }}
-                />
-              ))}
+            <p className="mt-4 text-sm font-bold">Asistente de voz IA</p>
+            <p className="mt-1 text-center text-[10px] text-violet-200">
+              Atención conversacional para tus clientes
+            </p>
+            <div className="my-4 flex h-8 items-center gap-1">
+              {[12, 22, 30, 17, 26, 14, 32, 18, 27, 12, 22].map(
+                (height, index) => (
+                  <span
+                    key={`${height}-${index}`}
+                    className="w-1 rounded-full bg-violet-300"
+                    style={{ height: `${height}px` }}
+                  />
+                ),
+              )}
             </div>
-            <div className="mt-4 flex items-center gap-2 rounded-full border border-white/15 px-3 py-2 text-[9px] text-slate-200">
-              <LockKeyhole className="h-3 w-3" />
-              Ejemplo visual · Sin llamada activa
-            </div>
+            <span className="rounded-full border border-white/20 px-3 py-1.5 text-[9px] text-violet-100">
+              Ejemplo de interfaz
+            </span>
           </div>
         )}
 
         {demo.preview === "automation" && (
-          <div className="flex min-h-[190px] flex-col justify-center rounded-xl bg-slate-50 p-3">
-            <p className="mb-3 text-[9px] font-semibold uppercase tracking-wider text-slate-500">
-              Flujo de trabajo
-            </p>
-            {[
-              { title: "Nuevo correo recibido", detail: "Detectar y clasificar", icon: Mail },
-              { title: "Procesar información", detail: "Aplicar reglas definidas", icon: Bot },
-              { title: "Actualizar y notificar", detail: "Según la configuración", icon: Workflow },
-            ].map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <div key={item.title}>
-                  <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white p-2">
-                    <div className="flex h-7 w-7 items-center justify-center rounded-md bg-blue-50 text-blue-700">
-                      <Icon className="h-4 w-4" />
+          <div className="flex min-h-[195px] flex-col justify-center rounded-xl bg-slate-50 p-4">
+            <div className="mb-4 flex items-center justify-between">
+              <span className="text-xs font-bold text-slate-900">
+                Flujo automatizado
+              </span>
+              <Workflow className="h-4 w-4 text-emerald-600" />
+            </div>
+            <div className="grid grid-cols-3 items-center gap-2">
+              {[
+                { label: "Entrada", icon: Mail, color: "bg-blue-100 text-blue-700" },
+                { label: "Procesamiento", icon: Bot, color: "bg-violet-100 text-violet-700" },
+                { label: "Resultado", icon: CheckCircle2, color: "bg-emerald-100 text-emerald-700" },
+              ].map((step, index) => {
+                const Icon = step.icon;
+
+                return (
+                  <div key={step.label} className="relative">
+                    <div className="flex min-h-[88px] flex-col items-center justify-center rounded-xl border border-slate-200 bg-white p-2 text-center">
+                      <div
+                        className={`flex h-8 w-8 items-center justify-center rounded-lg ${step.color}`}
+                      >
+                        <Icon className="h-4 w-4" />
+                      </div>
+                      <span className="mt-2 text-[9px] font-semibold text-slate-700">
+                        {step.label}
+                      </span>
                     </div>
-                    <div className="flex-1">
-                      <p className="text-[9px] font-semibold text-slate-800">{item.title}</p>
-                      <p className="text-[8px] text-slate-500">{item.detail}</p>
-                    </div>
-                    <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                    {index < 2 && (
+                      <ArrowRight className="absolute -right-3 top-1/2 z-10 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                    )}
                   </div>
-                  {index < 2 && <div className="ml-5 h-3 border-l border-dashed border-slate-300" />}
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
+            <p className="mt-4 text-center text-[10px] text-slate-500">
+              Menos tareas repetitivas. Más control.
+            </p>
           </div>
         )}
 
         {demo.preview === "dashboard" && (
           <div className="rounded-xl bg-slate-50 p-3">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-[10px] font-bold text-slate-900">Panel de control</p>
-                <p className="mt-1 text-[8px] text-slate-500">Resumen de actividad · Vista ilustrativa</p>
-              </div>
-              <ChartNoAxesCombined className="h-5 w-5 text-blue-600" />
+              <span className="text-xs font-bold text-slate-900">
+                Resumen empresarial
+              </span>
+              <ChartNoAxesCombined className="h-4 w-4 text-blue-600" />
             </div>
             <div className="mt-3 grid grid-cols-3 gap-2">
-              {["Actividad", "Pendientes", "Proyectos"].map((label, index) => (
-                <div key={label} className="rounded-lg border border-slate-200 bg-white p-2">
-                  <p className="text-[7px] text-slate-500">{label}</p>
-                  <p className="mt-1 text-base font-semibold text-slate-900">
-                    {["84%", "12", "08"][index]}
+              {[
+                { label: "Actividad", value: "1.284" },
+                { label: "Procesos", value: "86" },
+                { label: "Pendientes", value: "12" },
+              ].map((item) => (
+                <div
+                  key={item.label}
+                  className="rounded-lg border border-slate-200 bg-white p-2"
+                >
+                  <p className="text-[9px] text-slate-500">{item.label}</p>
+                  <p className="mt-1 text-lg font-bold text-slate-900">
+                    {item.value}
                   </p>
-                  <div className={`mt-2 h-1 rounded-full ${index === 1 ? "bg-amber-400" : "bg-blue-500"}`} />
                 </div>
               ))}
             </div>
             <div className="mt-3 flex h-20 items-end gap-2 rounded-lg border border-slate-200 bg-white px-3 pb-2 pt-3">
-              {[34, 52, 40, 69, 47, 82, 60, 92, 67, 77, 55, 88].map((height, index) => (
-                <div key={index} className="flex h-full flex-1 items-end">
+              {[35, 55, 43, 72, 51, 86, 64, 95, 69, 80, 59, 91].map(
+                (height, index) => (
                   <div
-                    className={`w-full rounded-t-sm ${index === 7 ? "bg-blue-600" : "bg-blue-200"}`}
+                    key={`${height}-${index}`}
+                    className="flex-1 rounded-t bg-blue-500/80"
                     style={{ height: `${height}%` }}
                   />
-                </div>
-              ))}
+                ),
+              )}
             </div>
           </div>
         )}
 
         {demo.preview === "crm" && (
-          <div className="rounded-xl border border-slate-200 bg-white p-3">
+          <div className="rounded-xl bg-slate-50 p-3">
             <div className="flex items-center justify-between">
-              <div>
-                <p className="text-[11px] font-bold text-slate-900">CRM de clientes</p>
-                <p className="mt-1 text-[8px] text-slate-500">Seguimiento comercial · Ejemplo visual</p>
-              </div>
-              <Building2 className="h-5 w-5 text-orange-500" />
-            </div>
-            <div className="mt-3 grid grid-cols-3 gap-1.5">
-              {["Nuevo", "En curso", "Cerrado"].map((label, index) => (
-                <div key={label} className="rounded-md bg-slate-50 p-2">
-                  <p className="text-[8px] font-semibold text-slate-600">{label}</p>
-                  <p className="mt-1 text-[8px] text-slate-400">
-                    {["Contacto inicial", "Propuesta enviada", "Proyecto completado"][index]}
-                  </p>
-                  <div className={`mt-2 h-1 w-3/4 rounded-full ${["bg-blue-400", "bg-orange-400", "bg-emerald-400"][index]}`} />
-                </div>
-              ))}
+              <span className="text-xs font-bold text-slate-900">
+                Gestión de clientes
+              </span>
+              <Building2 className="h-4 w-4 text-violet-600" />
             </div>
             <div className="mt-3 space-y-2">
-              {["Empresa A · Seguimiento pendiente", "Empresa B · Preparar propuesta"].map((item) => (
-                <div key={item} className="flex items-center gap-2 rounded-lg border border-slate-100 p-2">
-                  <div className="h-6 w-6 rounded-full bg-orange-50" />
-                  <span className="text-[8px] text-slate-600">{item}</span>
+              {[
+                { name: "Empresa Norte", state: "Nuevo", color: "bg-blue-100 text-blue-700" },
+                { name: "Grupo Central", state: "En seguimiento", color: "bg-amber-100 text-amber-700" },
+                { name: "Servicios Delta", state: "Contactado", color: "bg-emerald-100 text-emerald-700" },
+              ].map((client) => (
+                <div
+                  key={client.name}
+                  className="flex items-center justify-between gap-2 rounded-lg border border-slate-200 bg-white p-3"
+                >
+                  <div className="flex min-w-0 items-center gap-2">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-100">
+                      <Building2 className="h-4 w-4 text-slate-600" />
+                    </div>
+                    <span className="truncate text-[10px] font-semibold text-slate-800">
+                      {client.name}
+                    </span>
+                  </div>
+                  <span className={`shrink-0 rounded-full px-2 py-1 text-[9px] ${client.color}`}>
+                    {client.state}
+                  </span>
                 </div>
               ))}
             </div>
@@ -571,34 +570,48 @@ function PreviewWindow({ demo }: { demo: Demo }) {
         {demo.preview === "transport" && (
           <div className="rounded-xl bg-slate-950 p-3 text-white">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-600">
-                  <Truck className="h-4 w-4" />
-                </div>
-                <div>
-                  <p className="text-[10px] font-bold">Transport AI</p>
-                  <p className="text-[8px] text-slate-400">Centro de operaciones</p>
-                </div>
+              <div>
+                <p className="text-xs font-bold">Centro de operaciones</p>
+                <p className="mt-1 text-[9px] text-slate-400">
+                  Vista de demostración
+                </p>
               </div>
-              <span className="rounded-full bg-emerald-400/10 px-2 py-1 text-[8px] text-emerald-300">
-                MVP online
-              </span>
+              <Truck className="h-5 w-5 text-emerald-400" />
             </div>
-            <div className="mt-3 grid grid-cols-3 gap-2">
+            <div className="mt-4 grid grid-cols-3 gap-2">
               {[
-                ["Pedidos", "12"],
-                ["Incidencias", "04"],
-                ["En reparto", "02"],
-              ].map(([label, value]) => (
-                <div key={label} className="rounded-lg border border-white/10 bg-white/5 p-2">
-                  <p className="text-[8px] text-slate-400">{label}</p>
-                  <p className="mt-1 text-lg font-semibold">{value}</p>
+                { label: "Incidencias", value: "48" },
+                { label: "Resueltas IA", value: "31" },
+                { label: "Pendientes", value: "9" },
+              ].map((item) => (
+                <div
+                  key={item.label}
+                  className="rounded-lg border border-slate-800 bg-slate-900 p-2"
+                >
+                  <p className="text-[9px] text-slate-400">{item.label}</p>
+                  <p className="mt-2 text-xl font-bold">{item.value}</p>
                 </div>
               ))}
             </div>
-            <div className="mt-3 flex h-[72px] items-center justify-center rounded-lg border border-white/10 bg-slate-900">
-              <MapPin className="h-7 w-7 text-blue-400" />
-              <span className="ml-2 text-[9px] text-slate-400">Vista ilustrativa de operaciones</span>
+            <div className="mt-3 space-y-2">
+              <div className="flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900 p-2.5">
+                <CircleAlert className="h-4 w-4 shrink-0 text-amber-400" />
+                <div className="min-w-0">
+                  <p className="text-[10px] font-semibold">Incidencia de dirección</p>
+                  <p className="mt-0.5 text-[9px] text-slate-400">
+                    Revisión de datos de entrega
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900 p-2.5">
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400" />
+                <div className="min-w-0">
+                  <p className="text-[10px] font-semibold">Seguimiento automatizado</p>
+                  <p className="mt-0.5 text-[9px] text-slate-400">
+                    Información centralizada
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -610,390 +623,400 @@ function PreviewWindow({ demo }: { demo: Demo }) {
 export default function DemonstrationsPage() {
   return (
     <SiteShell>
-      <section className="relative isolate overflow-hidden bg-slate-950 text-white">
-        <div className="pointer-events-none absolute inset-0 -z-10">
-          <div className="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-blue-600/25 blur-3xl" />
-          <div className="absolute -bottom-40 left-1/4 h-96 w-96 rounded-full bg-violet-600/15 blur-3xl" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:40px_40px]" />
-        </div>
+      <main className="overflow-hidden">
+        <section className="relative border-b border-slate-200 bg-white">
+          <div className="absolute inset-0 -z-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-50 via-white to-white" />
 
-        <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 sm:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16">
-          <div>
-            <Eyebrow>Portfolio tecnológico · Transport AI</Eyebrow>
-
-            <div className="mt-7 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-300">
-              <Sparkles className="h-3.5 w-3.5 text-blue-300" />
-              Web · Inteligencia artificial · Software
-            </div>
-
-            <h1 className="mt-6 max-w-3xl text-4xl font-semibold leading-[1.07] tracking-[-0.045em] sm:text-6xl">
-              Ideas que se convierten en
-              <span className="block bg-gradient-to-r from-blue-300 via-blue-400 to-violet-300 bg-clip-text text-transparent">
-                soluciones digitales.
-              </span>
-            </h1>
-
-            <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
-              Explora ejemplos de páginas web, agentes de inteligencia artificial,
-              automatizaciones y software empresarial. Diseñamos cada solución
-              según los objetivos y las necesidades de tu negocio.
-            </p>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a
-                href="#portfolio"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-950/30 transition hover:bg-blue-500"
-              >
-                Explorar demostraciones
-                <ArrowRight className="h-4 w-4" />
-              </a>
-              <Link
-                href="/contacto"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10"
-              >
-                Cuéntanos tu proyecto
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            </div>
-
-            <div className="mt-9 flex flex-wrap gap-x-5 gap-y-3 text-xs text-slate-400">
-              <span className="inline-flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-                Soluciones a medida
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-                Diseño responsive
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-                Tecnología aplicada al negocio
-              </span>
-            </div>
-          </div>
-
-          <div className="relative mx-auto w-full max-w-xl">
-            <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-blue-500/20 to-violet-500/20 blur-2xl" />
-            <div className="relative rounded-3xl border border-white/15 bg-white/[0.06] p-3 shadow-2xl backdrop-blur sm:p-4">
-              <div className="flex items-center justify-between gap-3 px-2 pb-4 pt-2">
-                <div>
-                  <p className="text-xs font-semibold text-slate-300">TRANSPORT AI STUDIO</p>
-                  <p className="mt-1 text-sm text-white">Soluciones digitales para empresas</p>
-                </div>
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500/20 text-blue-300">
-                  <Layers3 className="h-5 w-5" />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { icon: Globe, name: "Páginas web", text: "Presencia digital", color: "text-blue-300 bg-blue-400/10" },
-                  { icon: Bot, name: "Agentes de IA", text: "Atención inteligente", color: "text-violet-300 bg-violet-400/10" },
-                  { icon: Workflow, name: "Automatización", text: "Procesos conectados", color: "text-emerald-300 bg-emerald-400/10" },
-                  { icon: Code2, name: "Software", text: "Herramientas a medida", color: "text-orange-300 bg-orange-400/10" },
-                ].map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <div key={item.name} className="rounded-2xl border border-white/10 bg-slate-900/70 p-4 sm:p-5">
-                      <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${item.color}`}>
-                        <Icon className="h-5 w-5" />
-                      </div>
-                      <p className="mt-4 text-sm font-semibold text-white">{item.name}</p>
-                      <p className="mt-1 text-xs text-slate-400">{item.text}</p>
-                    </div>
-                  );
-                })}
-              </div>
-
-              <div className="mt-3 flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                <div>
-                  <p className="text-sm font-semibold text-white">Tu siguiente proyecto empieza aquí.</p>
-                  <p className="mt-1 text-xs text-slate-400">De la idea a una solución real.</p>
-                </div>
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-600">
-                  <ArrowUpRight className="h-5 w-5" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-5 px-5 py-7 sm:px-8 md:grid-cols-4">
-          {[
-            { value: "Web", label: "Diseño y desarrollo" },
-            { value: "IA", label: "Agentes inteligentes" },
-            { value: "Automatización", label: "Procesos conectados" },
-            { value: "Software", label: "Soluciones a medida" },
-          ].map((item) => (
-            <div key={item.value} className="border-l-2 border-blue-500 pl-4">
-              <p className="text-base font-semibold tracking-tight text-slate-950">{item.value}</p>
-              <p className="mt-1 text-xs text-slate-500">{item.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section id="portfolio" className="scroll-mt-24 bg-slate-50">
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24">
-          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="relative mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24">
             <div className="max-w-3xl">
-              <Eyebrow>Portfolio de soluciones</Eyebrow>
-              <h2 className="mt-4 text-3xl font-semibold tracking-[-0.035em] text-slate-950 sm:text-5xl">
-                Tecnología que se adapta a tu negocio.
+              <Eyebrow>Demostraciones · Transport AI</Eyebrow>
+
+              <h1 className="mt-6 text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+                Tecnología que puedes ver.
+                <span className="block text-blue-600">
+                  Soluciones que puedes explorar.
+                </span>
+              </h1>
+
+              <p className="mt-6 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
+                Descubre ejemplos de páginas web profesionales, asistentes de
+                inteligencia artificial, automatizaciones y software empresarial.
+                Desarrollamos soluciones adaptadas a las necesidades de cada
+                negocio.
+              </p>
+
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <a
+                  href="#catalogo"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-blue-700"
+                >
+                  Explorar demostraciones
+                  <ArrowRight className="h-4 w-4" />
+                </a>
+
+                <Link
+                  href="/contacto"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3.5 text-sm font-semibold text-slate-800 transition hover:border-blue-300 hover:text-blue-700"
+                >
+                  Cuéntanos tu proyecto
+                  <ArrowUpRight className="h-4 w-4" />
+                </Link>
+              </div>
+
+              <div className="mt-8 flex flex-wrap gap-x-5 gap-y-3 text-xs text-slate-500">
+                <span className="inline-flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                  Diseños adaptados a móvil
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                  Soluciones personalizadas
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                  Integración de tecnologías
+                </span>
+              </div>
+            </div>
+
+            <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {[
+                {
+                  icon: Globe,
+                  title: "Páginas web",
+                  text: "Presencia digital",
+                },
+                {
+                  icon: Bot,
+                  title: "Inteligencia artificial",
+                  text: "Asistentes inteligentes",
+                },
+                {
+                  icon: Workflow,
+                  title: "Automatización",
+                  text: "Procesos conectados",
+                },
+                {
+                  icon: Layers3,
+                  title: "Software",
+                  text: "Herramientas de gestión",
+                },
+              ].map((item) => {
+                const Icon = item.icon;
+
+                return (
+                  <div
+                    key={item.title}
+                    className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5"
+                  >
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-700">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <h2 className="mt-4 text-sm font-semibold text-slate-900">
+                      {item.title}
+                    </h2>
+                    <p className="mt-1 text-xs leading-5 text-slate-500">
+                      {item.text}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="catalogo"
+          className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20"
+        >
+          <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+            <div>
+              <Eyebrow>Catálogo de soluciones</Eyebrow>
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+                Explora lo que podemos construir
               </h2>
-              <p className="mt-5 max-w-2xl text-base leading-8 text-slate-600">
-                Cada proyecto es diferente. Aquí puedes explorar ejemplos visuales
-                de las soluciones que podemos diseñar y desarrollar contigo.
+              <p className="mt-4 max-w-2xl text-sm leading-6 text-slate-600 sm:text-base">
+                Cada proyecto parte de un objetivo de negocio. Explora los
+                ejemplos y descubre qué tipo de solución puede encajar con tu
+                empresa.
               </p>
             </div>
+
             <div className="flex items-center gap-2 text-sm text-slate-500">
-              <Monitor className="h-4 w-4" />
-              <span>Diseño para escritorio y móvil</span>
+              <Layers3 className="h-4 w-4" />
+              {demos.length} demostraciones
             </div>
           </div>
 
-          <div className="mt-9 flex flex-wrap gap-2">
+          <div className="mt-8 flex flex-wrap gap-2">
             {categories.map((category) => (
               <a
                 key={category}
-                href={`#categoria-${category === "Todos" ? "todos" : category === "Páginas web" ? "web" : category === "Inteligencia artificial" ? "ia" : category === "Automatización" ? "automatizacion" : category === "Software" ? "software" : "logistica"}`}
-                className="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-600 transition hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700"
+                href={
+                  category === "Todos"
+                    ? "#catalogo"
+                    : `#${category
+                        .toLowerCase()
+                        .replaceAll(" ", "-")
+                        .replaceAll("í", "i")}`
+                }
+                className="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-medium text-slate-600 transition hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700"
               >
                 {category}
               </a>
             ))}
           </div>
 
-          <div id="categoria-todos" className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {demos.map((demo) => {
-              const Icon = demo.icon;
-              const isLive = demo.live === true;
-              const hasValidUrl =
-                typeof demo.href === "string" &&
-                demo.href.startsWith("https://") &&
-                !demo.href.includes("PEGA_AQUI");
+          <div className="mt-10 space-y-14">
+            {categories
+              .filter((category) => category !== "Todos")
+              .map((category) => {
+                const categoryDemos = demos.filter(
+                  (demo) => demo.category === category,
+                );
 
-              return (
-                <article
-                  key={demo.id}
-                  id={
-                    demo.category === "Páginas web"
-                      ? `categoria-web-card-${demo.id}`
-                      : demo.category === "Inteligencia artificial"
-                        ? `categoria-ia-card-${demo.id}`
-                        : demo.category === "Automatización"
-                          ? `categoria-automatizacion-card-${demo.id}`
-                          : demo.category === "Software"
-                            ? `categoria-software-card-${demo.id}`
-                            : `categoria-logistica-card-${demo.id}`
-                  }
-                  className={`group flex min-w-0 flex-col overflow-hidden rounded-3xl border bg-white transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/70 ${
-                    isLive ? "border-blue-200 ring-1 ring-blue-100" : "border-slate-200"
-                  }`}
-                >
-                  <div className="relative p-3 pb-0 sm:p-4 sm:pb-0">
-                    <PreviewWindow demo={demo} />
-                    <div className="absolute left-6 top-6">
-                      <span className="inline-flex items-center gap-1.5 rounded-full border border-white/80 bg-white/95 px-2.5 py-1.5 text-[10px] font-semibold text-slate-700 shadow-sm backdrop-blur">
-                        {isLive ? (
-                          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                if (categoryDemos.length === 0) return null;
+
+                const sectionId = category
+                  .toLowerCase()
+                  .replaceAll(" ", "-")
+                  .replaceAll("í", "i");
+
+                return (
+                  <div key={category} id={sectionId} className="scroll-mt-8">
+                    <div className="mb-5 flex items-center gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
+                        {category === "Páginas web" ? (
+                          <Globe className="h-5 w-5" />
+                        ) : category === "Inteligencia artificial" ? (
+                          <Bot className="h-5 w-5" />
+                        ) : category === "Automatización" ? (
+                          <Workflow className="h-5 w-5" />
+                        ) : category === "Software" ? (
+                          <Code2 className="h-5 w-5" />
                         ) : (
-                          <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
+                          <Truck className="h-5 w-5" />
                         )}
-                        {demo.status}
-                      </span>
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-slate-950">
+                          {category}
+                        </h3>
+                        <p className="text-xs text-slate-500">
+                          {categoryDemos.length}{" "}
+                          {categoryDemos.length === 1
+                            ? "demostración"
+                            : "demostraciones"}
+                        </p>
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="flex flex-1 flex-col p-5 sm:p-6">
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="text-[10px] font-semibold uppercase tracking-[0.13em] text-blue-700">
-                        {demo.type}
-                      </span>
-                      <span className="text-xs font-semibold text-slate-300">{demo.number}</span>
-                    </div>
-
-                    <h3 className="mt-3 text-xl font-semibold leading-snug tracking-tight text-slate-950">
-                      {demo.title}
-                    </h3>
-                    <p className="mt-3 flex-1 text-sm leading-7 text-slate-600">
-                      {demo.description}
-                    </p>
-
-                    <div className="mt-5 flex flex-wrap gap-2">
-                      {demo.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-full bg-slate-100 px-2.5 py-1.5 text-[10px] font-medium text-slate-600"
+                    <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                      {categoryDemos.map((demo) => (
+                        <article
+                          key={demo.id}
+                          className="group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-xl"
                         >
-                          {tag}
-                        </span>
+                          <div className="p-3 pb-0">
+                            <PreviewWindow demo={demo} />
+                          </div>
+
+                          <div className="flex flex-1 flex-col p-5 sm:p-6">
+                            <div className="flex flex-wrap items-center justify-between gap-2">
+                              <span className="text-[11px] font-semibold uppercase tracking-[0.15em] text-slate-400">
+                                DEMO {demo.number}
+                              </span>
+
+                              <span
+                                className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-semibold ${
+                                  demo.live
+                                    ? "bg-emerald-50 text-emerald-700"
+                                    : "bg-slate-100 text-slate-600"
+                                }`}
+                              >
+                                {demo.live ? (
+                                  <CheckCircle2 className="h-3 w-3" />
+                                ) : (
+                                  <Sparkles className="h-3 w-3" />
+                                )}
+                                {demo.status}
+                              </span>
+                            </div>
+
+                            <h3 className="mt-4 text-lg font-semibold tracking-tight text-slate-950">
+                              {demo.title}
+                            </h3>
+
+                            <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">
+                              {demo.description}
+                            </p>
+
+                            <div className="mt-5 flex flex-wrap gap-2">
+                              {demo.tags.map((tag) => (
+                                <span
+                                  key={tag}
+                                  className="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-[10px] font-medium text-slate-600"
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+
+                            <div className="mt-6 border-t border-slate-100 pt-5">
+                              {demo.live && demo.href ? (
+                                <a
+                                  href={demo.href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+                                >
+                                  Abrir demostración real
+                                  <ExternalLink className="h-4 w-4" />
+                                </a>
+                              ) : (
+                                <Link
+                                  href={`/contacto?servicio=${encodeURIComponent(
+                                    demo.title,
+                                  )}`}
+                                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-800 transition hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700"
+                                >
+                                  Quiero una solución así
+                                  <ArrowRight className="h-4 w-4" />
+                                </Link>
+                              )}
+                            </div>
+                          </div>
+                        </article>
                       ))}
                     </div>
-
-                    {isLive && hasValidUrl ? (
-                      <a
-                        href={demo.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-6 inline-flex items-center justify-between gap-2 rounded-xl bg-blue-600 px-4 py-3.5 text-sm font-semibold text-white transition hover:bg-blue-700"
-                      >
-                        Abrir demostración real
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
-                    ) : isLive ? (
-                      <span className="mt-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3.5 text-xs leading-5 text-amber-800">
-                        Añade la URL de Vercel en el código para activar este enlace.
-                      </span>
-                    ) : (
-                      <Link
-                        href={`/contacto?servicio=${encodeURIComponent(demo.title)}`}
-                        className="mt-6 inline-flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-sm font-semibold text-slate-800 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
-                      >
-                        Quiero una solución así
-                        <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
-                      </Link>
-                    )}
                   </div>
-                </article>
-              );
-            })}
+                );
+              })}
           </div>
+        </section>
 
-          <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
-            <div className="flex items-start gap-3">
-              <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-slate-500" />
-              <div>
-                <p className="text-sm font-semibold text-slate-800">Transparencia sobre las demostraciones</p>
-                <p className="mt-1 text-sm leading-6 text-slate-500">
-                  Las vistas previas de esta página son ejemplos visuales para mostrar posibles diseños e interfaces.
-                  No son aplicaciones independientes ni implican que todas las funciones estén conectadas o desplegadas.
-                  Las demostraciones reales enlazan a sus respectivas webs cuando su URL está configurada.
-                  El alcance de cada proyecto se define antes de su desarrollo.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white">
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24">
-          <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+        <section className="border-y border-slate-200 bg-slate-50">
+          <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 sm:px-8 md:grid-cols-2 md:items-center md:py-20">
             <div>
-              <Eyebrow>Cómo trabajamos</Eyebrow>
-              <h2 className="mt-4 text-3xl font-semibold tracking-[-0.035em] text-slate-950 sm:text-4xl">
-                De una necesidad concreta a una solución útil.
+              <Eyebrow>De la idea al proyecto</Eyebrow>
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+                No se trata solo de tecnología. Se trata de resolver problemas.
               </h2>
-              <p className="mt-5 text-base leading-8 text-slate-600">
-                No se trata de añadir tecnología por añadirla. Primero entendemos
-                qué necesita tu empresa y después definimos una solución con un
-                alcance claro.
+              <p className="mt-5 text-sm leading-7 text-slate-600 sm:text-base">
+                Analizamos las necesidades de tu empresa para diseñar una
+                solución útil, con funcionalidades concretas y un alcance
+                adaptado a tus objetivos.
               </p>
               <Link
-                href="/servicios"
-                className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-blue-700 hover:text-blue-800"
+                href="/contacto"
+                className="mt-7 inline-flex items-center gap-2 rounded-xl bg-slate-950 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-blue-700"
               >
-                Descubrir todos los servicios
+                Hablar sobre mi proyecto
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
 
-            <div className="space-y-3">
+            <div className="grid gap-4 sm:grid-cols-2">
               {[
                 {
-                  number: "01",
-                  title: "Entendemos tu negocio",
-                  description: "Analizamos el objetivo, el problema y las herramientas que utilizas.",
-                  icon: Building2,
+                  icon: CircleAlert,
+                  title: "1. Identificar",
+                  text: "Entendemos el problema y el resultado que necesitas.",
                 },
                 {
-                  number: "02",
-                  title: "Definimos la solución",
-                  description: "Acordamos funcionalidades, integraciones, prioridades y alcance.",
                   icon: Layers3,
+                  title: "2. Diseñar",
+                  text: "Definimos una solución y las funcionalidades prioritarias.",
                 },
                 {
-                  number: "03",
-                  title: "Diseñamos y desarrollamos",
-                  description: "Creamos la web, la automatización o el software adaptado al proyecto.",
                   icon: Code2,
+                  title: "3. Desarrollar",
+                  text: "Construimos una solución adaptada a tu negocio.",
                 },
                 {
-                  number: "04",
-                  title: "Preparamos la entrega",
-                  description: "Revisamos el funcionamiento y definimos la puesta en marcha acordada.",
-                  icon: CheckCircle2,
+                  icon: ShieldCheck,
+                  title: "4. Mejorar",
+                  text: "Revisamos el funcionamiento y las necesidades futuras.",
                 },
               ].map((step) => {
                 const Icon = step.icon;
+
                 return (
-                  <div key={step.number} className="flex gap-4 rounded-2xl border border-slate-200 p-5 transition hover:border-blue-200 hover:bg-blue-50/30">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
-                      <Icon className="h-5 w-5" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-[10px] font-semibold tracking-wider text-blue-700">{step.number}</span>
-                        <h3 className="text-sm font-semibold text-slate-950">{step.title}</h3>
-                      </div>
-                      <p className="mt-2 text-sm leading-6 text-slate-600">{step.description}</p>
-                    </div>
+                  <div
+                    key={step.title}
+                    className="rounded-2xl border border-slate-200 bg-white p-5"
+                  >
+                    <Icon className="h-5 w-5 text-blue-600" />
+                    <h3 className="mt-4 text-sm font-semibold text-slate-950">
+                      {step.title}
+                    </h3>
+                    <p className="mt-2 text-xs leading-5 text-slate-600">
+                      {step.text}
+                    </p>
                   </div>
                 );
               })}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="bg-slate-950 text-white">
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
-          <div className="grid gap-8 rounded-3xl border border-white/10 bg-white/[0.04] p-7 sm:p-10 lg:grid-cols-[1fr_auto] lg:items-center">
-            <div className="max-w-2xl">
-              <div className="flex items-center gap-2 text-sm font-medium text-blue-300">
-                <Sparkles className="h-5 w-5" />
-                Tu proyecto empieza con una conversación
+        <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
+          <div className="relative overflow-hidden rounded-3xl bg-slate-950 px-6 py-10 text-white sm:px-10 sm:py-14 lg:px-14">
+            <div className="absolute -right-16 -top-24 h-64 w-64 rounded-full bg-blue-500/20 blur-3xl" />
+            <div className="absolute -bottom-24 left-1/3 h-56 w-56 rounded-full bg-violet-500/10 blur-3xl" />
+
+            <div className="relative grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
+              <div className="max-w-2xl">
+                <Eyebrow>¿Tienes una idea?</Eyebrow>
+                <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+                  Construyamos una solución para tu empresa.
+                </h2>
+                <p className="mt-4 text-sm leading-7 text-slate-300 sm:text-base">
+                  Cuéntanos qué quieres mejorar y estudiaremos qué tipo de web,
+                  automatización o herramienta de inteligencia artificial puede
+                  ayudarte.
+                </p>
               </div>
-              <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
-                ¿Qué te gustaría mejorar en tu empresa?
-              </h2>
-              <p className="mt-4 text-sm leading-7 text-slate-300 sm:text-base">
-                Cuéntanos tu idea: una web nueva, un agente de IA, una tarea que
-                quieras automatizar o una herramienta que se adapte a tu forma de
-                trabajar. Estudiaremos contigo el siguiente paso.
-              </p>
-              <div className="mt-5 flex flex-wrap gap-4 text-xs text-slate-400">
-                <span className="inline-flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-                  Propuesta adaptada al proyecto
-                </span>
-                <span className="inline-flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-                  Alcance definido antes de desarrollar
-                </span>
+
+              <div className="flex flex-col gap-3 sm:flex-row md:flex-col">
+                <Link
+                  href="/contacto"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3.5 text-sm font-semibold text-slate-950 transition hover:bg-blue-50"
+                >
+                  Contactar con Transport AI
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+
+                <a
+                  href="https://wa.me/34659980603?text=Hola%2C%20he%20visto%20las%20demostraciones%20de%20Transport%20AI%20y%20quiero%20informaci%C3%B3n."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10"
+                >
+                  <Smartphone className="h-4 w-4" />
+                  Contactar por WhatsApp
+                  <ArrowUpRight className="h-4 w-4" />
+                </a>
               </div>
             </div>
-            <Link
-              href="/contacto"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-blue-600 px-6 py-4 text-sm font-semibold text-white transition hover:bg-blue-500"
-            >
-              Hablar de mi proyecto
-              <ArrowRight className="h-4 w-4" />
-            </Link>
           </div>
+        </section>
 
-          <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs leading-6 text-slate-400 sm:flex-row sm:items-center sm:justify-between">
-            <p>Transport AI · Web, inteligencia artificial y software a medida.</p>
-            <Link href="/contacto" className="inline-flex items-center gap-2 font-semibold text-slate-300 hover:text-white">
-              Contactar
-              <ArrowUpRight className="h-3.5 w-3.5" />
-            </Link>
-          </div>
+        <div className="mx-auto max-w-7xl px-5 pb-10 sm:px-8">
+          <p className="flex items-start gap-2 text-xs leading-5 text-slate-500">
+            <LockKeyhole className="mt-0.5 h-4 w-4 shrink-0" />
+            Las demostraciones identificadas como conceptos visuales sirven
+            para ilustrar posibles soluciones. Sus funcionalidades definitivas
+            se concretan según los requisitos de cada proyecto. Las demos
+            marcadas como disponibles enlazan a sus respectivas páginas.
+          </p>
+          <p className="mt-3 flex items-center gap-2 text-xs text-slate-500">
+            <MapPin className="h-4 w-4" />
+            Transport AI · Desarrollo web, inteligencia artificial y
+            automatización.
+          </p>
         </div>
-      </section>
+      </main>
     </SiteShell>
   );
 }
