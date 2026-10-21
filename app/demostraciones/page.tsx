@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
@@ -6,7 +5,6 @@ import {
   ArrowUpRight,
   Bot,
   CheckCircle2,
-  CircleAlert,
   Headphones,
   MapPin,
   ShieldCheck,
@@ -22,32 +20,34 @@ import {
   MessageSquare,
   ShoppingBag,
   Utensils,
-  Smartphone,
   Mail,
   LockKeyhole,
   Layers3,
   Monitor,
-  Play,
 } from "lucide-react";
 import { Eyebrow, SiteShell } from "../components/site-shell";
 
 export const metadata: Metadata = {
   title: "Demostraciones de Web, IA y Software | Transport AI",
   description:
-    "Descubre ejemplos de páginas web profesionales, webs para restaurantes, landing pages, agentes de IA, automatizaciones, dashboards y software a medida.",
+    "Descubre webs corporativas, páginas para empresas, restaurantes, agencias de selección, agentes de IA, automatizaciones y software a medida.",
   alternates: {
     canonical: "/demostraciones",
   },
   openGraph: {
     title: "Demostraciones de Web, IA y Software | Transport AI",
     description:
-      "Explora ejemplos visuales de páginas web, inteligencia artificial, automatización y software empresarial. Diseñamos soluciones a medida.",
+      "Explora ejemplos de páginas web, inteligencia artificial, automatización y software empresarial.",
     url: "/demostraciones",
     siteName: "Transport AI",
     locale: "es_ES",
     type: "website",
   },
 };
+
+// Sustituye estas dos direcciones por las URL reales de tus proyectos en Vercel.
+const corporateWebUrl = "PEGA_AQUI_LA_URL_DE_TU_WEB_CORPORATIVA";
+const italentersUrl = "PEGA_AQUI_LA_URL_DE_LA_WEB_DE_ITALENTERS";
 
 const mvpUrl = "https://transport-ai1-logistica.vercel.app/";
 
@@ -62,22 +62,40 @@ const categories = [
 
 const demos = [
   {
-    id: "web-corporativa",
+    id: "transport-ai-corporativa",
     number: "01",
     category: "Páginas web",
-    type: "Diseño web · Empresas",
-    title: "Web corporativa profesional",
+    type: "Diseño web · Web corporativa",
+    title: "Web corporativa de Transport AI",
     description:
-      "Una presencia digital cuidada para presentar tu empresa, explicar tus servicios y convertir visitas en solicitudes de presupuesto.",
-    tags: ["Diseño responsive", "SEO", "Contacto"],
+      "Una web moderna para presentar servicios digitales, diseño web, inteligencia artificial, automatización y software a medida.",
+    tags: ["Diseño responsive", "Servicios", "Contacto por WhatsApp"],
     icon: Globe,
     preview: "corporate",
     accent: "blue",
-    status: "Concepto visual",
+    status: "Demo web disponible",
+    href: corporateWebUrl,
+    live: true,
+  },
+  {
+    id: "italenters",
+    number: "02",
+    category: "Páginas web",
+    type: "Diseño web · Selección de talento",
+    title: "ITALENTERS, S.L.",
+    description:
+      "Propuesta web para una agencia especializada en selección de desarrolladores. Diseñada para presentar sus servicios y facilitar que las empresas soliciten perfiles tecnológicos.",
+    tags: ["Selección de desarrolladores", "Empresas", "Captación de solicitudes"],
+    icon: Building2,
+    preview: "italenters",
+    accent: "violet",
+    status: "Demo web disponible",
+    href: italentersUrl,
+    live: true,
   },
   {
     id: "restaurante",
-    number: "02",
+    number: "03",
     category: "Páginas web",
     type: "Diseño web · Hostelería",
     title: "Web para restaurantes y bares",
@@ -91,7 +109,7 @@ const demos = [
   },
   {
     id: "landing",
-    number: "03",
+    number: "04",
     category: "Páginas web",
     type: "Diseño web · Captación",
     title: "Landing page para captar clientes",
@@ -105,7 +123,7 @@ const demos = [
   },
   {
     id: "catalogo",
-    number: "04",
+    number: "05",
     category: "Páginas web",
     type: "Diseño web · Productos",
     title: "Catálogo y tienda online",
@@ -119,7 +137,7 @@ const demos = [
   },
   {
     id: "chat",
-    number: "05",
+    number: "06",
     category: "Inteligencia artificial",
     type: "IA · Atención al cliente",
     title: "Agente de IA para tu página web",
@@ -133,7 +151,7 @@ const demos = [
   },
   {
     id: "voz",
-    number: "06",
+    number: "07",
     category: "Inteligencia artificial",
     type: "IA · Voz y llamadas",
     title: "Agente de voz para llamadas",
@@ -147,7 +165,7 @@ const demos = [
   },
   {
     id: "automatizacion",
-    number: "07",
+    number: "08",
     category: "Automatización",
     type: "Automatización · Procesos",
     title: "Procesos que trabajan automáticamente",
@@ -161,7 +179,7 @@ const demos = [
   },
   {
     id: "dashboard",
-    number: "08",
+    number: "09",
     category: "Software",
     type: "Software · Analítica",
     title: "Dashboard de gestión empresarial",
@@ -175,7 +193,7 @@ const demos = [
   },
   {
     id: "crm",
-    number: "09",
+    number: "10",
     category: "Software",
     type: "Software · Gestión de clientes",
     title: "CRM adaptado a tu negocio",
@@ -189,7 +207,7 @@ const demos = [
   },
   {
     id: "transport",
-    number: "10",
+    number: "11",
     category: "Logística",
     type: "MVP online · Transport AI",
     title: "Centro de operaciones logísticas",
@@ -244,16 +262,18 @@ function PreviewWindow({ demo }: { demo: Demo }) {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-900">
                 <span className={`h-4 w-4 rounded ${accent}`} />
-                NEXORA
+                TRANSPORT AI
               </div>
               <div className="flex gap-2 text-[8px] text-slate-500">
-                <span>Servicios</span><span>Empresa</span><span>Contacto</span>
+                <span>Servicios</span>
+                <span>Proyectos</span>
+                <span>Contacto</span>
               </div>
             </div>
             <div className="grid grid-cols-[1.1fr_0.9fr] items-center gap-3">
               <div>
                 <span className={`rounded-full px-2 py-1 text-[8px] ${soft}`}>
-                  SOLUCIONES PARA EMPRESAS
+                  SOLUCIONES DIGITALES
                 </span>
                 <div className="mt-3 space-y-1">
                   <div className="h-3 w-full rounded bg-slate-900" />
@@ -264,16 +284,55 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                 <div className={`mt-3 h-6 w-24 rounded-md ${accent}`} />
               </div>
               <div className={`flex aspect-square items-center justify-center rounded-2xl ${soft}`}>
-                <Building2 className="h-12 w-12" />
+                <Globe className="h-12 w-12" />
               </div>
             </div>
             <div className="grid grid-cols-3 gap-2">
-              {[1, 2, 3].map((item) => (
+              {["Web", "IA", "Software"].map((item) => (
                 <div key={item} className="rounded-lg border border-slate-100 p-2">
                   <div className={`h-4 w-4 rounded ${soft}`} />
-                  <div className="mt-2 h-1.5 w-full rounded bg-slate-200" />
-                  <div className="mt-1 h-1.5 w-2/3 rounded bg-slate-100" />
+                  <div className="mt-2 text-[8px] font-semibold text-slate-700">{item}</div>
                 </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {demo.preview === "italenters" && (
+          <div className="overflow-hidden rounded-xl bg-slate-950 p-4 text-white">
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-[11px] font-bold tracking-wide">
+                ITALENTERS<span className="text-violet-300">.</span>
+              </span>
+              <span className="text-[8px] text-slate-300">Talento tecnológico</span>
+            </div>
+            <div className="mt-5 grid grid-cols-[1.2fr_0.8fr] items-center gap-3">
+              <div>
+                <p className="text-[8px] uppercase tracking-widest text-violet-300">
+                  Selección de desarrolladores
+                </p>
+                <p className="mt-2 text-lg font-semibold leading-tight">
+                  El talento que impulsa tu empresa.
+                </p>
+                <p className="mt-2 text-[8px] leading-4 text-slate-300">
+                  Conectamos empresas con perfiles tecnológicos.
+                </p>
+                <div className="mt-3 inline-flex rounded-lg bg-violet-500 px-3 py-2 text-[8px] font-semibold">
+                  Encontrar talento
+                </div>
+              </div>
+              <div className="flex aspect-square items-center justify-center rounded-2xl border border-white/10 bg-violet-500/10">
+                <Code2 className="h-12 w-12 text-violet-300" />
+              </div>
+            </div>
+            <div className="mt-4 flex flex-wrap gap-1.5">
+              {["Frontend", "Backend", "Full stack"].map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-white/15 px-2 py-1 text-[8px] text-slate-200"
+                >
+                  {item}
+                </span>
               ))}
             </div>
           </div>
@@ -306,7 +365,9 @@ function PreviewWindow({ demo }: { demo: Demo }) {
               </div>
             </div>
             <div className="mt-3 flex items-center justify-between border-t border-[#e0cfb9] pt-2 text-[8px] text-[#795c47]">
-              <span>Producto local</span><span>Desde 1985</span><span>Madrid</span>
+              <span>Producto local</span>
+              <span>Desde 1985</span>
+              <span>Madrid</span>
             </div>
           </div>
         )}
@@ -380,10 +441,11 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                 Quiero información sobre vuestros servicios.
               </div>
               <div className="max-w-[95%] rounded-xl rounded-tl-sm bg-white p-2 text-[9px] leading-4 text-slate-600 shadow-sm">
-                Claro. Puedo orientarte y recoger tus datos para que el equipo contacte contigo.
+                Puedo orientarte y recoger tus datos para que el equipo contacte contigo.
               </div>
               <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-white px-2 py-2 text-[8px] text-slate-400">
-                <span>Escribe tu consulta...</span><ArrowRight className="h-3 w-3" />
+                <span>Escribe tu consulta...</span>
+                <ArrowRight className="h-3 w-3" />
               </div>
             </div>
           </div>
@@ -417,38 +479,28 @@ function PreviewWindow({ demo }: { demo: Demo }) {
             <p className="mb-3 text-[9px] font-semibold uppercase tracking-wider text-slate-500">
               Flujo de trabajo
             </p>
-            <div className="flex items-center gap-2 rounded-lg border border-blue-100 bg-white p-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-md bg-blue-50 text-blue-700">
-                <Mail className="h-4 w-4" />
-              </div>
-              <div className="flex-1">
-                <p className="text-[9px] font-semibold text-slate-800">Nuevo correo recibido</p>
-                <p className="text-[8px] text-slate-500">Detectar y clasificar</p>
-              </div>
-              <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-            </div>
-            <div className="ml-5 h-4 border-l border-dashed border-slate-300" />
-            <div className="flex items-center gap-2 rounded-lg border border-violet-100 bg-white p-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-md bg-violet-50 text-violet-700">
-                <Bot className="h-4 w-4" />
-              </div>
-              <div className="flex-1">
-                <p className="text-[9px] font-semibold text-slate-800">Procesar información</p>
-                <p className="text-[8px] text-slate-500">Aplicar reglas definidas</p>
-              </div>
-              <ArrowRight className="h-4 w-4 text-slate-400" />
-            </div>
-            <div className="ml-5 h-4 border-l border-dashed border-slate-300" />
-            <div className="flex items-center gap-2 rounded-lg border border-emerald-100 bg-white p-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-md bg-emerald-50 text-emerald-700">
-                <Workflow className="h-4 w-4" />
-              </div>
-              <div className="flex-1">
-                <p className="text-[9px] font-semibold text-slate-800">Actualizar y notificar</p>
-                <p className="text-[8px] text-slate-500">Según la configuración</p>
-              </div>
-              <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-            </div>
+            {[
+              { title: "Nuevo correo recibido", detail: "Detectar y clasificar", icon: Mail },
+              { title: "Procesar información", detail: "Aplicar reglas definidas", icon: Bot },
+              { title: "Actualizar y notificar", detail: "Según la configuración", icon: Workflow },
+            ].map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <div key={item.title}>
+                  <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white p-2">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-md bg-blue-50 text-blue-700">
+                      <Icon className="h-4 w-4" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-[9px] font-semibold text-slate-800">{item.title}</p>
+                      <p className="text-[8px] text-slate-500">{item.detail}</p>
+                    </div>
+                    <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                  </div>
+                  {index < 2 && <div className="ml-5 h-3 border-l border-dashed border-slate-300" />}
+                </div>
+              );
+            })}
           </div>
         )}
 
@@ -498,7 +550,9 @@ function PreviewWindow({ demo }: { demo: Demo }) {
               {["Nuevo", "En curso", "Cerrado"].map((label, index) => (
                 <div key={label} className="rounded-md bg-slate-50 p-2">
                   <p className="text-[8px] font-semibold text-slate-600">{label}</p>
-                  <p className="mt-1 text-[8px] text-slate-400">{["Contacto inicial", "Propuesta enviada", "Proyecto completado"][index]}</p>
+                  <p className="mt-1 text-[8px] text-slate-400">
+                    {["Contacto inicial", "Propuesta enviada", "Proyecto completado"][index]}
+                  </p>
                   <div className={`mt-2 h-1 w-3/4 rounded-full ${["bg-blue-400", "bg-orange-400", "bg-emerald-400"][index]}`} />
                 </div>
               ))}
@@ -716,20 +770,24 @@ export default function DemonstrationsPage() {
             {demos.map((demo) => {
               const Icon = demo.icon;
               const isLive = demo.live === true;
+              const hasValidUrl =
+                typeof demo.href === "string" &&
+                demo.href.startsWith("https://") &&
+                !demo.href.includes("PEGA_AQUI");
 
               return (
                 <article
                   key={demo.id}
                   id={
                     demo.category === "Páginas web"
-                      ? "categoria-web-card"
+                      ? `categoria-web-card-${demo.id}`
                       : demo.category === "Inteligencia artificial"
-                        ? "categoria-ia-card"
+                        ? `categoria-ia-card-${demo.id}`
                         : demo.category === "Automatización"
-                          ? "categoria-automatizacion-card"
+                          ? `categoria-automatizacion-card-${demo.id}`
                           : demo.category === "Software"
-                            ? "categoria-software-card"
-                            : "categoria-logistica-card"
+                            ? `categoria-software-card-${demo.id}`
+                            : `categoria-logistica-card-${demo.id}`
                   }
                   className={`group flex min-w-0 flex-col overflow-hidden rounded-3xl border bg-white transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/70 ${
                     isLive ? "border-blue-200 ring-1 ring-blue-100" : "border-slate-200"
@@ -775,7 +833,7 @@ export default function DemonstrationsPage() {
                       ))}
                     </div>
 
-                    {isLive ? (
+                    {isLive && hasValidUrl ? (
                       <a
                         href={demo.href}
                         target="_blank"
@@ -785,6 +843,10 @@ export default function DemonstrationsPage() {
                         Abrir demostración real
                         <ExternalLink className="h-4 w-4" />
                       </a>
+                    ) : isLive ? (
+                      <span className="mt-6 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3.5 text-xs leading-5 text-amber-800">
+                        Añade la URL de Vercel en el código para activar este enlace.
+                      </span>
                     ) : (
                       <Link
                         href={`/contacto?servicio=${encodeURIComponent(demo.title)}`}
@@ -808,8 +870,8 @@ export default function DemonstrationsPage() {
                 <p className="mt-1 text-sm leading-6 text-slate-500">
                   Las vistas previas de esta página son ejemplos visuales para mostrar posibles diseños e interfaces.
                   No son aplicaciones independientes ni implican que todas las funciones estén conectadas o desplegadas.
-                  El MVP de Transport AI sí dispone de un enlace externo para explorarlo. El alcance de cada proyecto
-                  se define antes de su desarrollo.
+                  Las demostraciones reales enlazan a sus respectivas webs cuando su URL está configurada.
+                  El alcance de cada proyecto se define antes de su desarrollo.
                 </p>
               </div>
             </div>
