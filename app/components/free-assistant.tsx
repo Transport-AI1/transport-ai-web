@@ -97,7 +97,6 @@ function normalizeText(value: string) {
 
 function getAnswer(question: string, history: ChatMessage[]): string {
   const text = normalizeText(question);
-
   const userHistory = history.filter((m) => m.role === "user");
   const assistantHistory = history.filter((m) => m.role === "assistant");
 
@@ -290,6 +289,7 @@ export default function FreeAssistant() {
   const [saving, setSaving] = useState(false);
   const [leadStatus, setLeadStatus] = useState("");
   const [voiceError, setVoiceError] = useState("");
+  const [lastVoiceAnswer, setLastVoiceAnswer] = useState("");
   const [lead, setLead] = useState<LeadForm>(initialLead);
 
   const recognitionRef = useRef<RecognitionLike | null>(null);
@@ -297,35 +297,15 @@ export default function FreeAssistant() {
   const voiceModeRef = useRef(false);
   const mountedRef = useRef(false);
   const speechRequestRef = useRef(0);
-  const voiceListReadyRef = useRef(false);
 
   useEffect(() => {
     mountedRef.current = true;
 
-    if ("speechSynthesis" in window) {
-      const synthesis = window.speechSynthesis;
+    const synthesis =
+      "speechSynthesis" in window ? window.speechSynthesis : null;
+
+    if (synthesis) {
       synthesis.getVoices();
-
-      const onVoicesChanged = () => {
-        voiceListReadyRef.current = synthesis.getVoices().length > 0;
-      };
-
-      synthesis.addEventListener("voiceschanged", onVoicesChanged);
-      onVoicesChanged();
-
-      return () => {
-        mountedRef.current = false;
-        speechRequestRef.current += 1;
-
-        try {
-          recognitionRef.current?.abort();
-        } catch {
-          // El reconocimiento puede haberse detenido.
-        }
-
-        synthesis.removeEventListener("voiceschanged", onVoicesChanged);
-        synthesis.cancel();
-      };
     }
 
     return () => {
@@ -337,6 +317,8 @@ export default function FreeAssistant() {
       } catch {
         // El reconocimiento puede haberse detenido.
       }
+
+      synthesis?.cancel();
     };
   }, []);
 
@@ -373,79 +355,74 @@ export default function FreeAssistant() {
     setListening(false);
   }, []);
 
-  const speak = useCallback(
-    (text: string) => {
-      stopSpeaking();
-      const requestId = speechRequestRef.current;
+  const speak = useCallback((text: string) => {
+    if (
+      typeof window === "undefined" ||
+      !("speechSynthesis" in window) ||
+      typeof SpeechSynthesisUtterance === "undefined"
+    ) {
+      setSpeaking(false);
+      setVoiceError(
+        "Tu navegador no permite reproducir la voz. Puedes seguir usando el chat.",
+      );
+      return;
+    }
 
-      setVoiceError("");
+    const synthesis = window.speechSynthesis;
 
-      if (
-        typeof window === "undefined" ||
-        !("speechSynthesis" in window) ||
-        typeof SpeechSynthesisUtterance === "undefined"
-      ) {
+    speechRequestRef.current += 1;
+    const requestId = speechRequestRef.current;
+
+    setSpeaking(false);
+    setVoiceError("");
+
+    try {
+      synthesis.cancel();
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "es-ES";
+      utterance.rate = 0.92;
+      utterance.pitch = 1;
+      utterance.volume = 1;
+
+      const spanishVoice = getSpanishVoice();
+      if (spanishVoice) utterance.voice = spanishVoice;
+
+      utterance.onstart = () => {
+        if (requestId !== speechRequestRef.current) return;
+        setSpeaking(true);
+        setVoiceError("");
+      };
+
+      utterance.onend = () => {
+        if (requestId !== speechRequestRef.current) return;
         setSpeaking(false);
-        setVoiceError(
-          "Este navegador no admite la reproducción de voz automática. Puedes seguir usando el chat.",
-        );
-        return;
-      }
+      };
 
-      try {
-        const synthesis = window.speechSynthesis;
-        const utterance = new SpeechSynthesisUtterance(text);
+      utterance.onerror = (event) => {
+        if (requestId !== speechRequestRef.current) return;
 
-        utterance.lang = "es-ES";
-        utterance.rate = 0.95;
-        utterance.pitch = 1;
-        utterance.volume = 1;
-
-        const selectVoice = () => {
-          if (requestId !== speechRequestRef.current) return;
-
-          const spanishVoice = getSpanishVoice();
-          if (spanishVoice) utterance.voice = spanishVoice;
-        };
-
-        selectVoice();
-
-        utterance.onstart = () => {
-          if (mountedRef.current && requestId === speechRequestRef.current) {
-            setSpeaking(true);
-            setVoiceError("");
-          }
-        };
-
-        utterance.onend = () => {
-          if (mountedRef.current && requestId === speechRequestRef.current) {
-            setSpeaking(false);
-          }
-        };
-
-        utterance.onerror = (event) => {
-          if (mountedRef.current && requestId === speechRequestRef.current) {
-            setSpeaking(false);
-            setVoiceError(
-              event.error === "canceled" || event.error === "interrupted"
-                ? ""
-                : "Chrome no ha podido reproducir la voz. Pulsa la bola para volver a intentarlo.",
-            );
-          }
-        };
-
-        // Reanudar la cola puede ayudar cuando Chrome la ha pausado.
-        synthesis.resume();
-        synthesis.speak(utterance);
-      } catch {
         setSpeaking(false);
-        setVoiceError(
-          "No se ha podido activar la voz del navegador. Pulsa la bola para intentarlo otra vez.",
-        );
-      }
-    },
-    [stopSpeaking],
-  );
+
+        if (
+          event.error !== "canceled" &&
+          event.error !== "interrupted"
+        ) {
+          setVoiceError(
+            "El móvil no ha podido reproducir el audio. Pulsa «Reproducir respuesta» para volver a intentarlo.",
+          );
+        }
+      };
+
+      synthesis.resume();
+      synthesis.speak(utterance);
+    } catch {
+      setSpeaking(false);
+      setVoiceError(
+        "No se ha podido reproducir el audio. Comprueba el volumen y el servicio de voz del móvil.",
+      );
+    }
+  }, []);
 
   const sendMessage = useCallback(
     (value: string, fromVoice = false) => {
@@ -471,14 +448,10 @@ export default function FreeAssistant() {
       setVoiceError("");
 
       if (fromVoice) {
+        setLastVoiceAnswer(answer);
+
         window.setTimeout(() => {
           if (!mountedRef.current || !voiceModeRef.current) return;
-
-          if ("speechSynthesis" in window) {
-            window.speechSynthesis.cancel();
-            window.speechSynthesis.resume();
-          }
-
           speak(answer);
         }, 300);
       }
@@ -535,7 +508,9 @@ export default function FreeAssistant() {
         setListening(false);
 
         if (event.error === "no-speech") {
-          setVoiceError("No he detectado voz. Pulsa la bola y vuelve a intentarlo.");
+          setVoiceError(
+            "No he detectado voz. Pulsa la bola y vuelve a intentarlo.",
+          );
         } else if (event.error !== "aborted") {
           setVoiceError(
             "No he podido acceder al micrófono. Comprueba los permisos del navegador.",
@@ -582,7 +557,9 @@ export default function FreeAssistant() {
     setLeadStatus("");
 
     if (!lead.consent) {
-      setLeadStatus("Debes aceptar el aviso de privacidad para enviar tus datos.");
+      setLeadStatus(
+        "Debes aceptar el aviso de privacidad para enviar tus datos.",
+      );
       return;
     }
 
@@ -703,6 +680,8 @@ export default function FreeAssistant() {
                     stopListening();
                   } else if (speaking) {
                     stopSpeaking();
+                  } else if (lastVoiceAnswer && voiceError) {
+                    speak(lastVoiceAnswer);
                   } else {
                     startVoice();
                   }
@@ -712,7 +691,9 @@ export default function FreeAssistant() {
                     ? "Detener micrófono"
                     : speaking
                       ? "Detener respuesta de voz"
-                      : "Hablar con Transport AI"
+                      : lastVoiceAnswer && voiceError
+                        ? "Reproducir última respuesta"
+                        : "Hablar con Transport AI"
                 }
                 className={`group relative my-7 flex h-40 w-40 items-center justify-center rounded-full transition-all duration-500 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-200 ${
                   listening
@@ -763,6 +744,17 @@ export default function FreeAssistant() {
                 >
                   {voiceError}
                 </p>
+              )}
+
+              {lastVoiceAnswer && (
+                <button
+                  type="button"
+                  onClick={() => speak(lastVoiceAnswer)}
+                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm font-semibold text-blue-800 transition hover:bg-blue-100"
+                >
+                  <Volume2 className="h-4 w-4" />
+                  Reproducir respuesta
+                </button>
               )}
 
               {leadStatus && (
