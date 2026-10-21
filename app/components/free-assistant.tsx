@@ -2,6 +2,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import type { FormEvent } from "react";
 import {
   ArrowUpRight,
   Bot,
@@ -69,7 +70,7 @@ type LeadForm = {
 };
 
 const initialMessage =
-  "¡Hola! Soy el asistente de Transport AI. Puedo ayudarte a descubrir cómo aplicar inteligencia artificial y automatizaciones en tu empresa, explicarte nuestros servicios y orientarte sobre precios. ¿Qué proceso te gustaría mejorar?";
+  "¡Hola! Soy el asistente de Transport AI. Puedo orientarte sobre automatización, inteligencia artificial, integraciones, precios y plazos de desarrollo. ¿Qué proceso te gustaría mejorar?";
 
 const whatsappUrl =
   "https://wa.me/34659980603?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Transport%20AI";
@@ -88,67 +89,340 @@ function normalizeText(value: string) {
   return value
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[¿?¡!,.;:]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 function getAnswer(question: string, history: ChatMessage[]): string {
   const text = normalizeText(question);
 
-  if (/\b(hola|buenas|hey|buenos dias|buenas tardes|buenas noches)\b/.test(text)) {
-    return "¡Hola! Encantado de ayudarte. Para orientarte mejor, ¿tu empresa se dedica al transporte, mensajería, logística, mudanzas u otro sector?";
+  const userHistory = history.filter((message) => message.role === "user");
+  const assistantHistory = history.filter(
+    (message) => message.role === "assistant",
+  );
+
+  const previousUserText = normalizeText(
+    userHistory
+      .slice(-5)
+      .map((message) => message.text)
+      .join(" "),
+  );
+
+  const previousConversation = normalizeText(
+    history
+      .slice(-10)
+      .map((message) => message.text)
+      .join(" "),
+  );
+
+  const lastUserMessage =
+    userHistory[userHistory.length - 1]?.text ?? "";
+
+  const lastAssistantMessage =
+    assistantHistory[assistantHistory.length - 1]?.text ?? "";
+
+  const currentAndPrevious = normalizeText(
+    `${previousUserText} ${text}`,
+  );
+
+  const isCorrection =
+    /(no pero|no es eso|no me has entendido|no has respondido|te he preguntado|quiero saber|me refiero a|eso no es lo que|no quiero saber)/.test(
+      text,
+    );
+
+  const asksDevelopmentTime =
+    /(tiempo estimado|cuanto tiempo|que plazo|plazo de desarrollo|cuanto tard|cuanto demor|cuanto se tarda|cuanto llevaria|cuanto llevara|cuando estaria|cuando estaria listo|duracion del proyecto|semanas|meses|fecha de entrega|tiempo de desarrollo|tardaria|tardariais|cuanto tardais|cuanto tardamos)/.test(
+      text,
+    );
+
+  const asksTimeSaved =
+    /(cuanto tiempo ahorr|ahorro de tiempo|tiempo que ahorr|horas ahorr|reducir el tiempo|ahorrar horas|cuanto se ahorraria|cuanto ahorraria|ahorrariamos)/.test(
+      text,
+    );
+
+  const asksPrice =
+    /(precio|precios|cuanto cuesta|cuanto vale|presupuesto|coste|costes|euros|cuanto cobr|cuanto saldria|cuanto seria|cuanto costaria|cuanto costariais)/.test(
+      text,
+    );
+
+  const asksContact =
+    /(contacto|hablar con alguien|llamar|telefono|whatsapp|alvaro|reunion|cita|quiero contratar|propuesta comercial)/.test(
+      text,
+    );
+
+  const asksDemo =
+    /(demo|demostracion|ver ejemplo|muestra|prototipo)/.test(text);
+
+  const asksSecurity =
+    /(seguridad|privacidad|datos personales|rgpd|proteccion de datos)/.test(
+      text,
+    );
+
+  const asksIdentity =
+    /(quien eres|que eres|que hace transport ai|que haceis|que es transport ai)/.test(
+      text,
+    );
+
+  const asksHowItWorks =
+    /(como funciona|como lo hariais|como se haria|como se implementa|que incluiria|que incluye|que necesitaria|que necesitais|como empezamos)/.test(
+      text,
+    );
+
+  const asksAutomation =
+    /(automatiz|que podeis hacer|que podeis automatizar|que se puede automatizar|inteligencia artificial|soluciones|servicios)/.test(
+      text,
+    );
+
+  const asksTransport =
+    /(transporte|logistica|mensajeria|paqueteria|reparto|repartidor|mudanza|flota|vehiculo|conductor|entrega|envio|paquete|direccion incorrecta|cliente ausente|reclamacion|incidencia)/.test(
+      currentAndPrevious,
+    );
+
+  const asksIntegration =
+    /(crm|api|integracion|integrar|erp|software|programa|sistema actual|base de datos|sincronizacion)/.test(
+      currentAndPrevious,
+    );
+
+  const asksPlatform =
+    /(plataforma|varios departamentos|varias delegaciones|multiples sistemas|varios sistemas|sistema completo|software a medida|desde cero|muchos modulos)/.test(
+      currentAndPrevious,
+    );
+
+  const asksSimpleFollowUp =
+    /^(y|pero|vale y|y el|y la|y los|y las|y eso|y entonces|y despues|tambien|ademas|cuanto seria|que plazo|y cuanto|y como|y cuando)\b/.test(
+      text,
+    );
+
+  const isGreeting =
+    /^(hola|buenas|hey|buenos dias|buenas tardes|buenas noches)$/.test(
+      text,
+    );
+
+  const isThanks =
+    /^(gracias|muchas gracias|perfecto|genial|entendido|vale gracias)$/.test(
+      text,
+    );
+
+  // Detectar correcciones del visitante antes de cualquier otra regla.
+  if (isCorrection) {
+    if (
+      /(tiempo|tard|plazo|semanas|meses|duracion|desarrollo)/.test(text)
+    ) {
+      return (
+        "Entendido: quieres saber cuánto tardaría el desarrollo, no cuánto tiempo ahorrarías. " +
+        "Como orientación inicial, una automatización sencilla puede llevar entre 1 y 3 semanas; " +
+        "una integración con CRM, aproximadamente entre 3 y 8 semanas; y una plataforma operativa, " +
+        "varios meses. Son rangos orientativos, no compromisos de entrega. " +
+        "El plazo real depende del alcance, las APIs y las pruebas necesarias."
+      );
+    }
+
+    if (/(precio|cuanto cuesta|coste|presupuesto|euros)/.test(text)) {
+      return (
+        "Entendido. Los precios orientativos de Transport AI son 1.500–4.000 € para automatizaciones, " +
+        "4.000–8.000 € para proyectos de CRM e integraciones con IA y desde 15.000 € para plataformas " +
+        "operativas a medida. Los importes son antes de IVA. Para estimar tu caso concreto necesitamos " +
+        "definir el proceso y las integraciones."
+      );
+    }
+
+    return (
+      "Entendido, voy a centrarme en lo que preguntas. Puedo orientarte sobre el plazo de desarrollo, " +
+      "el coste, el ahorro de tiempo o el funcionamiento de la solución. " +
+      "Dime cuál de esos puntos necesitas y te responderé directamente."
+    );
   }
 
-  if (/(quien eres|que eres|que hace transport ai|que haceis|que es transport ai)/.test(text)) {
-    return "Transport AI desarrolla soluciones de inteligencia artificial, automatización e integración de software para empresas. Buscamos reducir tareas manuales, centralizar información y agilizar procesos sin obligarte a sustituir todos tus sistemas actuales. ¿Qué te gustaría mejorar en tu empresa?";
+  // Plazos: comprobar antes que las reglas genéricas de automatización.
+  if (asksDevelopmentTime) {
+    if (asksPlatform) {
+      return (
+        "Para una plataforma operativa a medida, una estimación inicial podría ser de 2 a 6 meses o más. " +
+        "Depende del número de módulos, usuarios, permisos, integraciones y pruebas. " +
+        "El plazo definitivo solo puede fijarse después de revisar los requisitos y confirmar la viabilidad técnica."
+      );
+    }
+
+    if (asksIntegration) {
+      return (
+        "Para una integración con CRM y automatización de uno o varios flujos, el plazo inicial podría ser " +
+        "de 3 a 8 semanas. Si la API está bien documentada y el alcance es pequeño, podría ser menos; " +
+        "si hay varios sistemas, permisos pendientes o cambios del proveedor, podría ser más. " +
+        "Necesitamos conocer el CRM y las acciones que debe realizar la solución para afinar la estimación."
+      );
+    }
+
+    return (
+      "Como orientación inicial, una automatización sencilla puede tardar entre 1 y 3 semanas. " +
+      "Un proyecto con varios flujos, validaciones e integraciones puede requerir entre 3 y 8 semanas; " +
+      "una plataforma operativa completa puede llevar varios meses. " +
+      "Son estimaciones preliminares, no plazos garantizados. El tiempo real depende del alcance, " +
+      "la disponibilidad de las APIs y las pruebas. ¿Qué proceso quieres automatizar?"
+    );
   }
 
-  if (/(precio|precios|cuanto cuesta|cuanto vale|presupuesto|coste|costes|euros|€)/.test(text)) {
-    return "Como orientación, las automatizaciones de procesos suelen costar entre 1.500 y 4.000 euros; los proyectos de CRM e integraciones con IA, entre 4.000 y 8.000 euros; y las plataformas operativas a medida, desde 15.000 euros. Son importes orientativos antes de IVA. El presupuesto definitivo depende del alcance y las integraciones necesarias. ¿Qué proceso quieres automatizar?";
+  // Estimar ahorro, sin confundirlo con el plazo de desarrollo.
+  if (asksTimeSaved) {
+    return (
+      "El ahorro depende del volumen de trabajo y de cuánto pueda automatizarse realmente. " +
+      "Por ejemplo, si una tarea ocupa 2 horas al día y la automatización reduce ese trabajo un 50 %, " +
+      "el ahorro teórico sería de 1 hora diaria. Es solo un ejemplo, no una promesa de resultado. " +
+      "Para calcularlo en tu empresa necesito saber qué tarea se realiza, cuánto tarda y cuántas veces se repite."
+    );
   }
 
-  if (/(servicios|soluciones|automatiz|inteligencia artificial|ia para|que ofreceis)/.test(text)) {
-    return "Podemos estudiar automatización de tareas, clasificación de correos, gestión de incidencias, asistentes de atención al cliente, integración con CRM y APIs, coordinación de equipos y plataformas a medida. Primero analizamos tu proceso y las herramientas que ya utilizas para elegir una solución útil.";
+  if (isGreeting) {
+    return (
+      "¡Hola! Encantado de ayudarte. Soy el asistente comercial de Transport AI. " +
+      "Podemos estudiar automatizaciones, asistentes de IA, integraciones y software a medida. " +
+      "¿Qué tipo de empresa tienes y qué proceso te gustaría mejorar?"
+    );
   }
 
-  if (/(transporte|logistica|mensajeria|paqueteria|reparto|repartidor|mudanza|flota|vehiculo|conductor|entrega|envio|paquete|direccion incorrecta|cliente ausente|reclamacion|incidencia)/.test(text)) {
-    return "En transporte y logística podemos diseñar flujos que detecten datos incompletos, direcciones incoherentes, retrasos o destinatarios que no responden; registrar incidencias y avisar al responsable correspondiente. Las acciones reales dependen de las API y permisos de tus sistemas. ¿Cómo gestionáis ahora las incidencias: Excel, WhatsApp, email o un programa propio?";
+  if (asksIdentity) {
+    return (
+      "Transport AI desarrolla soluciones de inteligencia artificial, automatización e integración de software " +
+      "para empresas. El objetivo es reducir tareas manuales, conectar herramientas y mejorar el control " +
+      "de las operaciones sin sustituir innecesariamente los sistemas existentes. " +
+      "Cada proyecto se define según las necesidades y la viabilidad técnica."
+    );
   }
 
-  if (/(crm|api|integracion|integrar|erp|software|programa|sistema actual|base de datos)/.test(text)) {
-    return "Podemos estudiar integraciones con tu CRM, ERP o API para evitar duplicar datos y automatizar tareas. Primero necesitamos conocer el proveedor, las posibilidades de su API y los permisos disponibles. ¿Qué programa utilizáis actualmente?";
+  if (asksSecurity) {
+    return (
+      "La seguridad debe definirse para cada proyecto: qué datos se utilizan, quién puede acceder, " +
+      "qué acciones puede ejecutar la automatización y cuándo debe intervenir una persona. " +
+      "Las integraciones dependen de los permisos y capacidades de cada proveedor. " +
+      "Puedes consultar la política de privacidad desde el enlace de la web de Transport AI."
+    );
   }
 
-  if (/(tiempo|horas|repetitiv|manual|excel|whatsapp|correo|email|tarea|trabajo administrativo)/.test(text)) {
-    return "Podría ser un buen candidato para automatizar. Analizaríamos los pasos repetidos, las excepciones, las herramientas implicadas y el tiempo que consume. Después estimaríamos el ahorro potencial y el coste de implementación. ¿Cuántas personas realizan esa tarea y con qué frecuencia?";
+  if (asksDemo) {
+    return (
+      "Puedes ver ejemplos en https://transport-ai-web.vercel.app/demostraciones. " +
+      "Encontrarás demostraciones visuales de gestión de incidencias, atención al cliente y coordinación de equipos. " +
+      "Son ejemplos ilustrativos: las funciones finales dependen del alcance y de las integraciones disponibles."
+    );
   }
 
-  if (/(demo|demostracion|ver ejemplo|muestra|prototipo)/.test(text)) {
-    return "Puedes visitar la sección de demostraciones de nuestra web para ver ejemplos de gestión de incidencias, atención al cliente, mensajeros e integraciones. También podemos estudiar una demostración adaptada a tu proceso concreto.";
+  if (asksContact) {
+    return (
+      "Puedes contactar directamente con Álvaro, fundador de Transport AI, por WhatsApp en el 659 980 603 " +
+      "o por email en alvarochaveinte1@gmail.com. También puedes completar el formulario de contacto de la web."
+    );
   }
 
-  if (/(contacto|hablar con alguien|llamar|telefono|whatsapp|alvaro|reunion|cita|quiero contratar|propuesta comercial)/.test(text)) {
-    return "Puedes contactar directamente con Álvaro por WhatsApp en el 659 980 603 o escribir a alvarochaveinte1@gmail.com. También puedes dejar tus datos en el formulario para explicar qué necesita tu empresa.";
+  if (isThanks) {
+    return (
+      "¡De nada! Si quieres, podemos concretar el proceso y revisar el coste orientativo, " +
+      "el plazo de desarrollo y las herramientas que habría que conectar."
+    );
   }
 
-  if (/(seguridad|privacidad|datos personales|rgpd|proteccion de datos)/.test(text)) {
-    return "Los datos de contacto se envían cuando completas el formulario y aceptas el aviso de privacidad. Este asistente no graba automáticamente el audio. Puedes consultar la política de privacidad desde el enlace del formulario.";
+  // Precios: distinguir automatización, integración y plataforma.
+  if (asksPrice) {
+    if (asksPlatform) {
+      return (
+        "Las plataformas operativas a medida de Transport AI parten de 15.000 € más IVA. " +
+        "El importe final depende de los módulos, los usuarios, los permisos, las integraciones y las pruebas. " +
+        "Para ajustar el presupuesto conviene definir primero las funciones imprescindibles."
+      );
+    }
+
+    if (asksIntegration) {
+      return (
+        "Los proyectos de CRM e integraciones con IA se sitúan orientativamente entre 4.000 y 8.000 € más IVA. " +
+        "El coste depende del proveedor, la documentación de su API, el número de flujos y las validaciones. " +
+        "Un trabajo muy acotado puede requerir otro presupuesto, así que habría que revisar el caso antes de confirmar una cifra."
+      );
+    }
+
+    return (
+      "Los precios orientativos publicados por Transport AI son:\n\n" +
+      "• Automatización de procesos: 1.500–4.000 €.\n" +
+      "• CRM e integraciones con IA: 4.000–8.000 €.\n" +
+      "• Plataforma operativa a medida: desde 15.000 €.\n\n" +
+      "Los importes son antes de IVA. El presupuesto final depende del alcance, las integraciones y las pruebas necesarias."
+    );
   }
 
-  if (/(gracias|muchas gracias|perfecto|genial|entendido)/.test(text)) {
-    return "¡De nada! Si me cuentas un poco más sobre tu empresa y el problema que quieres resolver, podré orientarte mejor.";
+  if (asksAutomation) {
+    return (
+      "Podemos estudiar automatización de tareas administrativas, clasificación de correos, gestión de incidencias, " +
+      "asistentes de atención al cliente, integración con CRM y APIs, coordinación de equipos y plataformas a medida. " +
+      "Para recomendarte una solución útil, primero identificamos la tarea, el volumen de trabajo, las excepciones " +
+      "y las herramientas que utiliza tu empresa."
+    );
   }
 
-  const previousContext = history
-    .filter((message) => message.role === "user")
-    .slice(-4)
-    .map((message) => message.text)
-    .join(" ");
-
-  if (previousContext.length > 0) {
-    return "Vamos a concretarlo para encontrar una solución útil. ¿Qué herramientas utilizáis ahora y qué te interesa mejorar: ahorrar tiempo, reducir errores, responder antes a los clientes o tener más control de las operaciones?";
+  if (asksTransport) {
+    return (
+      "En transporte y logística podemos diseñar flujos para detectar direcciones incoherentes, datos incompletos, " +
+      "retrasos o destinatarios que no responden; registrar incidencias y avisar a los responsables. " +
+      "Las acciones reales dependen de las APIs, los permisos y los sistemas disponibles. " +
+      "¿Cómo gestionáis actualmente los pedidos e incidencias: Excel, WhatsApp, email o un CRM?"
+    );
   }
 
-  return "Para recomendarte algo útil necesito entender tu caso. Transport AI trabaja con automatizaciones, asistentes, integraciones y software a medida. ¿Qué tarea te gustaría eliminar o simplificar, y qué herramientas utilizáis actualmente?";
+  if (asksIntegration) {
+    return (
+      "Podemos estudiar integraciones con tu CRM, ERP o API para reducir duplicidades y automatizar tareas. " +
+      "Antes de confirmar la viabilidad, hay que revisar la documentación, los permisos y las limitaciones del proveedor. " +
+      "¿Qué programa utilizas y qué información o acción necesitas conectar?"
+    );
+  }
+
+  if (asksHowItWorks) {
+    return (
+      "Normalmente trabajamos en cuatro pasos: primero analizamos el proceso actual; después definimos el alcance " +
+      "y las dependencias técnicas; a continuación desarrollamos la solución por fases y hacemos pruebas; " +
+      "por último, documentamos la entrega y acordamos las mejoras o el soporte que se necesiten. " +
+      "El alcance y el plazo se concretan antes de iniciar el desarrollo."
+    );
+  }
+
+  // Preguntas de seguimiento cortas que dependen de lo hablado.
+  if (asksSimpleFollowUp) {
+    if (/(tiempo|tard|plazo|semanas|meses|duracion|desarrollo)/.test(text)) {
+      return (
+        "Si te refieres al plazo de desarrollo, una automatización sencilla puede tardar entre 1 y 3 semanas; " +
+        "una integración con CRM, entre 3 y 8 semanas; y una plataforma completa, varios meses. " +
+        "Para ajustar la estimación a tu caso, necesitamos definir el proceso y los sistemas implicados."
+      );
+    }
+
+    if (/(precio|coste|cuesta|presupuesto|euros)/.test(text)) {
+      return (
+        "Como referencia, una automatización cuesta orientativamente 1.500–4.000 €, " +
+        "una integración con CRM e IA, 4.000–8.000 €, y una plataforma operativa parte de 15.000 €, " +
+        "antes de IVA. El importe final depende del alcance y la viabilidad técnica."
+      );
+    }
+
+    return (
+      "Teniendo en cuenta lo que estamos hablando, el siguiente paso es concretar qué tarea quieres resolver, " +
+      "qué herramientas intervienen y qué resultado necesitas. Con eso podemos valorar la solución, " +
+      "el plazo aproximado y el coste sin darte una cifra engañosa."
+    );
+  }
+
+  // Evitar reiniciar la conversación si ya hay contexto.
+  if (lastUserMessage || lastAssistantMessage) {
+    return (
+      "Para orientarte mejor sobre tu caso, necesito identificar tres cosas: " +
+      "qué tarea se realiza, con qué frecuencia y qué programa se utiliza actualmente. " +
+      "Con esa información puedo recomendarte un enfoque y darte un rango inicial de coste y plazo. " +
+      "La estimación definitiva requiere comprobar el alcance y las dependencias técnicas."
+    );
+  }
+
+  return (
+    "Transport AI trabaja con automatizaciones, asistentes de IA, integraciones y software a medida. " +
+    "Para recomendarte algo útil, cuéntame qué tarea quieres simplificar, qué herramientas utilizas " +
+    "y qué resultado te gustaría conseguir."
+  );
 }
 
 function getSpanishVoice(): SpeechSynthesisVoice | null {
@@ -191,7 +465,6 @@ export default function FreeAssistant() {
   useEffect(() => {
     mountedRef.current = true;
 
-    // Carga las voces disponibles en el navegador.
     if ("speechSynthesis" in window) {
       window.speechSynthesis.getVoices();
     }
@@ -434,7 +707,7 @@ export default function FreeAssistant() {
     setLead((previous) => ({ ...previous, [key]: value }));
   }
 
-  async function saveLead(event: React.FormEvent<HTMLFormElement>) {
+  async function saveLead(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setLeadStatus("");
 
@@ -610,11 +883,14 @@ export default function FreeAssistant() {
                   ? "Habla con normalidad. El micrófono se detendrá al terminar tu frase."
                   : speaking
                     ? "Escucha la respuesta o pulsa la bola para detenerla."
-                    : "Puedes preguntar por precios, automatizaciones, incidencias o integraciones."}
+                    : "Puedes preguntar por precios, plazos, automatizaciones o integraciones."}
               </p>
 
               {voiceError && (
-                <p role="status" className="mt-4 rounded-xl bg-blue-50 p-3 text-xs leading-5 text-blue-900">
+                <p
+                  role="status"
+                  className="mt-4 rounded-xl bg-blue-50 p-3 text-xs leading-5 text-blue-900"
+                >
                   {voiceError}
                 </p>
               )}
@@ -690,6 +966,7 @@ export default function FreeAssistant() {
                     {[
                       "¿Qué podéis automatizar?",
                       "¿Cuánto cuesta?",
+                      "¿Cuánto tardaría?",
                       "Tengo una empresa de transporte",
                     ].map((suggestion) => (
                       <button
