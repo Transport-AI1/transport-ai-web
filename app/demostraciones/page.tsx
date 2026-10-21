@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
@@ -59,6 +58,7 @@ const aiAgentUrl = "https://transport-ai-agente-ia.vercel.app/";
 const voiceAgentUrl = "https://transport-ai-agente-voz-mu.vercel.app/";
 const automationUrl = "https://transport-ai-automatizacion.vercel.app/";
 const dashboardUrl = "https://transport-ai-dashboard-nine.vercel.app/";
+const crmUrl = "https://transport-ai-crm-two.vercel.app/";
 const mvpUrl = "https://transport-ai1-logistica.vercel.app/";
 
 const categories = [
@@ -216,10 +216,17 @@ const demos: Demo[] = [
     category: "Software",
     title: "CRM y gestión de clientes",
     description:
-      "Una interfaz para centralizar clientes, organizar oportunidades comerciales y consultar el estado de cada seguimiento.",
-    tags: ["CRM", "Clientes", "Seguimiento"],
+      "Una demo visual de un CRM para explorar una interfaz de gestión de clientes, consultar contactos de ejemplo y ver cómo organizar oportunidades comerciales.",
+    tags: [
+      "CRM",
+      "Gestión de clientes",
+      "Seguimiento comercial",
+      "Interfaz visual",
+    ],
     preview: "crm",
-    status: "Concepto visual",
+    status: "Demostración disponible online",
+    href: crmUrl,
+    live: true,
   },
   {
     number: "10",
@@ -248,7 +255,7 @@ function PreviewWindow({ demo }: { demo: Demo }) {
     voice: "transport-ai-agente-voz-mu.vercel.app",
     automation: "transport-ai-automatizacion.vercel.app",
     dashboard: "transport-ai-dashboard-nine.vercel.app",
-    crm: `demo.transport-ai.es/${demo.id}`,
+    crm: "transport-ai-crm-two.vercel.app",
     transport: "transport-ai · operaciones",
   };
 
@@ -708,43 +715,81 @@ function PreviewWindow({ demo }: { demo: Demo }) {
         )}
 
         {demo.preview === "crm" && (
-          <div className="rounded-xl bg-slate-50 p-3">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-900">
-                Gestión de clientes
+          <div className="overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+            <div className="flex items-center justify-between border-b border-slate-200 bg-white px-4 py-3">
+              <div className="flex items-center gap-2">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-100 text-violet-700">
+                  <Building2 className="h-4 w-4" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-900">
+                    Transport AI CRM
+                  </p>
+                  <p className="text-[9px] text-slate-500">
+                    Gestión visual de clientes
+                  </p>
+                </div>
+              </div>
+              <span className="rounded-full bg-emerald-50 px-2 py-1 text-[9px] font-semibold text-emerald-700">
+                Demo online
               </span>
-              <Building2 className="h-4 w-4 text-violet-600" />
             </div>
 
-            <div className="mt-3 space-y-2">
+            <div className="grid grid-cols-3 gap-2 p-3">
+              {[
+                { label: "Contactos", value: "06", color: "text-blue-700" },
+                { label: "En seguimiento", value: "03", color: "text-amber-700" },
+                { label: "Clientes", value: "02", color: "text-emerald-700" },
+              ].map((item) => (
+                <div
+                  key={item.label}
+                  className="rounded-lg border border-slate-200 bg-white p-2"
+                >
+                  <p className="text-[9px] text-slate-500">{item.label}</p>
+                  <p className={`mt-1 text-lg font-bold ${item.color}`}>
+                    {item.value}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="space-y-2 px-3 pb-3">
               {[
                 {
-                  name: "Empresa Norte",
+                  name: "Laura Martín",
+                  company: "Empresa Norte",
                   state: "Nuevo",
                   color: "bg-blue-100 text-blue-700",
                 },
                 {
-                  name: "Grupo Central",
-                  state: "En seguimiento",
+                  name: "Carlos Sánchez",
+                  company: "Grupo Central",
+                  state: "Seguimiento",
                   color: "bg-amber-100 text-amber-700",
                 },
                 {
-                  name: "Servicios Delta",
-                  state: "Contactado",
+                  name: "Marta López",
+                  company: "Servicios Delta",
+                  state: "Cliente",
                   color: "bg-emerald-100 text-emerald-700",
                 },
               ].map((client) => (
                 <div
                   key={client.name}
-                  className="flex items-center justify-between gap-2 rounded-lg border border-slate-200 bg-white p-3"
+                  className="flex items-center justify-between gap-2 rounded-lg border border-slate-200 bg-white p-2.5"
                 >
                   <div className="flex min-w-0 items-center gap-2">
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-100">
-                      <Building2 className="h-4 w-4 text-slate-600" />
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-violet-50 text-violet-700">
+                      <Building2 className="h-4 w-4" />
                     </div>
-                    <span className="truncate text-[10px] font-semibold text-slate-800">
-                      {client.name}
-                    </span>
+                    <div className="min-w-0">
+                      <p className="truncate text-[10px] font-semibold text-slate-800">
+                        {client.name}
+                      </p>
+                      <p className="truncate text-[9px] text-slate-500">
+                        {client.company}
+                      </p>
+                    </div>
                   </div>
                   <span
                     className={`shrink-0 rounded-full px-2 py-1 text-[9px] ${client.color}`}
@@ -753,6 +798,18 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                   </span>
                 </div>
               ))}
+            </div>
+
+            <div className="px-3 pb-3">
+              <a
+                href={crmUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-violet-600 px-3 py-2.5 text-xs font-semibold text-white transition hover:bg-violet-700"
+              >
+                Abrir CRM de demostración
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
             </div>
           </div>
         )}
