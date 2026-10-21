@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
@@ -56,6 +55,7 @@ const restaurantUrl = "https://transport-ai-restaurant.vercel.app/";
 const landingUrl = "https://transport-ai-landing.vercel.app/";
 const shopUrl = "https://transport-ai-shop.vercel.app/";
 const aiAgentUrl = "https://transport-ai-agente-ia.vercel.app/";
+const voiceAgentUrl = "https://transport-ai-agente-voz-mu.vercel.app/";
 const mvpUrl = "https://transport-ai1-logistica.vercel.app/";
 
 const categories = [
@@ -169,10 +169,12 @@ const demos: Demo[] = [
     category: "Inteligencia artificial",
     title: "Agente de voz con IA",
     description:
-      "Un asistente conversacional para atender consultas, orientar a los usuarios y facilitar la gestión de solicitudes.",
-    tags: ["Voz", "Conversación", "Automatización"],
+      "Un asistente conversacional por voz que permite hablar con una interfaz inteligente, resolver consultas y facilitar la atención a clientes.",
+    tags: ["Agente de voz", "Reconocimiento de voz", "Síntesis de voz", "IA"],
     preview: "voice",
-    status: "Concepto visual",
+    status: "Demostración disponible online",
+    href: voiceAgentUrl,
+    live: true,
   },
   {
     number: "07",
@@ -263,9 +265,11 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                   ? "transport-ai-shop.vercel.app"
                   : demo.preview === "chat"
                     ? "transport-ai-agente-ia.vercel.app"
-                    : demo.preview === "transport"
-                      ? "transport-ai · operaciones"
-                      : `demo.transport-ai.es/${demo.id}`}
+                    : demo.preview === "voice"
+                      ? "transport-ai-agente-voz-mu.vercel.app"
+                      : demo.preview === "transport"
+                        ? "transport-ai · operaciones"
+                        : `demo.transport-ai.es/${demo.id}`}
         </div>
 
         <Monitor
@@ -571,7 +575,7 @@ function PreviewWindow({ demo }: { demo: Demo }) {
               )}
             </div>
             <span className="rounded-full border border-white/20 px-3 py-1.5 text-[9px] text-violet-100">
-              Ejemplo de interfaz
+              Asistente conversacional
             </span>
           </div>
         )}
