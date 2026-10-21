@@ -56,6 +56,7 @@ const landingUrl = "https://transport-ai-landing.vercel.app/";
 const shopUrl = "https://transport-ai-shop.vercel.app/";
 const aiAgentUrl = "https://transport-ai-agente-ia.vercel.app/";
 const voiceAgentUrl = "https://transport-ai-agente-voz-mu.vercel.app/";
+const automationUrl = "https://transport-ai-automatizacion.vercel.app/";
 const mvpUrl = "https://transport-ai1-logistica.vercel.app/";
 
 const categories = [
@@ -182,10 +183,12 @@ const demos: Demo[] = [
     category: "Automatización",
     title: "Automatización de procesos",
     description:
-      "Conecta tareas, aplicaciones y notificaciones para reducir trabajo repetitivo y mejorar el seguimiento de cada proceso.",
+      "Explora un flujo de trabajo interactivo, añade pasos y simula cómo conectar tareas, aplicaciones y notificaciones para reducir procesos repetitivos.",
     tags: ["Flujos", "Integraciones", "Productividad"],
     preview: "automation",
-    status: "Concepto visual",
+    status: "Demostración disponible online",
+    href: automationUrl,
+    live: true,
   },
   {
     number: "08",
@@ -267,9 +270,11 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                     ? "transport-ai-agente-ia.vercel.app"
                     : demo.preview === "voice"
                       ? "transport-ai-agente-voz-mu.vercel.app"
-                      : demo.preview === "transport"
-                        ? "transport-ai · operaciones"
-                        : `demo.transport-ai.es/${demo.id}`}
+                      : demo.preview === "automation"
+                        ? "transport-ai-automatizacion.vercel.app"
+                        : demo.preview === "transport"
+                          ? "transport-ai · operaciones"
+                          : `demo.transport-ai.es/${demo.id}`}
         </div>
 
         <Monitor
@@ -632,6 +637,16 @@ function PreviewWindow({ demo }: { demo: Demo }) {
             <p className="mt-4 text-center text-[10px] text-slate-500">
               Menos tareas repetitivas. Más control.
             </p>
+
+            <a
+              href={automationUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center justify-center gap-2 rounded-lg bg-slate-950 px-3 py-2.5 text-xs font-semibold text-white transition hover:bg-blue-700"
+            >
+              Explorar automatización
+              <ExternalLink className="h-3.5 w-3.5" />
+            </a>
           </div>
         )}
 
