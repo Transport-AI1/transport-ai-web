@@ -15,7 +15,6 @@ import {
   Building2,
   Mail,
   Phone,
-  Sparkles,
   LoaderCircle,
   CheckCircle2,
   ChevronLeft,
@@ -23,8 +22,10 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
+type Role = "assistant" | "user";
+
 type ChatMessage = {
-  role: "assistant" | "user";
+  role: Role;
   text: string;
 };
 
@@ -71,24 +72,27 @@ type LeadForm = {
   consent: boolean;
 };
 
-type ConversationProfile = {
+type Profile = {
   companySize: string;
   sector: string;
   software: string;
   solution: string;
-  channels: string;
+  channels: string[];
   volume: string;
   objective: string;
   budget: string;
   deadline: string;
   problem: string;
+  details: string[];
 };
 
 const initialMessage =
-  "¡Hola! Soy el asistente comercial de Transport AI. Puedo ayudarte a estudiar automatizaciones, agentes de IA, asistentes de voz, integraciones y software a medida. Cuéntame qué hace tu empresa y qué te gustaría mejorar.";
+  "¡Hola! Soy el asistente comercial de Transport AI. Puedo orientarte sobre automatización, agentes de IA, asistentes de voz, integraciones y software a medida. Cuéntame qué hace tu empresa y qué te gustaría mejorar.";
 
 const whatsappUrl =
   "https://wa.me/34659980603?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Transport%20AI";
+
+const emailAddress = "alvarochaveinte1@gmail.com";
 
 const initialLead: LeadForm = {
   name: "",
@@ -100,20 +104,21 @@ const initialLead: LeadForm = {
   consent: false,
 };
 
-const emptyProfile: ConversationProfile = {
+const emptyProfile: Profile = {
   companySize: "",
   sector: "",
   software: "",
   solution: "",
-  channels: "",
+  channels: [],
   volume: "",
   objective: "",
   budget: "",
   deadline: "",
   problem: "",
+  details: [],
 };
 
-function normalizeText(value: string) {
+function normalize(value: string): string {
   return value
     .toLowerCase()
     .normalize("NFD")
@@ -123,62 +128,63 @@ function normalizeText(value: string) {
     .trim();
 }
 
-function contains(text: string, expressions: RegExp[]) {
-  return expressions.some((expression) => expression.test(text));
+function matches(value: string, patterns: RegExp[]): boolean {
+  return patterns.some((pattern) => pattern.test(value));
 }
 
-function getProfile(history: ChatMessage[]): ConversationProfile {
-  const profile = { ...emptyProfile };
+function getProfile(history: ChatMessage[]): Profile {
+  const profile: Profile = {
+    ...emptyProfile,
+    channels: [],
+    details: [],
+  };
 
   const userMessages = history
     .filter((message) => message.role === "user")
-    .map((message) => normalizeText(message.text));
+    .map((message) => normalize(message.text));
 
-  const fullText = userMessages.join(" ");
+  const all = userMessages.join(" ");
 
-  const sizeMatches = [
-    ...fullText.matchAll(
-      /(\d{1,7})\s*(franquicias|delegaciones|sucursales|oficinas|vehiculos|vehiculos|conductores|repartidores|empleados|trabajadores|usuarios|pedidos|paquetes|llamadas)/g,
-    ),
-  ];
+  const sizeMatch = all.match(
+    /\b(\d{1,7})\s*(franquicias|delegaciones|sucursales|oficinas|vehiculos|conductores|repartidores|empleados|trabajadores|usuarios|pedidos|paquetes|llamadas|clientes|incidencias)\b/,
+  );
 
-  if (sizeMatches.length > 0) {
-    profile.companySize = sizeMatches
-      .slice(-3)
-      .map((match) => `${match[1]} ${match[2]}`)
-      .join(", ");
+  if (sizeMatch) {
+    profile.companySize = `${sizeMatch[1]} ${sizeMatch[2]}`;
   }
 
   if (
-    contains(fullText, [
+    matches(all, [
       /\btransporte\b/,
       /\blogistica\b/,
       /\bmensajeria\b/,
       /\bpaqueteria\b/,
       /\breparto\b/,
-      /\bpaquetes\b/,
       /\benvios\b/,
+      /\bpaquetes\b/,
     ])
   ) {
     profile.sector = "transporte y logística";
-  } else if (/\bmudanzas?\b/.test(fullText)) {
+  } else if (/\bmudanzas?\b/.test(all)) {
     profile.sector = "mudanzas";
-  } else if (/\babogados?\b|\blegal\b/.test(fullText)) {
+  } else if (/\babogados?\b|\blegal\b/.test(all)) {
     profile.sector = "servicios jurídicos";
-  } else if (/\brestaurante\b|\bhosteleria\b/.test(fullText)) {
+  } else if (/\brestaurante\b|\bhosteleria\b/.test(all)) {
     profile.sector = "hostelería";
+  } else if (/\bfranquicias?\b/.test(all)) {
+    profile.sector = "empresa con franquicias";
   }
 
   const softwarePatterns: [RegExp, string][] = [
     [/\bexcel\b|\bhojas de calculo\b/, "Excel"],
-    [/\bwhatsapp\b/, "WhatsApp"],
     [/\bsalesforce\b/, "Salesforce"],
     [/\bhubspot\b/, "HubSpot"],
-    [/\bdynamics\b|\bmicrosoft dynamics\b/, "Microsoft Dynamics"],
+    [/\bmicrosoft dynamics\b|\bdynamics\b/, "Microsoft Dynamics"],
     [/\bsap\b/, "SAP"],
     [/\bholded\b/, "Holded"],
     [/\bzoho\b/, "Zoho"],
-    [/\bdrive\b|\bgoogle sheets\b/, "Google Workspace"],
+    [/\bgoogle sheets\b|\bgoogle workspace\b/, "Google Workspace"],
+    [/\bwhatsapp\b/, "WhatsApp"],
     [/\bcrm\b/, "un CRM"],
     [/\berp\b/, "un ERP"],
     [/\bsoftware propio\b|\bsistema propio\b/, "un sistema propio"],
@@ -186,22 +192,21 @@ function getProfile(history: ChatMessage[]): ConversationProfile {
   ];
 
   for (const [pattern, name] of softwarePatterns) {
-    if (pattern.test(fullText)) {
-      profile.software = name;
-    }
+    if (pattern.test(all)) profile.software = name;
   }
 
   if (
-    contains(fullText, [
+    matches(all, [
       /\bagente de voz\b/,
       /\basistente de voz\b/,
-      /\bllamadas automaticas\b/,
-      /\bvoz\b/,
+      /\bvoz con ia\b/,
+      /\bautomatizar llamadas\b/,
+      /\bllamadas telefonicas\b/,
     ])
   ) {
     profile.solution = "agente de voz con IA";
   } else if (
-    contains(fullText, [
+    matches(all, [
       /\bchatbot\b/,
       /\bagente web\b/,
       /\basistente web\b/,
@@ -209,49 +214,49 @@ function getProfile(history: ChatMessage[]): ConversationProfile {
     ])
   ) {
     profile.solution = "agente de IA para web";
-  } else if (/\bautomatiz/.test(fullText)) {
+  } else if (/\bautomatiz/.test(all)) {
     profile.solution = "automatización de procesos";
-  } else if (/\bplataforma\b|\bsoftware a medida\b/.test(fullText)) {
-    profile.solution = "plataforma de software a medida";
+  } else if (/\bplataforma\b|\bsoftware a medida\b/.test(all)) {
+    profile.solution = "software a medida";
   }
 
-  if (/\bllamadas\b|\btelefono\b|\btelefonica\b/.test(fullText)) {
-    profile.channels = "teléfono";
-  }
+  const channelPatterns: [RegExp, string][] = [
+    [/\bwhatsapp\b/, "WhatsApp"],
+    [/\bcorreo\b|\bemail\b|\bgmail\b|\boutlook\b/, "correo electrónico"],
+    [/\bllamadas?\b|\btelefono\b|\btelefonica\b/, "teléfono"],
+    [/\bformulario\b/, "formularios web"],
+    [/\bweb\b|\bpagina web\b/, "página web"],
+    [/\bexcel\b/, "Excel"],
+  ];
 
-  if (/\bcorreo\b|\bemail\b|\bgmail\b/.test(fullText)) {
-    profile.channels = profile.channels
-      ? `${profile.channels} y correo electrónico`
-      : "correo electrónico";
-  }
-
-  if (/\bwhatsapp\b/.test(fullText)) {
-    profile.channels = profile.channels
-      ? `${profile.channels} y WhatsApp`
-      : "WhatsApp";
+  for (const [pattern, channel] of channelPatterns) {
+    if (pattern.test(all) && !profile.channels.includes(channel)) {
+      profile.channels.push(channel);
+    }
   }
 
   if (
-    contains(fullText, [
+    matches(all, [
       /\bahorrar tiempo\b/,
       /\breducir costes\b/,
       /\breducir tareas manuales\b/,
       /\bser mas eficientes\b/,
+      /\bmenos trabajo manual\b/,
     ])
   ) {
     profile.objective = "ahorrar tiempo y reducir trabajo manual";
   }
 
   if (
-    contains(fullText, [
-      /\bincidencias\b/,
-      /\breclamaciones\b/,
+    matches(all, [
+      /\bincidencias?\b/,
+      /\breclamaciones?\b/,
       /\bproblemas con los envios\b/,
     ])
   ) {
     profile.problem = "gestión de incidencias y reclamaciones";
   } else if (
-    contains(fullText, [
+    matches(all, [
       /\batencion al cliente\b/,
       /\bconsultas de clientes\b/,
       /\bsoporte al cliente\b/,
@@ -259,80 +264,98 @@ function getProfile(history: ChatMessage[]): ConversationProfile {
   ) {
     profile.problem = "atención al cliente";
   } else if (
-    contains(fullText, [
-      /\bpedidos\b/,
+    matches(all, [
       /\bseguimiento de envios\b/,
       /\blocalizar paquetes\b/,
+      /\bpedidos\b/,
     ])
   ) {
     profile.problem = "gestión y seguimiento de pedidos";
+  } else if (
+    matches(all, [
+      /\bintroducir datos\b/,
+      /\bpasar datos\b/,
+      /\bdatos manualmente\b/,
+    ])
+  ) {
+    profile.problem = "introducción y gestión manual de datos";
   }
 
-  const budgetMatch = fullText.match(
+  const budgetMatch = all.match(
     /(?:presupuesto|disponemos de|podemos invertir|invertir)\s*(?:de|unos|aproximado de)?\s*(\d[\d.,]*)\s*(euros|eur|€)/,
   );
 
   if (budgetMatch) {
     profile.budget = `${budgetMatch[1]} €`;
-  } else if (/\bpresupuesto limitado\b|\bpoco presupuesto\b/.test(fullText)) {
+  } else if (/\bpresupuesto limitado\b|\bpoco presupuesto\b/.test(all)) {
     profile.budget = "limitado";
   }
 
-  const deadlineMatch = fullText.match(
-    /(?:antes de|para el|fecha limite|necesitamos tenerlo para)\s+(.{2,45})/,
+  const volumeMatch = all.match(
+    /\b(\d{1,7})\s*(llamadas|pedidos|paquetes|consultas|incidencias)\b/,
   );
 
-  if (deadlineMatch) {
-    profile.deadline = deadlineMatch[0].slice(0, 100);
+  if (volumeMatch) profile.volume = volumeMatch[0];
+
+  const deadlineMatch = all.match(
+    /\b(?:antes de|para el|fecha limite|necesitamos tenerlo para)\s+(.{2,45})/,
+  );
+
+  if (deadlineMatch) profile.deadline = deadlineMatch[0];
+
+  if (/\bprioridad\b|\burgente\b|\bcritico\b/.test(all)) {
+    profile.details.push("prioridad alta o urgente");
   }
 
-  const volumeMatch = fullText.match(
-    /(\d{1,7})\s*(llamadas|pedidos|paquetes|consultas|incidencias)\s*(?:al dia|diarias|por dia|al mes|mensuales)?/,
-  );
+  if (/\bnotificar\b|\bavisar\b|\balertas?\b/.test(all)) {
+    profile.details.push("notificaciones y alertas");
+  }
 
-  if (volumeMatch) {
-    profile.volume = volumeMatch[0];
+  if (/\bseguimiento\b|\bpendientes\b|\bseguimiento de casos\b/.test(all)) {
+    profile.details.push("seguimiento de casos pendientes");
+  }
+
+  if (/\bfranquicias?\b|\bdelegaciones\b|\bsucursales\b/.test(all)) {
+    profile.details.push("posible gestión de varias sedes");
   }
 
   return profile;
 }
 
-function getAnswer(
-  question: string,
-  history: ChatMessage[],
-): string {
-  const text = normalizeText(question);
-  const profile = getProfile(history);
+function getAnswer(question: string, history: ChatMessage[]): string {
+  const text = normalize(question);
+  const historyWithCurrent: ChatMessage[] = [
+    ...history,
+    { role: "user", text: question },
+  ];
 
-  const userMessages = history.filter((m) => m.role === "user");
-  const assistantMessages = history.filter((m) => m.role === "assistant");
+  const profile = getProfile(historyWithCurrent);
+  const previousAssistant = [...history]
+    .reverse()
+    .find((message) => message.role === "assistant")?.text ?? "";
 
-  const lastAssistant = assistantMessages.at(-1)?.text ?? "";
-  const lastUser = userMessages.at(-1)?.text ?? "";
+  const previousUser = [...history]
+    .reverse()
+    .find((message) => message.role === "user")?.text ?? "";
 
-  const previousContext = normalizeText(
-    history.slice(-12).map((m) => m.text).join(" "),
+  const allUserText = normalize(
+    historyWithCurrent
+      .filter((message) => message.role === "user")
+      .map((message) => message.text)
+      .join(" "),
   );
 
-  const hasEnterpriseScale =
-    /\b(300|500|1000|10000)\s*(franquicias|delegaciones|sucursales|oficinas|usuarios|empleados|repartidores|conductores)\b/.test(
-      previousContext,
+  const previous = normalize(previousAssistant);
+
+  const hasLargeNetwork =
+    /\b\d{1,7}\s*(franquicias|delegaciones|sucursales|oficinas|usuarios|empleados|repartidores|conductores)\b/.test(
+      allUserText,
     ) ||
-    /\bempresa mas grande\b|\bmultinacional\b|\bgran empresa\b|\bred nacional\b|\bred internacional\b/.test(
-      previousContext,
+    /\bmultinacional\b|\bred nacional\b|\bred internacional\b|\bgran empresa\b/.test(
+      allUserText,
     );
 
-  const isCorrection = contains(text, [
-    /\bno me has entendido\b/,
-    /\bno has entendido\b/,
-    /\bno es eso\b/,
-    /\bte he preguntado\b/,
-    /\bme refiero a\b/,
-    /\bno has respondido\b/,
-    /\bquiero una respuesta\b/,
-  ]);
-
-  const asksPrice = contains(text, [
+  const asksPrice = matches(text, [
     /\bprecio\b/,
     /\bprecios\b/,
     /\bcuanto cuesta\b/,
@@ -343,35 +366,34 @@ function getAnswer(
     /\bcuanto cobrais\b/,
     /\bcuanto costaria\b/,
     /\bcuanto seria\b/,
-    /\beuros\b/,
   ]);
 
-  const asksTime = contains(text, [
+  const asksTime = matches(text, [
     /\bcuanto tarda\b/,
     /\bcuanto tardaria\b/,
     /\bcuanto tiempo\b/,
     /\bplazo\b/,
-    /\bfecha de entrega\b/,
     /\bsemanas\b/,
     /\bmeses\b/,
     /\bcuando estaria\b/,
     /\btiempo de desarrollo\b/,
   ]);
 
-  const asksContact = contains(text, [
+  const asksContact = matches(text, [
     /\bcontacto\b/,
     /\bwhatsapp\b/,
+    /\bcorreo de alvaro\b/,
+    /\bemail de alvaro\b/,
     /\bhablar con alvaro\b/,
     /\bhablar con una persona\b/,
     /\bhablar con alguien\b/,
     /\breunion\b/,
     /\bcita\b/,
-    /\btelefono\b/,
     /\bquiero contratar\b/,
     /\bpropuesta comercial\b/,
   ]);
 
-  const asksIdentity = contains(text, [
+  const asksIdentity = matches(text, [
     /\bquien eres\b/,
     /\bque es transport ai\b/,
     /\bque hace transport ai\b/,
@@ -379,7 +401,7 @@ function getAnswer(
     /\bquienes sois\b/,
   ]);
 
-  const asksSecurity = contains(text, [
+  const asksSecurity = matches(text, [
     /\bseguridad\b/,
     /\bprivacidad\b/,
     /\brgpd\b/,
@@ -388,7 +410,7 @@ function getAnswer(
     /\bmis datos\b/,
   ]);
 
-  const asksDemo = contains(text, [
+  const asksDemo = matches(text, [
     /\bdemo\b/,
     /\bdemostracion\b/,
     /\bver un ejemplo\b/,
@@ -396,7 +418,31 @@ function getAnswer(
     /\bpuedo verlo\b/,
   ]);
 
-  const asksHow = contains(text, [
+  const asksSavings = matches(text, [
+    /\bahorrar tiempo\b/,
+    /\bcuanto ahorraria\b/,
+    /\breducir costes\b/,
+    /\bretorno de inversion\b/,
+    /\bcuanto podria ahorrar\b/,
+  ]);
+
+  const asksVoice = matches(text, [
+    /\bagente de voz\b/,
+    /\basistente de voz\b/,
+    /\bvoz con ia\b/,
+    /\bautomatizar llamadas\b/,
+    /\bllamadas telefonicas\b/,
+  ]);
+
+  const asksServices = matches(text, [
+    /\bque podeis hacer\b/,
+    /\bservicios\b/,
+    /\bsoluciones\b/,
+    /\bque se puede automatizar\b/,
+    /\bque podeis automatizar\b/,
+  ]);
+
+  const asksHow = matches(text, [
     /\bcomo funciona\b/,
     /\bcomo lo hariais\b/,
     /\bcomo se implementa\b/,
@@ -406,186 +452,312 @@ function getAnswer(
     /\bque necesitais\b/,
   ]);
 
-  const asksSavings = contains(text, [
-    /\bahorrar tiempo\b/,
-    /\bahorro de tiempo\b/,
-    /\bcuanto ahorraria\b/,
-    /\breducir costes\b/,
-    /\bretorno de inversion\b/,
-    /\bcuanto podria ahorrar\b/,
-  ]);
-
-  const asksVoice = contains(text, [
-    /\bagente de voz\b/,
-    /\basistente de voz\b/,
-    /\bvoz con ia\b/,
-    /\batienda llamadas\b/,
-    /\bautomatizar llamadas\b/,
-    /\bllamadas telefonicas\b/,
-  ]);
-
-  const asksAutomation = contains(text, [
-    /\bautomatizar\b/,
-    /\bautomatizacion\b/,
-    /\binteligencia artificial\b/,
-    /\bque podeis hacer\b/,
-    /\bservicios\b/,
-    /\bsoluciones\b/,
-    /\bque se puede automatizar\b/,
+  const isCorrection = matches(text, [
+    /\bno me has entendido\b/,
+    /\bno has entendido\b/,
+    /\bno es eso\b/,
+    /\bte he preguntado\b/,
+    /\bme refiero a\b/,
+    /\bno has respondido\b/,
   ]);
 
   const isGreeting = /^(hola|buenas|hey|buenos dias|buenas tardes|buenas noches)$/.test(text);
-
   const isThanks = /^(gracias|muchas gracias|perfecto|genial|entendido|vale gracias)$/.test(text);
-
   const isNegative = /^(no|no gracias|no lo se|ni idea|todavia no|aun no|ninguno|ninguna)$/.test(text);
+  const isPositive = /^(si|vale|correcto|exacto|eso es|de acuerdo)$/.test(text);
 
-  const isPositive = /^(si|sí|vale|correcto|exacto|eso es|de acuerdo)$/.test(text);
+  const isUncertain = matches(text, [
+    /\bno lo se\b/,
+    /\bno tengo claro\b/,
+    /\bno estoy seguro\b/,
+    /\bno estoy segura\b/,
+    /\bni idea\b/,
+    /\bno sabria decirte\b/,
+  ]);
 
-  const isShortAnswer = text.length < 45;
+  const isShort = text.length <= 65;
 
+  // 1. Resolver primero las peticiones explícitas.
   if (isCorrection) {
-    return "Perdona, voy a centrarme en tu pregunta concreta. No quiero darte una respuesta genérica. ¿Qué necesitas que aclare exactamente?";
+    return "Perdona. Voy a centrarme en lo que me has preguntado y en los datos que ya me has dado. Si me indicas qué parte no he respondido, lo revisaré sin volver a empezar desde cero.";
   }
 
   if (isGreeting) {
-    return "¡Hola! Soy el asistente comercial de Transport AI. Podemos estudiar agentes de voz, atención al cliente con IA, automatizaciones, integraciones con CRM y software a medida. ¿Qué tipo de empresa tienes y qué proceso te gustaría mejorar?";
+    return "¡Hola! Soy el asistente comercial de Transport AI. Podemos estudiar automatizaciones, agentes de IA, asistentes de voz, integraciones con CRM y software a medida. ¿Qué proceso te gustaría mejorar?";
   }
 
   if (asksContact) {
-    return "Puedes hablar directamente con Álvaro, fundador de Transport AI, por WhatsApp. Al escribirle, cuéntale brevemente qué empresa tienes y qué necesitas. Si tu proyecto es grande, es mejor revisar los requisitos contigo antes de darte una cifra o prometer una integración.\n\nPulsa el botón «Hablar con Álvaro por WhatsApp» que aparece debajo de esta conversación.";
+    return `Puedes hablar directamente con Álvaro, fundador de Transport AI.\n\nWhatsApp: ${whatsappUrl}\nCorreo electrónico: ${emailAddress}\n\nSi quieres, el mensaje de WhatsApp puede incluir el resumen de lo que ya me has contado para que no tengas que empezar de cero.`;
   }
 
   if (asksIdentity) {
-    return "Transport AI desarrolla soluciones de inteligencia artificial, automatización e integración de software para empresas. Estudiamos cómo reducir tareas manuales, atender consultas, conectar sistemas y mejorar procesos operativos. El objetivo es complementar las herramientas que ya utiliza cada empresa, siempre que las integraciones sean técnicamente viables.";
+    return "Transport AI desarrolla soluciones de inteligencia artificial, automatización e integración de software para empresas. Estudiamos cómo reducir tareas manuales, atender consultas, conectar sistemas y mejorar procesos operativos. La solución se adapta a cada caso y la viabilidad de las integraciones debe comprobarse.";
   }
 
   if (asksSecurity) {
-    return "La seguridad se debe definir según cada proyecto. Hay que revisar qué datos se procesan, quién puede acceder, qué permisos tiene la solución, cuánto tiempo se conservan los datos y qué proveedores intervienen. No puedo confirmar que una integración concreta cumpla todos los requisitos sin revisar su arquitectura. Puedes hablar con Álvaro para estudiar las necesidades de seguridad y protección de datos de tu empresa.";
+    return `La seguridad depende de los datos, los permisos y los proveedores implicados. Antes de poner una solución en producción hay que revisar accesos, conservación de datos, medidas de seguridad y obligaciones de protección de datos. No puedo garantizar el cumplimiento de una integración sin revisar su arquitectura.\n\nPara estudiar tu caso concreto, contacta con Álvaro:\nWhatsApp: ${whatsappUrl}\nCorreo: ${emailAddress}`;
   }
 
   if (asksDemo) {
-    return "Puedes ver las demostraciones de Transport AI aquí:\nhttps://transport-ai-web.vercel.app/demostraciones\n\nSon ejemplos visuales de posibles soluciones. No significa que todas las funciones estén conectadas a sistemas reales ni que cada integración esté disponible para cualquier empresa. La solución definitiva se define según tus requisitos.";
+    return "Puedes consultar las demostraciones de Transport AI aquí:\nhttps://transport-ai-web.vercel.app/demostraciones\n\nSon ejemplos de posibles soluciones. La disponibilidad de cada función y su conexión con sistemas reales dependen del proyecto.";
   }
 
   if (asksPrice) {
-    if (hasEnterpriseScale) {
-      return "Para una empresa con una red de ese tamaño, no sería responsable aplicar directamente el precio de una automatización sencilla. Los precios orientativos publicados son 1.500–4.000 € para automatizaciones, 4.000–8.000 € para proyectos de CRM e IA y desde 15.000 € para plataformas operativas a medida, antes de IVA. Un proyecto empresarial con muchas franquicias, permisos e integraciones puede requerir un alcance y presupuesto distintos. Lo adecuado es estudiar primero el CRM, el volumen de actividad y las funciones necesarias con Álvaro.";
+    if (hasLargeNetwork) {
+      return "Para una empresa con una red de ese tamaño, no sería responsable aplicar directamente el precio de una automatización sencilla. Como referencia, las automatizaciones se sitúan entre 1.500 y 4.000 €, los proyectos de CRM e IA entre 4.000 y 8.000 €, y las plataformas operativas a medida desde 15.000 €, antes de IVA. Un despliegue con muchas franquicias puede requerir otro alcance y presupuesto.\n\nPara estimarlo, habría que revisar el sistema central, las funciones, los permisos y el volumen de actividad. Puedes hablar con Álvaro por WhatsApp o escribir a alvarochaveinte1@gmail.com.";
+    }
+
+    if (profile.problem && profile.software) {
+      return `Por lo que me has contado, quieres resolver ${profile.problem} utilizando ${profile.software}. Un proyecto de CRM e integración con IA puede encajar en la referencia de 4.000–8.000 € antes de IVA, aunque no es un presupuesto confirmado. El coste depende de las operaciones que permita el sistema, los canales de entrada y las excepciones que haya que gestionar.\n\nPara concretarlo, ¿qué debería ocurrir cuando se recibe una incidencia: registrarla, clasificarla, avisar a alguien, responder al cliente o hacer seguimiento?`;
     }
 
     if (profile.solution === "agente de voz con IA") {
-      return "El coste de un agente de voz depende de si solo responde preguntas o también atiende llamadas reales, consulta datos, actualiza el CRM y transfiere llamadas. Los proyectos de integración con IA se sitúan orientativamente entre 4.000 y 8.000 € antes de IVA, pero un agente telefónico puede tener costes adicionales de telefonía, proveedores de voz y uso. Para estimarlo correctamente necesito saber qué debería hacer el agente y qué sistema utilizáis.";
+      return "El coste de un agente de voz depende de si responde preguntas, atiende llamadas reales, consulta datos, actualiza el CRM o transfiere llamadas. Los proyectos de integración con IA se sitúan orientativamente entre 4.000 y 8.000 € antes de IVA; la telefonía y los proveedores de voz pueden añadir costes. Es necesario definir el alcance antes de dar un presupuesto.";
     }
 
-    return "Los precios orientativos de Transport AI son:\n\n• Automatización de procesos: 1.500–4.000 €.\n• CRM e integraciones con IA: 4.000–8.000 €.\n• Plataforma operativa a medida: desde 15.000 €.\n\nImportes antes de IVA. El presupuesto definitivo depende del alcance, las integraciones, las pruebas y los proveedores externos que hagan falta. Si me explicas el proceso que quieres mejorar, puedo orientarte sobre qué categoría encaja mejor.";
+    return "Los precios orientativos de Transport AI son:\n\n• Automatización de procesos: 1.500–4.000 €.\n• CRM e integraciones con IA: 4.000–8.000 €.\n• Plataforma operativa a medida: desde 15.000 €.\n\nImportes antes de IVA. No son presupuestos cerrados: dependen del alcance, las integraciones, las pruebas y los proveedores externos. ¿Qué proceso quieres mejorar y qué sistema utilizáis actualmente?";
   }
 
   if (asksTime) {
-    if (hasEnterpriseScale) {
-      return "Para una implantación empresarial con muchas franquicias, el plazo depende del CRM, las APIs disponibles, los permisos, las pruebas y la necesidad de desplegar por fases. Puede ser necesario planificar un piloto y ampliar después al resto de la red. No sería serio prometer una fecha sin revisar esos puntos. ¿Qué sistema central utilizáis y qué debería hacer exactamente la solución?";
+    if (hasLargeNetwork) {
+      return "Para una implantación empresarial con muchas sedes, el plazo depende del CRM, las APIs, los permisos, las pruebas y el despliegue. Puede ser necesario empezar con un piloto y ampliar después al resto de la red. No puedo prometer una fecha sin revisar esos puntos. Puedes compartir los requisitos con Álvaro por WhatsApp o correo.";
     }
 
-    return "Como referencia preliminar, una automatización sencilla puede requerir entre 1 y 3 semanas; una integración con CRM y varios flujos, entre 3 y 8 semanas; y una plataforma completa, varios meses. Son estimaciones orientativas, no compromisos de entrega. El plazo real depende del alcance, las APIs, los proveedores y las pruebas necesarias.";
+    return "Como referencia preliminar, una automatización sencilla puede requerir entre 1 y 3 semanas; una integración con CRM y varios flujos, entre 3 y 8 semanas; y una plataforma completa, varios meses. Son estimaciones orientativas, no compromisos de entrega. El plazo real depende del alcance, las APIs y las pruebas necesarias.";
   }
 
   if (asksSavings) {
-    return "El ahorro debe calcularse con datos reales, no prometerse de antemano. Por ejemplo, si una tarea ocupa 2 horas diarias y una automatización elimina la mitad de ese trabajo, el ahorro teórico sería de 1 hora al día. Para estimarlo en tu empresa necesito saber qué tarea se repite, cuánto tarda y cuántas veces se realiza.";
+    return "El ahorro debe calcularse con datos reales. Por ejemplo, si una tarea ocupa 2 horas diarias y se reduce a la mitad, el ahorro teórico sería de 1 hora al día. Para hacer una estimación útil, necesito saber qué tarea se repite, cuánto tarda y cuántas veces se realiza.";
   }
 
   if (asksVoice) {
-    if (hasEnterpriseScale) {
-      return `Para una red empresarial de ese tamaño, estudiaría un agente de voz conectado al sistema central, con permisos por franquicia y derivación a una persona cuando no pueda resolver una consulta. Podría atender preguntas frecuentes y, si el CRM y las APIs lo permiten, consultar información o registrar solicitudes. Primero habría que validar la integración, el volumen de llamadas y los requisitos de seguridad. ¿Qué CRM utilizáis actualmente?${profile.software ? ` Tengo anotado que utilizáis ${profile.software}.` : ""}`;
+    if (hasLargeNetwork) {
+      return `Para una red empresarial de ese tamaño, estudiaría un agente de voz conectado al sistema central, con permisos por sede y derivación a una persona cuando no pueda resolver una consulta. Si el CRM y sus APIs lo permiten, podría consultar información o registrar solicitudes. Primero habría que validar la integración, el volumen de llamadas y la seguridad.\n\n${profile.software ? `Tengo anotado que utilizáis ${profile.software}. ` : ""}¿El agente debe limitarse a responder llamadas o también consultar y actualizar datos?`;
     }
 
-    return "Un agente de voz puede atender consultas, responder preguntas frecuentes, recoger datos, clasificar solicitudes y derivar casos complejos a una persona. Si debe consultar pedidos, modificar registros o realizar llamadas telefónicas reales, hay que comprobar las APIs y los proveedores necesarios. ¿Quieres que atienda llamadas telefónicas, que hable con los visitantes de tu web o ambas cosas?";
+    return "Un agente de voz puede atender consultas, responder preguntas frecuentes, recoger datos y derivar casos complejos. Si debe consultar pedidos, modificar registros o realizar llamadas reales, hay que comprobar las APIs y los proveedores necesarios. ¿Quieres que atienda llamadas telefónicas, que hable con visitantes de tu web o ambas cosas?";
   }
 
-  if (asksAutomation) {
-    return "Podemos estudiar clasificación de correos, atención al cliente, gestión de incidencias, agentes de voz, integración con CRM, automatización administrativa y software a medida. Para elegir una solución útil, conviene identificar la tarea que más tiempo consume, las herramientas que intervienen y las excepciones que necesitan supervisión humana. ¿Cuál es el principal problema que quieres resolver?";
+  if (asksServices) {
+    return "Podemos estudiar clasificación de correos, atención al cliente, gestión de incidencias, agentes de voz, integración con CRM, automatización administrativa y software a medida. La solución debe partir de un problema real y de las herramientas que ya utiliza la empresa. ¿Qué tarea os hace perder más tiempo actualmente?";
   }
 
-  // Seguimiento de la conversación: respuestas breves como "CRM", "Excel" o "no lo sé".
-  if (isShortAnswer && lastAssistant) {
-    const previous = normalizeText(lastAssistant);
-
-    if (
-      /\bcrm\b|\bexcel\b|\bprograma\b|\bsistema\b|\bsoftware\b/.test(previous) &&
-      /\bcrm\b|\bexcel\b|\bsap\b|\bhubspot\b|\bsalesforce\b|\bzoho\b|\berp\b|\bwhatsapp\b|\bninguno\b|\bninguna\b/.test(text)
-    ) {
-      const softwareName =
-        /\bexcel\b/.test(text) ? "Excel" :
-        /\bsalesforce\b/.test(text) ? "Salesforce" :
-        /\bhubspot\b/.test(text) ? "HubSpot" :
-        /\bsap\b/.test(text) ? "SAP" :
-        /\bzoho\b/.test(text) ? "Zoho" :
-        /\bwhatsapp\b/.test(text) ? "WhatsApp" :
-        /\berp\b/.test(text) ? "un ERP" :
-        /\bcrm\b/.test(text) ? "un CRM" :
-        "ningún sistema específico";
-
-      return `Perfecto, tomo nota de que utilizáis ${softwareName}. El siguiente paso es identificar qué debería hacer la solución con ese sistema. Por ejemplo, podría consultar información, registrar incidencias, actualizar datos o derivar casos a vuestro equipo, siempre que el sistema permita esas operaciones.\n\n¿Qué tarea concreta os gustaría automatizar primero?`;
+  // 2. Interpretar respuestas breves en función de la pregunta anterior.
+  // No tratar "CRM" o "incidencias" como consultas aisladas.
+  if (isShort && isUncertain) {
+    if (profile.problem && profile.software) {
+      return `No pasa nada. Tengo anotado que quieres mejorar ${profile.problem} y que utilizáis ${profile.software}. No hace falta conocer todos los detalles técnicos ahora. Puedes contarme qué ocurre hoy cuando aparece una incidencia, o hablar directamente con Álvaro por WhatsApp o en ${emailAddress}.`;
     }
 
-    if (
-      isNegative ||
-      /\bno lo se\b|\bno tengo claro\b|\bno estoy seguro\b/.test(text)
-    ) {
-      return "No pasa nada. No necesitas tener todos los requisitos definidos todavía. Podemos empezar por el problema y descubrir juntos qué solución tendría sentido. ¿Qué tarea os hace perder más tiempo actualmente: atender consultas, gestionar incidencias, introducir datos o coordinar al equipo?";
-    }
-
-    if (isPositive) {
-      if (/\bque tarea\b|\bque proceso\b|\bque necesitas\b/.test(previous)) {
-        return "Perfecto. Cuéntame un ejemplo concreto de una tarea que quieras simplificar y qué ocurre actualmente desde que empieza hasta que termina.";
-      }
-
-      return "Perfecto. Para avanzar sin dar nada por supuesto, ¿qué dato puedes concretarme ahora: el sistema que utilizáis, la tarea que queréis automatizar o el volumen de trabajo?";
-    }
-
-    if (
-      /\bllamadas\b|\btelefono\b/.test(text) &&
-      profile.solution === "agente de voz con IA"
-    ) {
-      return "Entendido. Para valorar un agente de voz necesito conocer el volumen aproximado de llamadas, qué consultas debe resolver y si debe consultar o modificar información del CRM. Si no conoces el volumen exacto, una estimación aproximada también sirve. ¿Cuántas llamadas recibís al día, aproximadamente?";
-    }
+    return "No pasa nada. Podemos definirlo juntos. Empecemos por el problema que más tiempo os quita: atender consultas, gestionar incidencias, introducir datos o coordinar al equipo. Si prefieres hablar con Álvaro, puedes escribir a alvarochaveinte1@gmail.com o usar el botón de WhatsApp.";
   }
 
-  if (hasEnterpriseScale) {
-    const knownDetails = [
-      profile.solution ? `Solución: ${profile.solution}` : "",
-      profile.software ? `Sistema: ${profile.software}` : "",
-      profile.sector ? `Sector: ${profile.sector}` : "",
-      profile.volume ? `Volumen: ${profile.volume}` : "",
-    ].filter(Boolean).join(". ");
+  if (isPositive) {
+    if (profile.problem && profile.software) {
+      return `Perfecto. Mantengo el contexto: quieres automatizar ${profile.problem} utilizando ${profile.software}. Para definir el siguiente paso, ¿qué sucede actualmente cuando entra una incidencia: alguien la registra manualmente, se asigna a un responsable o se responde directamente al cliente?`;
+    }
 
-    return `Por lo que me has contado, estamos hablando de un proyecto empresarial que necesita analizarse con cuidado. ${knownDetails ? `Tengo presentes estos datos: ${knownDetails}. ` : ""}Para una red de ese tamaño, conviene estudiar la arquitectura, los permisos, la integración con el sistema central, la seguridad y un posible despliegue por fases. No quiero inventar una solución ni prometer una integración sin comprobarla. ¿Cuál sería la función más importante que debería resolver el sistema desde el primer día?`;
+    return "Perfecto. Para avanzar sin repetir preguntas, dime qué tarea concreta quieres automatizar primero. Si todavía no lo tienes claro, podemos empezar por el proceso que más tiempo os consume.";
   }
 
+  // Si la pregunta anterior solicitaba el software y el usuario contesta "CRM".
   if (
-    /\bcrm\b|\bapi\b|\bintegracion\b|\bintegrar\b|\berp\b|\bsoftware\b|\bprograma\b/.test(text)
+    isShort &&
+    matches(previous, [
+      /\bque sistema\b/,
+      /\bque crm\b/,
+      /\bcomo gestionais\b/,
+      /\bcon excel\b/,
+      /\bcorreo electronico\b/,
+      /\bque herramientas\b/,
+    ]) &&
+    matches(text, [
+      /\bcrm\b/,
+      /\bexcel\b/,
+      /\bsap\b/,
+      /\bhubspot\b/,
+      /\bsalesforce\b/,
+      /\bzoho\b/,
+      /\berp\b/,
+      /\bwhatsapp\b/,
+      /\bninguno\b/,
+    ])
   ) {
-    return "Podemos estudiar una integración con tu CRM, ERP o API para reducir tareas manuales y duplicidades. Antes de confirmar la viabilidad hay que revisar la documentación del proveedor, los permisos y las operaciones que permite. ¿Qué sistema utilizas y qué necesitas que haga la integración?";
+    const system = profile.software || question;
+
+    if (profile.problem) {
+      return `Entendido: utilizáis ${system} y quieres mejorar ${profile.problem}. No te voy a volver a preguntar qué sistema utilizáis. ¿Qué debería hacer primero la solución cuando entra una incidencia: registrarla en el CRM, clasificarla, avisar al responsable o responder al cliente?`;
+    }
+
+    return `Entendido, utilizáis ${system}. Lo tengo presente. ¿Qué tarea concreta quieres automatizar con ese sistema: incidencias, atención al cliente, seguimiento de pedidos, actualización de datos u otra?`;
   }
 
+  // Si el usuario contesta "incidencias" a la pregunta sobre qué tarea quiere mejorar.
   if (
-    /\btransporte\b|\blogistica\b|\bmensajeria\b|\bpaqueteria\b|\breparto\b|\brepartidores\b|\bincidencias\b|\bpaquetes\b/.test(text)
+    isShort &&
+    matches(text, [
+      /\bincidencias?\b/,
+      /\breclamaciones?\b/,
+      /\bpedidos\b/,
+      /\batencion al cliente\b/,
+      /\bseguimiento\b/,
+      /\bdatos\b/,
+    ]) &&
+    matches(previous, [
+      /\bque tarea\b/,
+      /\bque proceso\b/,
+      /\bque te gustaria mejorar\b/,
+      /\bque tarea concreta\b/,
+      /\bque problema\b/,
+      /\bque necesitas\b/,
+    ])
   ) {
-    return "En transporte y logística podemos estudiar la automatización de consultas, incidencias, seguimiento de envíos, validación de datos y coordinación de equipos. La viabilidad depende de los sistemas y permisos disponibles. Para no recomendarte algo genérico, ¿cómo gestionáis ahora los pedidos e incidencias: con Excel, WhatsApp, correo electrónico o un CRM?";
+    if (profile.software) {
+      return `Entendido: quieres automatizar ${profile.problem || question} utilizando ${profile.software}. Por ejemplo, podríamos estudiar el registro automático, la clasificación, los avisos al responsable y el seguimiento de los casos, siempre que el sistema lo permita.\n\n¿Cómo os llegan ahora las incidencias: por correo electrónico, WhatsApp, llamadas o directamente dentro del CRM?`;
+    }
+
+    return `Entendido: quieres mejorar ${profile.problem || question}. Podemos estudiar cómo registrar los casos, clasificarlos, avisar al responsable y hacer seguimiento sin duplicar trabajo. ¿Qué herramienta utilizáis ahora para gestionarlos: un CRM, Excel, WhatsApp o correo electrónico?`;
   }
 
+  // Respuesta contextual para proyectos de incidencias y CRM.
+  // Tiene prioridad sobre las reglas generales de transporte.
+  if (profile.problem && profile.software) {
+    if (
+      matches(text, [
+        /\bcorreo\b/,
+        /\bemail\b/,
+        /\bgmail\b/,
+        /\bwhatsapp\b/,
+        /\btelefono\b/,
+        /\bllamadas\b/,
+        /\bformulario\b/,
+        /\bcrm\b/,
+      ]) &&
+      isShort
+    ) {
+      const channel = matches(text, [/\bcorreo\b/, /\bemail\b/, /\bgmail\b/])
+        ? "correo electrónico"
+        : /\bwhatsapp\b/.test(text)
+          ? "WhatsApp"
+          : matches(text, [/\btelefono\b/, /\bllamadas\b/])
+            ? "llamadas telefónicas"
+            : matches(text, [/\bformulario\b/])
+              ? "formularios"
+              : profile.software;
+
+      return `Perfecto: las incidencias llegan por ${channel} y el sistema que has indicado es ${profile.software}. Se podría estudiar un flujo que capture la información, cree o actualice el registro, avise al responsable y haga seguimiento de los casos abiertos. Aún habría que verificar las integraciones y los permisos del sistema.\n\n¿Quieres priorizar el registro automático, la comunicación con el cliente o el seguimiento interno?`;
+    }
+
+    if (
+      matches(text, [
+        /\bregistrar\b/,
+        /\bclasificar\b/,
+        /\bavisar\b/,
+        /\bnotificar\b/,
+        /\bseguimiento\b/,
+        /\bresponder\b/,
+        /\bcliente\b/,
+        /\bresponsable\b/,
+      ])
+    ) {
+      return `Entendido. El objetivo es automatizar ${profile.problem} desde ${profile.software}. La solución podría combinar registro, clasificación, notificaciones y seguimiento, según lo que permita el sistema. Para no prometer una función que quizá no admita, habría que comprobar la API y los permisos del CRM.\n\n¿Sabes qué CRM concreto utilizáis? Si no lo sabes o necesitas una valoración técnica, puedes hablar con Álvaro por WhatsApp o escribir a ${emailAddress}.`;
+    }
+
+    if (matches(text, [/\bcomo\b/, /\bse puede\b/, /\bes posible\b/, /\bfuncionaria\b/])) {
+      return `En principio, se puede estudiar una automatización para ${profile.problem} utilizando ${profile.software}. El flujo podría registrar la incidencia, asignarla, enviar avisos y mantener el seguimiento. La viabilidad depende del sistema, sus APIs y los permisos disponibles; todavía no puedo confirmar que todas esas acciones sean posibles en vuestro caso.\n\nPara validarlo, podemos revisar el CRM y el proceso actual contigo. WhatsApp: ${whatsappUrl}\nCorreo: ${emailAddress}`;
+    }
+
+    return `Tengo presentes los datos que ya me has dado: quieres automatizar ${profile.problem} y utilizáis ${profile.software}${profile.companySize ? `, en una organización con ${profile.companySize}` : ""}. No necesitas repetirlos.\n\nEl siguiente paso es concretar qué debe ocurrir cuando llega una incidencia. ¿Quieres que la solución la registre, la clasifique, avise a un responsable, responda al cliente o haga seguimiento hasta cerrarla?`;
+  }
+
+  // Si el usuario aporta un número o tamaño empresarial en una respuesta corta.
+  if (
+    isShort &&
+    /\b\d{1,7}\b/.test(text) &&
+    matches(text, [
+      /\bfranquicias\b/,
+      /\bdelegaciones\b/,
+      /\bsucursales\b/,
+      /\bempleados\b/,
+      /\busuarios\b/,
+      /\bllamadas\b/,
+      /\bpedidos\b/,
+      /\bpaquetes\b/,
+    ])
+  ) {
+    return `Entendido, tomo nota de ${question}. En una empresa de ese tamaño es importante definir permisos, volumen de trabajo, integraciones y despliegue por fases. ¿Qué proceso quieres resolver primero?`;
+  }
+
+  // Preguntas generales sobre cómo implantarlo.
   if (asksHow) {
-    return "Normalmente empezamos analizando el proceso actual, definimos el alcance y las dependencias técnicas, desarrollamos una primera versión, probamos los casos normales y excepcionales y acordamos la puesta en marcha. Antes de comprometer un presupuesto o un plazo hay que confirmar los requisitos y la viabilidad de las integraciones. ¿Qué resultado te gustaría conseguir primero?";
+    if (profile.problem && profile.software) {
+      return `Con lo que me has contado, estudiaríamos ${profile.problem} mediante ${profile.software}. Primero revisaríamos el proceso actual y las operaciones que permite el sistema; después definiríamos el alcance, probaríamos casos normales y excepciones y prepararíamos la puesta en marcha. La integración concreta debe validarse antes de comprometer un resultado.\n\nPuedes hablar con Álvaro para revisar tu caso: ${whatsappUrl}`;
+    }
+
+    return "Normalmente empezamos analizando el proceso actual, definimos el alcance y las dependencias técnicas, desarrollamos una primera versión, probamos los casos normales y excepcionales y acordamos la puesta en marcha. Antes de comprometer un presupuesto o plazo hay que confirmar los requisitos y la viabilidad de las integraciones. ¿Qué resultado te gustaría conseguir primero?";
   }
 
   if (isThanks) {
-    return "¡De nada! Si quieres, seguimos concretando tu caso y vemos qué solución podría encajar, qué herramientas habría que conectar y qué información necesitamos para preparar una estimación realista.";
+    return "¡De nada! Podemos seguir concretando tu caso sin repetir los datos que ya me has dado. Si prefieres que Álvaro revise directamente tu proyecto, puedes escribir a alvarochaveinte1@gmail.com o contactar por WhatsApp.";
   }
 
-  if (userMessages.length === 0) {
-    return initialMessage;
+  // Respuesta contextual de transporte: solo preguntar por los datos que faltan.
+  if (
+    matches(text, [
+      /\btransporte\b/,
+      /\blogistica\b/,
+      /\bmensajeria\b/,
+      /\bpaqueteria\b/,
+      /\breparto\b/,
+      /\bincidencias\b/,
+      /\bpaquetes\b/,
+    ])
+  ) {
+    if (profile.problem && profile.software) {
+      return `Por lo que me has contado, quieres mejorar ${profile.problem} y utilizáis ${profile.software}. Podemos estudiar el registro, las alertas y el seguimiento, comprobando primero qué permite el sistema. ¿Qué parte del proceso es más manual ahora mismo?`;
+    }
+
+    if (profile.problem) {
+      return `Entendido: el problema principal es ${profile.problem}. Para proponerte un flujo adecuado, necesito saber qué herramienta utilizáis ahora para gestionarlo: un CRM, Excel, WhatsApp o correo electrónico.`;
+    }
+
+    if (profile.software) {
+      return `Entendido: utilizáis ${profile.software}. En transporte podemos estudiar la automatización de incidencias, seguimiento de envíos, atención al cliente y tareas administrativas. ¿Cuál de esas tareas os hace perder más tiempo?`;
+    }
+
+    return "En transporte y logística podemos estudiar la gestión de incidencias, el seguimiento de envíos, la atención al cliente y la coordinación de equipos. ¿Qué proceso concreto quieres mejorar y con qué herramientas lo gestionáis ahora?";
   }
 
-  // Respuesta de reserva: no inventa información ni finge tener acceso a sistemas.
-  return "Quiero darte una respuesta útil y no inventarme información. Con lo que sé ahora no puedo confirmar ese detalle con seguridad. Podemos revisarlo directamente contigo a través de Álvaro, fundador de Transport AI, por WhatsApp. Si prefieres continuar aquí, cuéntame un poco más del contexto y trataré de orientarte con la información disponible.";
+  // Integraciones y sistemas: preguntar solo por el dato aún desconocido.
+  if (
+    matches(text, [
+      /\bcrm\b/,
+      /\bapi\b/,
+      /\bintegracion\b/,
+      /\bintegrar\b/,
+      /\berp\b/,
+      /\bsoftware\b/,
+      /\bprograma\b/,
+      /\bexcel\b/,
+    ])
+  ) {
+    if (profile.problem && profile.software) {
+      return `Tengo anotado que quieres mejorar ${profile.problem} y que utilizáis ${profile.software}. Para avanzar, el siguiente dato importante es el nombre concreto del sistema y qué operaciones permite. Si no conoces esa información técnica, Álvaro puede ayudarte a revisarla.\n\nWhatsApp: ${whatsappUrl}\nCorreo: ${emailAddress}`;
+    }
+
+    if (profile.problem) {
+      return `Entendido: quieres mejorar ${profile.problem}. ¿Qué programa utilizáis actualmente para gestionarlo? Puede ser un CRM, Excel, un ERP u otra herramienta.`;
+    }
+
+    if (profile.software) {
+      return `Entendido: utilizáis ${profile.software}. ¿Qué tarea concreta quieres automatizar con ese sistema?`;
+    }
+
+    return "Podemos estudiar una integración con tu CRM, ERP o API para reducir tareas manuales y duplicidades. Antes de confirmar la viabilidad hay que revisar la documentación, los permisos y las operaciones que permite el proveedor. ¿Qué sistema utilizas y qué necesitas que haga la integración?";
+  }
+
+  // Fallback seguro con contacto directo.
+  return `No tengo información suficiente para responder a esa pregunta con seguridad y prefiero no inventarme una respuesta. Puedes consultar directamente con Álvaro, fundador de Transport AI:\n\nWhatsApp: ${whatsappUrl}\nCorreo electrónico: ${emailAddress}\n\nSi prefieres continuar aquí, dime un poco más de contexto y trataré de orientarte con la información disponible.`;
 }
 
 function getSpanishVoice(): SpeechSynthesisVoice | null {
@@ -628,7 +800,6 @@ export default function FreeAssistant() {
 
   useEffect(() => {
     mountedRef.current = true;
-
     const synthesis =
       "speechSynthesis" in window ? window.speechSynthesis : null;
 
@@ -695,7 +866,6 @@ export default function FreeAssistant() {
     }
 
     const synthesis = window.speechSynthesis;
-
     speechRequestRef.current += 1;
     const requestId = speechRequestRef.current;
 
@@ -727,7 +897,6 @@ export default function FreeAssistant() {
 
       utterance.onerror = (event) => {
         if (requestId !== speechRequestRef.current) return;
-
         setSpeaking(false);
 
         if (event.error !== "canceled" && event.error !== "interrupted") {
@@ -804,7 +973,6 @@ export default function FreeAssistant() {
 
     try {
       const recognition = new SpeechRecognition();
-
       recognition.lang = "es-ES";
       recognition.interimResults = false;
       recognition.continuous = false;
@@ -937,7 +1105,7 @@ export default function FreeAssistant() {
     }
   }
 
-  const waSummary = messagesRef.current
+  const waSummary = messages
     .filter((message) => message.role === "user")
     .slice(-5)
     .map((message) => message.text)
@@ -1225,9 +1393,7 @@ export default function FreeAssistant() {
                     <UserRound className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
                     <input
                       value={lead.name}
-                      onChange={(event) =>
-                        updateLead("name", event.target.value)
-                      }
+                      onChange={(event) => updateLead("name", event.target.value)}
                       placeholder="Tu nombre"
                       maxLength={120}
                       className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-9 pr-3 text-sm text-slate-900 outline-none focus:border-blue-500"
@@ -1238,9 +1404,7 @@ export default function FreeAssistant() {
                     <Building2 className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
                     <input
                       value={lead.company}
-                      onChange={(event) =>
-                        updateLead("company", event.target.value)
-                      }
+                      onChange={(event) => updateLead("company", event.target.value)}
                       placeholder="Empresa"
                       maxLength={160}
                       className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-9 pr-3 text-sm text-slate-900 outline-none focus:border-blue-500"
@@ -1252,9 +1416,7 @@ export default function FreeAssistant() {
                     <input
                       type="email"
                       value={lead.email}
-                      onChange={(event) =>
-                        updateLead("email", event.target.value)
-                      }
+                      onChange={(event) => updateLead("email", event.target.value)}
                       placeholder="Email"
                       maxLength={254}
                       className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-9 pr-3 text-sm text-slate-900 outline-none focus:border-blue-500"
@@ -1266,9 +1428,7 @@ export default function FreeAssistant() {
                     <input
                       type="tel"
                       value={lead.phone}
-                      onChange={(event) =>
-                        updateLead("phone", event.target.value)
-                      }
+                      onChange={(event) => updateLead("phone", event.target.value)}
                       placeholder="Teléfono"
                       maxLength={40}
                       className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-9 pr-3 text-sm text-slate-900 outline-none focus:border-blue-500"
@@ -1279,9 +1439,7 @@ export default function FreeAssistant() {
                     ¿Qué necesitas mejorar?
                     <textarea
                       value={lead.need}
-                      onChange={(event) =>
-                        updateLead("need", event.target.value)
-                      }
+                      onChange={(event) => updateLead("need", event.target.value)}
                       placeholder="Ej.: automatizar incidencias o conectar mi CRM..."
                       maxLength={2000}
                       rows={3}
@@ -1293,9 +1451,7 @@ export default function FreeAssistant() {
                     Presupuesto aproximado (opcional)
                     <select
                       value={lead.budget}
-                      onChange={(event) =>
-                        updateLead("budget", event.target.value)
-                      }
+                      onChange={(event) => updateLead("budget", event.target.value)}
                       className="mt-1 w-full rounded-xl border border-slate-200 bg-white p-3 text-sm text-slate-900 outline-none focus:border-blue-500"
                     >
                       <option value="">Prefiero hablarlo</option>
@@ -1311,15 +1467,13 @@ export default function FreeAssistant() {
                     <input
                       type="checkbox"
                       checked={lead.consent}
-                      onChange={(event) =>
-                        updateLead("consent", event.target.checked)
-                      }
+                      onChange={(event) => updateLead("consent", event.target.checked)}
                       className="mt-1"
                       required
                     />
                     <span>
-                      Acepto que Transport AI utilice mis datos para responder
-                      a mi solicitud. He leído la{" "}
+                      Acepto que Transport AI utilice mis datos para responder a
+                      mi solicitud. He leído la{" "}
                       <a
                         href="/privacidad"
                         target="_blank"
@@ -1343,9 +1497,7 @@ export default function FreeAssistant() {
                     disabled={saving}
                     className="flex items-center justify-center gap-2 rounded-xl bg-blue-700 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-800 disabled:opacity-60"
                   >
-                    {saving && (
-                      <LoaderCircle className="h-4 w-4 animate-spin" />
-                    )}
+                    {saving && <LoaderCircle className="h-4 w-4 animate-spin" />}
                     {saving ? "Enviando..." : "Solicitar contacto"}
                   </button>
 
