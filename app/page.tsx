@@ -9,6 +9,7 @@ import {
   ChevronRight,
   Database,
   GitBranch,
+  Globe,
   Layers3,
   Network,
   ShieldCheck,
@@ -22,6 +23,12 @@ import {
   LockKeyhole,
   MessageSquareText,
   CircleAlert,
+  PhoneCall,
+  Code2,
+  Mail,
+  MonitorSmartphone,
+  Settings2,
+  Building2,
 } from "lucide-react";
 import {
   Eyebrow,
@@ -31,16 +38,18 @@ import {
 import FreeAssistant from "./components/free-assistant";
 
 export const metadata: Metadata = {
-  title: "IA y Automatización para Empresas de Transporte | Transport AI",
+  title:
+    "Transport AI | Páginas Web, Agentes de IA y Automatización para Empresas",
   description:
-    "Automatiza incidencias, atención al cliente y operaciones con inteligencia artificial. Soluciones de IA, CRM e integración de sistemas para empresas de transporte, logística, mensajería, mudanzas y servicios con vehículos.",
+    "Creamos páginas web profesionales, agentes de inteligencia artificial para web y llamadas, automatizaciones empresariales, integraciones y software a medida para empresas de cualquier sector.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Transport AI | IA y Automatización para Transporte y Logística",
+    title:
+      "Transport AI | Desarrollo Web, Inteligencia Artificial y Automatización",
     description:
-      "Automatiza procesos, centraliza incidencias y conecta los sistemas de tu empresa con soluciones de inteligencia artificial y software a medida.",
+      "Páginas web, agentes de IA, atención telefónica automatizada, integraciones y soluciones de software adaptadas a tu negocio.",
     url: "/",
     siteName: "Transport AI",
     locale: "es_ES",
@@ -48,9 +57,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Transport AI | IA para Transporte y Logística",
+    title: "Transport AI | IA, Web y Automatización",
     description:
-      "Inteligencia artificial, automatización e integración de sistemas para empresas de transporte, logística, mensajería y servicios con vehículos.",
+      "Desarrollo web, agentes de inteligencia artificial y automatización de procesos para empresas.",
   },
   robots: {
     index: true,
@@ -63,137 +72,171 @@ const transportSeoUrl = "/ia-para-transporte-logistica";
 const services = [
   {
     number: "01",
-    icon: Bot,
-    title: "Inteligencia artificial aplicada",
+    icon: Globe,
+    title: "Páginas web profesionales",
     description:
-      "Soluciones capaces de interpretar solicitudes, consultar información y ejecutar tareas dentro de procesos empresariales definidos.",
-    tags: ["Agentes IA", "Análisis", "Asistencia"],
+      "Diseñamos y desarrollamos webs modernas, rápidas y adaptadas a móviles para presentar tu negocio, captar clientes y facilitar el contacto.",
+    tags: ["Diseño web", "Next.js", "Formularios"],
   },
   {
     number: "02",
-    icon: Workflow,
-    title: "Automatización de procesos",
+    icon: Bot,
+    title: "Agentes de inteligencia artificial",
     description:
-      "Conectamos tareas, reglas de negocio, notificaciones y herramientas para reducir trabajo manual y mejorar la coordinación.",
-    tags: ["Flujos", "Incidencias", "Notificaciones"],
+      "Asistentes para tu web capaces de responder preguntas sobre tu negocio, recopilar información, orientar a los usuarios y derivar consultas.",
+    tags: ["Agentes IA", "Atención web", "Captación"],
   },
   {
     number: "03",
-    icon: Database,
-    title: "CRM e integración de sistemas",
+    icon: PhoneCall,
+    title: "Agentes de voz y llamadas",
     description:
-      "Diseñamos conexiones entre las herramientas de tu empresa para centralizar información y reducir duplicidades.",
-    tags: ["CRM", "APIs", "Sincronización"],
+      "Soluciones de voz para atender consultas telefónicas, recoger solicitudes, responder preguntas frecuentes y transferir casos cuando sea necesario.",
+    tags: ["Voz IA", "Llamadas", "Recepción"],
   },
   {
     number: "04",
-    icon: Layers3,
-    title: "Plataformas y software a medida",
+    icon: Workflow,
+    title: "Automatización de procesos",
     description:
-      "Desarrollamos paneles de control, portales privados y aplicaciones adaptadas a los procesos de cada organización.",
-    tags: ["Dashboards", "Permisos", "Software"],
+      "Conectamos tareas, correos, formularios, documentos y notificaciones para reducir trabajo repetitivo y coordinar procesos empresariales.",
+    tags: ["Flujos", "Tareas", "Notificaciones"],
+  },
+  {
+    number: "05",
+    icon: Database,
+    title: "CRM e integración de sistemas",
+    description:
+      "Integramos herramientas y bases de datos para reducir duplicidades, organizar la información y mantener conectados los sistemas que utiliza tu empresa.",
+    tags: ["CRM", "APIs", "Integraciones"],
+  },
+  {
+    number: "06",
+    icon: Code2,
+    title: "Aplicaciones y software a medida",
+    description:
+      "Desarrollamos portales privados, paneles de control, aplicaciones internas y plataformas adaptadas a las necesidades de cada organización.",
+    tags: ["Aplicaciones", "Dashboards", "Software"],
   },
 ];
 
-const capabilities = [
+const useCases = [
   {
-    icon: Truck,
-    title: "Operaciones y logística",
-    description:
-      "Gestión de pedidos, repartidores, seguimiento e incidencias desde un entorno coordinado.",
-  },
-  {
-    icon: Headphones,
+    icon: MessageSquareText,
     title: "Atención al cliente",
     description:
-      "Clasificación de consultas, asistencia automatizada y derivación de casos que requieren intervención humana.",
+      "Respuestas a consultas habituales, recogida de datos y derivación de solicitudes.",
   },
   {
-    icon: Network,
-    title: "Equipos y delegaciones",
+    icon: PhoneCall,
+    title: "Gestión de llamadas",
     description:
-      "Información organizada por departamentos, delegaciones y perfiles de usuario.",
+      "Recepción telefónica automatizada para atender consultas y registrar información.",
+  },
+  {
+    icon: Mail,
+    title: "Correos y documentos",
+    description:
+      "Clasificación de mensajes, extracción de datos y preparación de tareas de seguimiento.",
+  },
+  {
+    icon: Settings2,
+    title: "Procesos internos",
+    description:
+      "Automatización de tareas repetitivas y coordinación entre herramientas.",
+  },
+  {
+    icon: MonitorSmartphone,
+    title: "Presencia digital",
+    description:
+      "Webs profesionales para presentar servicios, mostrar proyectos y generar contactos.",
+  },
+  {
+    icon: Truck,
+    title: "Transporte y logística",
+    description:
+      "Gestión de incidencias, coordinación de equipos y automatización de operaciones.",
   },
 ];
 
 const steps = [
   {
     number: "01",
-    title: "Analizamos",
-    text: "Estudiamos cómo trabaja tu empresa, qué dificultades existen y qué resultados buscas.",
+    title: "Analizamos tu negocio",
+    text: "Entendemos tus necesidades, cómo trabaja tu equipo y qué problema quieres resolver.",
   },
   {
     number: "02",
-    title: "Definimos",
-    text: "Acordamos el alcance, las prioridades, las dependencias técnicas y los criterios de aceptación.",
+    title: "Definimos la solución",
+    text: "Acordamos las funciones, el alcance, las integraciones y el presupuesto antes de desarrollar.",
   },
   {
     number: "03",
-    title: "Desarrollamos",
-    text: "Construimos la solución por fases y comprobamos su funcionamiento mediante pruebas.",
+    title: "Diseñamos y desarrollamos",
+    text: "Construimos la solución por fases y comprobamos su funcionamiento con pruebas.",
   },
   {
     number: "04",
-    title: "Evolucionamos",
-    text: "Documentamos la entrega y valoramos el soporte y las mejoras que necesite tu negocio.",
+    title: "Publicamos y mejoramos",
+    text: "Preparamos la entrega y valoramos el mantenimiento, el soporte y las mejoras futuras.",
   },
 ];
 
 const prices = [
   {
-    title: "Automatización de procesos",
-    price: "1.500–4.000 €",
+    title: "Web profesional",
+    price: "Desde 600 €",
     description:
-      "Para automatizar un proceso concreto y reducir tareas repetitivas.",
+      "Para empresas que necesitan una presencia digital profesional, adaptada a móviles y enfocada en sus servicios.",
   },
   {
-    title: "CRM e integraciones con IA",
-    price: "4.000–8.000 €",
+    title: "Agentes de IA y automatizaciones",
+    price: "Desde 1.000 €",
     description:
-      "Para conectar herramientas, organizar información y coordinar procesos.",
+      "Para incorporar asistentes, automatizar tareas o conectar herramientas mediante un proyecto definido.",
     featured: true,
   },
   {
-    title: "Plataforma operativa",
-    price: "Desde 15.000 €",
+    title: "Software e integraciones a medida",
+    price: "Presupuesto a medida",
     description:
-      "Para proyectos a medida con varios módulos, roles e integraciones.",
+      "Para aplicaciones, plataformas, integraciones complejas y proyectos con varios módulos.",
   },
 ];
 
 const benefits = [
   {
     icon: Workflow,
-    title: "Menos tareas manuales",
-    text: "Automatiza pasos repetitivos y dedica más tiempo a las actividades importantes.",
+    title: "Menos trabajo repetitivo",
+    text: "Dedica menos tiempo a tareas manuales y más a las actividades importantes de tu negocio.",
   },
   {
-    icon: GitBranch,
-    title: "Sistemas conectados",
-    text: "Aprovecha las herramientas que ya utilizas cuando su integración sea viable.",
+    icon: Network,
+    title: "Herramientas conectadas",
+    text: "Integra tus herramientas cuando existan las APIs, los permisos y las condiciones técnicas necesarias.",
   },
   {
     icon: ChartNoAxesCombined,
-    title: "Más control operativo",
-    text: "Organiza estados, acciones e incidencias para tener una visión más clara del trabajo.",
+    title: "Mejor organización",
+    text: "Centraliza información y facilita el seguimiento de solicitudes, clientes y tareas.",
   },
 ];
 
 const demoModules = [
   {
     icon: CircleAlert,
-    title: "Gestión de incidencias",
-    text: "Clasificación, seguimiento y escalado de problemas operativos.",
+    title: "Gestión inteligente de incidencias",
+    text: "Un ejemplo de cómo clasificar problemas, registrar información y escalar casos.",
   },
   {
-    icon: MessageSquareText,
-    title: "Atención al cliente con IA",
-    text: "Consultas, reclamaciones y respuestas dentro de flujos definidos.",
+    icon: Bot,
+    title: "Asistente de IA para empresas",
+    text: "Una demostración de atención automatizada y orientación de usuarios.",
   },
   {
-    icon: LockKeyhole,
-    title: "Accesos por delegación",
-    text: "Paneles y permisos diferenciados según los perfiles de cada equipo.",
+    icon: Layers3,
+    title: "Plataforma operativa",
+    text: "Un ejemplo de panel empresarial con módulos, información y permisos.",
   },
 ];
 
@@ -208,17 +251,21 @@ export default function HomePage() {
 
           <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-5 pb-20 pt-16 sm:px-8 sm:pb-28 sm:pt-24 lg:grid-cols-[1fr_0.95fr] lg:gap-16">
             <div>
-              <Eyebrow>IA · Automatización · Software empresarial</Eyebrow>
+              <Eyebrow>
+                Desarrollo web · Inteligencia artificial · Automatización
+              </Eyebrow>
 
               <h1 className="mt-5 max-w-3xl text-4xl font-semibold leading-[1.08] tracking-[-0.045em] text-slate-950 sm:text-6xl lg:text-[4.25rem]">
-                Tecnología que hace que tu empresa{" "}
-                <span className="text-blue-700">funcione mejor.</span>
+                Creamos tecnología para que tu empresa{" "}
+                <span className="text-blue-700">llegue más lejos.</span>
               </h1>
 
               <p className="mt-7 max-w-xl text-base leading-8 text-slate-600 sm:text-lg">
-                Diseñamos soluciones de inteligencia artificial, automatización
-                y software a medida para conectar tus herramientas, reducir
-                tareas manuales y mejorar el control de tus operaciones.
+                Desarrollamos páginas web, agentes de inteligencia artificial,
+                soluciones de voz y automatizaciones que ayudan a las empresas
+                a captar clientes, atender consultas y simplificar su trabajo
+                diario. Diseñamos cada solución según las necesidades reales
+                de tu negocio.
               </p>
 
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -241,9 +288,9 @@ export default function HomePage() {
 
               <div className="mt-8 flex flex-wrap gap-x-5 gap-y-3 text-sm text-slate-600">
                 {[
-                  "Soluciones a medida",
+                  "Soluciones personalizadas",
+                  "Diseño adaptado a móviles",
                   "Integraciones según viabilidad técnica",
-                  "Desarrollo por fases",
                 ].map((item) => (
                   <span key={item} className="flex items-center gap-2">
                     <Check className="h-4 w-4 text-blue-700" />
@@ -256,27 +303,27 @@ export default function HomePage() {
                 href={transportSeoUrl}
                 className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-blue-700 transition hover:text-blue-900"
               >
-                IA para transporte y logística
+                Soluciones específicas para transporte y logística
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
 
-            {/* Panel conceptual */}
+            {/* PANEL PRINCIPAL */}
             <div className="relative mx-auto w-full max-w-xl">
               <div className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-slate-100 shadow-2xl shadow-slate-900/10">
                 <div className="relative h-[270px] sm:h-[340px]">
                   <img
                     src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=85"
-                    alt="Oficina moderna que representa la aplicación de tecnología en empresas"
+                    alt="Espacio de trabajo moderno para una empresa"
                     className="h-full w-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/10 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/15 to-transparent" />
                   <div className="absolute bottom-6 left-6 right-6 text-white">
                     <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-200">
-                      Tecnología aplicada al negocio
+                      Tecnología aplicada a tu negocio
                     </p>
                     <p className="mt-2 max-w-sm text-2xl font-semibold leading-tight sm:text-3xl">
-                      Menos tareas manuales. Más control operativo.
+                      Una web mejor. Procesos más inteligentes.
                     </p>
                   </div>
                 </div>
@@ -285,22 +332,22 @@ export default function HomePage() {
                   <div className="flex items-center justify-between gap-3">
                     <div>
                       <p className="text-sm font-semibold text-slate-900">
-                        Ejemplo de solución operativa
+                        Soluciones para empresas
                       </p>
                       <p className="mt-1 text-xs text-slate-500">
-                        Representación conceptual de una plataforma
+                        Desarrollo adaptado a cada proyecto
                       </p>
                     </div>
                     <span className="rounded-full bg-blue-50 px-3 py-1.5 text-[10px] font-semibold text-blue-700">
-                      DEMOSTRACIÓN
+                      TRANSPORT AI
                     </span>
                   </div>
 
                   <div className="mt-5 grid grid-cols-3 gap-3">
                     {[
-                      { label: "Información", icon: Database },
+                      { label: "Webs", icon: Globe },
+                      { label: "Agentes IA", icon: Bot },
                       { label: "Automatización", icon: Workflow },
-                      { label: "Seguimiento", icon: ChartNoAxesCombined },
                     ].map((item) => {
                       const Icon = item.icon;
                       return (
@@ -323,10 +370,10 @@ export default function HomePage() {
                     </div>
                     <div>
                       <p className="text-xs font-semibold text-slate-800">
-                        Trazabilidad y control
+                        Soluciones diseñadas con criterio
                       </p>
                       <p className="mt-1 text-xs text-slate-500">
-                        Reglas, permisos y seguimiento según el diseño acordado
+                        Alcance, permisos y pruebas definidos por proyecto
                       </p>
                     </div>
                   </div>
@@ -340,10 +387,10 @@ export default function HomePage() {
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-slate-900">
-                      Diseñado a medida
+                      Tecnología a medida
                     </p>
                     <p className="mt-1 text-xs text-slate-500">
-                      Según tus procesos
+                      Para tu forma de trabajar
                     </p>
                   </div>
                 </div>
@@ -380,17 +427,17 @@ export default function HomePage() {
         <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
           <SectionHeading
             eyebrow="Qué hacemos"
-            title="Soluciones tecnológicas para problemas reales."
-            description="Cada empresa tiene procesos distintos. Diseñamos la solución a partir de tus necesidades, las herramientas que utilizas y los objetivos que quieres alcanzar."
+            title="Todo lo que tu empresa necesita para dar el siguiente paso."
+            description="Desde una web profesional hasta agentes de IA e integraciones complejas. Definimos cada proyecto a partir de tus objetivos, tu presupuesto y las posibilidades técnicas."
           />
 
-          <div className="grid gap-5 md:grid-cols-2">
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => {
               const Icon = service.icon;
               return (
                 <article
                   key={service.number}
-                  className="group rounded-2xl border border-slate-200 bg-white p-6 transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-slate-900/5 sm:p-8"
+                  className="group rounded-2xl border border-slate-200 bg-white p-6 transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-slate-900/5 sm:p-7"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50">
@@ -416,6 +463,13 @@ export default function HomePage() {
                       </span>
                     ))}
                   </div>
+                  <Link
+                    href={`/contacto?proyecto=${encodeURIComponent(service.title)}`}
+                    className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-blue-700 transition hover:text-blue-900"
+                  >
+                    Consultar servicio
+                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                  </Link>
                 </article>
               );
             })}
@@ -439,30 +493,78 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ESPECIALIDAD EN OPERACIONES */}
-        <section className="overflow-hidden bg-slate-950 text-white">
+        {/* CASOS DE USO */}
+        <section className="bg-slate-950 text-white">
+          <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
+            <div className="max-w-3xl">
+              <Eyebrow>Aplicaciones reales</Eyebrow>
+              <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight sm:text-5xl">
+                ¿Qué podríamos mejorar en tu empresa?
+              </h2>
+              <p className="mt-5 text-base leading-8 text-slate-300">
+                Trabajamos con empresas de distintos sectores. La solución
+                depende del proceso que quieras mejorar y de las herramientas
+                con las que ya trabajas.
+              </p>
+            </div>
+
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {useCases.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <article
+                    key={item.title}
+                    className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 transition hover:border-blue-400/40 hover:bg-white/[0.07]"
+                  >
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/15">
+                      <Icon className="h-6 w-6 text-blue-300" />
+                    </div>
+                    <h3 className="mt-5 text-lg font-semibold">{item.title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-slate-300">
+                      {item.description}
+                    </p>
+                  </article>
+                );
+              })}
+            </div>
+
+            <div className="mt-9">
+              <Link
+                href="/contacto"
+                className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-4 text-sm font-semibold text-slate-950 transition hover:bg-blue-50"
+              >
+                Cuéntanos qué quieres automatizar
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ESPECIALIDAD EN TRANSPORTE */}
+        <section className="overflow-hidden bg-white">
           <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[0.95fr_1.05fr]">
             <div>
-              <Eyebrow>Una especialidad de Transport AI</Eyebrow>
-              <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight sm:text-5xl">
-                Más visibilidad y coordinación en cada operación.
+              <Eyebrow>Experiencia sectorial</Eyebrow>
+              <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-slate-950 sm:text-5xl">
+                También desarrollamos soluciones para transporte y logística.
               </h2>
-              <p className="mt-6 text-base leading-8 text-slate-300">
-                Para empresas de transporte, logística, mensajería, mudanzas y
-                servicios con vehículos, diseñamos soluciones que ayudan a
-                coordinar pedidos, equipos, comunicaciones e incidencias.
+              <p className="mt-6 text-base leading-8 text-slate-600">
+                Transport AI mantiene su especialidad en empresas de
+                transporte, mensajería, distribución, mudanzas y servicios con
+                vehículos. Diseñamos soluciones para coordinar operaciones,
+                gestionar incidencias e integrar herramientas.
               </p>
 
               <div className="mt-8 space-y-5">
                 {[
                   "Centralización de información operativa.",
-                  "Detección y seguimiento de incidencias.",
+                  "Clasificación y seguimiento de incidencias.",
                   "Comunicaciones y tareas automatizadas.",
-                  "Accesos diferenciados según el perfil de usuario.",
+                  "Integración con sistemas existentes cuando sea viable.",
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-3">
-                    <Check className="mt-0.5 h-5 w-5 shrink-0 text-blue-300" />
-                    <p className="text-sm leading-6 text-slate-200">{item}</p>
+                    <Check className="mt-0.5 h-5 w-5 shrink-0 text-blue-700" />
+                    <p className="text-sm leading-6 text-slate-700">{item}</p>
                   </div>
                 ))}
               </div>
@@ -470,7 +572,7 @@ export default function HomePage() {
               <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap">
                 <Link
                   href="/contacto?proyecto=Gestion%20operativa"
-                  className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-4 text-sm font-semibold text-slate-950 transition hover:bg-blue-50"
+                  className="inline-flex items-center gap-2 rounded-xl bg-blue-700 px-6 py-4 text-sm font-semibold text-white transition hover:bg-blue-800"
                 >
                   Estudiar mi operativa
                   <ArrowUpRight className="h-4 w-4" />
@@ -478,9 +580,9 @@ export default function HomePage() {
 
                 <Link
                   href={transportSeoUrl}
-                  className="inline-flex items-center gap-2 rounded-xl border border-white/20 px-6 py-4 text-sm font-semibold text-white transition hover:border-blue-300 hover:bg-white/5"
+                  className="inline-flex items-center gap-2 rounded-xl border border-slate-200 px-6 py-4 text-sm font-semibold text-slate-800 transition hover:border-blue-200 hover:bg-blue-50"
                 >
-                  IA para transporte y logística
+                  Ver soluciones logísticas
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
@@ -488,27 +590,52 @@ export default function HomePage() {
 
             <div className="relative">
               <div className="absolute -inset-5 rounded-3xl bg-blue-500/10 blur-3xl" />
-              <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900">
+              <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-950">
                 <img
                   src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=85"
-                  alt="Instalaciones logísticas y preparación de operaciones de transporte"
+                  alt="Instalaciones logísticas y operaciones de transporte"
                   className="h-56 w-full object-cover sm:h-72"
                 />
-                <div className="p-5 sm:p-7">
+                <div className="p-5 text-white sm:p-7">
                   <div className="flex items-center justify-between gap-3">
                     <div>
                       <p className="text-sm font-semibold">
-                        Plataforma de operaciones
+                        Soluciones operativas
                       </p>
                       <p className="mt-1 text-xs text-slate-400">
-                        Ejemplo visual de módulos posibles
+                        Módulos configurados según el proyecto
                       </p>
                     </div>
                     <Layers3 className="h-5 w-5 text-blue-300" />
                   </div>
 
                   <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                    {capabilities.map((item) => {
+                    {[
+                      {
+                        icon: Truck,
+                        title: "Operaciones y logística",
+                        description:
+                          "Pedidos, equipos, seguimiento e incidencias.",
+                      },
+                      {
+                        icon: Headphones,
+                        title: "Atención al cliente",
+                        description:
+                          "Consultas y derivación de casos.",
+                      },
+                      {
+                        icon: Network,
+                        title: "Equipos y delegaciones",
+                        description:
+                          "Información organizada por perfiles.",
+                      },
+                      {
+                        icon: GitBranch,
+                        title: "Integraciones",
+                        description:
+                          "Conexiones según las APIs disponibles.",
+                      },
+                    ].map((item) => {
                       const Icon = item.icon;
                       return (
                         <div
@@ -525,18 +652,6 @@ export default function HomePage() {
                         </div>
                       );
                     })}
-                    <div className="rounded-xl border border-blue-400/20 bg-blue-500/10 p-4 sm:col-span-2">
-                      <div className="flex items-center gap-3">
-                        <GitBranch className="h-5 w-5 text-blue-300" />
-                        <p className="text-sm font-semibold">
-                          Integración con sistemas existentes
-                        </p>
-                      </div>
-                      <p className="mt-2 text-xs leading-5 text-slate-400">
-                        La viabilidad depende de las APIs, los permisos y la
-                        documentación disponible de cada proveedor.
-                      </p>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -550,12 +665,12 @@ export default function HomePage() {
             <div className="max-w-3xl">
               <Eyebrow>Ejemplos de soluciones</Eyebrow>
               <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-slate-950 sm:text-5xl">
-                Mira cómo podría funcionar en tu empresa.
+                Comprueba cómo puede funcionar la tecnología.
               </h2>
               <p className="mt-5 text-base leading-8 text-slate-600">
-                Explora ejemplos visuales de gestión de incidencias, atención
-                al cliente y coordinación de equipos. Cada proyecto se adapta
-                al proceso y a las posibilidades técnicas de cada empresa.
+                Explora ejemplos visuales de agentes de IA, gestión de
+                incidencias y plataformas empresariales. Cada solución se
+                adapta al proceso y a las posibilidades técnicas del proyecto.
               </p>
             </div>
             <Link
@@ -606,7 +721,7 @@ export default function HomePage() {
             <SectionHeading
               eyebrow="Cómo trabajamos"
               title="Un proceso claro desde el primer día."
-              description="Definimos las necesidades y dependencias antes de desarrollar, para acordar el alcance y cómo se validará el resultado."
+              description="Definimos las necesidades y dependencias antes de desarrollar para acordar el alcance y cómo se validará el resultado."
             />
 
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -634,8 +749,8 @@ export default function HomePage() {
         <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
           <SectionHeading
             eyebrow="Inversión orientativa"
-            title="Una solución ajustada a tu proyecto."
-            description="El presupuesto se define según el alcance, la complejidad, las integraciones y los requisitos de cada empresa."
+            title="Precios adaptados a cada tipo de proyecto."
+            description="Estos importes son referencias iniciales. El presupuesto final depende de las funciones, el diseño, las integraciones y la complejidad."
           />
 
           <div className="grid gap-5 lg:grid-cols-3">
@@ -678,16 +793,17 @@ export default function HomePage() {
           <p className="mt-6 text-center text-xs leading-6 text-slate-500">
             Importes orientativos, más IVA. El presupuesto final dependerá del
             alcance validado, los accesos técnicos y los posibles costes de
-            servicios de terceros.
+            servicios de terceros. Los servicios recurrentes se presupuestan
+            por separado cuando corresponda.
           </p>
 
           <div className="mt-8 flex flex-col items-start justify-between gap-5 rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:flex-row sm:items-center sm:p-8">
             <div>
               <h3 className="text-lg font-semibold text-slate-950">
-                ¿Buscas soporte o un servicio mensual?
+                ¿Necesitas mantenimiento o soporte mensual?
               </h3>
               <p className="mt-2 text-sm leading-6 text-slate-600">
-                Consulta las modalidades recurrentes y los servicios incluidos.
+                Consulta las modalidades disponibles y los servicios incluidos.
               </p>
             </div>
             <Link
@@ -706,12 +822,12 @@ export default function HomePage() {
             <div>
               <Eyebrow>Diseño responsable</Eyebrow>
               <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-slate-950 sm:text-4xl">
-                La seguridad y el control forman parte del diseño.
+                Seguridad, privacidad y control desde el diseño.
               </h2>
               <p className="mt-5 max-w-2xl text-base leading-8 text-slate-600">
                 Cada proyecto debe definir qué datos utiliza, quién puede
-                acceder, qué acciones puede ejecutar la automatización y cuándo
-                debe intervenir una persona.
+                acceder, qué acciones puede ejecutar una automatización y
+                cuándo debe intervenir una persona.
               </p>
               <Link
                 href="/seguridad"
@@ -732,7 +848,7 @@ export default function HomePage() {
                 {
                   icon: ShieldCheck,
                   title: "Pruebas y validación",
-                  text: "Comprobaciones antes de poner una solución en uso.",
+                  text: "Comprobaciones antes de poner la solución en uso.",
                 },
                 {
                   icon: GitBranch,
@@ -770,17 +886,18 @@ export default function HomePage() {
             <div>
               <Eyebrow>Quién está detrás</Eyebrow>
               <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-slate-950 sm:text-4xl">
-                Tecnología con una visión práctica del negocio.
+                Tecnología útil, pensada para cada negocio.
               </h2>
               <p className="mt-5 text-base leading-8 text-slate-600">
-                Transport AI nace para ayudar a las empresas a aplicar la
-                inteligencia artificial y la automatización a problemas
-                operativos reales. Cada proyecto empieza por entender el
-                proceso, no por elegir una tecnología sin contexto.
+                Transport AI ayuda a las empresas a incorporar tecnología
+                mediante desarrollo web, inteligencia artificial,
+                automatización e integración de sistemas. Cada proyecto
+                empieza por entender el negocio y definir una solución útil.
               </p>
               <p className="mt-4 text-sm leading-7 text-slate-600">
-                El objetivo es construir herramientas útiles, integrables y
-                diseñadas alrededor de las necesidades de cada organización.
+                Trabajamos en proyectos de distintos sectores, desde páginas
+                web y asistentes de IA hasta herramientas internas y procesos
+                operativos especializados.
               </p>
             </div>
 
@@ -795,8 +912,8 @@ export default function HomePage() {
                 Álvaro Chaveinte Camargo
               </h3>
               <p className="mt-4 text-sm leading-7 text-slate-300">
-                Desarrollo de soluciones de IA, automatización e integración
-                tecnológica para empresas.
+                Desarrollo web, agentes de inteligencia artificial,
+                automatización e integración tecnológica para empresas.
               </p>
               <Link
                 href="/contacto"
@@ -819,11 +936,12 @@ export default function HomePage() {
                   Hablemos de tu proyecto
                 </p>
                 <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight sm:text-5xl">
-                  ¿Qué proceso te gustaría mejorar?
+                  ¿Qué te gustaría mejorar de tu negocio?
                 </h2>
                 <p className="mt-5 max-w-2xl text-base leading-7 text-blue-100">
-                  Cuéntanos qué necesita tu empresa. Estudiaremos el caso y
-                  definiremos los siguientes pasos para valorar una solución.
+                  Cuéntanos tu idea, el problema que quieres resolver o la
+                  herramienta que necesitas. Estudiaremos el proyecto para
+                  definir una solución y los siguientes pasos.
                 </p>
               </div>
               <Link
@@ -838,7 +956,7 @@ export default function HomePage() {
         </section>
       </main>
 
-      {/* PIE DE PÁGINA CON CONTACTO DESTACADO */}
+      {/* PIE DE PÁGINA */}
       <footer className="border-t border-slate-200 bg-white">
         <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-14">
           <div className="relative overflow-hidden rounded-3xl bg-slate-950 p-7 text-white shadow-xl sm:p-10 lg:p-12">
@@ -857,9 +975,8 @@ export default function HomePage() {
                 </h2>
 
                 <p className="mt-5 max-w-xl text-base leading-8 text-slate-300">
-                  Cuéntame qué necesita tu empresa y estudiamos cómo la
-                  inteligencia artificial, la automatización o una integración
-                  a medida pueden ayudarte.
+                  Cuéntame qué necesita tu empresa y valoramos cómo una web,
+                  la inteligencia artificial o la automatización pueden ayudarte.
                 </p>
 
                 <div className="mt-8 border-t border-white/10 pt-6">
@@ -940,8 +1057,8 @@ export default function HomePage() {
               </Link>
 
               <p className="mt-2 max-w-md text-sm leading-6 text-slate-500">
-                Inteligencia artificial, automatización y software empresarial
-                para empresas de transporte, logística y servicios.
+                Desarrollo web, inteligencia artificial, automatización y
+                software empresarial para negocios de distintos sectores.
               </p>
 
               <p className="mt-3 text-xs text-slate-400">
@@ -979,7 +1096,7 @@ export default function HomePage() {
         </div>
       </footer>
 
-      {/* Asistente de texto y botón flotante de WhatsApp */}
+      {/* Asistente de IA y contacto flotante */}
       <FreeAssistant />
     </SiteShell>
   );
