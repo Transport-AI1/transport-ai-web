@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
@@ -57,6 +58,7 @@ const shopUrl = "https://transport-ai-shop.vercel.app/";
 const aiAgentUrl = "https://transport-ai-agente-ia.vercel.app/";
 const voiceAgentUrl = "https://transport-ai-agente-voz-mu.vercel.app/";
 const automationUrl = "https://transport-ai-automatizacion.vercel.app/";
+const dashboardUrl = "https://transport-ai-dashboard-nine.vercel.app/";
 const mvpUrl = "https://transport-ai1-logistica.vercel.app/";
 
 const categories = [
@@ -196,10 +198,17 @@ const demos: Demo[] = [
     category: "Software",
     title: "Dashboard empresarial",
     description:
-      "Un panel de control para consultar indicadores, revisar actividad y visualizar información importante en un solo lugar.",
-    tags: ["Indicadores", "Informes", "Datos"],
+      "Un panel de control interactivo para consultar indicadores, revisar actividad, visualizar gráficos, gestionar tareas y explorar información empresarial desde un solo lugar.",
+    tags: [
+      "Indicadores",
+      "Informes",
+      "Gráficos interactivos",
+      "Gestión empresarial",
+    ],
     preview: "dashboard",
-    status: "Concepto visual",
+    status: "Demostración disponible online",
+    href: dashboardUrl,
+    live: true,
   },
   {
     number: "09",
@@ -230,6 +239,19 @@ const demos: Demo[] = [
 function PreviewWindow({ demo }: { demo: Demo }) {
   const isDark = demo.preview === "transport";
 
+  const previewAddress: Record<Demo["preview"], string> = {
+    corporate: "transport-ai-web-corporativa.vercel.app",
+    restaurant: "transport-ai-restaurant.vercel.app",
+    landing: "transport-ai-landing.vercel.app",
+    shop: "transport-ai-shop.vercel.app",
+    chat: "transport-ai-agente-ia.vercel.app",
+    voice: "transport-ai-agente-voz-mu.vercel.app",
+    automation: "transport-ai-automatizacion.vercel.app",
+    dashboard: "transport-ai-dashboard-nine.vercel.app",
+    crm: `demo.transport-ai.es/${demo.id}`,
+    transport: "transport-ai · operaciones",
+  };
+
   return (
     <div
       className={`relative overflow-hidden rounded-2xl border ${
@@ -258,23 +280,7 @@ function PreviewWindow({ demo }: { demo: Demo }) {
               : "bg-white text-slate-500"
           }`}
         >
-          {demo.preview === "corporate"
-            ? "transport-ai-web-corporativa.vercel.app"
-            : demo.preview === "restaurant"
-              ? "transport-ai-restaurant.vercel.app"
-              : demo.preview === "landing"
-                ? "transport-ai-landing.vercel.app"
-                : demo.preview === "shop"
-                  ? "transport-ai-shop.vercel.app"
-                  : demo.preview === "chat"
-                    ? "transport-ai-agente-ia.vercel.app"
-                    : demo.preview === "voice"
-                      ? "transport-ai-agente-voz-mu.vercel.app"
-                      : demo.preview === "automation"
-                        ? "transport-ai-automatizacion.vercel.app"
-                        : demo.preview === "transport"
-                          ? "transport-ai · operaciones"
-                          : `demo.transport-ai.es/${demo.id}`}
+          {previewAddress[demo.preview]}
         </div>
 
         <Monitor
@@ -688,6 +694,16 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                 ),
               )}
             </div>
+
+            <a
+              href={dashboardUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-3 py-2.5 text-xs font-semibold text-white transition hover:bg-blue-700"
+            >
+              Explorar dashboard interactivo
+              <ExternalLink className="h-3.5 w-3.5" />
+            </a>
           </div>
         )}
 
