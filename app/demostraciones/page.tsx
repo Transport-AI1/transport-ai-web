@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
@@ -54,6 +55,7 @@ const corporateUrl = "https://transport-ai-web-corporativa.vercel.app/";
 const restaurantUrl = "https://transport-ai-restaurant.vercel.app/";
 const landingUrl = "https://transport-ai-landing.vercel.app/";
 const shopUrl = "https://transport-ai-shop.vercel.app/";
+const aiAgentUrl = "https://transport-ai-agente-ia.vercel.app/";
 const mvpUrl = "https://transport-ai1-logistica.vercel.app/";
 
 const categories = [
@@ -154,10 +156,12 @@ const demos: Demo[] = [
     category: "Inteligencia artificial",
     title: "Agente de IA para páginas web",
     description:
-      "Un asistente que responde preguntas, explica servicios y ayuda a los visitantes a encontrar la información que necesitan.",
-    tags: ["Asistente IA", "Atención al cliente", "Web"],
+      "Un asistente interactivo que responde preguntas sobre servicios, orienta a los visitantes y facilita el contacto con tu empresa.",
+    tags: ["Asistente IA", "Atención al cliente", "Web", "Captación"],
     preview: "chat",
-    status: "Concepto visual",
+    status: "Demostración disponible online",
+    href: aiAgentUrl,
+    live: true,
   },
   {
     number: "06",
@@ -257,9 +261,11 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                 ? "transport-ai-landing.vercel.app"
                 : demo.preview === "shop"
                   ? "transport-ai-shop.vercel.app"
-                  : demo.preview === "transport"
-                    ? "transport-ai · operaciones"
-                    : `demo.transport-ai.es/${demo.id}`}
+                  : demo.preview === "chat"
+                    ? "transport-ai-agente-ia.vercel.app"
+                    : demo.preview === "transport"
+                      ? "transport-ai · operaciones"
+                      : `demo.transport-ai.es/${demo.id}`}
         </div>
 
         <Monitor
@@ -510,7 +516,7 @@ function PreviewWindow({ demo }: { demo: Demo }) {
                   Asistente de Transport AI
                 </p>
                 <p className="text-[10px] text-emerald-600">
-                  Ejemplo de conversación
+                  Demo disponible online
                 </p>
               </div>
             </div>
@@ -532,6 +538,15 @@ function PreviewWindow({ demo }: { demo: Demo }) {
               Escribe tu consulta...
               <MessageSquare className="h-3.5 w-3.5" />
             </div>
+
+            <a
+              href={aiAgentUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-3 py-2.5 text-xs font-semibold text-white transition hover:bg-blue-700"
+            >
+              Probar asistente <ExternalLink className="h-3.5 w-3.5" />
+            </a>
           </div>
         )}
 
