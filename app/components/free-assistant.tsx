@@ -19,6 +19,8 @@ import {
   LoaderCircle,
   CheckCircle2,
   ChevronLeft,
+  BrainCircuit,
+  ShieldCheck,
 } from "lucide-react";
 
 type ChatMessage = {
@@ -69,8 +71,21 @@ type LeadForm = {
   consent: boolean;
 };
 
+type ConversationProfile = {
+  companySize: string;
+  sector: string;
+  software: string;
+  solution: string;
+  channels: string;
+  volume: string;
+  objective: string;
+  budget: string;
+  deadline: string;
+  problem: string;
+};
+
 const initialMessage =
-  "¡Hola! Soy el asistente de Transport AI. Puedo orientarte sobre automatización, inteligencia artificial, integraciones, precios y plazos de desarrollo. ¿Qué proceso te gustaría mejorar?";
+  "¡Hola! Soy el asistente comercial de Transport AI. Puedo ayudarte a estudiar automatizaciones, agentes de IA, asistentes de voz, integraciones y software a medida. Cuéntame qué hace tu empresa y qué te gustaría mejorar.";
 
 const whatsappUrl =
   "https://wa.me/34659980603?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Transport%20AI";
@@ -85,6 +100,19 @@ const initialLead: LeadForm = {
   consent: false,
 };
 
+const emptyProfile: ConversationProfile = {
+  companySize: "",
+  sector: "",
+  software: "",
+  solution: "",
+  channels: "",
+  volume: "",
+  objective: "",
+  budget: "",
+  deadline: "",
+  problem: "",
+};
+
 function normalizeText(value: string) {
   return value
     .toLowerCase()
@@ -95,169 +123,469 @@ function normalizeText(value: string) {
     .trim();
 }
 
-function getAnswer(question: string, history: ChatMessage[]): string {
+function contains(text: string, expressions: RegExp[]) {
+  return expressions.some((expression) => expression.test(text));
+}
+
+function getProfile(history: ChatMessage[]): ConversationProfile {
+  const profile = { ...emptyProfile };
+
+  const userMessages = history
+    .filter((message) => message.role === "user")
+    .map((message) => normalizeText(message.text));
+
+  const fullText = userMessages.join(" ");
+
+  const sizeMatches = [
+    ...fullText.matchAll(
+      /(\d{1,7})\s*(franquicias|delegaciones|sucursales|oficinas|vehiculos|vehiculos|conductores|repartidores|empleados|trabajadores|usuarios|pedidos|paquetes|llamadas)/g,
+    ),
+  ];
+
+  if (sizeMatches.length > 0) {
+    profile.companySize = sizeMatches
+      .slice(-3)
+      .map((match) => `${match[1]} ${match[2]}`)
+      .join(", ");
+  }
+
+  if (
+    contains(fullText, [
+      /\btransporte\b/,
+      /\blogistica\b/,
+      /\bmensajeria\b/,
+      /\bpaqueteria\b/,
+      /\breparto\b/,
+      /\bpaquetes\b/,
+      /\benvios\b/,
+    ])
+  ) {
+    profile.sector = "transporte y logística";
+  } else if (/\bmudanzas?\b/.test(fullText)) {
+    profile.sector = "mudanzas";
+  } else if (/\babogados?\b|\blegal\b/.test(fullText)) {
+    profile.sector = "servicios jurídicos";
+  } else if (/\brestaurante\b|\bhosteleria\b/.test(fullText)) {
+    profile.sector = "hostelería";
+  }
+
+  const softwarePatterns: [RegExp, string][] = [
+    [/\bexcel\b|\bhojas de calculo\b/, "Excel"],
+    [/\bwhatsapp\b/, "WhatsApp"],
+    [/\bsalesforce\b/, "Salesforce"],
+    [/\bhubspot\b/, "HubSpot"],
+    [/\bdynamics\b|\bmicrosoft dynamics\b/, "Microsoft Dynamics"],
+    [/\bsap\b/, "SAP"],
+    [/\bholded\b/, "Holded"],
+    [/\bzoho\b/, "Zoho"],
+    [/\bdrive\b|\bgoogle sheets\b/, "Google Workspace"],
+    [/\bcrm\b/, "un CRM"],
+    [/\berp\b/, "un ERP"],
+    [/\bsoftware propio\b|\bsistema propio\b/, "un sistema propio"],
+    [/\bningun programa\b|\bningun sistema\b/, "ningún sistema específico"],
+  ];
+
+  for (const [pattern, name] of softwarePatterns) {
+    if (pattern.test(fullText)) {
+      profile.software = name;
+    }
+  }
+
+  if (
+    contains(fullText, [
+      /\bagente de voz\b/,
+      /\basistente de voz\b/,
+      /\bllamadas automaticas\b/,
+      /\bvoz\b/,
+    ])
+  ) {
+    profile.solution = "agente de voz con IA";
+  } else if (
+    contains(fullText, [
+      /\bchatbot\b/,
+      /\bagente web\b/,
+      /\basistente web\b/,
+      /\bweb con agente\b/,
+    ])
+  ) {
+    profile.solution = "agente de IA para web";
+  } else if (/\bautomatiz/.test(fullText)) {
+    profile.solution = "automatización de procesos";
+  } else if (/\bplataforma\b|\bsoftware a medida\b/.test(fullText)) {
+    profile.solution = "plataforma de software a medida";
+  }
+
+  if (/\bllamadas\b|\btelefono\b|\btelefonica\b/.test(fullText)) {
+    profile.channels = "teléfono";
+  }
+
+  if (/\bcorreo\b|\bemail\b|\bgmail\b/.test(fullText)) {
+    profile.channels = profile.channels
+      ? `${profile.channels} y correo electrónico`
+      : "correo electrónico";
+  }
+
+  if (/\bwhatsapp\b/.test(fullText)) {
+    profile.channels = profile.channels
+      ? `${profile.channels} y WhatsApp`
+      : "WhatsApp";
+  }
+
+  if (
+    contains(fullText, [
+      /\bahorrar tiempo\b/,
+      /\breducir costes\b/,
+      /\breducir tareas manuales\b/,
+      /\bser mas eficientes\b/,
+    ])
+  ) {
+    profile.objective = "ahorrar tiempo y reducir trabajo manual";
+  }
+
+  if (
+    contains(fullText, [
+      /\bincidencias\b/,
+      /\breclamaciones\b/,
+      /\bproblemas con los envios\b/,
+    ])
+  ) {
+    profile.problem = "gestión de incidencias y reclamaciones";
+  } else if (
+    contains(fullText, [
+      /\batencion al cliente\b/,
+      /\bconsultas de clientes\b/,
+      /\bsoporte al cliente\b/,
+    ])
+  ) {
+    profile.problem = "atención al cliente";
+  } else if (
+    contains(fullText, [
+      /\bpedidos\b/,
+      /\bseguimiento de envios\b/,
+      /\blocalizar paquetes\b/,
+    ])
+  ) {
+    profile.problem = "gestión y seguimiento de pedidos";
+  }
+
+  const budgetMatch = fullText.match(
+    /(?:presupuesto|disponemos de|podemos invertir|invertir)\s*(?:de|unos|aproximado de)?\s*(\d[\d.,]*)\s*(euros|eur|€)/,
+  );
+
+  if (budgetMatch) {
+    profile.budget = `${budgetMatch[1]} €`;
+  } else if (/\bpresupuesto limitado\b|\bpoco presupuesto\b/.test(fullText)) {
+    profile.budget = "limitado";
+  }
+
+  const deadlineMatch = fullText.match(
+    /(?:antes de|para el|fecha limite|necesitamos tenerlo para)\s+(.{2,45})/,
+  );
+
+  if (deadlineMatch) {
+    profile.deadline = deadlineMatch[0].slice(0, 100);
+  }
+
+  const volumeMatch = fullText.match(
+    /(\d{1,7})\s*(llamadas|pedidos|paquetes|consultas|incidencias)\s*(?:al dia|diarias|por dia|al mes|mensuales)?/,
+  );
+
+  if (volumeMatch) {
+    profile.volume = volumeMatch[0];
+  }
+
+  return profile;
+}
+
+function getAnswer(
+  question: string,
+  history: ChatMessage[],
+): string {
   const text = normalizeText(question);
-  const userHistory = history.filter((m) => m.role === "user");
-  const assistantHistory = history.filter((m) => m.role === "assistant");
+  const profile = getProfile(history);
 
-  const previousUserText = normalizeText(
-    userHistory.slice(-5).map((m) => m.text).join(" "),
+  const userMessages = history.filter((m) => m.role === "user");
+  const assistantMessages = history.filter((m) => m.role === "assistant");
+
+  const lastAssistant = assistantMessages.at(-1)?.text ?? "";
+  const lastUser = userMessages.at(-1)?.text ?? "";
+
+  const previousContext = normalizeText(
+    history.slice(-12).map((m) => m.text).join(" "),
   );
 
-  const previousConversation = normalizeText(
-    history.slice(-10).map((m) => m.text).join(" "),
-  );
+  const hasEnterpriseScale =
+    /\b(300|500|1000|10000)\s*(franquicias|delegaciones|sucursales|oficinas|usuarios|empleados|repartidores|conductores)\b/.test(
+      previousContext,
+    ) ||
+    /\bempresa mas grande\b|\bmultinacional\b|\bgran empresa\b|\bred nacional\b|\bred internacional\b/.test(
+      previousContext,
+    );
 
-  const lastUserMessage = userHistory[userHistory.length - 1]?.text ?? "";
-  const lastAssistantMessage =
-    assistantHistory[assistantHistory.length - 1]?.text ?? "";
+  const isCorrection = contains(text, [
+    /\bno me has entendido\b/,
+    /\bno has entendido\b/,
+    /\bno es eso\b/,
+    /\bte he preguntado\b/,
+    /\bme refiero a\b/,
+    /\bno has respondido\b/,
+    /\bquiero una respuesta\b/,
+  ]);
 
-  const currentAndPrevious = normalizeText(`${previousUserText} ${text}`);
+  const asksPrice = contains(text, [
+    /\bprecio\b/,
+    /\bprecios\b/,
+    /\bcuanto cuesta\b/,
+    /\bcuanto vale\b/,
+    /\bpresupuesto\b/,
+    /\bcoste\b/,
+    /\bcostes\b/,
+    /\bcuanto cobrais\b/,
+    /\bcuanto costaria\b/,
+    /\bcuanto seria\b/,
+    /\beuros\b/,
+  ]);
 
-  const isCorrection =
-    /(no pero|no es eso|no me has entendido|no has respondido|te he preguntado|quiero saber|me refiero a|eso no es lo que|no quiero saber)/.test(text);
+  const asksTime = contains(text, [
+    /\bcuanto tarda\b/,
+    /\bcuanto tardaria\b/,
+    /\bcuanto tiempo\b/,
+    /\bplazo\b/,
+    /\bfecha de entrega\b/,
+    /\bsemanas\b/,
+    /\bmeses\b/,
+    /\bcuando estaria\b/,
+    /\btiempo de desarrollo\b/,
+  ]);
 
-  const asksDevelopmentTime =
-    /(tiempo estimado|cuanto tiempo|que plazo|plazo de desarrollo|cuanto tard|cuanto demor|cuanto se tarda|cuanto llevaria|cuanto llevara|cuando estaria|cuando estaria listo|duracion del proyecto|semanas|meses|fecha de entrega|tiempo de desarrollo|tardaria|tardariais|cuanto tardais|cuanto tardamos)/.test(text);
+  const asksContact = contains(text, [
+    /\bcontacto\b/,
+    /\bwhatsapp\b/,
+    /\bhablar con alvaro\b/,
+    /\bhablar con una persona\b/,
+    /\bhablar con alguien\b/,
+    /\breunion\b/,
+    /\bcita\b/,
+    /\btelefono\b/,
+    /\bquiero contratar\b/,
+    /\bpropuesta comercial\b/,
+  ]);
 
-  const asksTimeSaved =
-    /(cuanto tiempo ahorr|ahorro de tiempo|tiempo que ahorr|horas ahorr|reducir el tiempo|ahorrar horas|cuanto se ahorraria|cuanto ahorraria|ahorrariamos)/.test(text);
+  const asksIdentity = contains(text, [
+    /\bquien eres\b/,
+    /\bque es transport ai\b/,
+    /\bque hace transport ai\b/,
+    /\bque haceis\b/,
+    /\bquienes sois\b/,
+  ]);
 
-  const asksPrice =
-    /(precio|precios|cuanto cuesta|cuanto vale|presupuesto|coste|costes|euros|cuanto cobr|cuanto saldria|cuanto seria|cuanto costaria|cuanto costariais)/.test(text);
+  const asksSecurity = contains(text, [
+    /\bseguridad\b/,
+    /\bprivacidad\b/,
+    /\brgpd\b/,
+    /\bproteccion de datos\b/,
+    /\bdonde se guardan los datos\b/,
+    /\bmis datos\b/,
+  ]);
 
-  const asksContact =
-    /(contacto|hablar con alguien|llamar|telefono|whatsapp|alvaro|reunion|cita|quiero contratar|propuesta comercial)/.test(text);
+  const asksDemo = contains(text, [
+    /\bdemo\b/,
+    /\bdemostracion\b/,
+    /\bver un ejemplo\b/,
+    /\bprototipo\b/,
+    /\bpuedo verlo\b/,
+  ]);
 
-  const asksDemo = /(demo|demostracion|ver ejemplo|muestra|prototipo)/.test(text);
+  const asksHow = contains(text, [
+    /\bcomo funciona\b/,
+    /\bcomo lo hariais\b/,
+    /\bcomo se implementa\b/,
+    /\bque incluiria\b/,
+    /\bque incluye\b/,
+    /\bcomo empezamos\b/,
+    /\bque necesitais\b/,
+  ]);
 
-  const asksSecurity =
-    /(seguridad|privacidad|datos personales|rgpd|proteccion de datos)/.test(text);
+  const asksSavings = contains(text, [
+    /\bahorrar tiempo\b/,
+    /\bahorro de tiempo\b/,
+    /\bcuanto ahorraria\b/,
+    /\breducir costes\b/,
+    /\bretorno de inversion\b/,
+    /\bcuanto podria ahorrar\b/,
+  ]);
 
-  const asksIdentity =
-    /(quien eres|que eres|que hace transport ai|que haceis|que es transport ai)/.test(text);
+  const asksVoice = contains(text, [
+    /\bagente de voz\b/,
+    /\basistente de voz\b/,
+    /\bvoz con ia\b/,
+    /\batienda llamadas\b/,
+    /\bautomatizar llamadas\b/,
+    /\bllamadas telefonicas\b/,
+  ]);
 
-  const asksHowItWorks =
-    /(como funciona|como lo hariais|como se haria|como se implementa|que incluiria|que incluye|que necesitaria|que necesitais|como empezamos)/.test(text);
+  const asksAutomation = contains(text, [
+    /\bautomatizar\b/,
+    /\bautomatizacion\b/,
+    /\binteligencia artificial\b/,
+    /\bque podeis hacer\b/,
+    /\bservicios\b/,
+    /\bsoluciones\b/,
+    /\bque se puede automatizar\b/,
+  ]);
 
-  const asksAutomation =
-    /(automatiz|que podeis hacer|que podeis automatizar|que se puede automatizar|inteligencia artificial|soluciones|servicios)/.test(text);
+  const isGreeting = /^(hola|buenas|hey|buenos dias|buenas tardes|buenas noches)$/.test(text);
 
-  const asksTransport =
-    /(transporte|logistica|mensajeria|paqueteria|reparto|repartidor|mudanza|flota|vehiculo|conductor|entrega|envio|paquete|direccion incorrecta|cliente ausente|reclamacion|incidencia)/.test(currentAndPrevious);
+  const isThanks = /^(gracias|muchas gracias|perfecto|genial|entendido|vale gracias)$/.test(text);
 
-  const asksIntegration =
-    /(crm|api|integracion|integrar|erp|software|programa|sistema actual|base de datos|sincronizacion)/.test(currentAndPrevious);
+  const isNegative = /^(no|no gracias|no lo se|ni idea|todavia no|aun no|ninguno|ninguna)$/.test(text);
 
-  const asksPlatform =
-    /(plataforma|varios departamentos|varias delegaciones|multiples sistemas|varios sistemas|sistema completo|software a medida|desde cero|muchos modulos)/.test(currentAndPrevious);
+  const isPositive = /^(si|sí|vale|correcto|exacto|eso es|de acuerdo)$/.test(text);
 
-  const asksSimpleFollowUp =
-    /^(y|pero|vale y|y el|y la|y los|y las|y eso|y entonces|y despues|tambien|ademas|cuanto seria|que plazo|y cuanto|y como|y cuando)\b/.test(text);
-
-  const isGreeting =
-    /^(hola|buenas|hey|buenos dias|buenas tardes|buenas noches)$/.test(text);
-
-  const isThanks =
-    /^(gracias|muchas gracias|perfecto|genial|entendido|vale gracias)$/.test(text);
+  const isShortAnswer = text.length < 45;
 
   if (isCorrection) {
-    if (/(tiempo|tard|plazo|semanas|meses|duracion|desarrollo)/.test(text)) {
-      return "Entendido: quieres saber cuánto tardaría el desarrollo, no cuánto tiempo ahorrarías. Como orientación inicial, una automatización sencilla puede llevar entre 1 y 3 semanas; una integración con CRM, aproximadamente entre 3 y 8 semanas; y una plataforma operativa, varios meses. Son rangos orientativos, no compromisos de entrega. El plazo real depende del alcance, las APIs y las pruebas necesarias.";
-    }
-
-    if (/(precio|cuanto cuesta|coste|presupuesto|euros)/.test(text)) {
-      return "Entendido. Los precios orientativos de Transport AI son 1.500–4.000 € para automatizaciones, 4.000–8.000 € para proyectos de CRM e integraciones con IA y desde 15.000 € para plataformas operativas. Los importes son antes de IVA. Para estimar tu caso concreto necesitamos definir el proceso y las integraciones.";
-    }
-
-    return "Entendido, voy a centrarme en lo que preguntas. Puedo orientarte sobre el plazo de desarrollo, el coste, el ahorro de tiempo o el funcionamiento de la solución. Dime cuál de esos puntos necesitas y te responderé directamente.";
-  }
-
-  if (asksDevelopmentTime) {
-    if (asksPlatform) {
-      return "Para una plataforma operativa a medida, una estimación inicial podría ser de 2 a 6 meses o más. Depende del número de módulos, usuarios, permisos, integraciones y pruebas. El plazo definitivo solo puede fijarse después de revisar los requisitos y confirmar la viabilidad técnica.";
-    }
-
-    if (asksIntegration) {
-      return "Para una integración con CRM y automatización de uno o varios flujos, el plazo inicial podría ser de 3 a 8 semanas. Si la API está bien documentada y el alcance es pequeño, podría ser menos; si hay varios sistemas, permisos pendientes o cambios del proveedor, podría ser más. Necesitamos conocer el CRM y las acciones que debe realizar la solución para afinar la estimación.";
-    }
-
-    return "Como orientación inicial, una automatización sencilla puede tardar entre 1 y 3 semanas. Un proyecto con varios flujos, validaciones e integraciones puede requerir entre 3 y 8 semanas; una plataforma operativa completa puede llevar varios meses. Son estimaciones preliminares, no plazos garantizados. El tiempo real depende del alcance, la disponibilidad de las APIs y las pruebas. ¿Qué proceso quieres automatizar?";
-  }
-
-  if (asksTimeSaved) {
-    return "El ahorro depende del volumen de trabajo y de cuánto pueda automatizarse realmente. Por ejemplo, si una tarea ocupa 2 horas al día y la automatización reduce ese trabajo un 50 %, el ahorro teórico sería de 1 hora diaria. Es solo un ejemplo, no una promesa de resultado. Para calcularlo en tu empresa necesito saber qué tarea se realiza, cuánto tarda y cuántas veces se repite.";
+    return "Perdona, voy a centrarme en tu pregunta concreta. No quiero darte una respuesta genérica. ¿Qué necesitas que aclare exactamente?";
   }
 
   if (isGreeting) {
-    return "¡Hola! Encantado de ayudarte. Soy el asistente comercial de Transport AI. Podemos estudiar automatizaciones, asistentes de IA, integraciones y software a medida. ¿Qué tipo de empresa tienes y qué proceso te gustaría mejorar?";
-  }
-
-  if (asksIdentity) {
-    return "Transport AI desarrolla soluciones de inteligencia artificial, automatización e integración de software para empresas. El objetivo es reducir tareas manuales, conectar herramientas y mejorar el control de las operaciones sin sustituir innecesariamente los sistemas existentes. Cada proyecto se define según las necesidades y la viabilidad técnica.";
-  }
-
-  if (asksSecurity) {
-    return "La seguridad debe definirse para cada proyecto: qué datos se utilizan, quién puede acceder, qué acciones puede ejecutar la automatización y cuándo debe intervenir una persona. Las integraciones dependen de los permisos y capacidades de cada proveedor. Puedes consultar la política de privacidad desde el enlace de la web de Transport AI.";
-  }
-
-  if (asksDemo) {
-    return "Puedes ver ejemplos en https://transport-ai-web.vercel.app/demostraciones. Encontrarás demostraciones visuales de gestión de incidencias, atención al cliente y coordinación de equipos. Son ejemplos ilustrativos: las funciones finales dependen del alcance y de las integraciones disponibles.";
+    return "¡Hola! Soy el asistente comercial de Transport AI. Podemos estudiar agentes de voz, atención al cliente con IA, automatizaciones, integraciones con CRM y software a medida. ¿Qué tipo de empresa tienes y qué proceso te gustaría mejorar?";
   }
 
   if (asksContact) {
-    return "Puedes contactar directamente con Álvaro, fundador de Transport AI, por WhatsApp en el 659 980 603 o por email en alvarochaveinte1@gmail.com. También puedes completar el formulario de contacto de la web.";
+    return "Puedes hablar directamente con Álvaro, fundador de Transport AI, por WhatsApp. Al escribirle, cuéntale brevemente qué empresa tienes y qué necesitas. Si tu proyecto es grande, es mejor revisar los requisitos contigo antes de darte una cifra o prometer una integración.\n\nPulsa el botón «Hablar con Álvaro por WhatsApp» que aparece debajo de esta conversación.";
   }
 
-  if (isThanks) {
-    return "¡De nada! Si quieres, podemos concretar el proceso y revisar el coste orientativo, el plazo de desarrollo y las herramientas que habría que conectar.";
+  if (asksIdentity) {
+    return "Transport AI desarrolla soluciones de inteligencia artificial, automatización e integración de software para empresas. Estudiamos cómo reducir tareas manuales, atender consultas, conectar sistemas y mejorar procesos operativos. El objetivo es complementar las herramientas que ya utiliza cada empresa, siempre que las integraciones sean técnicamente viables.";
+  }
+
+  if (asksSecurity) {
+    return "La seguridad se debe definir según cada proyecto. Hay que revisar qué datos se procesan, quién puede acceder, qué permisos tiene la solución, cuánto tiempo se conservan los datos y qué proveedores intervienen. No puedo confirmar que una integración concreta cumpla todos los requisitos sin revisar su arquitectura. Puedes hablar con Álvaro para estudiar las necesidades de seguridad y protección de datos de tu empresa.";
+  }
+
+  if (asksDemo) {
+    return "Puedes ver las demostraciones de Transport AI aquí:\nhttps://transport-ai-web.vercel.app/demostraciones\n\nSon ejemplos visuales de posibles soluciones. No significa que todas las funciones estén conectadas a sistemas reales ni que cada integración esté disponible para cualquier empresa. La solución definitiva se define según tus requisitos.";
   }
 
   if (asksPrice) {
-    if (asksPlatform) {
-      return "Las plataformas operativas a medida de Transport AI parten de 15.000 € más IVA. El importe final depende de los módulos, los usuarios, los permisos, las integraciones y las pruebas. Para ajustar el presupuesto conviene definir primero las funciones imprescindibles.";
+    if (hasEnterpriseScale) {
+      return "Para una empresa con una red de ese tamaño, no sería responsable aplicar directamente el precio de una automatización sencilla. Los precios orientativos publicados son 1.500–4.000 € para automatizaciones, 4.000–8.000 € para proyectos de CRM e IA y desde 15.000 € para plataformas operativas a medida, antes de IVA. Un proyecto empresarial con muchas franquicias, permisos e integraciones puede requerir un alcance y presupuesto distintos. Lo adecuado es estudiar primero el CRM, el volumen de actividad y las funciones necesarias con Álvaro.";
     }
 
-    if (asksIntegration) {
-      return "Los proyectos de CRM e integraciones con IA se sitúan orientativamente entre 4.000 y 8.000 € más IVA. El coste depende del proveedor, la documentación de su API, el número de flujos y las validaciones. Un trabajo muy acotado puede requerir otro presupuesto, así que habría que revisar el caso antes de confirmar una cifra.";
+    if (profile.solution === "agente de voz con IA") {
+      return "El coste de un agente de voz depende de si solo responde preguntas o también atiende llamadas reales, consulta datos, actualiza el CRM y transfiere llamadas. Los proyectos de integración con IA se sitúan orientativamente entre 4.000 y 8.000 € antes de IVA, pero un agente telefónico puede tener costes adicionales de telefonía, proveedores de voz y uso. Para estimarlo correctamente necesito saber qué debería hacer el agente y qué sistema utilizáis.";
     }
 
-    return "Los precios orientativos publicados por Transport AI son:\n\n• Automatización de procesos: 1.500–4.000 €.\n• CRM e integraciones con IA: 4.000–8.000 €.\n• Plataforma operativa a medida: desde 15.000 €.\n\nLos importes son antes de IVA. El presupuesto final depende del alcance, las integraciones y las pruebas necesarias.";
+    return "Los precios orientativos de Transport AI son:\n\n• Automatización de procesos: 1.500–4.000 €.\n• CRM e integraciones con IA: 4.000–8.000 €.\n• Plataforma operativa a medida: desde 15.000 €.\n\nImportes antes de IVA. El presupuesto definitivo depende del alcance, las integraciones, las pruebas y los proveedores externos que hagan falta. Si me explicas el proceso que quieres mejorar, puedo orientarte sobre qué categoría encaja mejor.";
+  }
+
+  if (asksTime) {
+    if (hasEnterpriseScale) {
+      return "Para una implantación empresarial con muchas franquicias, el plazo depende del CRM, las APIs disponibles, los permisos, las pruebas y la necesidad de desplegar por fases. Puede ser necesario planificar un piloto y ampliar después al resto de la red. No sería serio prometer una fecha sin revisar esos puntos. ¿Qué sistema central utilizáis y qué debería hacer exactamente la solución?";
+    }
+
+    return "Como referencia preliminar, una automatización sencilla puede requerir entre 1 y 3 semanas; una integración con CRM y varios flujos, entre 3 y 8 semanas; y una plataforma completa, varios meses. Son estimaciones orientativas, no compromisos de entrega. El plazo real depende del alcance, las APIs, los proveedores y las pruebas necesarias.";
+  }
+
+  if (asksSavings) {
+    return "El ahorro debe calcularse con datos reales, no prometerse de antemano. Por ejemplo, si una tarea ocupa 2 horas diarias y una automatización elimina la mitad de ese trabajo, el ahorro teórico sería de 1 hora al día. Para estimarlo en tu empresa necesito saber qué tarea se repite, cuánto tarda y cuántas veces se realiza.";
+  }
+
+  if (asksVoice) {
+    if (hasEnterpriseScale) {
+      return `Para una red empresarial de ese tamaño, estudiaría un agente de voz conectado al sistema central, con permisos por franquicia y derivación a una persona cuando no pueda resolver una consulta. Podría atender preguntas frecuentes y, si el CRM y las APIs lo permiten, consultar información o registrar solicitudes. Primero habría que validar la integración, el volumen de llamadas y los requisitos de seguridad. ¿Qué CRM utilizáis actualmente?${profile.software ? ` Tengo anotado que utilizáis ${profile.software}.` : ""}`;
+    }
+
+    return "Un agente de voz puede atender consultas, responder preguntas frecuentes, recoger datos, clasificar solicitudes y derivar casos complejos a una persona. Si debe consultar pedidos, modificar registros o realizar llamadas telefónicas reales, hay que comprobar las APIs y los proveedores necesarios. ¿Quieres que atienda llamadas telefónicas, que hable con los visitantes de tu web o ambas cosas?";
   }
 
   if (asksAutomation) {
-    return "Podemos estudiar automatización de tareas administrativas, clasificación de correos, gestión de incidencias, asistentes de atención al cliente, integración con CRM y APIs, coordinación de equipos y plataformas a medida. Para recomendarte una solución útil, primero identificamos la tarea, el volumen de trabajo, las excepciones y las herramientas que utiliza tu empresa.";
+    return "Podemos estudiar clasificación de correos, atención al cliente, gestión de incidencias, agentes de voz, integración con CRM, automatización administrativa y software a medida. Para elegir una solución útil, conviene identificar la tarea que más tiempo consume, las herramientas que intervienen y las excepciones que necesitan supervisión humana. ¿Cuál es el principal problema que quieres resolver?";
   }
 
-  if (asksTransport) {
-    return "En transporte y logística podemos diseñar flujos para detectar direcciones incoherentes, datos incompletos, retrasos o destinatarios que no responden; registrar incidencias y avisar a los responsables. Las acciones reales dependen de las APIs, los permisos y los sistemas disponibles. ¿Cómo gestionáis actualmente los pedidos e incidencias: Excel, WhatsApp, email o un CRM?";
-  }
+  // Seguimiento de la conversación: respuestas breves como "CRM", "Excel" o "no lo sé".
+  if (isShortAnswer && lastAssistant) {
+    const previous = normalizeText(lastAssistant);
 
-  if (asksIntegration) {
-    return "Podemos estudiar integraciones con tu CRM, ERP o API para reducir duplicidades y automatizar tareas. Antes de confirmar la viabilidad, hay que revisar la documentación, los permisos y las limitaciones del proveedor. ¿Qué programa utilizas y qué información o acción necesitas conectar?";
-  }
+    if (
+      /\bcrm\b|\bexcel\b|\bprograma\b|\bsistema\b|\bsoftware\b/.test(previous) &&
+      /\bcrm\b|\bexcel\b|\bsap\b|\bhubspot\b|\bsalesforce\b|\bzoho\b|\berp\b|\bwhatsapp\b|\bninguno\b|\bninguna\b/.test(text)
+    ) {
+      const softwareName =
+        /\bexcel\b/.test(text) ? "Excel" :
+        /\bsalesforce\b/.test(text) ? "Salesforce" :
+        /\bhubspot\b/.test(text) ? "HubSpot" :
+        /\bsap\b/.test(text) ? "SAP" :
+        /\bzoho\b/.test(text) ? "Zoho" :
+        /\bwhatsapp\b/.test(text) ? "WhatsApp" :
+        /\berp\b/.test(text) ? "un ERP" :
+        /\bcrm\b/.test(text) ? "un CRM" :
+        "ningún sistema específico";
 
-  if (asksHowItWorks) {
-    return "Normalmente trabajamos en cuatro pasos: primero analizamos el proceso actual; después definimos el alcance y las dependencias técnicas; a continuación desarrollamos la solución por fases y hacemos pruebas; por último, documentamos la entrega y acordamos las mejoras o el soporte que se necesiten. El alcance y el plazo se concretan antes de iniciar el desarrollo.";
-  }
-
-  if (asksSimpleFollowUp) {
-    if (/(tiempo|tard|plazo|semanas|meses|duracion|desarrollo)/.test(text)) {
-      return "Si te refieres al plazo de desarrollo, una automatización sencilla puede tardar entre 1 y 3 semanas; una integración con CRM, entre 3 y 8 semanas; y una plataforma completa, varios meses. Para ajustar la estimación a tu caso, necesitamos definir el proceso y los sistemas implicados.";
+      return `Perfecto, tomo nota de que utilizáis ${softwareName}. El siguiente paso es identificar qué debería hacer la solución con ese sistema. Por ejemplo, podría consultar información, registrar incidencias, actualizar datos o derivar casos a vuestro equipo, siempre que el sistema permita esas operaciones.\n\n¿Qué tarea concreta os gustaría automatizar primero?`;
     }
 
-    if (/(precio|coste|cuesta|presupuesto|euros)/.test(text)) {
-      return "Como referencia, una automatización cuesta orientativamente 1.500–4.000 €, una integración con CRM e IA, 4.000–8.000 €, y una plataforma operativa parte de 15.000 €, antes de IVA. El importe final depende del alcance y la viabilidad técnica.";
+    if (
+      isNegative ||
+      /\bno lo se\b|\bno tengo claro\b|\bno estoy seguro\b/.test(text)
+    ) {
+      return "No pasa nada. No necesitas tener todos los requisitos definidos todavía. Podemos empezar por el problema y descubrir juntos qué solución tendría sentido. ¿Qué tarea os hace perder más tiempo actualmente: atender consultas, gestionar incidencias, introducir datos o coordinar al equipo?";
     }
 
-    return "Teniendo en cuenta lo que estamos hablando, el siguiente paso es concretar qué tarea quieres resolver, qué herramientas intervienen y qué resultado necesitas. Con eso podemos valorar la solución, el plazo aproximado y el coste sin darte una cifra engañosa.";
+    if (isPositive) {
+      if (/\bque tarea\b|\bque proceso\b|\bque necesitas\b/.test(previous)) {
+        return "Perfecto. Cuéntame un ejemplo concreto de una tarea que quieras simplificar y qué ocurre actualmente desde que empieza hasta que termina.";
+      }
+
+      return "Perfecto. Para avanzar sin dar nada por supuesto, ¿qué dato puedes concretarme ahora: el sistema que utilizáis, la tarea que queréis automatizar o el volumen de trabajo?";
+    }
+
+    if (
+      /\bllamadas\b|\btelefono\b/.test(text) &&
+      profile.solution === "agente de voz con IA"
+    ) {
+      return "Entendido. Para valorar un agente de voz necesito conocer el volumen aproximado de llamadas, qué consultas debe resolver y si debe consultar o modificar información del CRM. Si no conoces el volumen exacto, una estimación aproximada también sirve. ¿Cuántas llamadas recibís al día, aproximadamente?";
+    }
   }
 
-  if (lastUserMessage || lastAssistantMessage || previousConversation) {
-    return "Para orientarte mejor sobre tu caso, necesito identificar tres cosas: qué tarea se realiza, con qué frecuencia y qué programa se utiliza actualmente. Con esa información puedo recomendarte un enfoque y darte un rango inicial de coste y plazo. La estimación definitiva requiere comprobar el alcance y las dependencias técnicas.";
+  if (hasEnterpriseScale) {
+    const knownDetails = [
+      profile.solution ? `Solución: ${profile.solution}` : "",
+      profile.software ? `Sistema: ${profile.software}` : "",
+      profile.sector ? `Sector: ${profile.sector}` : "",
+      profile.volume ? `Volumen: ${profile.volume}` : "",
+    ].filter(Boolean).join(". ");
+
+    return `Por lo que me has contado, estamos hablando de un proyecto empresarial que necesita analizarse con cuidado. ${knownDetails ? `Tengo presentes estos datos: ${knownDetails}. ` : ""}Para una red de ese tamaño, conviene estudiar la arquitectura, los permisos, la integración con el sistema central, la seguridad y un posible despliegue por fases. No quiero inventar una solución ni prometer una integración sin comprobarla. ¿Cuál sería la función más importante que debería resolver el sistema desde el primer día?`;
   }
 
-  return "Transport AI trabaja con automatizaciones, asistentes de IA, integraciones y software a medida. Para recomendarte algo útil, cuéntame qué tarea quieres simplificar, qué herramientas utilizas y qué resultado te gustaría conseguir.";
+  if (
+    /\bcrm\b|\bapi\b|\bintegracion\b|\bintegrar\b|\berp\b|\bsoftware\b|\bprograma\b/.test(text)
+  ) {
+    return "Podemos estudiar una integración con tu CRM, ERP o API para reducir tareas manuales y duplicidades. Antes de confirmar la viabilidad hay que revisar la documentación del proveedor, los permisos y las operaciones que permite. ¿Qué sistema utilizas y qué necesitas que haga la integración?";
+  }
+
+  if (
+    /\btransporte\b|\blogistica\b|\bmensajeria\b|\bpaqueteria\b|\breparto\b|\brepartidores\b|\bincidencias\b|\bpaquetes\b/.test(text)
+  ) {
+    return "En transporte y logística podemos estudiar la automatización de consultas, incidencias, seguimiento de envíos, validación de datos y coordinación de equipos. La viabilidad depende de los sistemas y permisos disponibles. Para no recomendarte algo genérico, ¿cómo gestionáis ahora los pedidos e incidencias: con Excel, WhatsApp, correo electrónico o un CRM?";
+  }
+
+  if (asksHow) {
+    return "Normalmente empezamos analizando el proceso actual, definimos el alcance y las dependencias técnicas, desarrollamos una primera versión, probamos los casos normales y excepcionales y acordamos la puesta en marcha. Antes de comprometer un presupuesto o un plazo hay que confirmar los requisitos y la viabilidad de las integraciones. ¿Qué resultado te gustaría conseguir primero?";
+  }
+
+  if (isThanks) {
+    return "¡De nada! Si quieres, seguimos concretando tu caso y vemos qué solución podría encajar, qué herramientas habría que conectar y qué información necesitamos para preparar una estimación realista.";
+  }
+
+  if (userMessages.length === 0) {
+    return initialMessage;
+  }
+
+  // Respuesta de reserva: no inventa información ni finge tener acceso a sistemas.
+  return "Quiero darte una respuesta útil y no inventarme información. Con lo que sé ahora no puedo confirmar ese detalle con seguridad. Podemos revisarlo directamente contigo a través de Álvaro, fundador de Transport AI, por WhatsApp. Si prefieres continuar aquí, cuéntame un poco más del contexto y trataré de orientarte con la información disponible.";
 }
 
 function getSpanishVoice(): SpeechSynthesisVoice | null {
@@ -304,9 +632,7 @@ export default function FreeAssistant() {
     const synthesis =
       "speechSynthesis" in window ? window.speechSynthesis : null;
 
-    if (synthesis) {
-      synthesis.getVoices();
-    }
+    synthesis?.getVoices();
 
     return () => {
       mountedRef.current = false;
@@ -381,7 +707,7 @@ export default function FreeAssistant() {
 
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = "es-ES";
-      utterance.rate = 0.92;
+      utterance.rate = 0.94;
       utterance.pitch = 1;
       utterance.volume = 1;
 
@@ -404,12 +730,9 @@ export default function FreeAssistant() {
 
         setSpeaking(false);
 
-        if (
-          event.error !== "canceled" &&
-          event.error !== "interrupted"
-        ) {
+        if (event.error !== "canceled" && event.error !== "interrupted") {
           setVoiceError(
-            "El móvil no ha podido reproducir el audio. Pulsa «Reproducir respuesta» para volver a intentarlo.",
+            "No se ha podido reproducir el audio. Pulsa «Reproducir respuesta» para intentarlo otra vez.",
           );
         }
       };
@@ -419,7 +742,7 @@ export default function FreeAssistant() {
     } catch {
       setSpeaking(false);
       setVoiceError(
-        "No se ha podido reproducir el audio. Comprueba el volumen y el servicio de voz del móvil.",
+        "No se ha podido reproducir el audio. Comprueba el volumen y los permisos del navegador.",
       );
     }
   }, []);
@@ -571,7 +894,7 @@ export default function FreeAssistant() {
     setSaving(true);
 
     const summary = messagesRef.current
-      .slice(-10)
+      .slice(-12)
       .map(
         (message) =>
           `${message.role === "user" ? "Visitante" : "Asistente"}: ${message.text}`,
@@ -614,6 +937,19 @@ export default function FreeAssistant() {
     }
   }
 
+  const waSummary = messagesRef.current
+    .filter((message) => message.role === "user")
+    .slice(-5)
+    .map((message) => message.text)
+    .join("; ")
+    .slice(0, 500);
+
+  const contextualWhatsAppUrl = waSummary
+    ? `https://wa.me/34659980603?text=${encodeURIComponent(
+        `Hola Álvaro, he hablado con el asistente de Transport AI. Me gustaría estudiar este proyecto: ${waSummary}`,
+      )}`
+    : whatsappUrl;
+
   return (
     <div className="fixed bottom-5 right-4 z-[100] flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
       {open && (
@@ -629,7 +965,7 @@ export default function FreeAssistant() {
               <div>
                 <p className="font-semibold">Transport AI</p>
                 <p className="mt-1 flex items-center gap-1 text-xs text-slate-300">
-                  <Sparkles className="h-3 w-3" />
+                  <BrainCircuit className="h-3 w-3" />
                   Asistente comercial
                 </p>
               </div>
@@ -734,7 +1070,7 @@ export default function FreeAssistant() {
                   ? "Habla con normalidad. El micrófono se detendrá al terminar tu frase."
                   : speaking
                     ? "Escucha la respuesta o pulsa la bola para detenerla."
-                    : "Puedes preguntar por precios, plazos, automatizaciones o integraciones."}
+                    : "Pregunta por precios, plazos, automatizaciones o integraciones."}
               </p>
 
               {voiceError && (
@@ -768,7 +1104,7 @@ export default function FreeAssistant() {
                   <p className="mb-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">
                     Última respuesta
                   </p>
-                  <p className="text-sm leading-6 text-slate-700">
+                  <p className="whitespace-pre-wrap text-sm leading-6 text-slate-700">
                     {messages[messages.length - 1]?.text}
                   </p>
                 </div>
@@ -806,7 +1142,7 @@ export default function FreeAssistant() {
                 className="flex max-h-[min(400px,45vh)] min-h-56 flex-col gap-3 overflow-y-auto p-4"
                 aria-live="polite"
               >
-                <div className="max-w-[92%] self-start rounded-2xl rounded-tl-sm bg-slate-100 p-3 text-sm leading-6 text-slate-800">
+                <div className="max-w-[92%] self-start whitespace-pre-wrap rounded-2xl rounded-tl-sm bg-slate-100 p-3 text-sm leading-6 text-slate-800">
                   {initialMessage}
                 </div>
 
@@ -830,6 +1166,7 @@ export default function FreeAssistant() {
                       "¿Cuánto cuesta?",
                       "¿Cuánto tardaría?",
                       "Tengo una empresa de transporte",
+                      "Quiero un agente de voz",
                     ].map((suggestion) => (
                       <button
                         key={suggestion}
@@ -888,7 +1225,9 @@ export default function FreeAssistant() {
                     <UserRound className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
                     <input
                       value={lead.name}
-                      onChange={(event) => updateLead("name", event.target.value)}
+                      onChange={(event) =>
+                        updateLead("name", event.target.value)
+                      }
                       placeholder="Tu nombre"
                       maxLength={120}
                       className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-9 pr-3 text-sm text-slate-900 outline-none focus:border-blue-500"
@@ -899,7 +1238,9 @@ export default function FreeAssistant() {
                     <Building2 className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
                     <input
                       value={lead.company}
-                      onChange={(event) => updateLead("company", event.target.value)}
+                      onChange={(event) =>
+                        updateLead("company", event.target.value)
+                      }
                       placeholder="Empresa"
                       maxLength={160}
                       className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-9 pr-3 text-sm text-slate-900 outline-none focus:border-blue-500"
@@ -911,7 +1252,9 @@ export default function FreeAssistant() {
                     <input
                       type="email"
                       value={lead.email}
-                      onChange={(event) => updateLead("email", event.target.value)}
+                      onChange={(event) =>
+                        updateLead("email", event.target.value)
+                      }
                       placeholder="Email"
                       maxLength={254}
                       className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-9 pr-3 text-sm text-slate-900 outline-none focus:border-blue-500"
@@ -923,7 +1266,9 @@ export default function FreeAssistant() {
                     <input
                       type="tel"
                       value={lead.phone}
-                      onChange={(event) => updateLead("phone", event.target.value)}
+                      onChange={(event) =>
+                        updateLead("phone", event.target.value)
+                      }
                       placeholder="Teléfono"
                       maxLength={40}
                       className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-9 pr-3 text-sm text-slate-900 outline-none focus:border-blue-500"
@@ -934,7 +1279,9 @@ export default function FreeAssistant() {
                     ¿Qué necesitas mejorar?
                     <textarea
                       value={lead.need}
-                      onChange={(event) => updateLead("need", event.target.value)}
+                      onChange={(event) =>
+                        updateLead("need", event.target.value)
+                      }
                       placeholder="Ej.: automatizar incidencias o conectar mi CRM..."
                       maxLength={2000}
                       rows={3}
@@ -946,7 +1293,9 @@ export default function FreeAssistant() {
                     Presupuesto aproximado (opcional)
                     <select
                       value={lead.budget}
-                      onChange={(event) => updateLead("budget", event.target.value)}
+                      onChange={(event) =>
+                        updateLead("budget", event.target.value)
+                      }
                       className="mt-1 w-full rounded-xl border border-slate-200 bg-white p-3 text-sm text-slate-900 outline-none focus:border-blue-500"
                     >
                       <option value="">Prefiero hablarlo</option>
@@ -962,12 +1311,15 @@ export default function FreeAssistant() {
                     <input
                       type="checkbox"
                       checked={lead.consent}
-                      onChange={(event) => updateLead("consent", event.target.checked)}
+                      onChange={(event) =>
+                        updateLead("consent", event.target.checked)
+                      }
                       className="mt-1"
                       required
                     />
                     <span>
-                      Acepto que Transport AI utilice mis datos para responder a mi solicitud. He leído la{" "}
+                      Acepto que Transport AI utilice mis datos para responder
+                      a mi solicitud. He leído la{" "}
                       <a
                         href="/privacidad"
                         target="_blank"
@@ -975,7 +1327,8 @@ export default function FreeAssistant() {
                         className="font-semibold text-blue-700 underline"
                       >
                         política de privacidad
-                      </a>.
+                      </a>
+                      .
                     </span>
                   </label>
 
@@ -990,7 +1343,9 @@ export default function FreeAssistant() {
                     disabled={saving}
                     className="flex items-center justify-center gap-2 rounded-xl bg-blue-700 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-800 disabled:opacity-60"
                   >
-                    {saving && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                    {saving && (
+                      <LoaderCircle className="h-4 w-4 animate-spin" />
+                    )}
                     {saving ? "Enviando..." : "Solicitar contacto"}
                   </button>
 
@@ -1031,7 +1386,7 @@ export default function FreeAssistant() {
           )}
 
           <a
-            href={whatsappUrl}
+            href={contextualWhatsAppUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-800 transition hover:bg-emerald-100"
@@ -1040,12 +1395,17 @@ export default function FreeAssistant() {
             Hablar con Álvaro por WhatsApp
             <ArrowUpRight className="h-4 w-4" />
           </a>
+
+          <div className="flex items-center justify-center gap-1 bg-slate-50 px-3 py-2 text-[10px] text-slate-500">
+            <ShieldCheck className="h-3 w-3" />
+            Asistente automatizado · Las estimaciones deben confirmarse
+          </div>
         </section>
       )}
 
       <div className="flex flex-col items-end gap-3">
         <a
-          href={whatsappUrl}
+          href={contextualWhatsAppUrl}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Contactar por WhatsApp"
