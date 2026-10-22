@@ -6,21 +6,17 @@ import {
   ArrowUpRight,
   Bot,
   Check,
-  ChevronRight,
-  CircleCheck,
   Code2,
   Database,
-  GitBranch,
   Globe,
   Headphones,
   Layers3,
   LockKeyhole,
   Mail,
-  MessageSquareText,
+  MessageCircle,
   MonitorSmartphone,
   Network,
   PhoneCall,
-  Play,
   ShieldCheck,
   Sparkles,
   Workflow,
@@ -28,729 +24,583 @@ import {
   Truck,
   Settings2,
   ChartNoAxesCombined,
+  Lightbulb,
+  Target,
+  UserRound,
+  Rocket,
 } from "lucide-react";
-
-import {
-  Eyebrow,
-  SectionHeading,
-  SiteShell,
-} from "./components/site-shell";
-
+import { SiteShell } from "./components/site-shell";
 import FreeAssistant from "./components/free-assistant";
 
 export const metadata: Metadata = {
-  title: "Transport AI | Diseño Web, Agentes de IA y Automatización",
+  title: "Transport AI | Desarrollo web, inteligencia artificial y automatización",
   description:
-    "Diseño de páginas web, agentes de inteligencia artificial para web y llamadas, chatbots, automatizaciones, integraciones y software a medida para empresas de todos los sectores.",
+    "Transport AI desarrolla páginas web, agentes de inteligencia artificial, asistentes de voz, automatizaciones, integraciones y software a medida para empresas.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Transport AI | Web, Inteligencia Artificial y Automatización",
+    title: "Transport AI | Tecnología útil para empresas",
     description:
-      "Impulsa tu negocio con páginas web profesionales, agentes de IA, soluciones de voz, automatizaciones y software a medida.",
-    url: "/",
+      "Desarrollo web, inteligencia artificial, automatización y software a medida.",
+    url: "https://transport-ai-web.vercel.app",
     siteName: "Transport AI",
-    locale: "es_ES",
     type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Transport AI | Web, IA y Automatización",
-    description:
-      "Tecnología práctica para empresas: webs, agentes de IA, llamadas y automatizaciones.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
 };
-
-const transportSeoUrl = "/ia-para-transporte-logistica";
 
 const services = [
   {
     number: "01",
     icon: Globe,
-    title: "Diseño y desarrollo web",
+    title: "Desarrollo web profesional",
     description:
-      "Páginas web modernas, rápidas y adaptadas a móviles para presentar tus servicios, transmitir confianza y convertir visitas en oportunidades comerciales.",
-    tags: ["Web profesional", "Diseño responsive", "SEO técnico"],
-    query: "Diseño y desarrollo web",
+      "Páginas web corporativas, landing pages y experiencias digitales diseñadas para presentar tu negocio, explicar tus servicios y facilitar que tus clientes contacten contigo.",
+    items: [
+      "Diseño adaptable a móvil, tablet y ordenador",
+      "Estructura enfocada en la conversión",
+      "Optimización técnica y SEO básico",
+    ],
   },
   {
     number: "02",
     icon: Bot,
-    title: "Agentes de IA para tu web",
+    title: "Agentes de inteligencia artificial",
     description:
-      "Asistentes conversacionales que pueden responder preguntas, explicar tus servicios, recoger datos de potenciales clientes y derivar consultas.",
-    tags: ["Asistente web", "Chatbot IA", "Captación"],
-    query: "Agentes de IA para web",
+      "Asistentes que pueden responder preguntas, orientar a clientes, explicar servicios y ayudar a gestionar consultas mediante información previamente definida.",
+    items: [
+      "Asistentes para páginas web",
+      "Respuestas adaptadas al negocio",
+      "Derivación a una persona cuando sea necesario",
+    ],
   },
   {
     number: "03",
-    icon: PhoneCall,
-    title: "Agentes de voz y llamadas",
+    icon: Headphones,
+    title: "Agentes de voz",
     description:
-      "Soluciones de voz para automatizar parte de la atención telefónica, gestionar consultas frecuentes, recoger solicitudes y transferir casos.",
-    tags: ["Voz IA", "Atención telefónica", "Recepción"],
-    query: "Agentes de voz y llamadas",
+      "Soluciones de voz para explorar la automatización de llamadas, la atención inicial y la gestión de consultas, según las herramientas y servicios que necesite cada proyecto.",
+    items: [
+      "Atención de consultas frecuentes",
+      "Recogida estructurada de información",
+      "Posible integración con sistemas existentes",
+    ],
   },
   {
     number: "04",
     icon: Workflow,
-    title: "Automatización de tareas",
+    title: "Automatización de procesos",
     description:
-      "Conectamos formularios, correos, documentos y herramientas para reducir tareas repetitivas, enviar avisos y organizar flujos de trabajo.",
-    tags: ["Flujos de trabajo", "Notificaciones", "Procesos"],
-    query: "Automatización de tareas",
+      "Conexión de tareas que actualmente requieren trabajo manual para reducir pasos repetitivos y facilitar el flujo de información entre herramientas.",
+    items: [
+      "Procesamiento de formularios y correos",
+      "Avisos y notificaciones automáticas",
+      "Flujos de trabajo personalizados",
+    ],
   },
   {
     number: "05",
-    icon: Database,
-    title: "CRM e integraciones",
+    icon: Network,
+    title: "APIs e integraciones",
     description:
-      "Conectamos sistemas compatibles para centralizar información, reducir duplicidades y evitar que tu equipo tenga que copiar datos entre aplicaciones.",
-    tags: ["CRM", "APIs", "Integraciones"],
-    query: "CRM e integraciones",
+      "Conexión entre plataformas, CRM, bases de datos y servicios externos para que la información pueda circular de manera más ordenada.",
+    items: [
+      "Integración con APIs disponibles",
+      "Sincronización de información",
+      "Validación de datos y gestión de errores",
+    ],
   },
   {
     number: "06",
-    icon: Code2,
+    icon: MonitorSmartphone,
     title: "Software a medida",
     description:
-      "Desarrollamos paneles de control, aplicaciones internas, portales privados y plataformas adaptadas a las necesidades concretas de tu negocio.",
-    tags: ["Aplicaciones", "Dashboards", "Plataformas"],
-    query: "Software a medida",
-  },
-];
-
-const benefits = [
-  {
-    icon: Zap,
-    title: "Ahorra tiempo",
-    text: "Reduce las tareas repetitivas y dedica más recursos a los clientes y al crecimiento de tu negocio.",
-  },
-  {
-    icon: MessageSquareText,
-    title: "Mejora la atención",
-    text: "Facilita que tus clientes encuentren información y contacten con tu empresa por los canales adecuados.",
-  },
-  {
-    icon: Network,
-    title: "Conecta tus herramientas",
-    text: "Integra sistemas compatibles para organizar mejor los datos y evitar procesos innecesariamente manuales.",
+      "Desarrollo de herramientas digitales adaptadas a necesidades concretas, desde paneles internos hasta prototipos de plataformas operativas.",
+    items: [
+      "Paneles de control",
+      "Aplicaciones internas",
+      "Prototipos y plataformas personalizadas",
+    ],
   },
 ];
 
 const useCases = [
   {
-    icon: MonitorSmartphone,
-    title: "Negocios y comercios",
-    text: "Webs profesionales, información de servicios y asistentes para atender consultas.",
-  },
-  {
-    icon: Headphones,
-    title: "Atención telefónica",
-    text: "Recepción de llamadas, preguntas frecuentes y registro de solicitudes mediante soluciones de voz.",
-  },
-  {
-    icon: Mail,
-    title: "Administración",
-    text: "Clasificación de correos, extracción de datos, avisos y seguimiento de tareas.",
-  },
-  {
-    icon: Workflow,
-    title: "Empresas de servicios",
-    text: "Automatización de solicitudes, coordinación de trabajos y comunicación con clientes.",
-  },
-  {
-    icon: Layers3,
-    title: "Equipos y operaciones",
-    text: "Paneles internos para organizar tareas, consultar información y supervisar procesos.",
-  },
-  {
     icon: Truck,
     title: "Transporte y logística",
-    text: "Seguimiento de operaciones, gestión de incidencias y coordinación de equipos y vehículos.",
+    description:
+      "Herramientas para organizar información de envíos, detectar incidencias, coordinar comunicaciones y mejorar la visibilidad de las operaciones.",
+  },
+  {
+    icon: MessageCircle,
+    title: "Atención al cliente",
+    description:
+      "Asistentes que ayudan a resolver consultas frecuentes y a recopilar los datos necesarios antes de derivar un caso al equipo.",
+  },
+  {
+    icon: Database,
+    title: "Gestión de información",
+    description:
+      "Automatizaciones para organizar datos, conectar herramientas y reducir la duplicación de tareas entre distintos sistemas.",
+  },
+  {
+    icon: ChartNoAxesCombined,
+    title: "Procesos empresariales",
+    description:
+      "Soluciones para identificar tareas repetitivas, estructurar flujos de trabajo y facilitar el seguimiento de actividades.",
   },
 ];
 
 const steps = [
   {
     number: "01",
-    title: "Nos cuentas tu idea",
-    text: "Entendemos tu negocio, tus objetivos y qué problema necesitas resolver.",
+    title: "Analizamos la necesidad",
+    description:
+      "Hablamos sobre tu negocio, el problema que quieres resolver y las herramientas que utilizas actualmente.",
   },
   {
     number: "02",
-    title: "Preparamos la propuesta",
-    text: "Definimos funciones, alcance, plazos, dependencias y presupuesto.",
+    title: "Diseñamos la solución",
+    description:
+      "Definimos el alcance, las funcionalidades, las integraciones necesarias y una propuesta adaptada al proyecto.",
   },
   {
     number: "03",
-    title: "Desarrollamos la solución",
-    text: "Diseñamos y construimos el proyecto por fases, con pruebas acordes a su alcance.",
+    title: "Desarrollamos y validamos",
+    description:
+      "Construimos la solución y comprobamos su funcionamiento con pruebas adecuadas antes de plantear su puesta en marcha.",
   },
   {
     number: "04",
-    title: "Lanzamos el proyecto",
-    text: "Preparamos la entrega y acordamos, cuando sea necesario, soporte y mejoras.",
+    title: "Preparamos la entrega",
+    description:
+      "Documentamos el funcionamiento y acordamos los siguientes pasos, el mantenimiento y las mejoras que puedan ser necesarias.",
+  },
+];
+
+const principles = [
+  {
+    icon: Target,
+    title: "Soluciones con un propósito",
+    description:
+      "La tecnología debe responder a una necesidad concreta, no añadir complejidad porque sí.",
+  },
+  {
+    icon: Settings2,
+    title: "Adaptación al negocio",
+    description:
+      "Cada empresa tiene sus procesos, herramientas y prioridades. La solución se plantea teniendo eso en cuenta.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Pruebas y seguridad",
+    description:
+      "La validación, los permisos, el tratamiento de los datos y los límites de cada integración deben formar parte del proyecto.",
   },
 ];
 
 const prices = [
   {
-    title: "Web profesional",
+    name: "Web profesional",
     price: "Desde 600 €",
     description:
-      "Para negocios que quieren presentar sus servicios online con una web moderna y adaptada a móviles.",
-    featured: false,
+      "Para empresas que necesitan una presencia digital profesional.",
+    features: [
+      "Diseño web adaptado al negocio",
+      "Diseño responsive",
+      "Secciones y contenido acordados",
+      "Formulario o vías de contacto",
+    ],
   },
   {
-    title: "Agentes de IA y automatización",
+    name: "IA y automatización",
     price: "Desde 1.000 €",
     description:
-      "Para asistentes, automatizaciones y procesos conectados cuyo alcance técnico se haya definido.",
+      "Para automatizar tareas o incorporar asistentes inteligentes.",
+    features: [
+      "Análisis del proceso",
+      "Diseño de la solución",
+      "Configuración y desarrollo",
+      "Pruebas según el alcance acordado",
+    ],
     featured: true,
   },
   {
-    title: "Software e integraciones",
-    price: "A medida",
+    name: "Software e integraciones",
+    price: "Presupuesto a medida",
     description:
-      "Para aplicaciones, plataformas, conexiones complejas y proyectos con varios módulos.",
-    featured: false,
-  },
-];
-
-const demoModules = [
-  {
-    icon: Bot,
-    title: "Asistente de IA",
-    text: "Explora un ejemplo de atención conversacional para orientar a los usuarios.",
-  },
-  {
-    icon: GitBranch,
-    title: "Gestión de incidencias",
-    text: "Descubre cómo se puede organizar la información y el seguimiento de casos.",
-  },
-  {
-    icon: Layers3,
-    title: "Plataforma operativa",
-    text: "Consulta un ejemplo visual de panel empresarial y módulos de gestión.",
-  },
-];
-
-const safeguards = [
-  {
-    icon: LockKeyhole,
-    title: "Accesos definidos",
-    text: "Los permisos se establecen según las necesidades del proyecto.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Pruebas y validación",
-    text: "Se comprueba el comportamiento de la solución antes de su puesta en marcha.",
-  },
-  {
-    icon: GitBranch,
-    title: "Control de procesos",
-    text: "Se pueden definir registros, límites y puntos de intervención humana.",
+      "Para proyectos que necesitan funcionalidades e integraciones específicas.",
+    features: [
+      "Análisis técnico",
+      "Desarrollo personalizado",
+      "Integración con sistemas compatibles",
+      "Alcance y fases definidos previamente",
+    ],
   },
 ];
 
 export default function HomePage() {
   return (
     <SiteShell>
-      <div className="overflow-hidden bg-white text-slate-900">
+      <main className="overflow-hidden bg-white text-slate-950">
         {/* HERO */}
         <section className="relative isolate">
-          <div className="pointer-events-none absolute -right-40 -top-32 -z-10 h-[480px] w-[480px] rounded-full bg-blue-100/70 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-20 -left-40 -z-10 h-[360px] w-[360px] rounded-full bg-slate-100 blur-3xl" />
+          <div className="absolute inset-0 -z-10 bg-gradient-to-br from-slate-50 via-white to-blue-50" />
+          <div className="absolute right-0 top-0 -z-10 h-80 w-80 rounded-full bg-blue-200/20 blur-3xl" />
 
-          <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-16 sm:px-8 sm:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:py-28">
+          <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[1.1fr_0.9fr] lg:py-32">
             <div>
-              <Eyebrow>
-                Desarrollo web · Inteligencia artificial · Automatización
-              </Eyebrow>
+              <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white px-4 py-2 text-sm font-medium text-blue-800 shadow-sm">
+                <Sparkles size={16} />
+                Desarrollo digital e inteligencia artificial
+              </div>
 
-              <h1 className="mt-6 max-w-3xl text-4xl font-semibold leading-[1.08] tracking-[-0.045em] text-slate-950 sm:text-6xl lg:text-[4.3rem]">
-                Tu empresa puede trabajar de forma{" "}
-                <span className="text-blue-700">más inteligente.</span>
+              <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+                Tecnología útil.
+                <span className="block text-blue-700">
+                  Procesos más inteligentes.
+                </span>
               </h1>
 
-              <p className="mt-6 max-w-xl text-base leading-8 text-slate-600 sm:text-lg">
-                Creamos páginas web profesionales, agentes de IA para web y
-                llamadas, chatbots, automatizaciones y software a medida.
-                Tecnología pensada para ayudarte a captar clientes, ahorrar
-                tiempo y organizar mejor tu negocio.
+              <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-600">
+                En Transport AI desarrollo páginas web, agentes de
+                inteligencia artificial, automatizaciones e integraciones
+                tecnológicas para ayudar a las empresas a trabajar de una
+                manera más organizada y eficiente.
               </p>
 
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href="/contacto"
-                  className="inline-flex min-h-14 items-center justify-center gap-2 rounded-xl bg-blue-700 px-6 py-4 text-sm font-semibold text-white shadow-lg shadow-blue-900/15 transition hover:-translate-y-0.5 hover:bg-blue-800"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-700 px-6 py-4 font-semibold text-white transition hover:bg-blue-800"
                 >
-                  Solicitar presupuesto
-                  <ArrowUpRight className="h-4 w-4" />
+                  Cuéntame tu proyecto
+                  <ArrowRight size={18} />
                 </Link>
 
                 <Link
-                  href="/servicios"
-                  className="inline-flex min-h-14 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-4 text-sm font-semibold text-slate-800 transition hover:border-blue-200 hover:bg-blue-50"
+                  href="/demostraciones"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-4 font-semibold text-slate-800 transition hover:border-blue-400 hover:text-blue-700"
                 >
-                  Descubrir servicios
-                  <ArrowRight className="h-4 w-4" />
+                  Ver demostraciones
+                  <ArrowUpRight size={18} />
                 </Link>
               </div>
 
-              <div className="mt-7 flex flex-wrap gap-x-5 gap-y-3 text-sm text-slate-600">
-                {[
-                  "Soluciones personalizadas",
-                  "Diseño adaptado a móviles",
-                  "Alcance definido por proyecto",
-                ].map((item) => (
-                  <span key={item} className="flex items-center gap-2">
-                    <Check className="h-4 w-4 shrink-0 text-blue-700" />
-                    {item}
-                  </span>
-                ))}
-              </div>
-
-              <div className="mt-8 border-t border-slate-200 pt-5">
-                <p className="text-sm leading-6 text-slate-500">
-                  ¿Tienes una empresa de transporte o logística?
-                </p>
-                <Link
-                  href={transportSeoUrl}
-                  className="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-blue-700 transition hover:text-blue-900"
-                >
-                  Descubre nuestra especialización logística
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
+              <div className="mt-9 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-600">
+                <span className="flex items-center gap-2">
+                  <Check size={16} className="text-blue-700" />
+                  Desarrollo personalizado
+                </span>
+                <span className="flex items-center gap-2">
+                  <Check size={16} className="text-blue-700" />
+                  IA y automatización
+                </span>
+                <span className="flex items-center gap-2">
+                  <Check size={16} className="text-blue-700" />
+                  Soluciones para empresas
+                </span>
               </div>
             </div>
 
-            {/* PANEL VISUAL */}
-            <div className="relative mx-auto w-full max-w-xl">
-              <div className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-2xl shadow-slate-900/10">
-                <div className="relative h-64 sm:h-80">
-                  <img
-                    src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=85"
-                    alt="Espacio de trabajo moderno para empresas"
-                    className="h-full w-full object-cover"
-                    fetchPriority="high"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/15 to-transparent" />
-                  <div className="absolute inset-x-6 bottom-6 text-white sm:inset-x-8 sm:bottom-8">
-                    <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-medium backdrop-blur">
-                      <Sparkles className="h-3.5 w-3.5 text-blue-200" />
-                      Tecnología aplicada a tu negocio
-                    </span>
-                    <h2 className="mt-4 max-w-sm text-2xl font-semibold leading-tight sm:text-3xl">
-                      Una web mejor. Un equipo más eficiente.
+            <div className="relative">
+              <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-blue-200/50 to-indigo-100/30 blur-xl" />
+              <div className="relative rounded-3xl border border-slate-200 bg-white p-5 shadow-2xl shadow-slate-900/10 sm:p-7">
+                <div className="flex items-center justify-between border-b border-slate-100 pb-5">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-700">
+                      Transport AI
+                    </p>
+                    <h2 className="mt-2 text-xl font-semibold">
+                      Tecnología conectada
                     </h2>
                   </div>
-                </div>
-
-                <div className="p-5 sm:p-6">
-                  <div className="flex items-center justify-between gap-3">
-                    <div>
-                      <p className="font-semibold text-slate-900">
-                        ¿Qué necesitas mejorar?
-                      </p>
-                      <p className="mt-1 text-xs text-slate-500">
-                        Soluciones para diferentes necesidades empresariales
-                      </p>
-                    </div>
-                    <span className="rounded-full bg-blue-50 px-3 py-1.5 text-[10px] font-bold tracking-wide text-blue-700">
-                      TRANSPORT AI
-                    </span>
-                  </div>
-
-                  <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                    {[
-                      { label: "Páginas web", icon: Globe },
-                      { label: "Agentes IA", icon: Bot },
-                      { label: "Llamadas", icon: PhoneCall },
-                      { label: "Automatización", icon: Workflow },
-                      { label: "Integraciones", icon: Database },
-                      { label: "Software", icon: Code2 },
-                    ].map((item) => {
-                      const Icon = item.icon;
-                      return (
-                        <div
-                          key={item.label}
-                          className="rounded-xl border border-slate-200 bg-slate-50 p-3.5 transition hover:border-blue-200 hover:bg-blue-50"
-                        >
-                          <Icon className="h-5 w-5 text-blue-700" />
-                          <p className="mt-3 text-xs font-semibold text-slate-800">
-                            {item.label}
-                          </p>
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  <div className="mt-4 flex items-start gap-3 rounded-xl bg-slate-950 p-4 text-white">
-                    <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-blue-300" />
-                    <div>
-                      <p className="text-sm font-semibold">
-                        Cada proyecto, con un alcance claro
-                      </p>
-                      <p className="mt-1 text-xs leading-5 text-slate-300">
-                        Funciones, integraciones y pruebas definidos según las
-                        necesidades del negocio.
-                      </p>
-                    </div>
+                  <div className="rounded-2xl bg-blue-50 p-3 text-blue-700">
+                    <Network size={26} />
                   </div>
                 </div>
-              </div>
 
-              <div className="absolute -bottom-5 -left-3 hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-xl sm:block md:-left-6">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50">
-                    <Zap className="h-5 w-5 text-blue-700" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-slate-900">
-                      Tecnología a medida
-                    </p>
-                    <p className="mt-1 text-xs text-slate-500">
-                      Adaptada a tu negocio
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* BENEFICIOS */}
-        <section className="border-y border-slate-200 bg-slate-50">
-          <div className="mx-auto grid max-w-7xl gap-7 px-5 py-9 sm:px-8 md:grid-cols-3">
-            {benefits.map((item) => {
-              const Icon = item.icon;
-              return (
-                <article key={item.title} className="flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-100">
-                    <Icon className="h-5 w-5 text-blue-700" />
-                  </div>
-                  <div>
-                    <h2 className="text-sm font-semibold text-slate-950">
-                      {item.title}
-                    </h2>
+                <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-2xl bg-slate-50 p-5">
+                    <Globe className="text-blue-700" size={23} />
+                    <h3 className="mt-4 font-semibold">Desarrollo web</h3>
                     <p className="mt-2 text-sm leading-6 text-slate-600">
-                      {item.text}
+                      Experiencias digitales para presentar y hacer crecer
+                      tu negocio.
                     </p>
                   </div>
-                </article>
-              );
-            })}
+
+                  <div className="rounded-2xl bg-slate-50 p-5">
+                    <Bot className="text-blue-700" size={23} />
+                    <h3 className="mt-4 font-semibold">Inteligencia artificial</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">
+                      Asistentes y herramientas adaptados a tareas concretas.
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl bg-slate-50 p-5">
+                    <Workflow className="text-blue-700" size={23} />
+                    <h3 className="mt-4 font-semibold">Automatización</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">
+                      Procesos conectados para reducir tareas manuales.
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl bg-slate-50 p-5">
+                    <Database className="text-blue-700" size={23} />
+                    <h3 className="mt-4 font-semibold">Integraciones</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">
+                      Datos y herramientas trabajando conjuntamente.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-4 flex items-center gap-3 rounded-2xl border border-blue-100 bg-blue-50/70 p-4">
+                  <div className="rounded-xl bg-white p-2 text-blue-700">
+                    <Zap size={21} />
+                  </div>
+                  <p className="text-sm leading-6 text-slate-700">
+                    Una solución digital debe resolver un problema real y
+                    encajar con la forma de trabajar de cada empresa.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
         {/* SERVICIOS */}
-        <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
-          <SectionHeading
-            eyebrow="Nuestros servicios"
-            title="Todo lo que necesitas para llevar tu negocio al siguiente nivel."
-            description="Desde una página web hasta un sistema de inteligencia artificial conectado con tus procesos. Empezamos por tus objetivos y diseñamos una solución acorde a tus necesidades."
-          />
-
-          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {services.map((service) => {
-              const Icon = service.icon;
-              return (
-                <article
-                  key={service.number}
-                  className="group flex flex-col rounded-2xl border border-slate-200 bg-white p-6 transition duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-slate-900/5 sm:p-7"
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 transition group-hover:bg-blue-700">
-                      <Icon className="h-6 w-6 text-blue-700 transition group-hover:text-white" />
-                    </div>
-                    <span className="text-xs font-semibold tracking-[0.18em] text-slate-400">
-                      {service.number}
-                    </span>
-                  </div>
-
-                  <h3 className="mt-6 text-xl font-semibold tracking-tight text-slate-950">
-                    {service.title}
-                  </h3>
-
-                  <p className="mt-3 flex-1 text-sm leading-7 text-slate-600">
-                    {service.description}
-                  </p>
-
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {service.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs text-slate-600"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <Link
-                    href={`/contacto?proyecto=${encodeURIComponent(service.query)}`}
-                    className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-blue-700 transition hover:text-blue-900"
-                  >
-                    Consultar este servicio
-                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-                  </Link>
-                </article>
-              );
-            })}
-          </div>
-
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Link
-              href="/servicios"
-              className="inline-flex items-center gap-2 rounded-xl bg-blue-700 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-blue-800"
-            >
-              Ver todos los servicios
-              <ChevronRight className="h-4 w-4" />
-            </Link>
-            <Link
-              href="/demostraciones"
-              className="inline-flex items-center gap-2 px-5 py-3.5 text-sm font-semibold text-slate-700 transition hover:text-blue-700"
-            >
-              Explorar demostraciones
-              <Play className="h-4 w-4" />
-            </Link>
-          </div>
-        </section>
-
-        {/* CASOS DE USO */}
-        <section className="bg-slate-950 text-white">
-          <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
+        <section id="servicios" className="scroll-mt-20 py-20 sm:py-28">
+          <div className="mx-auto max-w-7xl px-5 sm:px-8">
             <div className="max-w-3xl">
-              <Eyebrow>Para diferentes sectores</Eyebrow>
-              <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight sm:text-5xl">
-                La tecnología debe adaptarse a tu negocio.
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-700">
+                Qué hacemos
+              </p>
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+                Desarrollo digital adaptado a cada empresa
               </h2>
-              <p className="mt-5 text-base leading-8 text-slate-300">
-                No todas las empresas necesitan lo mismo. Podemos estudiar
-                desde una web para un pequeño negocio hasta automatizaciones
-                para equipos con procesos más complejos.
+              <p className="mt-5 text-lg leading-8 text-slate-600">
+                No todas las empresas necesitan la misma tecnología. Por eso,
+                cada proyecto parte de una necesidad concreta y de las
+                posibilidades reales de las herramientas que ya utiliza el
+                negocio.
               </p>
             </div>
 
-            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+              {services.map((service) => {
+                const Icon = service.icon;
+
+                return (
+                  <article
+                    key={service.number}
+                    className="group rounded-3xl border border-slate-200 bg-white p-7 transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-slate-900/5 sm:p-8"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="rounded-2xl bg-blue-50 p-3 text-blue-700 transition group-hover:bg-blue-700 group-hover:text-white">
+                        <Icon size={25} />
+                      </div>
+                      <span className="text-sm font-semibold text-slate-300">
+                        {service.number}
+                      </span>
+                    </div>
+
+                    <h3 className="mt-6 text-xl font-semibold">
+                      {service.title}
+                    </h3>
+                    <p className="mt-3 leading-7 text-slate-600">
+                      {service.description}
+                    </p>
+
+                    <ul className="mt-5 space-y-3">
+                      {service.items.map((item) => (
+                        <li
+                          key={item}
+                          className="flex items-start gap-2 text-sm leading-6 text-slate-600"
+                        >
+                          <Check
+                            size={17}
+                            className="mt-1 shrink-0 text-blue-700"
+                          />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* ESPECIALIZACIÓN */}
+        <section className="bg-slate-950 py-20 text-white sm:py-28">
+          <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-300">
+                Un enfoque práctico
+              </p>
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+                Tecnología aplicada a problemas reales
+              </h2>
+              <p className="mt-6 leading-8 text-slate-300">
+                Transport AI presta especial atención al sector del transporte
+                y la logística, donde la información, la coordinación y la
+                gestión de incidencias pueden ser especialmente importantes.
+              </p>
+              <p className="mt-4 leading-8 text-slate-300">
+                El objetivo es desarrollar herramientas que complementen los
+                sistemas existentes, sin asumir que una empresa tiene que
+                sustituir toda su infraestructura para mejorar un proceso.
+              </p>
+              <Link
+                href="/ia-para-transporte-logistica"
+                className="mt-8 inline-flex items-center gap-2 font-semibold text-blue-300 transition hover:text-white"
+              >
+                Soluciones para transporte y logística
+                <ArrowRight size={18} />
+              </Link>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2">
               {useCases.map((item) => {
                 const Icon = item.icon;
+
                 return (
                   <article
                     key={item.title}
-                    className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 transition hover:border-blue-400/40 hover:bg-white/[0.07]"
+                    className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 transition hover:bg-white/[0.08]"
                   >
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/15">
-                      <Icon className="h-6 w-6 text-blue-300" />
-                    </div>
-                    <h3 className="mt-5 text-lg font-semibold">{item.title}</h3>
+                    <Icon size={25} className="text-blue-300" />
+                    <h3 className="mt-5 text-lg font-semibold">
+                      {item.title}
+                    </h3>
                     <p className="mt-3 text-sm leading-7 text-slate-300">
-                      {item.text}
+                      {item.description}
                     </p>
                   </article>
                 );
               })}
             </div>
-
-            <div className="mt-9">
-              <Link
-                href="/contacto"
-                className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-4 text-sm font-semibold text-slate-950 transition hover:bg-blue-50"
-              >
-                Cuéntanos qué quieres mejorar
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* ESPECIALIDAD EN TRANSPORTE */}
-        <section className="overflow-hidden bg-white">
-          <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-2">
-            <div>
-              <Eyebrow>Nuestra especialidad sectorial</Eyebrow>
-              <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-slate-950 sm:text-5xl">
-                También conocemos los retos del transporte y la logística.
-              </h2>
-              <p className="mt-6 text-base leading-8 text-slate-600">
-                Transport AI nació con un enfoque en empresas de transporte,
-                mensajería, distribución, mudanzas y servicios con vehículos.
-                Mantenemos esa especialización mientras desarrollamos
-                soluciones tecnológicas para negocios de otros sectores.
-              </p>
-
-              <div className="mt-7 space-y-4">
-                {[
-                  "Organización de información operativa.",
-                  "Clasificación y seguimiento de incidencias.",
-                  "Comunicación y tareas automatizadas.",
-                  "Integración con sistemas compatibles.",
-                ].map((item) => (
-                  <div key={item} className="flex items-start gap-3">
-                    <CircleCheck className="mt-0.5 h-5 w-5 shrink-0 text-blue-700" />
-                    <p className="text-sm leading-6 text-slate-700">{item}</p>
-                  </div>
-                ))}
-              </div>
-
-              <Link
-                href={transportSeoUrl}
-                className="mt-8 inline-flex items-center gap-2 rounded-xl bg-blue-700 px-6 py-4 text-sm font-semibold text-white transition hover:bg-blue-800"
-              >
-                Ver soluciones para logística
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-
-            <div className="relative">
-              <div className="absolute -inset-5 rounded-3xl bg-blue-500/10 blur-3xl" />
-              <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-950 shadow-xl">
-                <img
-                  src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=85"
-                  alt="Instalaciones logísticas y operaciones de transporte"
-                  className="h-60 w-full object-cover sm:h-72"
-                  loading="lazy"
-                />
-                <div className="p-6 text-white sm:p-8">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-300">
-                    Aplicaciones operativas
-                  </p>
-                  <h3 className="mt-3 text-2xl font-semibold">
-                    Más visibilidad y coordinación.
-                  </h3>
-                  <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                    {[
-                      {
-                        icon: Truck,
-                        title: "Operaciones",
-                        text: "Seguimiento y coordinación.",
-                      },
-                      {
-                        icon: Headphones,
-                        title: "Atención",
-                        text: "Consultas y gestión de casos.",
-                      },
-                      {
-                        icon: Network,
-                        title: "Equipos",
-                        text: "Información organizada.",
-                      },
-                      {
-                        icon: GitBranch,
-                        title: "Integraciones",
-                        text: "Conexiones según viabilidad.",
-                      },
-                    ].map((item) => {
-                      const Icon = item.icon;
-                      return (
-                        <div
-                          key={item.title}
-                          className="rounded-xl border border-white/10 bg-white/[0.04] p-4"
-                        >
-                          <Icon className="h-5 w-5 text-blue-300" />
-                          <h4 className="mt-3 text-sm font-semibold">
-                            {item.title}
-                          </h4>
-                          <p className="mt-1 text-xs leading-5 text-slate-400">
-                            {item.text}
-                          </p>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </section>
 
         {/* DEMOSTRACIONES */}
-        <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-3xl">
-              <Eyebrow>Demostraciones</Eyebrow>
-              <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-slate-950 sm:text-5xl">
-                Mira ejemplos de lo que podemos desarrollar.
-              </h2>
-              <p className="mt-5 text-base leading-8 text-slate-600">
-                Explora demostraciones de asistentes de IA, gestión de
-                incidencias y plataformas empresariales. Podemos estudiar cómo
-                adaptar ideas similares a las necesidades de tu negocio.
-              </p>
+        <section className="py-20 sm:py-28">
+          <div className="mx-auto max-w-7xl px-5 sm:px-8">
+            <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+              <div className="max-w-3xl">
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-700">
+                  Proyectos demostrativos
+                </p>
+                <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+                  Ideas que puedes explorar
+                </h2>
+                <p className="mt-5 text-lg leading-8 text-slate-600">
+                  Un espacio para mostrar conceptos, interfaces y ejemplos de
+                  cómo podrían funcionar distintas soluciones digitales.
+                </p>
+              </div>
+
+              <Link
+                href="/demostraciones"
+                className="inline-flex shrink-0 items-center gap-2 font-semibold text-blue-700 hover:text-blue-900"
+              >
+                Ver todas las demos
+                <ArrowRight size={18} />
+              </Link>
             </div>
-            <Link
-              href="/demostraciones"
-              className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-blue-700 transition hover:text-blue-900"
-            >
-              Ver todas las demostraciones
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
 
-          <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {demoModules.map((item) => {
-              const Icon = item.icon;
-              return (
+            <div className="mt-12 grid gap-5 md:grid-cols-3">
+              <article className="rounded-3xl border border-slate-200 p-7">
+                <div className="rounded-2xl bg-blue-50 p-3 text-blue-700 w-fit">
+                  <Bot size={25} />
+                </div>
+                <h3 className="mt-6 text-xl font-semibold">
+                  Asistente de inteligencia artificial
+                </h3>
+                <p className="mt-3 leading-7 text-slate-600">
+                  Un ejemplo de asistente que responde preguntas y ayuda al
+                  visitante a encontrar información.
+                </p>
                 <Link
-                  key={item.title}
                   href="/demostraciones"
-                  className="group rounded-2xl border border-slate-200 bg-white p-6 transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-slate-900/5 sm:p-7"
+                  className="mt-6 inline-flex items-center gap-2 font-semibold text-blue-700"
                 >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50">
-                    <Icon className="h-6 w-6 text-blue-700" />
-                  </div>
-                  <h3 className="mt-6 text-lg font-semibold text-slate-950">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-7 text-slate-600">
-                    {item.text}
-                  </p>
-                  <span className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-blue-700">
-                    Ver ejemplo
-                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
-                  </span>
+                  Explorar demo <ArrowUpRight size={17} />
                 </Link>
-              );
-            })}
-          </div>
+              </article>
 
-          <p className="mt-5 text-xs leading-6 text-slate-500">
-            Las demostraciones son ejemplos ilustrativos. Las funciones finales
-            dependen del alcance, las integraciones disponibles y las pruebas
-            acordadas para cada proyecto.
-          </p>
+              <article className="rounded-3xl border border-slate-200 p-7">
+                <div className="rounded-2xl bg-blue-50 p-3 text-blue-700 w-fit">
+                  <PhoneCall size={25} />
+                </div>
+                <h3 className="mt-6 text-xl font-semibold">
+                  Experiencia de voz
+                </h3>
+                <p className="mt-3 leading-7 text-slate-600">
+                  Una demostración de interacción por voz para explorar nuevas
+                  formas de atención digital.
+                </p>
+                <Link
+                  href="/demostraciones"
+                  className="mt-6 inline-flex items-center gap-2 font-semibold text-blue-700"
+                >
+                  Explorar demo <ArrowUpRight size={17} />
+                </Link>
+              </article>
+
+              <article className="rounded-3xl border border-slate-200 p-7">
+                <div className="rounded-2xl bg-blue-50 p-3 text-blue-700 w-fit">
+                  <Layers3 size={25} />
+                </div>
+                <h3 className="mt-6 text-xl font-semibold">
+                  Interfaces y herramientas
+                </h3>
+                <p className="mt-3 leading-7 text-slate-600">
+                  Ejemplos de páginas, paneles y conceptos de software
+                  desarrollados para necesidades empresariales.
+                </p>
+                <Link
+                  href="/demostraciones"
+                  className="mt-6 inline-flex items-center gap-2 font-semibold text-blue-700"
+                >
+                  Explorar demo <ArrowUpRight size={17} />
+                </Link>
+              </article>
+            </div>
+          </div>
         </section>
 
-        {/* METODOLOGÍA */}
-        <section className="border-y border-slate-200 bg-slate-50">
-          <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
-            <SectionHeading
-              eyebrow="Cómo trabajamos"
-              title="Un proceso claro desde la idea hasta la entrega."
-              description="Antes de desarrollar, definimos qué necesitas, cómo se comprobará el resultado y qué dependencias técnicas existen."
-            />
+        {/* CÓMO TRABAJAMOS */}
+        <section className="bg-slate-50 py-20 sm:py-28">
+          <div className="mx-auto max-w-7xl px-5 sm:px-8">
+            <div className="mx-auto max-w-3xl text-center">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-700">
+                Metodología
+              </p>
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+                De la idea a una solución concreta
+              </h2>
+              <p className="mt-5 leading-8 text-slate-600">
+                Un proceso claro permite definir mejor el alcance, comprobar
+                las dependencias técnicas y evitar desarrollar funciones que
+                no aportan valor.
+              </p>
+            </div>
 
-            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
               {steps.map((step) => (
                 <article
                   key={step.number}
-                  className="rounded-2xl border border-slate-200 bg-white p-6 transition hover:border-blue-200 hover:shadow-lg hover:shadow-slate-900/5"
+                  className="rounded-2xl border border-slate-200 bg-white p-6"
                 >
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-sm font-bold text-blue-700">
+                  <span className="text-sm font-bold tracking-widest text-blue-700">
                     {step.number}
                   </span>
-                  <h3 className="mt-5 text-lg font-semibold text-slate-950">
-                    {step.title}
-                  </h3>
+                  <h3 className="mt-5 text-lg font-semibold">{step.title}</h3>
                   <p className="mt-3 text-sm leading-7 text-slate-600">
-                    {step.text}
+                    {step.description}
                   </p>
                 </article>
               ))}
@@ -759,234 +609,340 @@ export default function HomePage() {
         </section>
 
         {/* PRECIOS */}
-        <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
-          <SectionHeading
-            eyebrow="Precios orientativos"
-            title="Encuentra el punto de partida para tu proyecto."
-            description="Mostramos referencias iniciales para que puedas valorar opciones. El presupuesto definitivo se prepara según las funciones, el diseño, las integraciones y la complejidad."
-          />
-
-          <div className="mt-12 grid gap-5 lg:grid-cols-3">
-            {prices.map((item, index) => (
-              <article
-                key={item.title}
-                className={`relative flex flex-col rounded-2xl border p-6 sm:p-8 ${
-                  item.featured
-                    ? "border-blue-700 bg-white shadow-xl shadow-blue-950/10"
-                    : "border-slate-200 bg-white"
-                }`}
-              >
-                {item.featured && (
-                  <span className="absolute right-5 top-5 rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
-                    Solución personalizada
-                  </span>
-                )}
-
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
-                  PROYECTO 0{index + 1}
-                </p>
-
-                <h3 className="mt-5 pr-2 text-xl font-semibold text-slate-950">
-                  {item.title}
-                </h3>
-
-                <p className="mt-5 text-3xl font-semibold tracking-tight text-blue-800">
-                  {item.price}
-                </p>
-
-                <p className="mt-4 flex-1 text-sm leading-7 text-slate-600">
-                  {item.description}
-                </p>
-
-                <Link
-                  href={`/contacto?proyecto=${encodeURIComponent(item.title)}`}
-                  className={`mt-7 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold transition ${
-                    item.featured
-                      ? "bg-blue-700 text-white hover:bg-blue-800"
-                      : "border border-slate-200 text-slate-800 hover:border-blue-200 hover:bg-blue-50"
-                  }`}
-                >
-                  Consultar proyecto
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </article>
-            ))}
-          </div>
-
-          <p className="mt-6 text-center text-xs leading-6 text-slate-500">
-            Importes orientativos, más IVA. El presupuesto final depende del
-            alcance acordado, las integraciones, los accesos técnicos y los
-            posibles costes de servicios de terceros. El mantenimiento y los
-            servicios recurrentes se presupuestan por separado cuando
-            corresponda.
-          </p>
-
-          <div className="mt-8 flex flex-col items-start justify-between gap-5 rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:flex-row sm:items-center sm:p-8">
-            <div>
-              <h3 className="text-lg font-semibold text-slate-950">
-                ¿Necesitas un proyecto más completo?
-              </h3>
-              <p className="mt-2 max-w-xl text-sm leading-6 text-slate-600">
-                Cuéntanos qué quieres conseguir y valoraremos el alcance y las
-                opciones disponibles.
+        <section id="precios" className="scroll-mt-20 py-20 sm:py-28">
+          <div className="mx-auto max-w-7xl px-5 sm:px-8">
+            <div className="max-w-3xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-700">
+                Orientación de precios
+              </p>
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+                Una propuesta adaptada al alcance
+              </h2>
+              <p className="mt-5 leading-8 text-slate-600">
+                Los siguientes importes son orientativos. El precio final
+                depende de las funcionalidades, la complejidad, los servicios
+                externos y las integraciones que necesite cada proyecto.
               </p>
             </div>
-            <Link
-              href="/presupuestos"
-              className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3.5 text-sm font-semibold text-slate-800 transition hover:border-blue-200 hover:bg-blue-50"
-            >
-              Ver precios y presupuestos
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+
+            <div className="mt-12 grid gap-5 lg:grid-cols-3">
+              {prices.map((price) => (
+                <article
+                  key={price.name}
+                  className={`rounded-3xl border p-7 sm:p-8 ${
+                    price.featured
+                      ? "border-blue-600 bg-blue-50/50 shadow-lg shadow-blue-900/5"
+                      : "border-slate-200 bg-white"
+                  }`}
+                >
+                  {price.featured && (
+                    <span className="inline-flex rounded-full bg-blue-700 px-3 py-1 text-xs font-semibold text-white">
+                      Soluciones inteligentes
+                    </span>
+                  )}
+
+                  <h3 className="mt-4 text-xl font-semibold">{price.name}</h3>
+                  <p className="mt-4 text-2xl font-semibold tracking-tight">
+                    {price.price}
+                  </p>
+                  <p className="mt-4 leading-7 text-slate-600">
+                    {price.description}
+                  </p>
+
+                  <ul className="mt-6 space-y-3">
+                    {price.features.map((feature) => (
+                      <li
+                        key={feature}
+                        className="flex items-start gap-2 text-sm leading-6 text-slate-600"
+                      >
+                        <Check
+                          size={17}
+                          className="mt-1 shrink-0 text-blue-700"
+                        />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Link
+                    href="/contacto"
+                    className={`mt-8 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 font-semibold transition ${
+                      price.featured
+                        ? "bg-blue-700 text-white hover:bg-blue-800"
+                        : "border border-slate-300 text-slate-800 hover:border-blue-400 hover:text-blue-700"
+                    }`}
+                  >
+                    Solicitar propuesta <ArrowRight size={17} />
+                  </Link>
+                </article>
+              ))}
+            </div>
+
+            <p className="mt-5 text-sm leading-6 text-slate-500">
+              Los importes deben confirmarse en cada propuesta. Los servicios
+              externos, licencias, consumo de APIs, alojamiento y mantenimiento
+              pueden presupuestarse por separado según las necesidades.
+            </p>
           </div>
         </section>
 
         {/* SEGURIDAD */}
-        <section className="bg-slate-50">
-          <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[1fr_0.8fr]">
+        <section className="bg-slate-50 py-20 sm:py-24">
+          <div className="mx-auto grid max-w-7xl gap-10 px-5 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
             <div>
-              <Eyebrow>Desarrollo responsable</Eyebrow>
-              <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-slate-950 sm:text-4xl">
-                Privacidad, seguridad y control desde el diseño.
+              <div className="inline-flex rounded-2xl bg-white p-4 text-blue-700 shadow-sm">
+                <LockKeyhole size={30} />
+              </div>
+              <h2 className="mt-6 text-3xl font-semibold tracking-tight">
+                Seguridad y control desde el diseño
               </h2>
-              <p className="mt-5 max-w-2xl text-base leading-8 text-slate-600">
-                Cada proyecto debe considerar los datos que utiliza, los
-                permisos de acceso, las acciones que puede ejecutar una
-                automatización y cuándo debe intervenir una persona.
+              <p className="mt-5 leading-8 text-slate-600">
+                La seguridad no debe añadirse al final. En cada proyecto hay
+                que valorar qué información se maneja, quién puede acceder,
+                qué servicios externos intervienen y cómo se gestionan los
+                errores.
               </p>
               <Link
                 href="/seguridad"
-                className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-blue-700 transition hover:text-blue-900"
+                className="mt-7 inline-flex items-center gap-2 font-semibold text-blue-700"
               >
-                Conocer nuestro enfoque de seguridad
-                <ArrowRight className="h-4 w-4" />
+                Conocer el enfoque de seguridad <ArrowRight size={18} />
               </Link>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
-              <div className="space-y-0">
-                {safeguards.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <div
-                      key={item.title}
-                      className="flex gap-4 border-b border-slate-100 py-5 first:pt-0 last:border-0 last:pb-0"
+            <div className="grid gap-4 sm:grid-cols-3">
+              {principles.map((principle) => {
+                const Icon = principle.icon;
+
+                return (
+                  <article
+                    key={principle.title}
+                    className="rounded-2xl border border-slate-200 bg-white p-6"
+                  >
+                    <Icon size={24} className="text-blue-700" />
+                    <h3 className="mt-5 font-semibold">{principle.title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-slate-600">
+                      {principle.description}
+                    </p>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* PRESENTACIÓN DEL FUNDADOR */}
+        <section id="fundador" className="scroll-mt-20 py-20 sm:py-28">
+          <div className="mx-auto max-w-7xl px-5 sm:px-8">
+            <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-xl shadow-slate-900/5">
+              <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
+                <div className="p-7 sm:p-10 lg:p-14">
+                  <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-700">
+                    Quién está detrás de Transport AI
+                  </p>
+
+                  <h2 className="mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
+                    Soy Álvaro Chaveinte, fundador de Transport AI
+                  </h2>
+
+                  <p className="mt-6 text-lg leading-8 text-slate-600">
+                    He creado Transport AI con una idea clara: desarrollar
+                    tecnología que ayude a las empresas a resolver problemas
+                    reales, mejorar sus procesos y aprovechar las posibilidades
+                    de la inteligencia artificial.
+                  </p>
+
+                  <p className="mt-5 leading-8 text-slate-600">
+                    Mi trabajo se centra en diseñar y desarrollar soluciones
+                    digitales, desde páginas web y asistentes de inteligencia
+                    artificial hasta automatizaciones, integraciones entre
+                    sistemas y herramientas de software adaptadas a cada
+                    proyecto.
+                  </p>
+
+                  <p className="mt-5 leading-8 text-slate-600">
+                    Además de construir interfaces y experiencias digitales,
+                    trabajo en la parte funcional: cómo debe responder una
+                    herramienta, cómo se organiza la información, cómo se
+                    conectan los servicios y qué ocurre cuando un proceso no
+                    funciona como debería.
+                  </p>
+
+                  <p className="mt-5 leading-8 text-slate-600">
+                    Estoy desarrollando Transport AI como un proyecto
+                    tecnológico con una visión de crecimiento: empezar por
+                    resolver necesidades concretas de empresas y evolucionar
+                    hacia soluciones cada vez más completas, especializadas y
+                    útiles.
+                  </p>
+
+                  <div className="mt-8 flex flex-wrap gap-3">
+                    <Link
+                      href="/contacto"
+                      className="inline-flex items-center gap-2 rounded-xl bg-blue-700 px-5 py-3 font-semibold text-white transition hover:bg-blue-800"
                     >
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-blue-50">
-                        <Icon className="h-5 w-5 text-blue-700" />
-                      </div>
-                      <div>
-                        <h3 className="text-sm font-semibold text-slate-900">
-                          {item.title}
-                        </h3>
-                        <p className="mt-1 text-sm leading-6 text-slate-600">
-                          {item.text}
+                      Hablar conmigo <ArrowRight size={17} />
+                    </Link>
+
+                    <Link
+                      href="/demostraciones"
+                      className="inline-flex items-center gap-2 rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-800 transition hover:border-blue-400 hover:text-blue-700"
+                    >
+                      Ver mi trabajo <ArrowUpRight size={17} />
+                    </Link>
+                  </div>
+                </div>
+
+                <div className="relative flex flex-col justify-between bg-slate-950 p-7 text-white sm:p-10 lg:p-12">
+                  <div>
+                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-white/10">
+                      <UserRound size={32} />
+                    </div>
+
+                    <p className="mt-8 text-sm font-semibold uppercase tracking-[0.2em] text-blue-300">
+                      Fundador y desarrollador
+                    </p>
+
+                    <h3 className="mt-3 text-2xl font-semibold">
+                      Álvaro Chaveinte Camargo
+                    </h3>
+
+                    <p className="mt-4 leading-7 text-slate-300">
+                      Desarrollo de soluciones digitales, inteligencia
+                      artificial, automatización y software a medida.
+                    </p>
+                  </div>
+
+                  <div className="mt-10 space-y-4">
+                    {[
+                      "Desarrollo de páginas y aplicaciones web",
+                      "Creación de agentes de inteligencia artificial",
+                      "Automatización de tareas y procesos",
+                      "Integración de APIs y herramientas",
+                      "Diseño de prototipos y soluciones a medida",
+                    ].map((skill) => (
+                      <div key={skill} className="flex items-start gap-3">
+                        <div className="mt-0.5 rounded-full bg-blue-400/15 p-1 text-blue-300">
+                          <Check size={15} />
+                        </div>
+                        <p className="text-sm leading-6 text-slate-200">
+                          {skill}
                         </p>
                       </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-10 rounded-2xl border border-white/10 bg-white/[0.05] p-5">
+                    <div className="flex items-center gap-3">
+                      <Lightbulb className="shrink-0 text-blue-300" size={23} />
+                      <p className="font-semibold">Mi manera de entender la tecnología</p>
                     </div>
-                  );
-                })}
+                    <p className="mt-3 text-sm leading-7 text-slate-300">
+                      Primero entender el problema. Después diseñar la
+                      solución. Y finalmente desarrollarla, comprobarla y
+                      mejorarla.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* PRESENTACIÓN */}
-        <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
-          <div className="grid gap-10 rounded-3xl border border-slate-200 bg-white p-7 shadow-sm sm:p-10 lg:grid-cols-[1fr_0.8fr] lg:items-center lg:p-14">
+        {/* VISIÓN */}
+        <section className="bg-blue-50/70 py-20 sm:py-24">
+          <div className="mx-auto grid max-w-7xl gap-10 px-5 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
             <div>
-              <Eyebrow>Quién está detrás de Transport AI</Eyebrow>
-              <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight text-slate-950 sm:text-4xl">
-                Tecnología útil, pensada para cada negocio.
+              <div className="inline-flex rounded-2xl bg-white p-4 text-blue-700 shadow-sm">
+                <Rocket size={30} />
+              </div>
+              <p className="mt-6 text-sm font-semibold uppercase tracking-[0.2em] text-blue-700">
+                La visión
+              </p>
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+                Construir soluciones que evolucionen con las empresas
               </h2>
-              <p className="mt-5 text-base leading-8 text-slate-600">
-                Ayudo a empresas a incorporar tecnología a través del
-                desarrollo web, la inteligencia artificial, la automatización
-                y la integración de sistemas. Cada proyecto comienza por
-                comprender el negocio y definir una solución práctica.
-              </p>
-              <p className="mt-4 text-sm leading-7 text-slate-600">
-                Desde páginas web y asistentes conversacionales hasta
-                aplicaciones internas y procesos operativos especializados.
-              </p>
             </div>
 
-            <div className="rounded-2xl bg-slate-950 p-7 text-white sm:p-9">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-500/15">
-                <Sparkles className="h-7 w-7 text-blue-300" />
-              </div>
-              <p className="mt-7 text-xs font-semibold uppercase tracking-[0.2em] text-blue-300">
-                Fundador
+            <div className="space-y-5 text-lg leading-8 text-slate-600">
+              <p>
+                Quiero que Transport AI sea un proyecto tecnológico capaz de
+                desarrollar soluciones personalizadas y, con el tiempo,
+                convertir las necesidades que se repiten en productos que
+                puedan utilizar más empresas.
               </p>
-              <h3 className="mt-3 text-2xl font-semibold sm:text-3xl">
-                Álvaro Chaveinte Camargo
-              </h3>
-              <p className="mt-4 text-sm leading-7 text-slate-300">
-                Desarrollo web, agentes de inteligencia artificial,
-                automatización e integración tecnológica para empresas.
+              <p>
+                Eso significa no limitarse a crear una página o automatizar una
+                tarea aislada, sino comprender cómo se relacionan los procesos,
+                los datos y las personas para encontrar oportunidades de mejora.
               </p>
-              <Link
-                href="/contacto"
-                className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-blue-300 transition hover:text-white"
-              >
-                Hablemos de tu proyecto
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
+              <p>
+                La inteligencia artificial ofrece muchas posibilidades, pero
+                su valor depende de cómo se aplica. Mi objetivo es convertir
+                esas posibilidades en herramientas comprensibles, útiles y
+                adaptadas a cada contexto.
+              </p>
             </div>
           </div>
         </section>
 
         {/* CTA FINAL */}
-        <section className="px-5 pb-16 sm:px-8 sm:pb-20">
-          <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl bg-blue-800 px-7 py-12 text-white sm:px-12 sm:py-16 lg:px-16">
-            <div className="pointer-events-none absolute -right-16 -top-24 h-72 w-72 rounded-full bg-blue-400/30 blur-3xl" />
+        <section className="py-20 sm:py-28">
+          <div className="mx-auto max-w-5xl px-5 sm:px-8">
+            <div className="relative overflow-hidden rounded-[2rem] bg-slate-950 px-7 py-12 text-center text-white sm:px-12 sm:py-16">
+              <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-blue-600/20 blur-3xl" />
+              <div className="absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-indigo-500/15 blur-3xl" />
 
-            <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
-              <div className="max-w-3xl">
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-200">
-                  Tu próximo proyecto empieza aquí
-                </p>
-                <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight sm:text-5xl">
-                  ¿Qué te gustaría mejorar de tu negocio?
+              <div className="relative">
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 text-blue-300">
+                  <Sparkles size={28} />
+                </div>
+
+                <h2 className="mx-auto mt-7 max-w-3xl text-3xl font-semibold tracking-tight sm:text-4xl">
+                  ¿Tienes una idea o un proceso que quieras mejorar?
                 </h2>
-                <p className="mt-5 max-w-2xl text-base leading-7 text-blue-100">
-                  Cuéntanos tu idea, el proceso que quieres automatizar o la
-                  web que necesitas. Estudiaremos las opciones y prepararemos
-                  una propuesta acorde al proyecto.
+
+                <p className="mx-auto mt-5 max-w-2xl leading-8 text-slate-300">
+                  Cuéntame qué necesita tu empresa. Podemos estudiar el
+                  problema y valorar qué solución digital tiene sentido para
+                  tu caso, sin dar por hecho que necesitas una tecnología
+                  concreta.
                 </p>
+
+                <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+                  <Link
+                    href="/contacto"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-4 font-semibold text-white transition hover:bg-blue-500"
+                  >
+                    Contactar con Álvaro <ArrowRight size={18} />
+                  </Link>
+
+                  <a
+                    href="https://wa.me/34659980603?text=Hola%20%C3%81lvaro%2C%20quiero%20hablar%20sobre%20un%20proyecto%20para%20mi%20empresa."
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 px-6 py-4 font-semibold text-white transition hover:bg-white/10"
+                  >
+                    <MessageCircle size={18} />
+                    Hablar por WhatsApp
+                  </a>
+                </div>
+
+                <a
+                  href="mailto:alvarochaveinte1@gmail.com"
+                  className="mt-5 inline-flex items-center gap-2 text-sm text-slate-300 transition hover:text-white"
+                >
+                  <Mail size={16} />
+                  alvarochaveinte1@gmail.com
+                </a>
               </div>
-
-              <Link
-                href="/contacto"
-                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-xl bg-white px-6 py-4 text-sm font-semibold text-blue-800 transition hover:bg-blue-50"
-              >
-                Solicitar propuesta
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            </div>
-
-            <div className="relative mt-10 flex flex-wrap gap-x-6 gap-y-3 border-t border-white/20 pt-6 text-sm text-blue-100">
-              <a
-                href="mailto:alvarochaveinte1@gmail.com"
-                className="inline-flex items-center gap-2 transition hover:text-white"
-              >
-                <Mail className="h-4 w-4" />
-                alvarochaveinte1@gmail.com
-              </a>
-              <a
-                href="tel:+34659980603"
-                className="inline-flex items-center gap-2 transition hover:text-white"
-              >
-                <PhoneCall className="h-4 w-4" />
-                659 980 603
-              </a>
             </div>
           </div>
         </section>
-      </div>
 
-      {/* ASISTENTE DE IA */}
-      <FreeAssistant />
+        {/* ASISTENTE */}
+        <FreeAssistant />
+      </main>
     </SiteShell>
   );
 }
