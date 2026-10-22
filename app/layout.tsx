@@ -77,12 +77,13 @@ export default function RootLayout({
                 if (!window.voiceflow || !window.voiceflow.chat) return;
 
                 window.voiceflow.chat.load({
-                  verify: { projectID: "6ada0175d629eb194f6268ad" },
+                  verify: { projectID: "6ada11af1731d6038790b998" },
                   url: "https://general-runtime.voiceflow.com",
                   voice: {
                     url: "https://runtime-api.voiceflow.com"
                   },
-                  versionID: "production",
+                  environmentID: "main",
+                  versionVariant: "published",
                   launch: {
                     event: { type: "launch" }
                   }
