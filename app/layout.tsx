@@ -82,8 +82,7 @@ export default function RootLayout({
                   voice: {
                     url: "https://runtime-api.voiceflow.com"
                   },
-                  environmentID: "main",
-                  versionVariant: "published"
+                  versionID: "production"
                 });
               };
 
