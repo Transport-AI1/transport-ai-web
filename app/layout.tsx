@@ -64,6 +64,36 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
 
+        <Script
+          id="voiceflow-widget"
+          strategy="afterInteractive"
+        >
+          {`
+            (function(d, t) {
+              var v = d.createElement(t);
+              var s = d.getElementsByTagName(t)[0];
+
+              v.onload = function() {
+                if (!window.voiceflow || !window.voiceflow.chat) return;
+
+                window.voiceflow.chat.load({
+                  verify: { projectID: "6ada0175d629eb194f6268ad" },
+                  url: "https://general-runtime.voiceflow.com",
+                  voice: {
+                    url: "https://runtime-api.voiceflow.com"
+                  },
+                  environmentID: "main",
+                  versionVariant: "published"
+                });
+              };
+
+              v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+              v.type = "text/javascript";
+              s.parentNode.insertBefore(v, s);
+            })(document, "script");
+          `}
+        </Script>
+
         <Script id="google-ads-tag" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
