@@ -2,7 +2,6 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -11,6 +10,8 @@ import {
   Mail,
   ShieldCheck,
   Sparkles,
+  MessageCircle,
+  ExternalLink,
 } from "lucide-react";
 import { Eyebrow, SiteShell } from "../components/site-shell";
 
@@ -36,6 +37,10 @@ const fieldClass =
   "w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10";
 
 const labelClass = "mb-2 block text-sm font-medium text-slate-700";
+
+const contactEmail = "alvarochaveinte1@gmail.com";
+const whatsappUrl =
+  "https://wa.me/34659980603?text=Hola%20Transport%20AI%2C%20quiero%20informaci%C3%B3n%20sobre%20vuestros%20servicios.";
 
 declare global {
   interface Window {
@@ -72,7 +77,7 @@ export default function ContactPage() {
         throw new Error("No se pudo confirmar el envío del formulario.");
       }
 
-      // Solo contabilizamos la conversión después de un envío confirmado.
+      // Registrar la conversión solo después de confirmar el envío.
       try {
         if (typeof window.gtag === "function") {
           window.gtag("event", "conversion", {
@@ -89,7 +94,7 @@ export default function ContactPage() {
       form.reset();
     } catch {
       setError(
-        "No hemos podido confirmar el envío. Comprueba tu conexión e inténtalo de nuevo."
+        "No hemos podido confirmar el envío. Comprueba tu conexión e inténtalo de nuevo, o contacta directamente por WhatsApp o correo electrónico."
       );
     } finally {
       setSending(false);
@@ -225,10 +230,7 @@ export default function ContactPage() {
                   </button>
                 </div>
               ) : (
-                <form
-                  onSubmit={handleSubmit}
-                  className="mt-7 space-y-5"
-                >
+                <form onSubmit={handleSubmit} className="mt-7 space-y-5">
                   <input
                     type="hidden"
                     name="_subject"
@@ -386,12 +388,28 @@ export default function ContactPage() {
                   </div>
 
                   {error && (
-                    <p
+                    <div
                       role="alert"
                       className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm leading-6 text-red-800"
                     >
-                      {error}
-                    </p>
+                      <p>{error}</p>
+                      <div className="mt-3 flex flex-wrap gap-4">
+                        <a
+                          href={whatsappUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-semibold underline underline-offset-4"
+                        >
+                          Contactar por WhatsApp
+                        </a>
+                        <a
+                          href={`mailto:${contactEmail}`}
+                          className="font-semibold underline underline-offset-4"
+                        >
+                          Enviar un correo
+                        </a>
+                      </div>
+                    </div>
                   )}
 
                   <button
@@ -409,6 +427,44 @@ export default function ContactPage() {
                   </p>
                 </form>
               )}
+
+              {/* Contacto directo al final del formulario */}
+              <div className="mt-8 border-t border-slate-200 pt-7">
+                <div className="mb-5 text-center">
+                  <h3 className="text-lg font-semibold text-slate-950">
+                    ¿Prefieres contactar directamente?
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">
+                    Si tienes una pregunta rápida o prefieres hablar de tu
+                    proyecto directamente, puedes escribirme por WhatsApp o
+                    correo electrónico.
+                  </p>
+                </div>
+
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-green-600 px-6 py-4 text-sm font-semibold text-white transition hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-500/20"
+                >
+                  <MessageCircle className="h-5 w-5" />
+                  Hablar por WhatsApp · 659 980 603
+                  <ExternalLink className="h-4 w-4" />
+                </a>
+
+                <a
+                  href={`mailto:${contactEmail}`}
+                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-4 text-sm font-semibold text-slate-800 transition hover:border-blue-300 hover:bg-blue-50 focus:outline-none focus:ring-4 focus:ring-blue-500/10"
+                >
+                  <Mail className="h-5 w-5 text-blue-600" />
+                  {contactEmail}
+                </a>
+
+                <p className="mt-4 text-center text-xs leading-5 text-slate-500">
+                  Al contactar, evita compartir contraseñas, datos bancarios
+                  u otra información sensible.
+                </p>
+              </div>
             </div>
           </div>
         </div>
