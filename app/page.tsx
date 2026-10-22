@@ -36,7 +36,6 @@ import {
   SiteShell,
 } from "./components/site-shell";
 
-import FreeAssistant from "./components/free-assistant";
 
 export const metadata: Metadata = {
   title: "Transport AI | Diseño Web, Agentes de IA y Automatización",
@@ -1190,8 +1189,6 @@ export default function HomePage() {
         </section>
       </div>
 
-      {/* ASISTENTE DE IA */}
-      <FreeAssistant />
     </SiteShell>
   );
 }
