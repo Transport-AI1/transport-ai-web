@@ -8,6 +8,7 @@ import {
   Code2,
   Globe,
   Layers3,
+  MessageCircle,
   PhoneCall,
   Workflow,
   Zap,
@@ -137,6 +138,17 @@ export function SiteShell({ children }: { children: ReactNode }) {
       </header>
 
       <main>{children}</main>
+
+      <a
+        href="https://wa.me/34659980603?text=Hola%20Transport%20AI%2C%20quiero%20informaci%C3%B3n%20sobre%20vuestros%20servicios."
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Contactar con Transport AI por WhatsApp"
+        className="fixed bottom-5 left-5 z-40 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#1fb958] focus:outline-none focus:ring-4 focus:ring-green-200"
+      >
+        <MessageCircle className="h-5 w-5" />
+        <span>WhatsApp</span>
+      </a>
 
       <footer className="bg-slate-950 text-white">
         <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 sm:px-8 sm:py-16 md:grid-cols-3">
