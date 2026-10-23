@@ -92,7 +92,7 @@ const initialMessage =
 const whatsappUrl =
   "https://wa.me/34659980603?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Transport%20AI";
 
-const emailAddress = "alvarochaveinte1@gmail.com";
+const emailAddress = "contacto@transportai.es";
 
 const initialLead: LeadForm = {
   name: "",
@@ -504,7 +504,7 @@ function getAnswer(question: string, history: ChatMessage[]): string {
 
   if (asksPrice) {
     if (hasLargeNetwork) {
-      return "Para una empresa con una red de ese tamaño, no sería responsable aplicar directamente el precio de una automatización sencilla. Como referencia, las automatizaciones se sitúan entre 1.500 y 4.000 €, los proyectos de CRM e IA entre 4.000 y 8.000 €, y las plataformas operativas a medida desde 15.000 €, antes de IVA. Un despliegue con muchas franquicias puede requerir otro alcance y presupuesto.\n\nPara estimarlo, habría que revisar el sistema central, las funciones, los permisos y el volumen de actividad. Puedes hablar con Álvaro por WhatsApp o escribir a alvarochaveinte1@gmail.com.";
+      return "Para una empresa con una red de ese tamaño, no sería responsable aplicar directamente el precio de una automatización sencilla. Como referencia, las automatizaciones se sitúan entre 1.500 y 4.000 €, los proyectos de CRM e IA entre 4.000 y 8.000 €, y las plataformas operativas a medida desde 15.000 €, antes de IVA. Un despliegue con muchas franquicias puede requerir otro alcance y presupuesto.\n\nPara estimarlo, habría que revisar el sistema central, las funciones, los permisos y el volumen de actividad. Puedes hablar con Álvaro por WhatsApp o escribir a contacto@transportai.es.";
     }
 
     if (profile.problem && profile.software) {
@@ -549,7 +549,7 @@ function getAnswer(question: string, history: ChatMessage[]): string {
       return `No pasa nada. Tengo anotado que quieres mejorar ${profile.problem} y que utilizáis ${profile.software}. No hace falta conocer todos los detalles técnicos ahora. Puedes contarme qué ocurre hoy cuando aparece una incidencia, o hablar directamente con Álvaro por WhatsApp o en ${emailAddress}.`;
     }
 
-    return "No pasa nada. Podemos definirlo juntos. Empecemos por el problema que más tiempo os quita: atender consultas, gestionar incidencias, introducir datos o coordinar al equipo. Si prefieres hablar con Álvaro, puedes escribir a alvarochaveinte1@gmail.com o usar el botón de WhatsApp.";
+    return "No pasa nada. Podemos definirlo juntos. Empecemos por el problema que más tiempo os quita: atender consultas, gestionar incidencias, introducir datos o coordinar al equipo. Si prefieres hablar con Álvaro, puedes escribir a contacto@transportai.es o usar el botón de WhatsApp.";
   }
 
   if (isPositive) {
@@ -698,7 +698,7 @@ function getAnswer(question: string, history: ChatMessage[]): string {
   }
 
   if (isThanks) {
-    return "¡De nada! Podemos seguir concretando tu caso sin repetir los datos que ya me has dado. Si prefieres que Álvaro revise directamente tu proyecto, puedes escribir a alvarochaveinte1@gmail.com o contactar por WhatsApp.";
+    return "¡De nada! Podemos seguir concretando tu caso sin repetir los datos que ya me has dado. Si prefieres que Álvaro revise directamente tu proyecto, puedes escribir a contacto@transportai.es o contactar por WhatsApp.";
   }
 
   // Respuesta contextual de transporte: solo preguntar por los datos que faltan.
