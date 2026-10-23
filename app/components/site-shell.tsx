@@ -242,10 +242,10 @@ export function SiteShell({ children }: { children: ReactNode }) {
             </Link>
 
             <a
-              href="mailto:alvarochaveinte1@gmail.com"
+              href="mailto:contacto@transportai.es"
               className="mt-4 flex items-center gap-2 text-sm text-slate-400 transition hover:text-white"
             >
-              alvarochaveinte1@gmail.com
+              contacto@transportai.es
               <ArrowRight className="h-3.5 w-3.5" />
             </a>
           </div>
