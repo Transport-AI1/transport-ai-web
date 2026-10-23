@@ -1171,11 +1171,11 @@ export default function HomePage() {
 
             <div className="relative mt-10 flex flex-wrap gap-x-6 gap-y-3 border-t border-white/20 pt-6 text-sm text-blue-100">
               <a
-                href="mailto:alvarochaveinte1@gmail.com"
+                href="mailto:contacto@transportai.es"
                 className="inline-flex items-center gap-2 transition hover:text-white"
               >
                 <Mail className="h-4 w-4" />
-                alvarochaveinte1@gmail.com
+                contacto@transportai.es
               </a>
               <a
                 href="tel:+34659980603"
