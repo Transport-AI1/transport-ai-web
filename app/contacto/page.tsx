@@ -38,7 +38,7 @@ const fieldClass =
 
 const labelClass = "mb-2 block text-sm font-medium text-slate-700";
 
-const contactEmail = "alvarochaveinte1@gmail.com";
+const contactEmail = "contacto@transportai.es";
 const whatsappUrl =
   "https://wa.me/34659980603?text=Hola%20Transport%20AI%2C%20quiero%20informaci%C3%B3n%20sobre%20vuestros%20servicios.";
 
