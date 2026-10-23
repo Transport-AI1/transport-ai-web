@@ -2,227 +2,102 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import {
-  ArrowDownRight,
-  ArrowRight,
-  AudioLines,
-  Bot,
-  Check,
-  ChevronRight,
-  CircleAlert,
-  Clock3,
-  Headset,
-  MapPin,
-  MessageSquareText,
-  Navigation,
-  Package,
-  PhoneCall,
-  ShieldCheck,
-  Truck,
-  Workflow,
-  Zap,
+  ArrowRight, AudioLines, Bot, Check, ChevronRight, CircleAlert, Clock3,
+  ClipboardCheck, Headset, MapPin, MessageSquareText, Navigation, Package,
+  PhoneCall, Route, ShieldCheck, Truck, Workflow, Zap, Database, BellRing,
+  ScanLine, FileCheck2, Users, Gauge,
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "IA para Transporte y Logística | Transport AI",
-  description:
-    "Reduce el tiempo dedicado a incidencias de transporte. Conecta conductores, operaciones y clientes con una plataforma de logística asistida por IA.",
+  title: "IA para Transporte y Logística",
+  description: "Software e inteligencia artificial a medida para coordinar operaciones, conductores, incidencias, atención al cliente e integraciones de transporte.",
   alternates: { canonical: "https://logistica.transportai.es/" },
   openGraph: {
-    title: "Transport AI Logística | Menos tiempo gestionando incidencias",
-    description:
-      "Una plataforma para coordinar incidencias, conductores y operaciones logísticas con inteligencia artificial.",
-    url: "https://logistica.transportai.es/",
-    siteName: "Transport AI",
-    locale: "es_ES",
-    type: "website",
+    title: "Transport AI Logística | Operaciones conectadas con IA",
+    description: "Automatización de procesos logísticos, gestión de incidencias e integración con tus sistemas actuales.",
+    url: "https://logistica.transportai.es/", siteName: "Transport AI", locale: "es_ES", type: "website",
   },
 };
 
 const whatsapp = "https://wa.me/34659980603?text=Hola%2C%20quiero%20conocer%20la%20soluci%C3%B3n%20de%20Transport%20AI%20para%20log%C3%ADstica.";
+const email = "contacto@transportai.es";
 
 function Brand() {
-  return (
-    <Link href="/" className="flex items-center gap-2.5" aria-label="Transport AI Logística, inicio">
-      <span className="grid h-10 w-10 place-items-center rounded-xl bg-blue-500 text-white shadow-lg shadow-blue-500/25">
-        <Truck size={22} strokeWidth={2.2} />
-      </span>
-      <span className="leading-tight">
-        <span className="block text-base font-semibold tracking-tight text-white">Transport AI</span>
-        <span className="block text-[10px] font-semibold uppercase tracking-[0.22em] text-blue-300">Logística inteligente</span>
-      </span>
-    </Link>
-  );
+  return <Link href="/" className="flex items-center gap-2.5" aria-label="Transport AI Logística, inicio">
+    <span className="grid h-10 w-10 place-items-center rounded-xl bg-blue-500 text-white shadow-lg shadow-blue-500/25"><Truck size={22} /></span>
+    <span className="leading-tight"><span className="block text-base font-semibold tracking-tight text-white">Transport AI</span><span className="block text-[10px] font-semibold uppercase tracking-[0.22em] text-blue-300">Logística inteligente</span></span>
+  </Link>;
 }
-
 function Eyebrow({ children }: { children: ReactNode }) {
-  return (
-    <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-400/20 bg-blue-400/[0.08] px-3 py-1.5 text-xs font-medium tracking-wide text-blue-200">
-      <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
-      {children}
-    </div>
-  );
+  return <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-400/20 bg-blue-400/[0.08] px-3 py-1.5 text-xs font-medium tracking-wide text-blue-200"><span className="h-1.5 w-1.5 rounded-full bg-sky-400" />{children}</div>;
+}
+function Footer() {
+  return <footer className="border-t border-white/[0.08] bg-[#070b14]"><div className="mx-auto flex max-w-7xl flex-col gap-5 px-5 py-8 sm:px-8 md:flex-row md:items-center md:justify-between">
+    <div><Brand /><a className="mt-3 inline-block text-sm text-slate-400 hover:text-white" href={`mailto:${email}`}>{email}</a></div>
+    <p className="text-xs text-slate-500">© {new Date().getFullYear()} Transport AI · Soluciones de IA para operaciones.</p>
+    <nav aria-label="Enlaces legales" className="flex flex-wrap gap-x-5 gap-y-3 text-sm text-slate-400"><Link href="/contacto" className="hover:text-white">Contacto</Link><Link href="/privacidad" className="hover:text-white">Privacidad</Link><Link href="/seguridad" className="hover:text-white">Seguridad</Link><a href={whatsapp} target="_blank" rel="noreferrer" className="hover:text-white">WhatsApp</a></nav>
+  </div></footer>;
 }
 
 export default function LogisticsPage() {
-  return (
-    <main className="min-h-screen overflow-hidden bg-[#070b14] text-slate-100 selection:bg-blue-500/30">
-      <header className="relative z-10 border-b border-white/[0.08]">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
-          <Brand />
-          <nav className="hidden items-center gap-7 text-sm text-slate-300 md:flex">
-            <a href="#solucion" className="transition hover:text-white">La solución</a>
-            <a href="#conductor" className="transition hover:text-white">App del conductor</a>
-            <a href="#incidencias" className="transition hover:text-white">Incidencias</a>
-          </nav>
-          <a href={whatsapp} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-blue-100">
-            Hablemos <ArrowRight size={16} />
-          </a>
+  return <main className="min-h-screen overflow-hidden bg-[#070b14] text-slate-100 selection:bg-blue-500/30">
+    <header className="relative z-10 border-b border-white/[0.08]"><div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
+      <Brand /><nav className="hidden items-center gap-6 text-sm text-slate-300 md:flex"><a href="#solucion" className="hover:text-white">Soluciones</a><a href="#conductor" className="hover:text-white">App del conductor</a><a href="#integraciones" className="hover:text-white">Integraciones</a><Link href="/contacto" className="hover:text-white">Contacto</Link></nav>
+      <a href={whatsapp} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-slate-950 hover:bg-blue-100">Hablemos <ArrowRight size={16}/></a>
+    </div></header>
+
+    <section className="relative"><div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_72%_20%,rgba(37,99,235,0.2),transparent_40%),radial-gradient(ellipse_at_15%_65%,rgba(14,165,233,0.09),transparent_35%)]"/>
+      <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-5 py-16 sm:px-8 sm:py-24 lg:grid-cols-[1.02fr_0.98fr] lg:gap-10 lg:py-28">
+        <div><Eyebrow>Software e IA aplicada a transporte</Eyebrow><h1 className="max-w-3xl text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">Conecta toda tu operativa. <span className="text-blue-400">Resuelve más con menos tareas manuales.</span></h1>
+          <p className="mt-6 max-w-xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8">Diseñamos soluciones de inteligencia artificial y automatización para empresas de transporte, mensajería, distribución y logística. Coordinamos incidencias, conductores, tráfico y atención al cliente sin obligarte a sustituir de golpe tus sistemas actuales.</p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row"><a href={whatsapp} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-500 px-5 py-3.5 font-semibold text-white shadow-lg shadow-blue-500/20 hover:bg-blue-400">Solicitar una demostración <ArrowRight size={18}/></a><a href="#solucion" className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 px-5 py-3.5 font-semibold text-slate-200 hover:bg-white/[0.04]">Ver soluciones <ChevronRight size={18}/></a></div>
+          <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-xs text-slate-400"><span className="inline-flex items-center gap-2"><Check size={14} className="text-emerald-400"/> Adaptada a tus procesos</span><span className="inline-flex items-center gap-2"><Check size={14} className="text-emerald-400"/> Integración por fases</span><span className="inline-flex items-center gap-2"><Check size={14} className="text-emerald-400"/> Supervisión humana</span></div>
         </div>
-      </header>
+        <div className="relative mx-auto w-full max-w-xl"><div className="absolute -inset-5 rounded-[2rem] bg-blue-500/10 blur-3xl"/><div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#0d1422] shadow-2xl shadow-black/40">
+          <div className="flex items-center justify-between border-b border-white/[0.08] px-5 py-4"><div><div className="text-sm font-semibold text-white">Centro de operaciones</div><div className="mt-1 text-xs text-slate-500">Vista conceptual · Datos ficticios</div></div><span className="rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2.5 py-1 text-[11px] text-emerald-300">DEMO VISUAL</span></div>
+          <div className="grid grid-cols-3 gap-3 p-4 sm:p-5">{[[Package,"128","Envíos activos"],[CircleAlert,"07","Incidencias"],[Truck,"24","Conductores"]].map(([Icon,value,label])=>{const I=Icon as typeof Package;return <div key={String(label)} className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-3"><I size={17} className="text-blue-300"/><div className="mt-3 text-2xl font-semibold">{value as string}</div><div className="mt-1 text-[11px] text-slate-400">{label as string}</div></div>;})}</div>
+          <div className="px-4 pb-4 sm:px-5 sm:pb-5"><div className="rounded-xl border border-white/[0.08] bg-[#080e19] p-4"><div className="mb-4 flex items-center justify-between"><span className="text-xs font-semibold text-slate-200">Bandeja de incidencias</span><span className="text-[10px] text-slate-500">EJEMPLOS</span></div>
+            {[[MapPin,"Dirección no coincide","Verificar dirección y código postal","Prioridad alta"],[PhoneCall,"Destinatario no responde","Preparar nuevo intento de contacto","En gestión"],[Check,"Entrega reprogramada","Dejar constancia y avisar al equipo","Resuelta"]].map(([Icon,title,desc,status])=>{const I=Icon as typeof MapPin;return <div key={String(title)} className="mb-2 flex gap-3 rounded-lg border border-white/[0.06] p-3"><span className="mt-0.5 rounded-lg bg-blue-400/10 p-2 text-blue-300"><I size={16}/></span><div className="min-w-0 flex-1"><div className="text-xs font-medium text-white">{title as string}</div><div className="mt-1 text-[11px] leading-5 text-slate-400">{desc as string}</div></div><span className="self-start rounded-md bg-blue-400/10 px-2 py-1 text-[10px] text-blue-200">{status as string}</span></div>;})}
+          </div><div className="mt-3 flex items-center gap-2 text-[11px] leading-5 text-slate-500"><ShieldCheck size={14} className="shrink-0 text-blue-300"/> Interfaz conceptual; no muestra operaciones ni datos reales.</div></div>
+        </div></div>
+      </div>
+    </section>
 
-      <section className="relative">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_72%_20%,rgba(37,99,235,0.19),transparent_40%),radial-gradient(ellipse_at_15%_65%,rgba(14,165,233,0.08),transparent_35%)]" />
-        <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-5 py-16 sm:px-8 sm:py-24 lg:grid-cols-[1.02fr_0.98fr] lg:gap-10 lg:py-28">
-          <div>
-            <Eyebrow>IA aplicada a operaciones de transporte</Eyebrow>
-            <h1 className="max-w-3xl text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Menos tiempo resolviendo incidencias. <span className="text-blue-400">Más tiempo entregando.</span>
-            </h1>
-            <p className="mt-6 max-w-xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8">
-              Conectamos conductores, tráfico y atención al cliente para que cada incidencia llegue al lugar adecuado, con la información necesaria y menos llamadas de ida y vuelta.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a href={whatsapp} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-500 px-5 py-3.5 font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-400">
-                Solicitar una demostración <ArrowRight size={18} />
-              </a>
-              <a href="#solucion" className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 px-5 py-3.5 font-semibold text-slate-200 transition hover:border-white/30 hover:bg-white/[0.04]">
-                Explorar la solución <ChevronRight size={18} />
-              </a>
-            </div>
-            <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-xs text-slate-400">
-              <span className="inline-flex items-center gap-2"><Check size={14} className="text-emerald-400" /> Adaptada a tus procesos</span>
-              <span className="inline-flex items-center gap-2"><Check size={14} className="text-emerald-400" /> Integración por fases</span>
-              <span className="inline-flex items-center gap-2"><Check size={14} className="text-emerald-400" /> Supervisión humana</span>
-            </div>
-          </div>
+    <section className="border-y border-white/[0.07] bg-white/[0.02]"><div className="mx-auto grid max-w-7xl gap-6 px-5 py-8 sm:px-8 md:grid-cols-3">
+      <div className="flex items-start gap-3"><Clock3 className="mt-1 shrink-0 text-blue-300" size={21}/><div><h2 className="font-medium text-white">Menos trabajo repetitivo</h2><p className="mt-1 text-sm leading-6 text-slate-400">Evita perseguir información en hojas de cálculo, correos y conversaciones separadas.</p></div></div>
+      <div className="flex items-start gap-3"><Workflow className="mt-1 shrink-0 text-blue-300" size={21}/><div><h2 className="font-medium text-white">Un flujo de trabajo claro</h2><p className="mt-1 text-sm leading-6 text-slate-400">Cada caso puede tener responsable, prioridad, estado, historial y siguiente acción.</p></div></div>
+      <div className="flex items-start gap-3"><Headset className="mt-1 shrink-0 text-blue-300" size={21}/><div><h2 className="font-medium text-white">Personas cuando hace falta</h2><p className="mt-1 text-sm leading-6 text-slate-400">Las decisiones delicadas se escalan al equipo según las reglas acordadas.</p></div></div>
+    </div></section>
 
-          <div className="relative mx-auto w-full max-w-xl">
-            <div className="absolute -inset-5 rounded-[2rem] bg-blue-500/10 blur-3xl" />
-            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#0d1422] shadow-2xl shadow-black/40">
-              <div className="flex items-center justify-between border-b border-white/[0.08] px-5 py-4">
-                <div>
-                  <div className="text-sm font-semibold text-white">Centro de operaciones</div>
-                  <div className="mt-1 text-xs text-slate-500">Vista de demostración · Datos ficticios</div>
-                </div>
-                <span className="flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2.5 py-1 text-[11px] text-emerald-300"><span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Sistema de ejemplo</span>
-              </div>
-              <div className="grid grid-cols-3 gap-3 p-4 sm:p-5">
-                <div className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-3"><Package size={17} className="text-blue-300" /><div className="mt-3 text-2xl font-semibold">128</div><div className="mt-1 text-[11px] text-slate-400">Envíos activos</div></div>
-                <div className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-3"><CircleAlert size={17} className="text-amber-300" /><div className="mt-3 text-2xl font-semibold">07</div><div className="mt-1 text-[11px] text-slate-400">Incidencias</div></div>
-                <div className="rounded-xl border border-white/[0.07] bg-white/[0.025] p-3"><Truck size={17} className="text-emerald-300" /><div className="mt-3 text-2xl font-semibold">24</div><div className="mt-1 text-[11px] text-slate-400">Conductores</div></div>
-              </div>
-              <div className="px-4 pb-4 sm:px-5 sm:pb-5">
-                <div className="rounded-xl border border-white/[0.08] bg-[#080e19] p-4">
-                  <div className="mb-4 flex items-center justify-between"><span className="text-xs font-semibold text-slate-200">Incidencias que requieren atención</span><span className="text-[10px] text-slate-500">EJEMPLO</span></div>
-                  <div className="space-y-3">
-                    <div className="flex gap-3 rounded-lg border border-amber-300/10 bg-amber-300/[0.04] p-3">
-                      <span className="mt-0.5 rounded-lg bg-amber-300/10 p-2 text-amber-300"><MapPin size={16} /></span>
-                      <div className="min-w-0 flex-1"><div className="text-xs font-medium text-white">Dirección no coincide</div><div className="mt-1 text-[11px] leading-5 text-slate-400">Pedido TA-2048 · Comprobación de datos</div></div>
-                      <span className="self-start rounded-md bg-amber-300/10 px-2 py-1 text-[10px] text-amber-200">Prioridad alta</span>
-                    </div>
-                    <div className="flex gap-3 rounded-lg border border-white/[0.06] p-3">
-                      <span className="mt-0.5 rounded-lg bg-blue-400/10 p-2 text-blue-300"><PhoneCall size={16} /></span>
-                      <div className="min-w-0 flex-1"><div className="text-xs font-medium text-white">Destinatario no responde</div><div className="mt-1 text-[11px] leading-5 text-slate-400">Pedido TA-2042 · Contacto pendiente</div></div>
-                      <span className="self-start rounded-md bg-blue-400/10 px-2 py-1 text-[10px] text-blue-200">En gestión</span>
-                    </div>
-                    <div className="flex gap-3 rounded-lg border border-white/[0.06] p-3">
-                      <span className="mt-0.5 rounded-lg bg-emerald-400/10 p-2 text-emerald-300"><Check size={16} /></span>
-                      <div className="min-w-0 flex-1"><div className="text-xs font-medium text-white">Entrega reprogramada</div><div className="mt-1 text-[11px] leading-5 text-slate-400">Pedido TA-2037 · Registro actualizado</div></div>
-                      <span className="self-start rounded-md bg-emerald-400/10 px-2 py-1 text-[10px] text-emerald-200">Resuelta</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-3 flex items-center gap-2 text-[11px] leading-5 text-slate-500"><ShieldCheck size={14} className="shrink-0 text-blue-300" /> Los datos y métricas mostrados son ilustrativos, no datos operativos reales.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+    <section id="solucion" className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28"><div className="max-w-3xl"><Eyebrow>Qué podemos construir</Eyebrow><h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">No es solo un chatbot: es automatización de procesos de principio a fin.</h2><p className="mt-5 leading-7 text-slate-400">Creamos una capa de software adaptada a tu operativa para conectar personas, información y herramientas existentes. El alcance se define según tus sistemas, permisos y prioridades.</p></div>
+      <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {[[Bot,"Agentes de IA operativos","Clasificación de consultas, extracción de datos, respuestas basadas en procedimientos y preparación de acciones con reglas y escalado."],[ClipboardCheck,"Gestión de incidencias","Apertura automática de casos, prioridad, responsable, evidencias, seguimiento, tiempos y trazabilidad de la resolución."],[MessageSquareText,"Atención al cliente multicanal","Flujos para correo, web, chat y canales de mensajería compatibles; consultas de estado y derivación de casos complejos."],[Database,"Conexión con tus sistemas","Integración con CRM, ERP, TMS, herramientas de tickets, bases de datos y APIs disponibles, sin reemplazar todo por defecto."],[BellRing,"Avisos y coordinación","Notificaciones a tráfico, conductor, almacén o cliente mediante los canales habilitados y las reglas de cada operación."],[Gauge,"Paneles y seguimiento","Vistas de trabajo, indicadores, tiempos de resolución y motivos frecuentes para detectar cuellos de botella."]].map(([Icon,title,desc])=>{const I=Icon as typeof Bot;return <article key={String(title)} className="rounded-2xl border border-white/10 bg-white/[0.025] p-6 transition hover:border-blue-400/30"><div className="grid h-11 w-11 place-items-center rounded-xl bg-blue-400/10 text-blue-300"><I size={22}/></div><h3 className="mt-5 text-lg font-semibold text-white">{title as string}</h3><p className="mt-3 text-sm leading-6 text-slate-400">{desc as string}</p></article>;})}
+      </div>
+    </section>
 
-      <section className="border-y border-white/[0.07] bg-white/[0.02]">
-        <div className="mx-auto grid max-w-7xl gap-5 px-5 py-8 sm:px-8 md:grid-cols-3">
-          <div className="flex items-start gap-3"><Clock3 className="mt-1 shrink-0 text-blue-300" size={20} /><div><div className="font-medium text-white">Menos tiempo administrativo</div><p className="mt-1 text-sm leading-6 text-slate-400">Reduce la búsqueda de datos y el seguimiento manual de cada problema.</p></div></div>
-          <div className="flex items-start gap-3"><Workflow className="mt-1 shrink-0 text-blue-300" size={20} /><div><div className="font-medium text-white">Un proceso coordinado</div><p className="mt-1 text-sm leading-6 text-slate-400">Centraliza el contexto, las acciones y el estado de cada incidencia.</p></div></div>
-          <div className="flex items-start gap-3"><Headset className="mt-1 shrink-0 text-blue-300" size={20} /><div><div className="font-medium text-white">Personas cuando hacen falta</div><p className="mt-1 text-sm leading-6 text-slate-400">La IA puede preparar acciones y escalar decisiones que requieran autorización.</p></div></div>
-        </div>
-      </section>
+    <section id="incidencias" className="border-y border-white/[0.07] bg-[#0b1220]"><div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 sm:py-24 lg:grid-cols-[0.8fr_1.2fr]">
+      <div><Eyebrow>Casos de uso</Eyebrow><h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Detectar antes. Coordinar mejor. Dejar registro.</h2><p className="mt-5 leading-7 text-slate-400">La solución puede revisar la información disponible, identificar incoherencias y guiar el siguiente paso según los protocolos de tu empresa.</p><a href={whatsapp} target="_blank" rel="noreferrer" className="mt-7 inline-flex items-center gap-2 font-semibold text-blue-300 hover:text-blue-200">Cuéntanos tu proceso <ArrowRight size={17}/></a></div>
+      <div className="space-y-3">{[["Dirección, teléfono o datos incompletos","Detectar campos vacíos o datos que no coinciden, pedir confirmación y registrar la corrección autorizada."],["Entrega fallida o establecimiento cerrado","Recoger el motivo, asociarlo al envío, consultar el procedimiento y preparar las opciones disponibles."],["Cliente que no responde","Mantener el historial de intentos, proponer un nuevo contacto y escalar si se supera el límite definido."],["Retrasos y cambios operativos","Notificar a los equipos correspondientes y actualizar el estado cuando la integración permita hacerlo."],["Reclamaciones por correo o formulario","Extraer pedido, motivo y datos relevantes; abrir un caso, asignar prioridad y preparar una respuesta para revisión."],["Información dispersa entre herramientas","Reunir el contexto autorizado en una vista común y evitar que cada persona reconstruya el caso desde cero."]].map(([title,desc])=><div key={title} className="flex gap-4 rounded-xl border border-white/[0.09] bg-white/[0.02] p-5"><span className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-amber-300/10 text-amber-200"><CircleAlert size={18}/></span><div><h3 className="font-semibold text-white">{title}</h3><p className="mt-1.5 text-sm leading-6 text-slate-400">{desc}</p></div></div>)}</div>
+    </div></section>
 
-      <section id="solucion" className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
-        <div className="max-w-2xl"><Eyebrow>Una plataforma conectada</Eyebrow><h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">De una incidencia a una acción coordinada.</h2><p className="mt-5 leading-7 text-slate-400">No se trata de añadir otro chat. Se trata de que la información viaje con el problema y que cada persona sepa qué hacer a continuación.</p></div>
-        <div className="mt-12 grid gap-4 md:grid-cols-3">
-          <article className="rounded-2xl border border-white/10 bg-white/[0.025] p-6 transition hover:border-blue-400/30"><div className="grid h-11 w-11 place-items-center rounded-xl bg-blue-400/10 text-blue-300"><AudioLines size={22} /></div><div className="mt-6 text-xs font-semibold uppercase tracking-[0.18em] text-blue-300">01 · Conductor</div><h3 className="mt-3 text-xl font-semibold">Lo cuenta por voz</h3><p className="mt-3 text-sm leading-6 text-slate-400">«Estoy en el restaurante y está cerrado». La app recoge el aviso y lo asocia al envío cuando existe información suficiente.</p></article>
-          <article className="rounded-2xl border border-white/10 bg-white/[0.025] p-6 transition hover:border-blue-400/30"><div className="grid h-11 w-11 place-items-center rounded-xl bg-sky-400/10 text-sky-300"><Bot size={22} /></div><div className="mt-6 text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">02 · IA logística</div><h3 className="mt-3 text-xl font-semibold">Analiza y propone</h3><p className="mt-3 text-sm leading-6 text-slate-400">Clasifica la incidencia, consulta los procedimientos definidos y prepara la siguiente acción: contactar, notificar o solicitar aprobación.</p></article>
-          <article className="rounded-2xl border border-white/10 bg-white/[0.025] p-6 transition hover:border-blue-400/30"><div className="grid h-11 w-11 place-items-center rounded-xl bg-emerald-400/10 text-emerald-300"><Check size={22} /></div><div className="mt-6 text-xs font-semibold uppercase tracking-[0.18em] text-emerald-300">03 · Resolución</div><h3 className="mt-3 text-xl font-semibold">Actúa y deja registro</h3><p className="mt-3 text-sm leading-6 text-slate-400">Las acciones autorizadas se ejecutan mediante integraciones disponibles; los casos excepcionales pasan al equipo con todo el contexto.</p></article>
-        </div>
-      </section>
+    <section id="conductor" className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28"><div className="grid items-start gap-12 lg:grid-cols-2">
+      <div><Eyebrow>Experiencia móvil para conductores</Eyebrow><h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Una herramienta de trabajo para toda la ruta, no solo una pantalla bonita.</h2><p className="mt-5 leading-7 text-slate-400">Diseñamos una experiencia móvil sencilla para que el conductor consulte lo que necesita, registre lo que ocurre y mantenga al equipo informado sin multiplicar llamadas y mensajes. Las funciones concretas se acuerdan con la empresa y dependen de las integraciones disponibles.</p>
+        <div className="mt-8 space-y-5">{[[Route,"Ruta y paradas","Lista de entregas, orden de paradas, dirección, ventana horaria e instrucciones de acceso cuando el sistema de origen facilita esos datos."],[AudioLines,"Incidencias por voz o texto","Dictar qué ha pasado, elegir una categoría, adjuntar contexto y revisar el resumen antes de enviarlo."],[ScanLine,"Identificación del envío","Posible lectura de código de barras o QR para asociar una incidencia o entrega al pedido correcto, si el dispositivo y el sistema lo permiten."],[FileCheck2,"Prueba de entrega","Diseño preparado para integrar foto, firma, nombre del receptor, fecha y hora cuando la operativa y la normativa lo permitan."],[BellRing,"Avisos y cambios","Recibir instrucciones actualizadas y confirmar que se han leído; las notificaciones dependen del canal y de la integración elegidos."],[ShieldCheck,"Uso seguro y trazable","Acceso por usuario, permisos, registro de acciones y confirmación humana antes de operaciones sensibles, según el diseño contratado."]].map(([Icon,title,desc])=>{const I=Icon as typeof Route;return <div key={String(title)} className="flex gap-4"><span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-blue-400/10 text-blue-300"><I size={20}/></span><div><h3 className="font-semibold text-white">{title as string}</h3><p className="mt-1 text-sm leading-6 text-slate-400">{desc as string}</p></div></div>;})}</div>
+      </div>
+      <div className="lg:sticky lg:top-8"><div className="mx-auto max-w-sm rounded-[2.5rem] border border-white/15 bg-[#070b14] p-3 shadow-2xl shadow-black/40"><div className="rounded-[2rem] border border-white/[0.06] bg-[#101827] px-5 pb-6 pt-5">
+        <div className="mx-auto mb-7 h-1 w-16 rounded-full bg-white/20"/><div className="flex items-center justify-between"><div><div className="text-xs text-slate-500">PANEL DEL CONDUCTOR</div><div className="mt-1 text-lg font-semibold">Mi ruta</div></div><span className="rounded-xl bg-blue-400/10 p-2.5 text-blue-300"><Navigation size={19}/></span></div>
+        <div className="mt-5 rounded-xl border border-blue-400/20 bg-blue-400/[0.07] p-4"><div className="flex items-center gap-2 text-xs font-medium text-blue-200"><MapPin size={15}/> SIGUIENTE PARADA</div><div className="mt-3 text-base font-semibold">Entrega de demostración</div><div className="mt-1 text-sm text-slate-400">Dirección e instrucciones de ejemplo</div><div className="mt-4 flex items-center justify-between border-t border-white/[0.08] pt-3 text-xs text-slate-400"><span>Pedido DEMO-1024</span><span>3 bultos</span></div></div>
+        <div className="mt-4 rounded-xl border border-white/[0.08] bg-[#080e19] p-4"><div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-full bg-blue-500 text-white"><AudioLines size={19}/></span><div><div className="text-sm font-medium">Registrar incidencia</div><div className="text-xs text-slate-500">Voz o formulario guiado</div></div></div><p className="mt-4 text-sm leading-6 text-slate-300">«No puedo entregar el pedido porque la dirección no coincide».</p><div className="mt-4 rounded-lg bg-blue-500 px-3 py-3 text-center text-xs font-semibold text-white">Revisar incidencia</div><div className="mt-3 grid grid-cols-2 gap-2"><div className="rounded-lg border border-white/10 p-3 text-center text-xs text-slate-300"><ScanLine size={16} className="mx-auto mb-1"/>Escanear envío</div><div className="rounded-lg border border-white/10 p-3 text-center text-xs text-slate-300"><FileCheck2 size={16} className="mx-auto mb-1"/>Registrar entrega</div></div></div>
+        <div className="mt-4 flex items-center gap-2 text-[11px] leading-5 text-slate-500"><ShieldCheck size={14}/> Prototipo visual; no está conectado a rutas ni pedidos reales.</div>
+      </div></div><div className="mx-auto mt-5 max-w-sm rounded-xl border border-white/10 bg-white/[0.025] p-4 text-sm leading-6 text-slate-400"><strong className="text-slate-200">Importante:</strong> esta pantalla ilustra una posible app. La publicación actual no incluye todavía una aplicación operativa conectada a la flota de una empresa.</div></div>
+    </div></section>
 
-      <section id="conductor" className="border-y border-white/[0.07] bg-[#0b1220]">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 sm:py-24 lg:grid-cols-2">
-          <div><Eyebrow>Diseñada para el día a día</Eyebrow><h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">El conductor habla. La app organiza el siguiente paso.</h2><p className="mt-5 leading-7 text-slate-400">Una experiencia móvil pensada para consultar entregas, recibir instrucciones y registrar incidencias con voz o con controles sencillos, sin tener que navegar por múltiples herramientas.</p>
-            <ul className="mt-7 space-y-4 text-sm text-slate-300">
-              <li className="flex gap-3"><Check className="mt-0.5 shrink-0 text-emerald-400" size={18} /> Próxima entrega, dirección e información relevante del envío.</li>
-              <li className="flex gap-3"><Check className="mt-0.5 shrink-0 text-emerald-400" size={18} /> Registro de incidencias por voz o mediante botones accesibles.</li>
-              <li className="flex gap-3"><Check className="mt-0.5 shrink-0 text-emerald-400" size={18} /> Instrucciones claras y confirmación antes de acciones sensibles.</li>
-              <li className="flex gap-3"><Check className="mt-0.5 shrink-0 text-emerald-400" size={18} /> Posible conexión con navegación, prueba de entrega y sistemas existentes, según compatibilidad.</li>
-            </ul>
-          </div>
-          <div className="mx-auto w-full max-w-sm rounded-[2.5rem] border border-white/15 bg-[#070b14] p-3 shadow-2xl shadow-black/40">
-            <div className="rounded-[2rem] border border-white/[0.06] bg-[#101827] px-5 pb-6 pt-5">
-              <div className="mx-auto mb-7 h-1 w-16 rounded-full bg-white/20" />
-              <div className="flex items-center justify-between"><div><div className="text-xs text-slate-500">BUENOS DÍAS</div><div className="mt-1 text-lg font-semibold">Tu ruta de hoy</div></div><span className="rounded-xl bg-blue-400/10 p-2.5 text-blue-300"><Navigation size={19} /></span></div>
-              <div className="mt-5 rounded-xl border border-blue-400/20 bg-blue-400/[0.07] p-4"><div className="flex items-center gap-2 text-xs font-medium text-blue-200"><MapPin size={15} /> SIGUIENTE ENTREGA</div><div className="mt-3 text-base font-semibold">Restaurante La Plaza</div><div className="mt-1 text-sm text-slate-400">Calle de ejemplo, 24 · Madrid</div><div className="mt-4 flex items-center justify-between border-t border-white/[0.08] pt-3 text-xs text-slate-400"><span>Pedido DEMO-1024</span><span>3 bultos</span></div></div>
-              <div className="mt-4 rounded-xl border border-white/[0.08] bg-[#080e19] p-4"><div className="flex items-center gap-2"><span className="grid h-9 w-9 place-items-center rounded-full bg-blue-500 text-white"><AudioLines size={18} /></span><div><div className="text-sm font-medium">Asistente de ruta</div><div className="text-xs text-slate-500">Ejemplo de interacción</div></div></div><p className="mt-4 text-sm leading-6 text-slate-300">«Dime qué ha pasado con la entrega y te ayudo a registrar la incidencia».</p><div className="mt-4 flex gap-2"><span className="flex-1 rounded-lg bg-blue-500 px-3 py-2.5 text-center text-xs font-semibold text-white">Hablar</span><span className="rounded-lg border border-white/10 px-3 py-2.5 text-xs text-slate-300">Escribir</span></div></div>
-              <div className="mt-4 flex items-center gap-2 text-[11px] text-slate-500"><ShieldCheck size={14} /> Prototipo visual · No envía rutas reales</div>
-            </div>
-          </div>
-        </div>
-      </section>
+    <section id="integraciones" className="border-y border-white/[0.07] bg-[#0b1220]"><div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-24"><div className="max-w-3xl"><Eyebrow>Integración por fases</Eyebrow><h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Tus sistemas siguen siendo el centro; automatizamos alrededor de ellos.</h2><p className="mt-5 leading-7 text-slate-400">Primero revisamos qué herramientas utilizas y qué accesos técnicos ofrecen. Después proponemos un flujo pequeño, lo probamos con datos de prueba y ampliamos cuando el resultado está validado.</p></div>
+      <div className="mt-10 grid gap-4 md:grid-cols-4">{[[Database,"Sistemas actuales","CRM, ERP, TMS, hojas de cálculo, correo y APIs compatibles."],[Bot,"Capa de IA","Clasificación, extracción de datos, reglas y respuestas con límites definidos."],[Workflow,"Automatizaciones","Tareas, alertas, actualizaciones y escalados con aprobación cuando proceda."],[Users,"Equipo operativo","Una vista más clara del caso, sus responsables, acciones y resultado."]].map(([Icon,title,desc])=>{const I=Icon as typeof Database;return <div key={String(title)} className="rounded-2xl border border-white/10 bg-white/[0.025] p-5"><I size={23} className="text-blue-300"/><h3 className="mt-4 font-semibold text-white">{title as string}</h3><p className="mt-2 text-sm leading-6 text-slate-400">{desc as string}</p></div>;})}</div>
+      <p className="mt-6 text-xs leading-5 text-slate-500">Las conexiones no se presuponen: cada integración se confirma tras revisar la API, los permisos, los costes de terceros y los requisitos de seguridad. No se afirma que la demo esté conectada a sistemas reales.</p>
+    </div></section>
 
-      <section id="incidencias" className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
-        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-          <div><Eyebrow>Automatización con límites claros</Eyebrow><h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">La IA no solo avisa del problema. Ayuda a gestionarlo.</h2><p className="mt-5 leading-7 text-slate-400">Los procedimientos se configuran con la empresa. Las acciones externas dependen de las integraciones, permisos y reglas que se acuerden.</p><a href={whatsapp} target="_blank" rel="noreferrer" className="mt-7 inline-flex items-center gap-2 font-semibold text-blue-300 transition hover:text-blue-200">Hablar sobre mis procesos <ArrowRight size={17} /></a></div>
-          <div className="space-y-3">
-            {[
-              ["Dirección incorrecta", "Contrasta los datos disponibles, solicita la información que falta y prepara una corrección para validarla."],
-              ["Cliente o destinatario no responde", "Registra los intentos, propone el siguiente canal de contacto y evita repetir gestiones sin contexto."],
-              ["Local cerrado o entrega imposible", "Recoge los detalles, consulta el protocolo de la empresa y plantea opciones como reintento o escalado."],
-              ["Retraso o cambio de ruta", "Centraliza el aviso, informa a los equipos autorizados y registra el motivo y el estado actualizado."],
-            ].map(([title, description]) => (
-              <div key={title} className="flex gap-4 rounded-xl border border-white/[0.09] bg-white/[0.02] p-5">
-                <span className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-amber-300/10 text-amber-200"><CircleAlert size={18} /></span>
-                <div><h3 className="font-semibold text-white">{title}</h3><p className="mt-1.5 text-sm leading-6 text-slate-400">{description}</p></div>
-                <ArrowDownRight size={17} className="ml-auto mt-1 shrink-0 text-slate-600" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-y border-white/[0.07] bg-[radial-gradient(ellipse_at_50%_100%,rgba(37,99,235,0.15),transparent_55%)]">
-        <div className="mx-auto max-w-5xl px-5 py-20 text-center sm:px-8 sm:py-24">
-          <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl border border-blue-400/20 bg-blue-400/10 text-blue-300"><Zap size={26} /></div>
-          <h2 className="mx-auto mt-6 max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-5xl">Empieza por la incidencia que más tiempo te hace perder.</h2>
-          <p className="mx-auto mt-5 max-w-2xl leading-7 text-slate-400">Analizamos cómo trabaja hoy tu equipo y definimos una primera automatización medible, compatible con tus sistemas y ampliable por fases.</p>
-          <a href={whatsapp} target="_blank" rel="noreferrer" className="mt-8 inline-flex items-center justify-center gap-2 rounded-xl bg-blue-500 px-6 py-3.5 font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-400">Cuéntanos tu caso <ArrowRight size={18} /></a>
-          <p className="mt-4 text-xs text-slate-500">Sin promesas mágicas: alcance, permisos e integraciones se definen antes de poner la solución en producción.</p>
-        </div>
-      </section>
-
-      <footer className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-8 text-xs text-slate-500 sm:px-8 md:flex-row md:items-center md:justify-between">
-        <Brand />
-        <p>© {new Date().getFullYear()} Transport AI · IA y automatización para logística.</p>
-        <div className="flex gap-4"><Link href="https://www.transportai.es/privacidad" className="transition hover:text-slate-300">Privacidad</Link><Link href="https://www.transportai.es/seguridad" className="transition hover:text-slate-300">Seguridad</Link><a href="mailto:contacto@transportai.es" className="transition hover:text-slate-300">Contacto</a></div>
-      </footer>
-    </main>
-  );
+    <section className="border-y border-white/[0.07] bg-[radial-gradient(ellipse_at_50%_100%,rgba(37,99,235,0.15),transparent_55%)]"><div className="mx-auto max-w-5xl px-5 py-20 text-center sm:px-8 sm:py-24"><div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl border border-blue-400/20 bg-blue-400/10 text-blue-300"><Zap size={26}/></div><h2 className="mx-auto mt-6 max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-5xl">Empecemos por el proceso que más tiempo te hace perder.</h2><p className="mx-auto mt-5 max-w-2xl leading-7 text-slate-400">Revisamos tu operativa, identificamos una primera automatización útil y definimos alcance, integraciones, permisos y fases antes de poner nada en producción.</p><div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row"><a href={whatsapp} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-500 px-6 py-3.5 font-semibold text-white hover:bg-blue-400">Hablar por WhatsApp <ArrowRight size={18}/></a><Link href="/contacto" className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 px-6 py-3.5 font-semibold text-slate-200 hover:bg-white/[0.04]">Ver contacto</Link></div><a href={`mailto:${email}`} className="mt-4 inline-block text-sm text-blue-300 hover:text-blue-200">{email}</a><p className="mt-4 text-xs text-slate-500">Sin promesas mágicas: las funciones dependen del alcance acordado y de las integraciones disponibles.</p></div></section>
+    <Footer/>
+  </main>;
 }
