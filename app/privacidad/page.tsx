@@ -14,7 +14,7 @@ const sections = [
           <li><strong>Domicilio profesional:</strong> [Calle Asuncion Balaguer, Madrid, 28521 ]</li>
           <li>
             <strong>Correo electrónico de contacto:</strong>{" "}
-            [alvarochaveinte1@gmail.com]
+            [contacto@transportai.es]
           </li>
         </ul>
         <p>
