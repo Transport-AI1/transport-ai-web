@@ -4,7 +4,10 @@ import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://transport-ai-web.vercel.app"),
+  metadataBase: new URL("https://www.transportai.es"),
+  alternates: {
+    canonical: "/",
+  },
 
   title: {
     default:
