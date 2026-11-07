@@ -1,5 +1,6 @@
 
 import { NextResponse } from "next/server";
+import { clientIp, isSameOrigin, rateLimited } from "../../../lib/guard";
 
 export const runtime = "nodejs";
 
@@ -12,6 +13,13 @@ function cleanText(value: unknown, maxLength = 1000): string | null {
 }
 
 export async function POST(request: Request) {
+  if (!isSameOrigin(request)) {
+    return NextResponse.json({ error: "Origen no permitido." }, { status: 403 });
+  }
+  if (rateLimited(`leads:${clientIp(request)}`, 5, 10 * 60 * 1000)) {
+    return NextResponse.json({ error: "Demasiadas solicitudes. Inténtalo más tarde." }, { status: 429 });
+  }
+
   try {
     const body = await request.json();
 
