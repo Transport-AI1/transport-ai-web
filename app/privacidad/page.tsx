@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 
 const sections = [
   {
@@ -213,6 +214,12 @@ const sections = [
     ),
   },
 ];
+
+export const metadata: Metadata = {
+  title: "Política de privacidad",
+  description: "Información sobre el tratamiento de datos personales en transportai.es.",
+  alternates: { canonical: "/privacidad" },
+};
 
 export default function PrivacidadPage() {
   return (

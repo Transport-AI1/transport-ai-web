@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 
 import Link from "next/link";
 import {
@@ -44,6 +45,12 @@ const safeguards = [
   "Documentación de las limitaciones y de las responsabilidades del sistema.",
   "Revisión de los casos que necesitan supervisión humana.",
 ];
+
+export const metadata: Metadata = {
+  title: "Seguridad y protección de datos",
+  description: "Cómo gestionamos accesos, permisos, trazabilidad y protección de la información en nuestros proyectos.",
+  alternates: { canonical: "/seguridad" },
+};
 
 export default function SeguridadPage() {
   return (

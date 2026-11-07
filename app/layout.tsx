@@ -2,14 +2,11 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
+import CookieConsent from "./components/cookie-consent";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.transportai.es"),
-  alternates: {
-    canonical: "/",
-  },
-
-  title: {
+title: {
     default:
       "IA y Automatización para Empresas de Transporte | Transport AI",
     template: "%s | Transport AI",
@@ -62,53 +59,30 @@ export default function RootLayout({
       <body>
         {children}
 
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=AW-18523833927"
-          strategy="afterInteractive"
-        />
 
-        <Script
-          id="voiceflow-widget"
-          strategy="afterInteractive"
-        >
+        <Script id="voiceflow-widget" strategy="afterInteractive">
           {`
             (function(d, t) {
               var v = d.createElement(t);
               var s = d.getElementsByTagName(t)[0];
-
               v.onload = function() {
                 if (!window.voiceflow || !window.voiceflow.chat) return;
-
                 window.voiceflow.chat.load({
                   verify: { projectID: "6ada11af1731d6038790b998" },
                   url: "https://general-runtime.voiceflow.com",
-                  voice: {
-                    url: "https://runtime-api.voiceflow.com"
-                  },
+                  voice: { url: "https://runtime-api.voiceflow.com" },
                   environmentID: "main",
                   versionVariant: "published",
-                  launch: {
-                    event: { type: "launch" }
-                  }
+                  launch: { event: { type: "launch" } }
                 });
               };
-
               v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
               v.type = "text/javascript";
               s.parentNode.insertBefore(v, s);
             })(document, "script");
           `}
         </Script>
-
-        <Script id="google-ads-tag" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){window.dataLayer.push(arguments);}
-            window.gtag = gtag;
-            gtag('js', new Date());
-            gtag('config', 'AW-18523833927');
-          `}
-        </Script>
+        <CookieConsent />
       </body>
     </html>
   );
