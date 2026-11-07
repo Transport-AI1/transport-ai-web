@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 
 import Link from "next/link";
 import {
@@ -169,6 +170,12 @@ const steps = [
     description: "Implementación, pruebas y entrega acordada.",
   },
 ];
+
+export const metadata: Metadata = {
+  title: "Presupuestos y precios orientativos",
+  description: "Referencias de precio para automatizaciones, CRM con IA y software a medida. Alcance definido y costes transparentes.",
+  alternates: { canonical: "/presupuestos" },
+};
 
 export default function PresupuestosPage() {
   return (
