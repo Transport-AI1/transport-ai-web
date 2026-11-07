@@ -1,8 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
+import { clientIp, isSameOrigin, rateLimited } from "../../../lib/guard";
 
 export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
+  if (!isSameOrigin(request)) {
+    return NextResponse.json({ error: "Origen no permitido." }, { status: 403 });
+  }
+  if (rateLimited(`voice:${clientIp(request)}`, 10, 10 * 60 * 1000)) {
+    return NextResponse.json({ error: "Demasiadas peticiones. Inténtalo más tarde." }, { status: 429 });
+  }
+
   try {
     const apiKey = process.env.ELEVENLABS_API_KEY;
     const voiceId = process.env.ELEVENLABS_VOICE_ID;
@@ -25,7 +33,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (text.length > 2000) {
+    if (text.length > 600) {
       return NextResponse.json(
         { error: "El texto es demasiado largo." },
         { status: 400 }
