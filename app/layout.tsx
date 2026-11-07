@@ -59,13 +59,27 @@ export default function RootLayout({
       <body>
         {children}
 
-<Script id="google-ads-tag" strategy="afterInteractive">
+
+        <Script id="voiceflow-widget" strategy="afterInteractive">
           {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){window.dataLayer.push(arguments);}
-            window.gtag = gtag;
-            gtag('js', new Date());
-            gtag('config', 'AW-18523833927');
+            (function(d, t) {
+              var v = d.createElement(t);
+              var s = d.getElementsByTagName(t)[0];
+              v.onload = function() {
+                if (!window.voiceflow || !window.voiceflow.chat) return;
+                window.voiceflow.chat.load({
+                  verify: { projectID: "6ada11af1731d6038790b998" },
+                  url: "https://general-runtime.voiceflow.com",
+                  voice: { url: "https://runtime-api.voiceflow.com" },
+                  environmentID: "main",
+                  versionVariant: "published",
+                  launch: { event: { type: "launch" } }
+                });
+              };
+              v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+              v.type = "text/javascript";
+              s.parentNode.insertBefore(v, s);
+            })(document, "script");
           `}
         </Script>
         <CookieConsent />
