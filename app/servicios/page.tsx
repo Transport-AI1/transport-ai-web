@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 
 import Link from "next/link";
 import {
@@ -217,6 +218,12 @@ const process = [
       "Preparamos la puesta en marcha y, si se acuerda, el mantenimiento y la evolución.",
   },
 ];
+
+export const metadata: Metadata = {
+  title: "Servicios de IA, web y automatización",
+  description: "Diseño web, agentes de IA, agentes de voz, automatización, integraciones, CRM y software a medida para empresas y negocios.",
+  alternates: { canonical: "/servicios" },
+};
 
 export default function ServicesPage() {
   return (
