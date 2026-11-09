@@ -5,6 +5,10 @@ const env = (key: string) => { const value = process.env[key]; if (!value) throw
 const slugify = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40) || "negocio";
 
 export async function POST(request: Request) {
+  return NextResponse.json(
+    { error: "La creación de páginas web no está disponible temporalmente. Vuelve a consultarnos próximamente." },
+    { status: 503 }
+  );
   try {
     const form = await request.formData();
     const raw = form.get("payload");
