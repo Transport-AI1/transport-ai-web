@@ -26,46 +26,46 @@ import {
 
 const plans = [
   {
-    name: "Automatización",
-    price: "Desde 300 €",
+    name: "Mantenimiento web",
+    price: "Desde 29 €",
     period: "/ mes",
     description:
-      "Para automatizar tareas repetitivas y reducir el trabajo manual en procesos concretos.",
+      "Para mantener tu web actualizada y contar con ayuda técnica básica.",
     features: [
-      "Automatizaciones de alcance definido",
-      "Conexión entre herramientas compatibles",
-      "Notificaciones y flujos de trabajo",
-      "Supervisión y ajustes según el plan",
+      "Actualizaciones técnicas acordadas",
+      "Revisión básica de funcionamiento",
+      "Pequeños ajustes de contenido",
+      "Soporte por correo",
     ],
     icon: Workflow,
     featured: false,
   },
   {
-    name: "Soporte continuado",
-    price: "Desde 600 €",
+    name: "Mantenimiento de agente IA",
+    price: "Desde 59 €",
     period: "/ mes",
     description:
-      "Para empresas que necesitan mantener, supervisar y mejorar sus soluciones de IA.",
+      "Para revisar y mantener un asistente de IA conectado a la información de tu negocio.",
     features: [
-      "Mantenimiento y seguimiento",
-      "Corrección de incidencias",
-      "Mejoras evolutivas acordadas",
-      "Supervisión de integraciones",
+      "Revisión del funcionamiento",
+      "Actualización de información",
+      "Ajustes de respuestas y contenidos",
+      "Soporte y seguimiento",
     ],
     icon: Headphones,
     featured: true,
   },
   {
-    name: "Solución avanzada",
-    price: "Desde 900 €",
+    name: "Servicio de voz IA",
+    price: "Desde 99 €",
     period: "/ mes",
     description:
-      "Para sistemas con más procesos, integraciones o necesidades de soporte.",
+      "Para mantener operativo tu asistente telefónico y supervisar su configuración.",
     features: [
-      "Flujos de trabajo más complejos",
-      "Varias integraciones",
-      "Seguimiento ampliado",
-      "Alcance y condiciones personalizados",
+      "Supervisión del agente telefónico",
+      "Ajustes de conversación acordados",
+      "Revisión de incidencias",
+      "Soporte técnico",
     ],
     icon: Network,
     featured: false,
@@ -73,6 +73,58 @@ const plans = [
 ];
 
 const projects = [
+  {
+    level: "Presencia digital",
+    title: "Web profesional",
+    price: "Desde 390 €",
+    description:
+      "Una página web personalizada para presentar el negocio y facilitar el contacto con sus clientes.",
+    examples: [
+      "Diseño adaptable a móviles",
+      "Secciones de servicios, información y contacto",
+      "Formulario o enlace a WhatsApp",
+    ],
+    icon: Code2,
+  },
+  {
+    level: "Atención digital",
+    title: "Agente de IA para web",
+    price: "Desde 490 €",
+    description:
+      "Un asistente conversacional configurado con la información y las necesidades de cada negocio.",
+    examples: [
+      "Respuestas sobre servicios y preguntas frecuentes",
+      "Recogida de datos y solicitudes",
+      "Derivación a una persona cuando sea necesario",
+    ],
+    icon: MessageSquareText,
+  },
+  {
+    level: "Atención telefónica",
+    title: "Asistente telefónico con IA",
+    price: "Desde 790 €",
+    description:
+      "Diseñamos y creamos un agente de voz personalizado para atender las llamadas de tu empresa.",
+    examples: [
+      "Atención de llamadas entrantes",
+      "Respuestas a preguntas frecuentes y recogida de datos",
+      "Transferencia o derivación de llamadas según las reglas acordadas",
+    ],
+    icon: Headphones,
+  },
+  {
+    level: "Reservas y solicitudes",
+    title: "Sistema de reservas con IA",
+    price: "Desde 690 €",
+    description:
+      "Un sistema adaptado al negocio para atender consultas y gestionar solicitudes de reserva.",
+    examples: [
+      "Atención automática de consultas",
+      "Recogida y registro de solicitudes",
+      "Conexión con herramientas de disponibilidad cuando exista integración compatible",
+    ],
+    icon: Bot,
+  },
   {
     level: "Complejidad baja",
     title: "Automatización de procesos",
@@ -335,9 +387,10 @@ export default function PresupuestosPage() {
           </div>
 
           <p className="mt-5 text-sm leading-6 text-slate-500">
-            Precios mensuales orientativos. El servicio concreto, los límites,
-            el mantenimiento incluido y los costes de terceros se definen por
-            escrito antes de contratar.
+            Cuotas mensuales orientativas de mantenimiento y soporte. No
+            incluyen licencias, consumo de modelos de IA, minutos de llamada,
+            numeración telefónica ni otros servicios de terceros, que se
+            detallarán antes de contratar.
           </p>
         </section>
 
@@ -486,10 +539,11 @@ export default function PresupuestosPage() {
           </div>
 
           <div className="mt-14 border-t border-slate-200 pt-7 text-sm leading-6 text-slate-500">
-            Los importes son estimaciones iniciales, no ofertas vinculantes.
-            Los precios indicados no incluyen IVA. Las licencias, los servicios
-            externos, el uso de modelos de IA y las API de pago se valorarán
-            según las necesidades de cada proyecto.
+            Los importes son estimaciones iniciales, no ofertas vinculantes,
+            y no incluyen IVA. En los asistentes telefónicos, la cuota de
+            servicio desde 99 €/mes y el consumo de telefonía o llamadas se
+            presupuestan aparte. Las licencias, el uso de modelos de IA y las
+            API de pago se detallarán según las necesidades de cada proyecto.
           </div>
         </section>
 
