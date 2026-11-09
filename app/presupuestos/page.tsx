@@ -75,10 +75,10 @@ const plans = [
 const projects = [
   {
     level: "Presencia digital",
-    title: "Web profesional",
-    price: "300 €",
+    title: "Creación de página web",
+    price: "Temporalmente no disponible",
     description:
-      "Una web profesional estándar, personalizada para presentar el negocio y facilitar el contacto con sus clientes.",
+      "El servicio de creación de páginas web está temporalmente pausado. Estamos preparando su próxima apertura.",
     examples: [
       "Diseño adaptable a móviles",
       "Secciones de inicio, servicios e información de contacto",
