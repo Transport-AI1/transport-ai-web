@@ -20,7 +20,7 @@ export async function POST(req:Request) {
     if(session.payment_status!=="paid")return NextResponse.json({received:true});
     const id=session.metadata?.order_id||session.client_reference_id;
     if(!id)return NextResponse.json({error:"Pedido no identificado."},{status:400});
-    const base=process.env.SUPABASE_URL!;
+    const base=(process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL)!;
     const key=process.env.SUPABASE_SERVICE_ROLE_KEY!;
     const headers={apikey:key,Authorization:"Bearer "+key,"Content-Type":"application/json"};
     const lookup=await fetch(base+"/rest/v1/web_orders?id=eq."+id+"&select=*",{headers,cache:"no-store"});
