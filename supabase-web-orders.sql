@@ -17,3 +17,8 @@ alter table public.web_orders enable row level security;
 insert into storage.buckets (id,name,public,file_size_limit,allowed_mime_types)
 values ('web-order-photos','web-order-photos',true,5242880,array['image/jpeg','image/png','image/webp','image/gif'])
 on conflict (id) do nothing;
+
+-- Migration for temporary customer subdomains
+alter table public.web_orders add column if not exists custom_domain text unique;
+alter table public.web_orders add column if not exists domain_status text not null default 'not_requested';
+alter table public.web_orders add column if not exists domain_verification jsonb;
