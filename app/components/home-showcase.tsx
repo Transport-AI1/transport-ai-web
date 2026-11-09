@@ -7,13 +7,13 @@ import {
 } from "lucide-react";
 
 const previews = [
-  { id: "web", label: "Web profesional", kind: "web" },
-  { id: "dashboard", label: "Panel empresarial", kind: "dashboard" },
-  { id: "voice", label: "Agente de voz IA", kind: "voice" },
-  { id: "chat", label: "Agente de chat IA", kind: "chat" },
-  { id: "calls", label: "Agente de llamadas", kind: "calls" },
-  { id: "shop", label: "Tienda online", kind: "shop" },
-  { id: "logistics", label: "Operaciones logísticas", kind: "logistics" },
+  { id: "web", label: "Web profesional", kind: "web", detail: "Diseño personalizado y adaptable a móvil para presentar tu empresa, servicios y captar nuevos clientes." },
+  { id: "dashboard", label: "Panel empresarial", kind: "dashboard", detail: "Un panel centralizado para consultar indicadores, actividad, clientes y el estado del negocio." },
+  { id: "voice", label: "Agente de voz IA", kind: "voice", detail: "Atiende por voz, responde preguntas frecuentes y recoge solicitudes de tus clientes." },
+  { id: "chat", label: "Agente de chat IA", kind: "chat", detail: "Responde consultas en tu web usando la información de tu negocio y guía a cada visitante." },
+  { id: "calls", label: "Agente de llamadas", kind: "calls", detail: "Gestiona llamadas entrantes, identifica lo que necesita cada persona y deriva los casos cuando hace falta." },
+  { id: "shop", label: "Tienda online", kind: "shop", detail: "Catálogo digital con productos, precios y una experiencia de compra adaptada a tu marca." },
+  { id: "logistics", label: "Operaciones logísticas", kind: "logistics", detail: "Organiza entregas, rutas e incidencias en una interfaz diseñada para equipos de transporte." },
 ] as const;
 
 function PreviewContent({ kind }: { kind: (typeof previews)[number]["kind"] }) {
@@ -27,10 +27,11 @@ function PreviewContent({ kind }: { kind: (typeof previews)[number]["kind"] }) {
 }
 
 function DemoCard({ item }: { item: (typeof previews)[number] }) {
-  return <a href="/demostraciones" className="group relative block w-[265px] shrink-0 sm:w-[320px]">
+  return <a href="/demostraciones" className="demo-card group relative block w-[265px] shrink-0 sm:w-[320px]">
     <div className="relative h-[205px] overflow-hidden rounded-2xl border border-white/70 bg-white p-2 shadow-[0_22px_65px_rgba(15,23,42,.18)] transition duration-500 group-hover:-translate-y-2 group-hover:rotate-0 sm:h-[245px] sm:p-2.5">
       <div className="flex h-6 items-center gap-1.5 rounded-t-lg border-b border-slate-100 bg-slate-50 px-2"><i className="h-1.5 w-1.5 rounded-full bg-rose-400"/><i className="h-1.5 w-1.5 rounded-full bg-amber-400"/><i className="h-1.5 w-1.5 rounded-full bg-emerald-400"/><span className="ml-2 truncate text-[7px] text-slate-400">transport-ai.demo / {item.id}</span></div>
       <div className="relative h-[calc(100%-24px)] overflow-hidden rounded-b-lg"><PreviewContent kind={item.kind}/></div>
+      <div className="demo-card-detail absolute inset-x-3 bottom-3 rounded-xl border border-white/20 bg-slate-950/95 p-3 text-left text-white shadow-xl"><p className="text-xs font-semibold">{item.label}</p><p className="mt-1 text-[11px] leading-5 text-slate-200">{item.detail}</p><span className="mt-2 inline-flex items-center gap-1 text-[10px] font-semibold text-cyan-300">Ver demostración <ArrowUpRight size={11}/></span></div>
     </div>
     <div className="mt-3 flex items-center justify-between px-1"><span className="text-xs font-semibold text-slate-800">{item.label}</span><span className="flex items-center gap-1 text-[10px] font-semibold text-blue-700">Ver demos <ArrowUpRight size={12}/></span></div>
   </a>;
@@ -45,8 +46,6 @@ export function HomeShowcase() {
         <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">Explora una muestra de nuestras páginas web, paneles empresariales y agentes de inteligencia artificial. Cada proyecto está diseñado para resolver necesidades reales.</p>
       </div>
       <div className="relative mt-12">
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-[#f8faff] to-transparent sm:w-28"/>
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-[#f8faff] to-transparent sm:w-28"/>
         <div className="demo-marquee flex w-max gap-5 py-3 sm:gap-7">
           {[...previews,...previews].map((item,index)=><div key={item.id+"-"+index} className={index%2===0?"demo-float-a":"demo-float-b"}><DemoCard item={item}/></div>)}
         </div>
@@ -54,13 +53,18 @@ export function HomeShowcase() {
       <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row"><div className="flex items-center gap-2 text-xs text-slate-500"><span className="h-2 w-2 rounded-full bg-emerald-500"/> 7 tipos de demostraciones</div><Link href="/demostraciones" className="inline-flex items-center gap-2 rounded-xl bg-slate-950 px-5 py-3 text-xs font-semibold text-white transition hover:bg-blue-700">Ver todas las demostraciones <ArrowUpRight size={14}/></Link></div>
     </div>
     <style jsx global>{`
-      .demo-marquee { animation: demo-scroll 52s linear infinite; }
+      .demo-marquee { animation: demo-scroll 90s linear infinite; }
       .demo-marquee:hover { animation-play-state: paused; }
+      .demo-card { transition: transform 450ms ease, filter 450ms ease; }
+      .demo-card-detail { opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity 350ms ease, transform 350ms ease; transition-delay: 0ms; }
+      .demo-card:hover { z-index: 20; transform: scale(1.075); filter: drop-shadow(0 18px 24px rgba(15,23,42,.16)); transition-delay: 3s; }
+      .demo-card:hover .demo-card-detail { opacity: 1; transform: translateY(0); transition-delay: 3s; }
+      .demo-card:not(:hover) { transition-delay: 0ms; }
       .demo-float-a { animation: demo-float 5s ease-in-out infinite; }
       .demo-float-b { animation: demo-float 6s ease-in-out infinite reverse; }
       @keyframes demo-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
       @keyframes demo-float { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-9px) rotate(1deg); } }
-      @media (prefers-reduced-motion: reduce) { .demo-marquee,.demo-float-a,.demo-float-b { animation: none; } }
+      @media (prefers-reduced-motion: reduce) { .demo-marquee,.demo-float-a,.demo-float-b { animation: none; } .demo-card,.demo-card-detail { transition: none; } }
     `}</style>
   </section>;
 }
