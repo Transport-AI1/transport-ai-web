@@ -34,6 +34,8 @@ export async function POST(request: Request) {
     if (!insert.ok) throw new Error("No se pudo guardar el pedido.");
     const params = new URLSearchParams();
     params.set("mode","payment");
+    params.set("automatic_tax[enabled]","true");
+    params.set("billing_address_collection","required");
     params.set("success_url",new URL(request.url).origin + "/crear-web/estado?session_id={CHECKOUT_SESSION_ID}");
     params.set("cancel_url",new URL(request.url).origin + "/crear-web?cancelado=1");
     params.set("customer_email",email);
@@ -41,9 +43,9 @@ export async function POST(request: Request) {
     params.set("metadata[order_id]",id);
     params.set("line_items[0][quantity]","1");
     params.set("line_items[0][price_data][currency]","eur");
-    params.set("line_items[0][price_data][unit_amount]","36300");
+    params.set("line_items[0][price_data][unit_amount]","30000");
     params.set("line_items[0][price_data][product_data][name]","Web profesional — oferta de lanzamiento");
-    params.set("line_items[0][price_data][product_data][description]","Descuento de 450 € a 300 € + IVA. Dominio y alojamiento no incluidos.");
+    params.set("line_items[0][price_data][product_data][description]","Oferta de lanzamiento: 450 € → 300 € + IVA. Dominio y alojamiento no incluidos.");
     const checkout = await fetch("https://api.stripe.com/v1/checkout/sessions",{method:"POST",headers:{Authorization:"Bearer "+env("STRIPE_SECRET_KEY"),"Content-Type":"application/x-www-form-urlencoded"},body:params});
     const session = await checkout.json();
     if (!checkout.ok || !session.url) throw new Error(session.error?.message || "No se pudo crear el pago.");
