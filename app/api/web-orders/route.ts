@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     const files = form.getAll("photos").filter((x): x is File => x instanceof File);
     if (files.length > 8 || files.some(f => f.size > 5*1024*1024 || !f.type.startsWith("image/"))) return NextResponse.json({error:"Máximo 8 imágenes de 5 MB cada una."},{status:400});
 
-    const supabase = env("SUPABASE_URL").replace(/\/$/,"");
+    const supabase = (process.env.SUPABASE_URL || env("NEXT_PUBLIC_SUPABASE_URL")).replace(/\/$/,"");
     const key = env("SUPABASE_SERVICE_ROLE_KEY");
     const id = randomUUID();
     const slug = slugify(business) + "-" + id.slice(0,6);
