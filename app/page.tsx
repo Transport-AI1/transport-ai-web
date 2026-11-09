@@ -30,6 +30,8 @@ import {
   ChartNoAxesCombined,
 } from "lucide-react";
 
+import { WebPromo } from "./components/web-promo";
+
 import {
   Eyebrow,
   SectionHeading,
@@ -309,6 +311,8 @@ export default function HomePage() {
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
+
+              <div className="mt-6 max-w-xl"><WebPromo /></div>
 
               <div className="mt-7 flex flex-wrap gap-x-5 gap-y-3 text-sm text-slate-600">
                 {[
