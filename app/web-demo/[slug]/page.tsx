@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { SiteShell } from "../../components/site-shell";
 export default async function WebDemo({params}:{params:Promise<{slug:string}>}) {
- const {slug}=await params; const base=process.env.SUPABASE_URL; const key=process.env.SUPABASE_SERVICE_ROLE_KEY; if(!base||!key)notFound();
+ const {slug}=await params; const base=(process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL); const key=process.env.SUPABASE_SERVICE_ROLE_KEY; if(!base||!key)notFound();
  const r=await fetch(base+"/rest/v1/web_orders?slug=eq."+encodeURIComponent(slug)+"&status=eq.generated&select=payload,generated_site,photo_urls",{headers:{apikey:key,Authorization:"Bearer "+key},cache:"no-store"});
  if(!r.ok)notFound();const rows=await r.json();if(!rows[0])notFound();
  const order=rows[0],data=order.payload,site=order.generated_site,photos:string[]=order.photo_urls||[];
