@@ -38,15 +38,9 @@ export async function POST(req:Request) {
     const subdomain = slug + ".transportai.es";
     const saved=await fetch(base+"/rest/v1/web_orders?id=eq."+id,{method:"PATCH",headers,body:JSON.stringify({status:"generated",generated_site:generated,generated_at:new Date().toISOString(),custom_domain:subdomain,domain_status:"pending"})});
     if(!saved.ok)throw new Error("No se pudo guardar la web generada.");
-    const vercelToken=process.env.VERCEL_TOKEN;
-    const projectId=process.env.VERCEL_PROJECT_ID || "prj_r8xedssduEMGttiafSZij6o7B5rm";
-    const teamId=process.env.VERCEL_TEAM_ID || "team_vWk0wo9tZAaiB5hq67Mr2o1J";
-    if(vercelToken){
-      const attach=await fetch("https://api.vercel.com/v10/projects/"+projectId+"/domains?teamId="+teamId,{method:"POST",headers:{Authorization:"Bearer "+vercelToken,"Content-Type":"application/json"},body:JSON.stringify({name:subdomain})});
-      const domainResult=await attach.json();
-      if(attach.ok){ await fetch(base+"/rest/v1/web_orders?id=eq."+id,{method:"PATCH",headers,body:JSON.stringify({domain_status:"attached",domain_verification:domainResult.verification||[]})}); }
-      else { console.error("Could not attach customer subdomain",domainResult); await fetch(base+"/rest/v1/web_orders?id=eq."+id,{method:"PATCH",headers,body:JSON.stringify({domain_status:"needs_dns_or_verification"})}); }
-    }
+    // The verified wildcard *.transportai.es on this Vercel project serves customer subdomains.
+    // proxy.ts maps this hostname to the generated website record in Supabase.
+    await fetch(base+"/rest/v1/web_orders?id=eq."+id,{method:"PATCH",headers,body:JSON.stringify({domain_status:"waiting_dns"})});
     return NextResponse.json({received:true});
   } catch(e) { console.error("AI web generation error",e); return NextResponse.json({error:e instanceof Error?e.message:"Error generando la web."},{status:500}); }
 }
