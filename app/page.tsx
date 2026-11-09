@@ -820,11 +820,11 @@ export default function HomePage() {
           </div>
 
           <p className="mt-6 text-center text-xs leading-6 text-slate-500">
-            Importes orientativos, más IVA. El presupuesto final depende del
-            alcance acordado, las integraciones, los accesos técnicos y los
-            posibles costes de servicios de terceros. El mantenimiento y los
-            servicios recurrentes se presupuestan por separado cuando
-            corresponda.
+            Precios orientativos de implantación, más IVA. El mantenimiento
+            puede contratarse desde 29 €/mes. Los asistentes telefónicos
+            requieren un servicio recurrente desde 99 €/mes; el consumo de
+            llamadas, telefonía y proveedores externos se calcula aparte.
+            El presupuesto final depende del alcance y las integraciones.
           </p>
 
           <div className="mt-8 flex flex-col items-start justify-between gap-5 rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:flex-row sm:items-center sm:p-8">
