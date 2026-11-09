@@ -201,24 +201,31 @@ const steps = [
 const prices = [
   {
     title: "Web profesional",
-    price: "Desde 600 €",
+    price: "Desde 390 €",
     description:
-      "Para negocios que quieren presentar sus servicios online con una web moderna y adaptada a móviles.",
+      "Una web moderna, adaptada a móviles y personalizada para presentar tu negocio, servicios y formas de contacto.",
     featured: false,
   },
   {
-    title: "Agentes de IA y automatización",
-    price: "Desde 1.000 €",
+    title: "Agente IA para tu web",
+    price: "Desde 490 €",
     description:
-      "Para asistentes, automatizaciones y procesos conectados cuyo alcance técnico se haya definido.",
+      "Un asistente entrenado con la información de tu negocio para responder consultas, orientar clientes y recoger solicitudes.",
     featured: true,
   },
   {
-    title: "Software e integraciones",
-    price: "A medida",
+    title: "Reservas inteligentes",
+    price: "Desde 690 €",
     description:
-      "Para aplicaciones, plataformas, conexiones complejas y proyectos con varios módulos.",
+      "Un sistema adaptado a tu negocio para atender consultas y gestionar solicitudes de reserva desde tus canales digitales.",
     featured: false,
+  },
+  {
+    title: "Asistente telefónico con IA",
+    price: "Desde 790 €",
+    description:
+      "Creamos y configuramos un agente de voz personalizado para atender llamadas, responder preguntas, recoger datos y derivar llamadas cuando sea necesario.",
+    featured: true,
   },
 ];
 
@@ -765,7 +772,7 @@ export default function HomePage() {
             description="Mostramos referencias iniciales para que puedas valorar opciones. El presupuesto definitivo se prepara según las funciones, el diseño, las integraciones y la complejidad."
           />
 
-          <div className="mt-12 grid gap-5 lg:grid-cols-3">
+          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
             {prices.map((item, index) => (
               <article
                 key={item.title}
