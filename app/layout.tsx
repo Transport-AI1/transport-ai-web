@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 import CookieConsent from "./components/cookie-consent";
+import WelcomeScreen from "./components/welcome-screen";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.transportai.es"),
@@ -57,6 +58,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body>
+        <WelcomeScreen />
         {children}
 
 
