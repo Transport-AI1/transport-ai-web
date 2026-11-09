@@ -3,8 +3,8 @@ import { SiteShell, Eyebrow } from "../components/site-shell";
 import { WebBuilderWizard } from "./web-builder-wizard";
 
 export const metadata: Metadata = {
-  title: "Crea tu web profesional con IA por 300 €",
-  description: "Cuéntale a nuestro asistente qué necesita tu negocio, añade tus fotos y prepara una solicitud para crear tu web profesional.",
+  title: "Crea tu web profesional con IA: 450 € → 300 €",
+  description: "Oferta de lanzamiento: crea tu web profesional con IA por 300 € en lugar de 450 €. Cuéntale a nuestro asistente qué necesita tu negocio.",
   alternates: { canonical: "/crear-web" },
 };
 
@@ -27,10 +27,12 @@ export default function CrearWebPage() {
                 </p>
               </div>
               <div className="rounded-3xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur">
-                <p className="text-sm font-medium text-blue-300">Precio de lanzamiento</p>
-                <p className="mt-2 text-5xl font-semibold tracking-tight">300 €<span className="text-lg text-slate-400"> + IVA</span></p>
-                <p className="mt-3 text-sm leading-6 text-slate-300">Diseño web profesional de alcance estándar. Dominio, alojamiento y funciones especiales se presupuestan aparte.</p>
-                <div className="mt-5 flex items-center gap-2 text-sm text-emerald-300"><span className="h-2 w-2 rounded-full bg-emerald-400" /> Sin compromiso hasta confirmar el alcance</div>
+                <p className="text-sm font-medium text-blue-300">Oferta de lanzamiento</p>
+                <div className="mt-2 flex items-baseline gap-3"><span className="text-2xl text-slate-400 line-through">450 €</span><span className="text-5xl font-semibold tracking-tight">300 €</span></div>
+                <p className="mt-1 text-sm font-semibold text-emerald-300">Ahorras 150 € · 33 % de descuento</p>
+                <p className="mt-2 text-sm text-slate-300">+ IVA · Total con IVA (21 %): 363 €</p>
+                <p className="mt-3 text-sm leading-6 text-slate-300">Web profesional estándar. Dominio, alojamiento y funciones especiales se presupuestan aparte.</p>
+                <div className="mt-5 flex items-center gap-2 text-sm text-emerald-300"><span className="h-2 w-2 rounded-full bg-emerald-400" /> Oferta de lanzamiento</div>
               </div>
             </div>
           </div>
