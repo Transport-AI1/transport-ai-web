@@ -29,3 +29,15 @@ El cliente completa el asistente y sube imágenes; el servidor guarda el pedido 
 - La IA genera el contenido y una web de presentación usando una plantilla profesional común; no crea todavía un repositorio independiente ni publica automáticamente un dominio personalizado.
 - Dominio, hosting, correo y funciones especiales quedan fuera del precio promocional.
 - Si la generación falla después del pago, el pedido queda registrado para reintento/atención manual; no se pierde la confirmación de pago.
+
+## Subdominios temporales en Vercel
+El proyecto ya tiene asociado y verificado el dominio comodín `*.transportai.es`. Para que cada web generada tenga una dirección como `negocio-abc123.transportai.es`, añade en el DNS de STRATO un registro:
+
+- Tipo: CNAME
+- Host / nombre: `*`
+- Destino: `2a1240cc7ad77525.vercel-dns-017.com`
+
+El `proxy.ts` consulta el pedido pagado en Supabase y reescribe ese subdominio a la web generada. No hace falta comprar un dominio para la primera demo. Cuando el cliente compre su propio dominio, se conectará después como parte de la entrega.
+
+## Cobros
+El pago se procesa en Stripe Checkout. El dinero se liquida en la cuenta bancaria que el titular haya añadido y verificado en su propia cuenta Stripe; Transport AI no puede elegir ni cambiar esa cuenta desde el código. Completa la verificación de identidad y los datos bancarios en Stripe antes de aceptar pagos reales.
