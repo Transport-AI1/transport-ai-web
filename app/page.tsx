@@ -201,7 +201,7 @@ const steps = [
 const prices = [
   {
     title: "Web profesional",
-    price: "Desde 390 €",
+    price: "300 €",
     description:
       "Una web moderna, adaptada a móviles y personalizada para presentar tu negocio, servicios y formas de contacto.",
     featured: false,
@@ -805,14 +805,14 @@ export default function HomePage() {
                 </p>
 
                 <Link
-                  href={`/contacto?proyecto=${encodeURIComponent(item.title)}`}
+                  href={item.title === "Web profesional" ? "/crear-web" : `/contacto?proyecto=${encodeURIComponent(item.title)}`}
                   className={`mt-7 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold transition ${
                     item.featured
                       ? "bg-blue-700 text-white hover:bg-blue-800"
                       : "border border-slate-200 text-slate-800 hover:border-blue-200 hover:bg-blue-50"
                   }`}
                 >
-                  Consultar proyecto
+                  {item.title === "Web profesional" ? "Crear mi web" : "Consultar proyecto"}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </article>
