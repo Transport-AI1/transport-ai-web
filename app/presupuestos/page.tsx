@@ -76,13 +76,14 @@ const projects = [
   {
     level: "Presencia digital",
     title: "Web profesional",
-    price: "Desde 390 €",
+    price: "300 €",
     description:
-      "Una página web personalizada para presentar el negocio y facilitar el contacto con sus clientes.",
+      "Una web profesional estándar, personalizada para presentar el negocio y facilitar el contacto con sus clientes.",
     examples: [
       "Diseño adaptable a móviles",
-      "Secciones de servicios, información y contacto",
-      "Formulario o enlace a WhatsApp",
+      "Secciones de inicio, servicios e información de contacto",
+      "Enlace a WhatsApp o formulario básico",
+      "Primera propuesta visual revisada por nuestro equipo",
     ],
     icon: Code2,
   },
