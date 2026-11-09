@@ -28,7 +28,7 @@ function PreviewContent({ kind }: { kind: (typeof previews)[number]["kind"] }) {
 
 function DemoCard({ item }: { item: (typeof previews)[number] }) {
   return <a href="/demostraciones" className="demo-card group relative block w-[265px] shrink-0 sm:w-[320px]">
-    <div className="relative h-[205px] overflow-hidden rounded-2xl border border-white/70 bg-white p-2 shadow-[0_22px_65px_rgba(15,23,42,.18)] transition duration-500 group-hover:-translate-y-2 group-hover:rotate-0 sm:h-[245px] sm:p-2.5">
+    <div className="relative h-[205px] overflow-hidden rounded-2xl border border-white/70 bg-white p-2 shadow-[0_22px_65px_rgba(15,23,42,.18)] transition duration-500 sm:h-[245px] sm:p-2.5">
       <div className="flex h-6 items-center gap-1.5 rounded-t-lg border-b border-slate-100 bg-slate-50 px-2"><i className="h-1.5 w-1.5 rounded-full bg-rose-400"/><i className="h-1.5 w-1.5 rounded-full bg-amber-400"/><i className="h-1.5 w-1.5 rounded-full bg-emerald-400"/><span className="ml-2 truncate text-[7px] text-slate-400">transport-ai.demo / {item.id}</span></div>
       <div className="relative h-[calc(100%-24px)] overflow-hidden rounded-b-lg"><PreviewContent kind={item.kind}/></div>
       <div className="demo-card-detail absolute inset-x-3 bottom-3 rounded-xl border border-white/20 bg-slate-950/95 p-3 text-left text-white shadow-xl"><p className="text-xs font-semibold">{item.label}</p><p className="mt-1 text-[11px] leading-5 text-slate-200">{item.detail}</p><span className="mt-2 inline-flex items-center gap-1 text-[10px] font-semibold text-cyan-300">Ver demostración <ArrowUpRight size={11}/></span></div>
