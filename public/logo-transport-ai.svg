@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 330" role="img" aria-labelledby="title desc">
+<title id="title">Transport-AI</title><desc id="desc">Camión logístico conectado a una red de inteligencia artificial, con el texto Transport-AI Logistics Automation.</desc>
+<rect width="1200" height="330" fill="#fff"/>
+<g stroke="#09295c" stroke-width="8" stroke-linejoin="round">
+<path fill="#102e68" d="M45 76 410 12 410 265 45 265Z"/>
+<path fill="none" d="M75 99 380 45 380 236 75 236Z" stroke="#fff" stroke-width="5"/>
+<path fill="none" stroke="#0bbce8" stroke-width="6" stroke-linecap="round" d="M10 135h98l32-31m-132 78h132l28-25m-133 71h100l34-25m-68-91 34 0 26-23m-6 88 35 0 27 25m-115 51 23-25 42 0"/>
+<g fill="#fff" stroke="#0bbce8" stroke-width="5"><circle cx="11" cy="135" r="7"/><circle cx="10" cy="182" r="7"/><circle cx="12" cy="228" r="7"/><circle cx="142" cy="104" r="7"/><circle cx="164" cy="157" r="7"/></g>
+<path fill="#102e68" d="M410 30 650 83 700 252 686 275 406 275Z" stroke="none"/>
+<path fill="#102e68" d="M430 82 536 67 601 118 626 202 600 249 474 249 430 211Z"/>
+<path fill="none" stroke="#fff" stroke-width="8" d="m435 84 104-14 60 49 26 78-25 48-124 0-42-34Z"/>
+<path fill="none" stroke="#fff" stroke-width="7" d="m477 77 35 78 112 42m-185-70 76-3 35 92"/>
+<path fill="#102e68" d="M422 253h280l-15 42H405Z"/>
+<circle cx="117" cy="285" r="35" fill="#102e68"/><circle cx="117" cy="285" r="16" fill="#dce8f4"/>
+<circle cx="420" cy="285" r="35" fill="#102e68"/><circle cx="420" cy="285" r="16" fill="#dce8f4"/>
+</g>
+<g fill="none" stroke="#0bbce8" stroke-width="4"><path d="m664 54 64-28 76 46 30 77-37 82-70 39-32-83-67-58Z"/><path d="m664 54 108 18-34 77 66 82-70 39-12-121-94-21m94 21 76-49m-76 49-79 37m79-37 66 0m-66 0-32-83"/></g>
+<g fill="#0bbce8"><circle cx="664" cy="54" r="12"/><circle cx="728" cy="26" r="12"/><circle cx="804" cy="72" r="12"/><circle cx="834" cy="149" r="12"/><circle cx="797" cy="231" r="12"/><circle cx="727" cy="270" r="12"/><circle cx="695" cy="187" r="12"/><circle cx="772" cy="149" r="12"/></g>
+<text x="880" y="165" fill="#09295c" font-family="Arial,Helvetica,sans-serif" font-size="76" font-weight="800" letter-spacing="-3">TRANSPORT-<tspan fill="#0bbce8">AI</tspan></text>
+<path d="M880 204h78" stroke="#09295c" stroke-width="4"/><path d="M1137 204h55" stroke="#0bbce8" stroke-width="4"/>
+<text x="980" y="215" fill="#242b36" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="600" letter-spacing="6">LOGISTICS AUTOMATION</text>
+</svg>
