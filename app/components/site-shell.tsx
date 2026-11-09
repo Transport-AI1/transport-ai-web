@@ -19,6 +19,7 @@ const navigation = [
   { href: "/servicios", label: "Servicios" },
   { href: "/demostraciones", label: "Demostraciones" },
   { href: "/presupuestos", label: "Precios" },
+  { href: "/crear-web", label: "Crea tu web · 300 €" },
   { href: "/seguridad", label: "Seguridad" },
   { href: "/contacto", label: "Contacto" },
 ];
