@@ -37,12 +37,11 @@ export default function WelcomeScreen() {
     >
       <div className="welcome-orbit pointer-events-none absolute h-[min(78vw,620px)] w-[min(78vw,620px)] rounded-full border border-cyan-300/10" />
       <div className="welcome-content relative flex w-full max-w-4xl flex-col items-center px-6 text-center">
-        <div className="welcome-logo-shell w-full overflow-hidden rounded-2xl bg-white p-3 shadow-[0_22px_90px_rgba(0,190,235,.16)] sm:rounded-3xl sm:p-5">
-          <img
-            src="/logo-transport-ai.svg"
-            alt="Transport AI — Logistics Automation"
-            className="welcome-logo block h-auto w-full"
-          />
+        <div className="welcome-brand-shell flex items-center justify-center rounded-2xl border border-cyan-300/20 bg-white/[0.04] px-7 py-6 shadow-[0_22px_90px_rgba(0,190,235,.16)] sm:rounded-3xl sm:px-12 sm:py-9">
+          <div className="welcome-wordmark whitespace-nowrap text-4xl font-black tracking-[-0.07em] sm:text-6xl md:text-7xl">
+            <span className="text-white">TRANSPORT</span>
+            <span className="ml-2 text-cyan-300">AI</span>
+          </div>
         </div>
         <h1 className="mt-8 text-3xl font-semibold tracking-tight sm:text-4xl">
           Bienvenido
@@ -56,8 +55,8 @@ export default function WelcomeScreen() {
       </div>
       <style jsx>{`
         .welcome-content { animation: welcome-in 650ms cubic-bezier(.2,.8,.2,1) both; }
-        .welcome-logo-shell { animation: logo-float 2.4s ease-in-out infinite, logo-glow 2s ease-in-out infinite; }
-        .welcome-logo { animation: logo-reveal 1.1s cubic-bezier(.2,.8,.2,1) both; }
+        .welcome-brand-shell { animation: logo-float 2.4s ease-in-out infinite, logo-glow 2s ease-in-out infinite; }
+        .welcome-wordmark { animation: logo-reveal 1.1s cubic-bezier(.2,.8,.2,1) both; }
         .welcome-orbit { animation: orbit-pulse 3s ease-in-out infinite; }
         .welcome-progress { transform-origin: left; animation: welcome-load 3s linear both; }
         .welcome-screen { animation: welcome-out 450ms ease 2.55s both; }
@@ -69,7 +68,7 @@ export default function WelcomeScreen() {
         @keyframes welcome-load { from { transform: scaleX(0); } to { transform: scaleX(1); } }
         @keyframes welcome-out { to { opacity: 0; visibility: hidden; pointer-events: none; } }
         @media (prefers-reduced-motion: reduce) {
-          .welcome-content, .welcome-logo-shell, .welcome-logo, .welcome-orbit, .welcome-progress, .welcome-screen { animation-duration: 1ms; animation-delay: 0ms; }
+          .welcome-content, .welcome-brand-shell, .welcome-wordmark, .welcome-orbit, .welcome-progress, .welcome-screen { animation-duration: 1ms; animation-delay: 0ms; }
         }
       `}</style>
     </div>
