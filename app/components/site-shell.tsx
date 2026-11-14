@@ -4,13 +4,8 @@ import Link from "next/link";
 import {
   ArrowRight,
   ArrowUpRight,
-  Bot,
-  Code2,
-  Globe,
   Layers3,
   MessageCircle,
-  PhoneCall,
-  Workflow,
   Zap,
 } from "lucide-react";
 
@@ -24,33 +19,22 @@ const navigation = [
   { href: "/contacto", label: "Contacto" },
 ];
 
-const serviceLinks = [
-  { href: "/servicios", label: "Páginas web", icon: Globe },
-  { href: "/servicios", label: "Agentes de IA", icon: Bot },
-  { href: "/servicios", label: "Agentes de voz", icon: PhoneCall },
-  { href: "/servicios", label: "Automatizaciones", icon: Workflow },
-  { href: "/servicios", label: "Software a medida", icon: Code2 },
-];
-
 export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-white text-slate-900">
       <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-xl">
-        <nav aria-label="Navegación principal" className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3.5 sm:px-8">
+        <nav aria-label="Navegación principal" className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-6 gap-y-3 px-5 py-3.5 sm:px-8">
           <Link href="/" aria-label="Transport AI, página de inicio" className="flex shrink-0 items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-700 shadow-sm shadow-blue-900/15"><Layers3 className="h-5 w-5 text-white" /></div>
             <div><span className="block text-lg font-bold tracking-tight text-slate-950">TRANSPORT<span className="text-blue-700"> AI</span></span><span className="block text-[9px] uppercase tracking-[0.18em] text-slate-500">Web · IA · Automatización</span></div>
           </Link>
           <div className="hidden items-center gap-5 lg:flex xl:gap-6">
-            {navigation.map((item) => <Link key={item.href} href={item.href} className="whitespace-nowrap text-sm font-medium text-slate-600 transition hover:text-blue-700">{item.label}</Link>)}
+            {navigation.filter((item) => item.href !== "/").map((item) => <Link key={item.href} href={item.href} className="whitespace-nowrap text-sm font-medium text-slate-600 transition hover:text-blue-700">{item.label.replace(" · Próximamente", "")}</Link>)}
           </div>
-          <Link href="/contacto" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-blue-700 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-800 sm:px-5">Hablemos <ArrowUpRight className="h-4 w-4" /></Link>
-        </nav>
-        <nav aria-label="Servicios principales" className="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-5 pb-3 sm:px-8">
-          {serviceLinks.map((item) => { const Icon = item.icon; return <Link key={item.label} href={item.href} className="inline-flex shrink-0 items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-600 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-800"><Icon className="h-3.5 w-3.5" />{item.label}</Link>; })}
-        </nav>
-        <nav aria-label="Navegación móvil" className="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-5 pb-3 lg:hidden sm:px-8">
-          {navigation.map((item) => <Link key={item.href} href={item.href} className="shrink-0 rounded-full border border-slate-200 px-3 py-2 text-xs font-medium text-slate-600 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-800">{item.label}</Link>)}
+          <Link href="/contacto" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-blue-700 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-800 sm:px-5">Pedir propuesta <ArrowUpRight className="h-4 w-4" /></Link>
+          <div className="-mx-5 flex w-[calc(100%+2.5rem)] gap-2 overflow-x-auto px-5 pb-0.5 lg:hidden sm:-mx-8 sm:w-[calc(100%+4rem)] sm:px-8">
+            {navigation.filter((item) => item.href !== "/").map((item) => <Link key={item.href} href={item.href} className="shrink-0 rounded-full border border-slate-200 px-3 py-2 text-xs font-medium text-slate-600 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-800">{item.label.replace(" · Próximamente", "")}</Link>)}
+          </div>
         </nav>
       </header>
       <main>{children}</main>

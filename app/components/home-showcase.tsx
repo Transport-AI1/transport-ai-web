@@ -27,44 +27,32 @@ function PreviewContent({ kind }: { kind: (typeof previews)[number]["kind"] }) {
 }
 
 function DemoCard({ item }: { item: (typeof previews)[number] }) {
-  return <a href="/demostraciones" className="demo-card group relative block w-[265px] shrink-0 sm:w-[320px]">
-    <div className="relative h-[205px] overflow-hidden rounded-2xl border border-white/70 bg-white p-2 shadow-[0_22px_65px_rgba(15,23,42,.18)] transition duration-500 sm:h-[245px] sm:p-2.5">
+  return <Link href="/demostraciones" aria-label={`Ver demostraciones: ${item.label}`} className="group block h-full overflow-hidden rounded-2xl border border-slate-200 bg-white text-left shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl hover:shadow-slate-900/10 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-200">
+    <div className="relative h-[205px] overflow-hidden bg-white p-2 sm:h-[225px] sm:p-2.5">
       <div className="flex h-6 items-center gap-1.5 rounded-t-lg border-b border-slate-100 bg-slate-50 px-2"><i className="h-1.5 w-1.5 rounded-full bg-rose-400"/><i className="h-1.5 w-1.5 rounded-full bg-amber-400"/><i className="h-1.5 w-1.5 rounded-full bg-emerald-400"/><span className="ml-2 truncate text-[7px] text-slate-400">transport-ai.demo / {item.id}</span></div>
       <div className="relative h-[calc(100%-24px)] overflow-hidden rounded-b-lg"><PreviewContent kind={item.kind}/></div>
-      <div className="demo-card-detail absolute inset-x-3 bottom-3 rounded-xl border border-white/20 bg-slate-950/95 p-3 text-left text-white shadow-xl"><p className="text-xs font-semibold">{item.label}</p><p className="mt-1 text-[11px] leading-5 text-slate-200">{item.detail}</p><span className="mt-2 inline-flex items-center gap-1 text-[10px] font-semibold text-cyan-300">Ver demostración <ArrowUpRight size={11}/></span></div>
     </div>
-    <div className="mt-3 flex items-center justify-between px-1"><span className="text-xs font-semibold text-slate-800">{item.label}</span><span className="flex items-center gap-1 text-[10px] font-semibold text-blue-700">Ver demos <ArrowUpRight size={12}/></span></div>
-  </a>;
+    <div className="p-5 sm:p-6"><p className="text-base font-semibold tracking-tight text-slate-950">{item.label}</p><p className="mt-2 text-sm leading-6 text-slate-600">{item.detail}</p><span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-blue-700">Ver demostraciones <ArrowUpRight size={15}/></span></div>
+  </Link>;
 }
 
 export function HomeShowcase() {
   return <section className="relative overflow-hidden border-y border-slate-100 bg-[#f8faff] py-16 sm:py-20">
     <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,rgba(59,130,246,.10),transparent_60%)]"/>
-    <div className="relative mx-auto max-w-7xl px-5 text-center sm:px-8">
-      <div className="mx-auto max-w-3xl"><span className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-[11px] font-semibold uppercase tracking-[.16em] text-blue-700"><Sparkles size={13}/> Lo que podemos crear</span>
-        <h1 className="mt-6 text-4xl font-semibold leading-[1.08] tracking-tight text-slate-950 sm:text-6xl">Ideas que se convierten en <span className="text-blue-700">experiencias reales.</span></h1>
-        <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">Explora una muestra de nuestras páginas web, paneles empresariales y agentes de inteligencia artificial. Cada proyecto está diseñado para resolver necesidades reales.</p>
-      </div>
-      <div className="relative mt-12">
-        <div className="demo-marquee flex w-max gap-5 py-3 sm:gap-7">
-          {[...previews,...previews].map((item,index)=><div key={item.id+"-"+index} className={index%2===0?"demo-float-a":"demo-float-b"}><DemoCard item={item}/></div>)}
+    <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
+      <div className="mx-auto max-w-3xl text-center">
+        <span className="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-[11px] font-semibold uppercase tracking-[.16em] text-blue-700"><Sparkles size={13}/> Web, inteligencia artificial y automatización</span>
+        <h1 className="mt-6 text-4xl font-semibold leading-[1.08] tracking-tight text-slate-950 sm:text-6xl">Tecnología práctica para <span className="text-blue-700">hacer crecer tu negocio.</span></h1>
+        <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">Diseñamos páginas web, agentes de IA y automatizaciones para resolver tareas reales y mejorar la atención a tus clientes.</p>
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <Link href="/contacto" className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-blue-700 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-blue-800 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-200 sm:w-auto">Pedir una propuesta <ArrowUpRight size={16}/></Link>
+          <Link href="/demostraciones" className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-slate-700 transition hover:border-blue-200 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-200 sm:w-auto">Explorar demostraciones <ArrowUpRight size={16}/></Link>
         </div>
       </div>
-      <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row"><div className="flex items-center gap-2 text-xs text-slate-500"><span className="h-2 w-2 rounded-full bg-emerald-500"/> 7 tipos de demostraciones</div><Link href="/demostraciones" className="inline-flex items-center gap-2 rounded-xl bg-slate-950 px-5 py-3 text-xs font-semibold text-white transition hover:bg-blue-700">Ver todas las demostraciones <ArrowUpRight size={14}/></Link></div>
+      <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {previews.slice(0, 3).map((item) => <DemoCard key={item.id} item={item}/>)}
+      </div>
+      <p className="mt-6 text-center text-sm text-slate-500">Diseñamos cada solución según las necesidades de tu empresa.</p>
     </div>
-    <style jsx global>{`
-      .demo-marquee { animation: demo-scroll 90s linear infinite; }
-      .demo-marquee:hover { animation-play-state: paused; }
-      .demo-card { transition: transform 450ms ease, filter 450ms ease; }
-      .demo-card-detail { opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity 350ms ease, transform 350ms ease; transition-delay: 0ms; }
-      .demo-card:hover { z-index: 20; transform: scale(1.075); filter: drop-shadow(0 18px 24px rgba(15,23,42,.16)); transition-delay: 3s; }
-      .demo-card:hover .demo-card-detail { opacity: 1; transform: translateY(0); transition-delay: 3s; }
-      .demo-card:not(:hover) { transition-delay: 0ms; }
-      .demo-float-a { animation: demo-float 5s ease-in-out infinite; }
-      .demo-float-b { animation: demo-float 6s ease-in-out infinite reverse; }
-      @keyframes demo-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-      @keyframes demo-float { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-9px) rotate(1deg); } }
-      @media (prefers-reduced-motion: reduce) { .demo-marquee,.demo-float-a,.demo-float-b { animation: none; } .demo-card,.demo-card-detail { transition: none; } }
-    `}</style>
   </section>;
 }
